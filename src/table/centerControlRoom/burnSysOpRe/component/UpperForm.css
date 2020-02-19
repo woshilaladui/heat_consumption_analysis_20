@@ -1,0 +1,27 @@
+.upper .ant-table-tbody > tr > td{
+    text-align: center;
+}
+
+.upper .ant-table-bordered .ant-table-thead > tr > th{
+    border-right:1px solid black
+}
+.upper .ant-table-bordered .ant-table-tbody > tr > td{
+    border-right:1px solid black
+}
+
+.upper .ant-table-thead > tr > th{
+    border-bottom:1px solid black
+}
+.upper .ant-table-tbody > tr > td{
+    border-bottom:1px solid black;
+    padding: 10px 5px;
+}
+
+.upper .ant-table-bordered .ant-table-thead > tr:not(:last-child) > th{
+    border-bottom:1px solid black
+}
+
+:global
+.upper .ant-table-wrapper tr>td:not(:first-child) {
+    max-width: 70px;
+}

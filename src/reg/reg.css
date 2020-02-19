@@ -1,0 +1,25 @@
+.pleaseRegister{
+	margin:auto;
+	width: 40%;
+}
+.pleaseRegister Button{
+
+}
+.welcomeRegister{
+	text-align: center;
+	font-size: 80px;
+}
+.register{
+    /* background-image: url("./img/pexels-photo-373076.jpeg"); */
+    
+}
+.error-message{
+	width: 100%;
+	text-align: center;
+	color:red;
+}
+.footer{
+	position: absolute; /*相对于父元素contanier定位*/
+	  width: 100%;
+	  bottom: 0;/*始终距离它的父元素的底部为0px.则是处于父元素的最底*/
+  }

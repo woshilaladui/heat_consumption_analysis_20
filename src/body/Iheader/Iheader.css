@@ -1,0 +1,82 @@
+.iheader a {
+    margin: 0;
+    padding: 0;
+    width:auto;
+    cursor: pointer;
+}
+.head_menu .menu .icon {
+    font-size: 20px;
+    width: 100%;
+}
+
+.head_icon {
+    height: 55px;
+    float: left;
+    margin-top: -1px;
+}
+
+.head_companyName {
+    font-size: 25px;
+    color: black;
+    padding-left: 1%;
+}
+
+/*鼠标覆盖不变色*/
+.head_companyName:hover {
+    color: black;
+}
+
+/* .head_menu {
+  float: right;
+  margin: 0;
+  padding-right:5%;
+} */
+
+/* .head_menu .menu {
+  margin: 0;
+} */
+.ant-menu-item, .ant-menu-submenu-title {
+    font-size: 17px;
+    padding: 0 15px;
+    color: black;
+}
+
+.iheader {
+    position: relative;
+}
+
+/* .iheader .img img{
+  margin-top: 10px;
+  position: absolute;
+  top: 55px;
+  left: 0px;
+  width:100%;
+  height:500px;
+} */
+#formShow {
+    position: relative;
+}
+
+#formShowUl {
+    position: absolute;
+    width: 250px;
+    height: 100%;
+    top: 70px;
+    left: 15px;
+    z-index: 100;
+    text-align: center;
+}
+
+#formShowUl li {
+    background: rgb(47, 84, 235, 0.5);
+    background: rgb(255, 255, 255, 0.5);
+    cursor: pointer;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    text-align: left;
+    color: white;
+}
+
+#formShowUl li:hover {
+    background: rgb(62, 151, 224);
+    background: black;
+}

@@ -1,0 +1,30 @@
+.ZKSX2_bottom .ant-table-tbody > tr > td{
+    text-align: center;
+}
+.ZKSX2_bottom{
+    /*display: inline;*/
+}
+.ZKSX2_bottom .ZKSX2_bottom_table .ant-input{
+    min-width: 10px;
+}
+.ZKSX2_bottom .ZKSX2_bottom_table .ant-input-number{
+    width: auto;
+}
+
+.ZKSX2_bottom .ant-table-bordered .ant-table-thead > tr > th{
+    border-right:1px solid black
+}
+.ZKSX2_bottom .ant-table-bordered .ant-table-tbody > tr > td{
+    border-right:1px solid black
+}
+
+.ZKSX2_bottom .ant-table-thead > tr > th{
+    border-bottom:1px solid black
+}
+.ZKSX2_bottom .ant-table-tbody > tr > td{
+    border-bottom:1px solid black
+}
+
+.ZKSX2_bottom .ant-table-bordered .ant-table-thead > tr:not(:last-child) > th{
+    border-bottom:1px solid black
+}

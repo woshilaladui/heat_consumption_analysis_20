@@ -1,0 +1,37 @@
+.banner-user{
+    width: 100%;
+    /* padding-top:62px; */
+	height: 600px;
+}
+/*每个图片整体为一个div*/
+.banner-user-elem{
+	text-align: center;
+	color: #fff;
+	position: relative;
+	overflow: hidden;
+}
+/*背景图片上的文字*/
+.banner-user-elem .banner-user-title{
+	font-size: 32px;
+	top: -80%;
+}
+.banner-user-elem .banner-user-text{
+	top: -80%;
+}
+/*背景图片整体布局*/
+.banner-anim-elem .bg1,.bg2,.bg3,.bg4,.bg5{
+    min-width: 1200px;
+    /*此属性可以让图片居中显示，并且怎么缩放都在中间*/
+    background-position: center 0;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    display: block;
+	/*min-width: 1200px;*/
+	width: 100%;
+	height: 100%;
+	position: relative;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+    /*background-size:100% 100%;*/
+}

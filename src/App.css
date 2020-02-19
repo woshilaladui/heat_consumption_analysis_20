@@ -1,0 +1,8 @@
+@import '~antd/dist/antd.css';
+
+html{
+    background: white;
+}
+.ant-input-number{
+    width: auto;
+}

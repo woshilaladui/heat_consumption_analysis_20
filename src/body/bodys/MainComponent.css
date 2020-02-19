@@ -1,0 +1,108 @@
+li {
+    color: blue;
+}
+
+/*# sourceMappingURL=AppIndex.css.map */
+.head_menu .menu .icon {
+    /*height: 50px;*/
+    font-size: 20px;
+}
+
+.head_icon img {
+    height: 100%;
+    /* width: 80%; */
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+
+.head_icon {
+    height: 55px;
+    width: 15%;
+    float: left;
+    margin-top: 6px;
+}
+
+.head_menu {
+    float: right;
+    margin: 0;
+    padding-right: 5%;
+}
+
+.head_menu .menu {
+    margin: 0;
+}
+
+.body {
+    position: relative;
+}
+
+.body .img img {
+    margin-top: 10px;
+    position: absolute;
+    top: 55px;
+    left: 0px;
+    width: 100%;
+    height: 500px;
+}
+
+/* 图片展示部分CSS */
+/*head整体div*/
+.banner-user {
+    width: 100%;
+    /*padding-top: 10px;*/
+    height: 500px;
+    z-index: 1;
+}
+
+/*每个图片整体为一个div*/
+.banner-user-elem {
+    text-align: center;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+/*背景图片上的文字*/
+.banner-user-elem .banner-user-title {
+    font-size: 32px;
+    top: -80%;
+}
+
+.banner-user-elem .banner-user-text {
+    top: -80%;
+}
+
+/*背景图片整体布局*/
+.banner-anim-elem .bg1, .bg2, .bg3, .bg4 {
+    min-width: 1200px;
+    /*此属性可以让图片居中显示，并且怎么缩放都在中间*/
+    background-position: center 0;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    background-size: 100% 100%;
+}
+
+/* .banner-user .bg1 {
+    background-image: url("../img/image/01.jpg");
+}
+
+.banner-user .bg2 {
+    background-image: url("../img/image/02.jpg");
+}
+
+.banner-user .bg3 {
+    background-image: url("../img/image/03.gif");
+}
+
+.banner-user .bg4 {
+    background-image: url("../img/image/04.gif");
+
+} */

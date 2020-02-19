@@ -1,0 +1,55 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors Your Name (you@example.org)
+ * @date    2018-04-24 14:47
+ * @version $Id$
+ */
+
+ html,body{
+   width: 100%;
+   height: 100%;
+   background-color: white;
+ }
+ .error-message{
+    color: red;
+}
+.login .login-form {
+  max-width: 300px;
+  max-height: 500px;
+  margin: auto auto;
+  margin-top: 20px;
+}
+.login-form-forgot {
+  float: right;
+}
+.login-form-button {
+  width: 100%;
+}
+.remember{
+	float:left;
+}
+
+.login {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  text-align: center;
+  /*background-image: url("../img/2.jpg");*/
+  /* background-color: white; */
+  background-size: cover;
+}
+.footer{
+  position: absolute; /*相对于父元素contanier定位*/
+    width: 100%;
+    bottom:0;/*始终距离它的父元素的底部为0px.则是处于父元素的最底*/
+}
+#pleaseLogin{
+	text-align: center;
+}
+
+#logo {
+    max-width: 200px;
+    max-height: 150px;
+    margin-top: 5%;
+}
