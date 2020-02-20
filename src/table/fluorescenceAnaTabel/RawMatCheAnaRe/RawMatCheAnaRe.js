@@ -7,6 +7,7 @@ import moment from "moment";
 import {URL, Table, Mark, Standard} from "../../../Request/Constant"
 import {getOldData, checkAuthority, getStandard} from "../../../Request/RequsetCenter"
 import {getHuaYSJsonData} from "../../../Request/JsonCenter"
+import {requestGetHuaYanShiDataByTableNameAndDate} from "../../../../src/http/request/RequestHuaYanShi"
 // 进厂原材料分析化学报告单（石灰石）
 export default class RuYaoSLYCLHXFXBGD extends Component {
     constructor(props) {
@@ -26,6 +27,16 @@ export default class RuYaoSLYCLHXFXBGD extends Component {
                 {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
                 {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []}
             ], //表格数据
+            data:[
+                {data: []}, {data: []}, {data: []}, {data: []},
+                {data: []}, {data: []}, {data: []}, {data: []},
+
+                {data: []}, {data: []}, {data: []}, {data: []},
+                {data: []}, {data: []}, {data: []}, {data: []},
+
+                {data: []}, {data: []}, {data: []}, {data: []},
+                {data: []}, {data: []}, {data: []}, {data: []}
+            ],
             person: "",//传入的值班人员
             t_name: "RMA_SHS",//石灰石
         };
@@ -56,13 +67,23 @@ export default class RuYaoSLYCLHXFXBGD extends Component {
 
     //判定是否已登录，是否有权限
     componentWillMount() {
-        checkAuthority(URL.HUAYS_CHECK)
-            .then((response) => {
-                if (response === Mark.ERROR) {
-                    this.props.history.push('/');
-                }
-            })
-            .catch()
+
+        requestGetHuaYanShiDataByTableNameAndDate(
+            new Date(),
+            "RMA_SHS",
+            this.state.data
+        ).then((respone)=>{
+
+        })
+
+
+        // checkAuthority(URL.HUAYS_CHECK)
+        //     .then((response) => {
+        //         if (response === Mark.ERROR) {
+        //             this.props.history.push('/');
+        //         }
+        //     })
+        //     .catch()
     }
 
     //如果被查询表单调用，修改date

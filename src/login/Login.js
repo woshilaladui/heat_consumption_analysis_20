@@ -4,7 +4,10 @@ import {Form, Icon, Input, Button, message, Layout,} from 'antd';
 // import moment from 'moment';
 // import Header from "../homePage/header/Header";
 import './Login.css'
-import {requestUserLogin} from "../../src/http/request/RequestCenter"
+import {requestUserLogin} from "../../src/http/request/RequestUser"
+import {requestGetHuaYanShiDataByTableNameAndDate} from "../../src/http/request/RequestHuaYanShi"
+
+
 const {Header, Content, Footer, Sider} = Layout;
 const FormItem = Form.Item;
 
@@ -23,60 +26,93 @@ class LoginDemo extends Component {
 
     handleLogin = (e) => {
         e.preventDefault();
+
+
+
+        // requestUserLogin()
+
         const {phone, password} = this.state;
+
+
+
+        requestUserLogin(phone,password)
+            .then( (data) =>{
+                const d = new Date();
+
+
+                window.localStorage.token = data.token;
+                window.localStorage.user = data['user'];
+                window.localStorage.id = data['user']['id'];
+                window.localStorage.username = data['user']['username'];
+                window.localStorage.phone = data['user']['phone'];
+                window.localStorage.password = data['user']['password'];
+                window.localStorage.state = data['user']['state'];
+                window.localStorage.department = data['user']['department'];
+                window.localStorage.duty = data['user']['duty'];
+                window.localStorage.authority = data['user']['authority'];
+                window.localStorage.detail = data['user']['detail'];
+
+                window.localStorage.authorization = 'nianshao ' + data.token;
+                window.localStorage.time = d.getTime();
+                this.props.history.push('/')
+            })
+
         const jsonData = {
             'phone': phone,
             'password': password,
         };
 
 
-        fetch("/api/login", {
-            method: 'POST',
-            credentials: "include",
-            body: JSON.stringify(jsonData),
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                if (data['code'] === 0 && data['info']['phone'] === phone && data['info']['state'] === '1') {//判定是否成功
-                    const d = new Date();
-                    window.localStorage.token = data.token;
-                    window.localStorage.info = data['info'];
-                    window.localStorage.name = data['info']['name'];
-                    window.localStorage.type = data['info']['type'];
-                    window.localStorage.state = data['info']['state'];
-                    window.localStorage.department = data['info']['department'];
-                    window.localStorage.section = data['info']['section'];
-                    window.localStorage.authorization = 'bearer ' + data.token;
-                    window.localStorage.time = d.getTime();
-                    this.props.history.push('/')
-                }
-                else{
-
-                    message.error('登录失败！')
-                }
-
-            })
-            .catch(
-                error => {
-
-                    // const d = new Date();
-                    // window.localStorage.token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvbG9naW4iLCJpYXQiOjE1NzA1OTA2MDgsImV4cCI6MTU3MDYzMzgwOCwibmJmIjoxNTcwNTkwNjA4LCJqdGkiOiJ5ZUNJVjRkTXNiU3FMZ2JGIn0.SDc3pqxJUNFp0C8Gza9IYY7ldBdnZumdAaDZ3UaOP34";
-                    // //window.localStorage.info = data['info'];
-                    // window.localStorage.name = "admin";
-                    // window.localStorage.type = "4";
-                    // window.localStorage.state = "1";
-                    // window.localStorage.department = "3";
-                    // window.localStorage.section = "1";
-                    // //window.localStorage.authorization = 'bearer ' + data.token;
-                    // window.localStorage.time = d.getTime();
-                    // this.props.history.push('/')
-                    //
-                    // console.error('Error:', error)
-                })
+        // fetch("/api/login", {
+        //     method: 'POST',
+        //     credentials: "include",
+        //     body: JSON.stringify(jsonData),
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     }
+        // })
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         console.log(data)
+        //         if (data['code'] === 0 && data['info']['phone'] === phone && data['info']['state'] === '1') {//判定是否成功
+        //             const d = new Date();
+        //
+        //             console.log(data)
+        //
+        //             window.localStorage.token = data.token;
+        //             window.localStorage.info = data['info'];
+        //             window.localStorage.name = data['info']['name'];
+        //             window.localStorage.type = data['info']['type'];
+        //             window.localStorage.state = data['info']['state'];
+        //             window.localStorage.department = data['info']['department'];
+        //             window.localStorage.section = data['info']['section'];
+        //             window.localStorage.authorization = 'bearer ' + data.token;
+        //             window.localStorage.time = d.getTime();
+        //             this.props.history.push('/')
+        //         }
+        //         else{
+        //
+        //             message.error('登录失败！')
+        //         }
+        //
+        //     })
+        //     .catch(
+        //         error => {
+        //
+        //             // const d = new Date();
+        //             // window.localStorage.token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvbG9naW4iLCJpYXQiOjE1NzA1OTA2MDgsImV4cCI6MTU3MDYzMzgwOCwibmJmIjoxNTcwNTkwNjA4LCJqdGkiOiJ5ZUNJVjRkTXNiU3FMZ2JGIn0.SDc3pqxJUNFp0C8Gza9IYY7ldBdnZumdAaDZ3UaOP34";
+        //             // //window.localStorage.info = data['info'];
+        //             // window.localStorage.name = "admin";
+        //             // window.localStorage.type = "4";
+        //             // window.localStorage.state = "1";
+        //             // window.localStorage.department = "3";
+        //             // window.localStorage.section = "1";
+        //             // //window.localStorage.authorization = 'bearer ' + data.token;
+        //             // window.localStorage.time = d.getTime();
+        //             // this.props.history.push('/')
+        //             //
+        //             // console.error('Error:', error)
+        //         })
     };
 
 

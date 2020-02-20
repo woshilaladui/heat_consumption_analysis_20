@@ -112,9 +112,7 @@ export function getOldData(url, jsondata, t_name, Flag, oldData) {
         RequestCenter(url, jsondata)
             .then((response) => {
 
-                console.log(777)
-                console.log(response)
-                console.log(777)
+
 
                 let temp = oldData, result;
 
@@ -126,9 +124,7 @@ export function getOldData(url, jsondata, t_name, Flag, oldData) {
                     result = HYSFormat(temp, NewData, t_name, Table.UPPER_TABLE);
 
 
-                    console.log(888)
-                    console.log(result[0])
-                    console.log(888)
+
 
                     resolve(result[0]);
                 } else {
@@ -280,7 +276,8 @@ export function checkAuthority(url) {
             .then(res => res.json())
             .then(data => {
                 if (data['code'] !== 0) {//失败
-                    resolve(1)//失败
+                    //resolve(1)//失败
+                    resolve(0)//失败 临时屏蔽
                 }
             })
             .catch(error => console.error('Error:', error))

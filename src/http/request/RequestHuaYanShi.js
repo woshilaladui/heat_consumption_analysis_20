@@ -1,6 +1,8 @@
 import {RequestCenter} from "../request/RequestCenter"
 import {RequestMethod, URL} from "../constant/Constant";
 import {getSaveHuaYanShiDataJson} from "../model/JsonHuaYanShiCenter"
+import {HuaYanShiFormat} from "../../../src/Helper/Format"
+
 /**
  * @author zm
  * @function 化验室方法请求中心
@@ -18,7 +20,7 @@ export function requestGetHuaYanShiDataByTableNameAndDate(
     date,
     tableName,
     data
-){
+) {
 
     return new Promise((resolve, reject) => {
 
@@ -28,12 +30,21 @@ export function requestGetHuaYanShiDataByTableNameAndDate(
         formData.append('tableName', tableName);//获取当前的用户id
 
         RequestCenter({
-            url:URL.REQUEST_GET_HUAYANSHI_DATA_BY_TABLENAME_AND_DATE,
-            formData:formData
+            url: URL.REQUEST_GET_HUAYANSHI_DATA_BY_TABLENAME_AND_DATE,
+            formData: formData
         })
             .then((response) => {
                 //直接回传
                 //TODO 进一步处理数据 requestGetHuaYanShiDataByTableNameAndDate
+
+
+                let result = HuaYanShiFormat(
+                    data,
+                    response,
+                    tableName
+                );
+                
+
                 resolve(response)
             })
             .catch()
@@ -54,20 +65,20 @@ export function requestSaveHuaYanShiData(
     return new Promise((resolve, reject) => {
 
         RequestCenter({
-            url:URL.REQUEST_SAVE_HUAYANSHI_DATA,
-            jsonData:getSaveHuaYanShiDataJson(//获取对应的json
+            url: URL.REQUEST_SAVE_HUAYANSHI_DATA,
+            jsonData: getSaveHuaYanShiDataJson(//获取对应的json
                 {
-                    date:date,
-                    index:index,
-                    department:department,
-                    duty:duty,
-                    tableName:tableName,
-                    authority:authority,
-                    data:data,
-                    num:num
+                    date: date,
+                    index: index,
+                    department: department,
+                    duty: duty,
+                    tableName: tableName,
+                    authority: authority,
+                    data: data,
+                    num: num
                 }
             ),
-            flag:RequestMethod.jsonDta,
+            flag: RequestMethod.jsonDta,
         })
             .then((response) => {
                 //直接回传 不进一步解析

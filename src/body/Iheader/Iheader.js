@@ -9,7 +9,8 @@ export default class Iheader extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            display: ['none','none','none','none','none','none','none'],
+            //display: ['none','none','none','none','none','none','none'],
+            display: ['', '', '', '', '', '', ''],
             choose_num: 0,
             CompanyName: '临城中联福石水泥有限公司',
         };
@@ -23,6 +24,7 @@ export default class Iheader extends Component {
         console.log(nextProps.display)
         this.setState({
             display: nextProps.display,
+
         })
     }
     //     fetch('/api/info', {
@@ -124,6 +126,12 @@ export default class Iheader extends Component {
     // };
 
     render() {
+
+        console.log(123)
+        console.log(this.state.display)
+        console.log(this.state.display[0])
+        console.log(123)
+
         return (
             <div className='iheader'>
                 {/**图片盒子*/}
