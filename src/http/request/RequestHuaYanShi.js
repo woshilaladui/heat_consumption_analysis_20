@@ -43,7 +43,7 @@ export function requestGetHuaYanShiDataByTableNameAndDate(
                     response,
                     tableName
                 );
-                
+
 
                 resolve(response)
             })

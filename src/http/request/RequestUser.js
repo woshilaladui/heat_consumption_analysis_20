@@ -113,7 +113,6 @@ export function requestAddUsers(
 ){
     return new Promise((resolve, reject) => {
 
-
         const formData = new FormData();
         formData.append('filename', file);
 
@@ -128,4 +127,22 @@ export function requestAddUsers(
             })
             .catch()
     });
+}
+
+//校验用户权限
+export function requestCheckPermission() {
+
+    return new Promise((resolve, reject) => {
+
+        RequestCenter({
+            url:URL.REQUEST_CHECK_PERMISSION,
+        })
+            .then((response) => {
+                //直接回传 不进一步解析
+                //TODO 进一步处理数据 requestAddUsers
+                resolve(response.permission)
+            })
+            .catch()
+    });
+
 }

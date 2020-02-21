@@ -24,6 +24,9 @@ const URL={
     //TODO  暂无实现
     REQUEST_DELETE_USER:Service.ROOT_URL + "",
 
+    //校验用户权限
+    REQUEST_CHECK_PERMISSION:Service.ROOT_URL + "/user/getPermission",
+
 
 
     /*********************************化验室请求地址*************************************/
