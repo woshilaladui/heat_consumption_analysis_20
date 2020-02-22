@@ -151,7 +151,7 @@ export default class Home_app extends React.Component {
                 this.showDisplay(permission)
         })
 
-        
+
     }
 
     render() {

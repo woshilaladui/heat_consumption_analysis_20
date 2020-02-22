@@ -2,8 +2,13 @@ import {RequestCenter} from "../request/RequestCenter"
 import {URL} from "../constant/Constant";
 
 /**
+ * @author zm
+ * @function 日志方法请求中心
+ */
+
+
+/**
  * 查询全部日志信息
- *
  * @returns {Promise<any>}
  */
 export function requestGetAllLogRecords(){

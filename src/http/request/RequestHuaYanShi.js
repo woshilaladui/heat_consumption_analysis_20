@@ -2,6 +2,8 @@ import {RequestCenter} from "../request/RequestCenter"
 import {RequestMethod, URL} from "../constant/Constant";
 import {getSaveHuaYanShiDataJson} from "../model/JsonHuaYanShiCenter"
 import {HuaYanShiFormat} from "../../../src/Helper/Format"
+import {Mark} from "../constant/Constant"
+import {deepCopy} from "../../Helper/Copy"
 
 /**
  * @author zm
@@ -37,10 +39,21 @@ export function requestGetHuaYanShiDataByTableNameAndDate(
                 //直接回传
                 //TODO 进一步处理数据 requestGetHuaYanShiDataByTableNameAndDate
 
+                //无数据的时候不处理
+                if(response === Mark.SUCCESS_NO_DATA){
+
+                    //直接回传以前的数据
+                    resolve(data)
+
+                }
+
+                //深拷贝
+                //let newData = JSON.parse(JSON.stringify(response))
+                let newData = deepCopy(response)
 
                 let result = HuaYanShiFormat(
                     data,
-                    response,
+                    newData,
                     tableName
                 );
 

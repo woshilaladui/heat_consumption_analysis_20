@@ -2,8 +2,12 @@ import {Mark,URL,RequestMethod} from "../../../src/http/constant/Constant";
 
 /**
  *
- * @author nianshao_zm
+ * @author zm
+ *
+ * @function 所有请求方法的中心
+ *
  */
+
 /**
  * 基于Promise封装
  *
@@ -49,9 +53,15 @@ export function RequestCenter(
                     return  res.json()})
 
                 .then(data => {
-                    if (data['code'] === Mark.SUCCESS) {//判定是否成功
+                    if (data['code'] === Mark.SUCCESS ) {//判定是否成功
+
                         resolve(data['data']);
-                    } else {
+
+                    }else if(data['code'] === Mark.SUCCESS_NO_DATA){
+
+                        resolve(Mark.SUCCESS_NO_DATA)//标记为无数据
+
+                    }else {
                         //TODO 错误
                     }
                 })

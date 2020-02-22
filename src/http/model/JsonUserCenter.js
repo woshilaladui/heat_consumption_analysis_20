@@ -1,3 +1,8 @@
+/**
+ * @author zm
+ * @function 用户类json中心
+ */
+
 /*****************************************用户类json*****************************************/
 
 export function getUpdateUserInfJson(

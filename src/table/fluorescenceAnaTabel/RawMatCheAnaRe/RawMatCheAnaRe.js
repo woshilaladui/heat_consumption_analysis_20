@@ -68,13 +68,13 @@ export default class RuYaoSLYCLHXFXBGD extends Component {
     //判定是否已登录，是否有权限
     componentWillMount() {
 
-        // requestGetHuaYanShiDataByTableNameAndDate(
-        //     new Date(),
-        //     "RMA_SHS",
-        //     this.state.data
-        // ).then((respone)=>{
-        //
-        // })
+        requestGetHuaYanShiDataByTableNameAndDate(
+            new Date(),
+            "RMA_SHS",
+            this.state.data
+        ).then((respone)=>{
+
+        })
 
 
         // checkAuthority(URL.HUAYS_CHECK)

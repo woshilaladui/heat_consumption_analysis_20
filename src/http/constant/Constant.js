@@ -1,5 +1,10 @@
 import {Service} from "./ServiceConstant";
 
+/**
+ * @author zm
+ * @function 常量类
+ */
+
 const RequestMethod = {
     formData:0,
     jsonDta:1
@@ -108,7 +113,9 @@ const Mark ={
 
     SUCCESS :0,
 
-    ERROR:1
+    ERROR:1,
+
+    SUCCESS_NO_DATA:400,//返回结果成功，但是今天没有数据
 }
 
 const Standard ={

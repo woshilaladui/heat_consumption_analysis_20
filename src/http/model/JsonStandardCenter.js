@@ -1,3 +1,9 @@
+/**
+ * @author zm
+ * @function 标准类json中心
+ */
+
+
 /*****************************************标准类json*****************************************/
 
 export function getSaveStandardJson(

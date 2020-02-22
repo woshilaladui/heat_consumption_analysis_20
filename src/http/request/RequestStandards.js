@@ -3,6 +3,11 @@ import {RequestMethod, URL} from "../constant/Constant";
 import {getSaveStandardJson} from "../model/JsonStandardCenter";
 
 /**
+ * @author zm
+ * @function 标准类方法请求中心
+ */
+
+/**
  * 获取全部标准
  *
  * @returns {Promise<any>}
