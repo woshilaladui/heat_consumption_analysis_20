@@ -54,6 +54,7 @@ export function RequestCenter(
 
                 .then(data => {
                     if (data['code'] === Mark.SUCCESS ) {//判定是否成功
+                        
 
                         resolve(data['data']);
 

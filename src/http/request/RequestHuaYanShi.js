@@ -45,17 +45,19 @@ export function requestGetHuaYanShiDataByTableNameAndDate(
                     //直接回传以前的数据
                     resolve(data)
 
+                }else {
+                    //深拷贝
+                    //let newData = JSON.parse(JSON.stringify(response))
+                    let newData = deepCopy(response)
+
+                    let result = HuaYanShiFormat(
+                        data,
+                        newData,
+                        tableName
+                    );
                 }
 
-                //深拷贝
-                //let newData = JSON.parse(JSON.stringify(response))
-                let newData = deepCopy(response)
 
-                let result = HuaYanShiFormat(
-                    data,
-                    newData,
-                    tableName
-                );
 
 
                 resolve(response)
