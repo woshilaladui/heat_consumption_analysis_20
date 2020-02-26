@@ -55,6 +55,8 @@ export function requestGetHuaYanShiDataByTableNameAndDate(
                         newData,
                         tableName
                     );
+
+                    resolve(result)
                 }
 
 

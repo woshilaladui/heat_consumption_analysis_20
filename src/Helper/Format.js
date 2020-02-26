@@ -45,6 +45,7 @@ export function HuaYanShiFormat(resultData, responseData, tableName) {
         arr_endValue[i] = parseFloat(str_endValue[i]);
 
 
+
     return [resultData, arr_startValue, arr_endValue]
 
 

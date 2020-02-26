@@ -127,10 +127,7 @@ export default class Iheader extends Component {
 
     render() {
 
-        console.log(123)
-        console.log(this.state.display)
-        console.log(this.state.display[0])
-        console.log(123)
+   
 
         return (
             <div className='iheader'>
