@@ -4,6 +4,7 @@ import moment from 'moment';
 import './BottomForm.css';
 import * as actionCreators from "../store/actionCreators";
 import {connect} from "react-redux";
+import {deepCopy} from "../../../../Helper/Copy";
 
 const {TextArea} = Input;//文本输入框
 
@@ -13,29 +14,33 @@ class BottomForm extends Component {
 
 
     handleChangeTextAreaTest(value, indexH, indexL) {
-        const {bottomData, timeChose, updateChange} = this.props;
-        let NewData = JSON.parse(JSON.stringify(bottomData))//复制一份出来
-        let hour = indexH + timeChose * 5;
-        NewData[hour]["t_data"][indexL] = value.toString();
+        const {data, timeChose, updateChange} = this.props;
+        let NewData = deepCopy(data)//复制一份出来
+        let index = indexH + timeChose * 12;
+        NewData[index]["data"][indexL] = value.toString();
+
         updateChange(NewData)
+
+
+
     }
 
     /**
      * InputNumber输入监听
      */
     handleChangeInputNumber(value, indexH, indexL) {
-        const {bottomData, timeChose, updateChange} = this.props;
-        let NewData = JSON.parse(JSON.stringify(bottomData))//复制一份出来
-        let index = indexH + timeChose * 8;
-        NewData[index]["t_data"][indexL] = value.toString();
+        const {data, timeChose, updateChange} = this.props;
+        let NewData =deepCopy(data)//复制一份出来
+        let index = indexH + timeChose * 12;
+        NewData[index]["data"][indexL] = value.toString();
         updateChange(NewData)
 
     }
 
     handleTimeChange(time){
-        const {bottomData, timeChose, updateChange} = this.props;
-        let NewData = JSON.parse(JSON.stringify(bottomData))//复制一份出来
-        NewData[4 + timeChose * 5]['t_data'][2] =  moment(time).format('YYYY/MM/DD hh:mm:ss').toString()
+        const {data, timeChose, updateChange} = this.props;
+        let NewData = deepCopy(data)//复制一份出来
+        NewData[4 + timeChose * 12]['data'][2] =  moment(time).format('YYYY/MM/DD hh:mm:ss').toString()
         updateChange(NewData)
     }
 
@@ -43,12 +48,14 @@ class BottomForm extends Component {
      * Input输入监听
      */
     handleChangeInput(value, indexH,indexL) {
-        const {bottomData, timeChose, updateChange} = this.props;
-        let NewData = JSON.parse(JSON.stringify(bottomData))//复制一份出来
-        let hour = indexH + timeChose * 8;
-        NewData[hour]["t_data"][indexL] = value.toString();
+        const {data, timeChose, updateChange} = this.props;
+        let NewData = deepCopy(data)//复制一份出来
+        let index = indexH + timeChose * 12;
+        NewData[index]["data"][indexL] = value.toString();
         updateChange(NewData)
     }
+
+
 
     render() {
         //表头
@@ -526,36 +533,36 @@ class BottomForm extends Component {
         };
         /**限制输入数值位数的函数**end**/
 
-        const {bottomData, timeChose,date} = this.props;
-        const Data = JSON.parse(JSON.stringify(bottomData))
+        const {data, timeChose,date} = this.props;
+        const Data = deepCopy(data)
 
-
-        const data = [
+        const dataSource = [
                 {
                     1: '备注',
                     2: <TextArea
-                        value={Data[timeChose * 5]['t_data'][0]}
-                        onChange={event => this.handleChangeTextAreaTest(event.target.value, timeChose * 5, 0)}
+                        value={Data[8 + timeChose * 12]['data'][0]}
+                       // onBlur={event => this.handleChangeTextAreaTest(event.target.value, 8+ timeChose * 12, 0,-999)}
+                        onChange={event => this.handleChangeTextAreaTest(event.target.value, 8+ timeChose * 12, 0)}
                         style={{
                             resize: "none"
                         }}/>,
                 },
                 {
                     2: <span>均化XX:&emsp;<InputNumber
-                        value={parseFloat(Data[1 + timeChose * 5]['t_data'][0])}
+                        value={parseFloat(Data[8 + timeChose * 12]['data'][1])}
                         formatter={limitDecimals}//限制输入数值位数
                         parser={limitDecimals}//限制输入数值位数
-                        onChange={event => this.handleChangeInputNumber(event, 1 + timeChose * 5, 0)}
+                        onChange={event => this.handleChangeInputNumber(event, 8 + timeChose * 12, 1)}
                         style={{
                             resize: "none"
                         }}/>&emsp;风机</span>,
                     5: <span>移重XX:&emsp;<InputNumber
 
-                        value={parseFloat(Data[1 + timeChose * 5]['t_data'][1])}
+                        value={parseFloat(Data[8 + timeChose * 12]['data'][2])}
                         formatter={limitDecimals}//限制输入数值位数
 
                         parser={limitDecimals}//限制输入数值位数
-                        onChange={event => this.handleChangeInputNumber(event, 1 + timeChose * 5, 1)}
+                        onChange={event => this.handleChangeInputNumber(event, 8 + timeChose * 12, 2)}
                         style={{
                             resize: "none"
                         }}/>&emsp;风机</span>,
@@ -566,31 +573,31 @@ class BottomForm extends Component {
                 {
                     1: '接班:中心风  内风  外风',//长度2
                     3: <Input
-                        value={Data[2 + timeChose * 5]['t_data'][0]}
-                        onChange={event => this.handleChangeInput(event.target.value, 2 + timeChose * 5, 0)}/>,//长度2
+                        value={Data[9 + timeChose * 12]['data'][3]}
+                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 12, 3)}/>,//长度2
 
                     5: <span>燃烧器:&emsp;<InputNumber
-                        value={parseFloat(Data[2 + timeChose * 5]['t_data'][1])}
+                        value={parseFloat(Data[9 + timeChose * 12]['data'][4])}
                         formatter={limitDecimals}//限制输入数值位数
                         parser={limitDecimals}//限制输入数值位数
-                        onChange={event => this.handleChangeInputNumber(event, 2 + timeChose * 5, 1)}
+                        onChange={event => this.handleChangeInputNumber(event, 9 + timeChose * 12, 4)}
                         style={{
                             resize: "none"
                         }}/>&emsp;位</span>,//长度3
                     8: <span>孰料仓位:&emsp;<InputNumber
-                        value={parseFloat(Data[2 + timeChose * 5]['t_data'][2])}
+                        value={parseFloat(Data[9 + timeChose * 12]['data'][5])}
                         formatter={limitDecimals}//限制输入数值位数
                         parser={limitDecimals}//限制输入数值位数
-                        onChange={event => this.handleChangeInputNumber(event, 2 + timeChose * 5, 2)}
+                        onChange={event => this.handleChangeInputNumber(event, 9 + timeChose * 12, 5)}
                         style={{
                             resize: "none"
                         }}/>&emsp;米</span>,//长度3
                 },
                 {
                     1: <TextArea
-                        value={Data[3 + timeChose * 5]['t_data'][0]}
+                        value={Data[10 + timeChose * 12]['data'][0]}
                         placeholder='备注'
-                        onChange={event => this.handleChangeTextAreaTest(event.target.value, 3 + timeChose * 5, 0)}
+                        onChange={event => this.handleChangeTextAreaTest(event.target.value, 10 + timeChose * 12, 0)}
                         style={{
                             resize: "none"
                         }}/>,
@@ -598,39 +605,36 @@ class BottomForm extends Component {
                 {
                     1: '班长：',//长度4
                     2: <Input
-                        value={Data[4 + timeChose * 5]['t_data'][0]}
-                        onChange={event => this.handleChangeInput(event.target.value, 4 + timeChose * 5, 0)}/>,
+                        value={Data[11 + timeChose * 12]['data'][0]}
+                        onChange={event => this.handleChangeInput(event.target.value, 11 + timeChose * 12, 0)}/>,
                     3: '操作员：',//长度4
                     4: <Input
-                        value={Data[4 + timeChose * 5]['t_data'][1]}
-                        onChange={event => this.handleChangeInput(event.target.value, 4 + timeChose * 5, 1)}/>,
+                        value={Data[11 + timeChose * 12]['data'][1]}
+                        onChange={event => this.handleChangeInput(event.target.value, 11 + timeChose * 12, 1)}/>,
                     5: '投料时间',//长度3
                     6: <DatePicker
                         format='YYYY/MM/DD hh:mm:ss'
                         onChange={date => this.handleTimeChange(date)}
-                        value={Data[4 + timeChose * 5]['t_data'][2] ? moment(Data[4 + timeChose * 5]['t_data'][2], 'YYYY/MM/DD hh:mm:ss') : moment(date, 'YYYY/MM/DD hh:mm:ss')}
+                        value={Data[11 + timeChose * 12]['data'][2] ? moment(Data[11 + timeChose * 12]['data'][2], 'YYYY/MM/DD hh:mm:ss') : moment(date, 'YYYY/MM/DD hh:mm:ss')}
 
                         defaultValue={moment(date, 'YYYY/MM/DD hh:mm:ss')}
                         style={{width: 200}}/>,
-                    // 6: <TimePicker
-                    //     // value={moment(Data[2], 'HH')}
-                    //     format={"HH"} onChange={event => this.handleChangeTimePicker(event)}/>,//长度4
                     7:
                         '投料量',
                     8:
                         <span><InputNumber
-                            value={Data[4 + timeChose * 5]['t_data'][3]}
+                            value={Data[11 + timeChose * 12]['data'][3]}
                             formatter={limitDecimals}//限制输入数值位数
                             parser={limitDecimals}//限制输入数值位数
-                            onChange={event => this.handleChangeInputNumber(event, 4 + timeChose * 5, 3)}
+                            onChange={event => this.handleChangeInputNumber(event, 11 + timeChose * 12, 3)}
                             style={{
                                 resize: "none"
                             }}/>/
                         <InputNumber
-                            value={Data[4 + timeChose * 5]['t_data'][4]}
+                            value={Data[11 + timeChose * 12]['data'][4]}
                             formatter={limitDecimals}//限制输入数值位数
                             parser={limitDecimals}//限制输入数值位数
-                            onChange={event => this.handleChangeInputNumber(event, 4 + timeChose * 5, 4)}
+                            onChange={event => this.handleChangeInputNumber(event, 11 + timeChose * 12, 4)}
                             style={{
                                 resize: "none"
                             }}/></span>,//长度3
@@ -638,18 +642,18 @@ class BottomForm extends Component {
                         '孰料产量',//长度4
                     10:
                         <span><InputNumber
-                            value={Data[4 + timeChose * 5]['t_data'][5]}
+                            value={Data[11 + timeChose * 12]['data'][5]}
                             formatter={limitDecimals}//限制输入数值位数
                             parser={limitDecimals}//限制输入数值位数
-                            onChange={event => this.handleChangeInputNumber(event, 4 + timeChose * 5, 5)}
+                            onChange={event => this.handleChangeInputNumber(event, 11 + timeChose * 12, 5)}
                             style={{
                                 resize: "none"
                             }}/>/
                     <InputNumber
-                        value={Data[4 + timeChose * 5]['t_data'][6]}
+                        value={Data[11 + timeChose * 12]['data'][6]}
                         formatter={limitDecimals}//限制输入数值位数
                         parser={limitDecimals}//限制输入数值位数
-                        onChange={event => this.handleChangeInputNumber(event, 4 + timeChose * 5, 6)}
+                        onChange={event => this.handleChangeInputNumber(event, 11 + timeChose * 12, 6)}
                         style={{
                             resize: "none"
                         }}/></span>,
@@ -662,7 +666,7 @@ class BottomForm extends Component {
         return (
             <div className="ZKSX2_bottom">
                 <Table
-                    className='ZKSX2_bottom_table' dataSource={data} bordered
+                    className='ZKSX2_bottom_table' dataSource={dataSource} bordered
                     columns={columns} showHeader={false} pagination={false}/>
             </div>
         );
@@ -675,16 +679,15 @@ const mapStateToProps = (state) => {
     return {
         date: state.getIn(['burnSysOpRe', 'date']),
         timeChose: state.getIn(['burnSysOpRe', 'timeChose']),
-        bottomData: state.getIn(['burnSysOpRe', 'bottomData']),
-        person: state.getIn(['burnSysOpRe', 'person']),
-        t_name: state.getIn(['burnSysOpRe', 't_name']),
+        data: state.getIn(['burnSysOpRe', 'data']),
+        tableName: state.getIn(['burnSysOpRe', 'tableName']),
     }
 }
 
 const mapDispathToProps = (dispatch) => {
     return {
         updateChange(NewData) {
-            dispatch(actionCreators.updateBottomData(NewData))
+            dispatch(actionCreators.updateData({data:deepCopy(NewData)}))
         },
 
     }//end return

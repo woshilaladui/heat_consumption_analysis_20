@@ -32,31 +32,37 @@ export default class Header extends Component {
         }
     }
     handleLogout = () => {
-        const jsonData = {
-            'token': window.localStorage.token,
-        };
-        fetch("/api/logout", {
-            method: 'POST',
-            credentials: "include",
-            body: JSON.stringify(jsonData),
-            headers: {
-                'Content-Type': 'application/json',
-                'authorization': window.localStorage.authorization,
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data['code'] === 0) {
-                    //判定是否成功
-                    window.localStorage.clear();
-                    this.setState({
-                        showItem: 'none',
-                        needLogin: 'true',
-                    });
-                    this.onChangekey({"key": 0});
-                }
-            })
-            .catch(error => console.error('Error:', error))
+        window.localStorage.clear();
+        this.setState({
+            showItem: 'none',
+            needLogin: 'true',
+        });
+        // this.onChangekey({"key": 0});
+        // const jsonData = {
+        //     'token': window.localStorage.token,
+        // };
+        // fetch("/api/logout", {
+        //     method: 'POST',
+        //     credentials: "include",
+        //     body: JSON.stringify(jsonData),
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'authorization': window.localStorage.authorization,
+        //     }
+        // })
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         if (data['code'] === 0) {
+        //             //判定是否成功
+        //             window.localStorage.clear();
+        //             this.setState({
+        //                 showItem: 'none',
+        //                 needLogin: 'true',
+        //             });
+        //             this.onChangekey({"key": 0});
+        //         }
+        //     })
+        //     .catch(error => console.error('Error:', error))
     };
 
     render() {

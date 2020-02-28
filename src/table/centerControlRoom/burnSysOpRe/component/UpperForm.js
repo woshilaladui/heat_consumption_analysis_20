@@ -3,6 +3,7 @@ import {Input, Table, Button} from 'antd';
 import "./UpperForm.css"
 import * as actionCreators from "../store/actionCreators";
 import {connect} from "react-redux";
+import {deepCopy} from "../../../../Helper/Copy";
 
 
 class UpperForm extends Component {
@@ -30,10 +31,10 @@ class UpperForm extends Component {
      * 表格输入数据变化的监听，同时所有的数据更新
      **/
     onInputNumberChange2 = (value, indexH, indexL) => {
-        const {upperData, timeChose, updateChange} = this.props;
-        let NewData = JSON.parse(JSON.stringify(upperData))//复制一份出来
-        let hour = indexH + timeChose * 8;
-        NewData[hour]["t_data"][indexL] = value;
+        const {data, timeChose, updateChange} = this.props;
+        let NewData = deepCopy(data)//复制一份出来
+        let index = indexH + timeChose * 12;
+        NewData[index]["data"][indexL] = value;
         updateChange(NewData)
     };
 
@@ -54,10 +55,17 @@ class UpperForm extends Component {
     /**点击暂存之后上传当前行的数据到后台**start**/
     postToHome(i) {//i是行数
 
-        const {upperData, timeChose, date, t_name, saveToHome} = this.props;
-        const Data = JSON.parse(JSON.stringify(upperData))
-        const index = i + timeChose * 8
-        saveToHome(index,1,t_name,date,Data)
+        const {data, timeChose, date, tableName, saveToHome} = this.props;
+        const Data = deepCopy(data)
+
+        //计算具体下标位置
+        const index = i + timeChose * 12//每班有13行数据
+        saveToHome(
+            date,
+            index,
+            tableName,
+            Data
+        )
 
     }
 
@@ -167,16 +175,29 @@ class UpperForm extends Component {
 
         /**表头的设计**end**/
 
+        /**
+         *
+         * data是页面数据
+         *
+         * Data 是拷贝data之后的数据
+         *
+         */
 
         /**中间八行的数据输入**start**/
-        const data = [];
-        const {upperData, timeChose} = this.props;
-        const Data = JSON.parse(JSON.stringify(upperData))
-        for (let i = 0; i < 8; i++) {
-            const hour = i + timeChose * 8;
-            const value = Data[hour]['t_data'];
+        const dataSource = [];
+        const {data, timeChose,person} = this.props;
 
-            data.push(
+
+        const Data = deepCopy(data)
+
+
+
+        for (let i = 0; i < 8; i++) {
+            const index = i + timeChose * 12;
+            const value = Data[index]['data'];
+
+
+            dataSource.push(
                 {
                     time: this.state.BanCi,
                     YZS: <span><Input
@@ -215,7 +236,7 @@ class UpperForm extends Component {
                         value={isNaN(value[4]) ? null : value[4]}
                         onChange={event => this.onInputNumberChange2(event.target.value, i, 4)}
                     /></span>,
-                    person: Data[hour]['user'],
+                    person: Data[index]['user'],
                     btn_save: <Button type='primary' onClick={() => this.postToHome(i)}>暂存</Button>,
                 })
         }
@@ -227,7 +248,8 @@ class UpperForm extends Component {
                 {/*表格填写*/}
                 <Table
                     className="pper_table" columns={columns} bordered
-                    dataSource={data} pagination={false}/>
+                    dataSource={dataSource} pagination={false}
+                />
 
             </div>
         );
@@ -240,9 +262,9 @@ const mapStateToProps = (state) => {
     return {
         date: state.getIn(['burnSysOpRe', 'date']),
         timeChose: state.getIn(['burnSysOpRe', 'timeChose']),
-        upperData: state.getIn(['burnSysOpRe', 'upperData']),
+        data: state.getIn(['burnSysOpRe', 'data']),
         person: state.getIn(['burnSysOpRe', 'person']),
-        t_name: state.getIn(['burnSysOpRe', 't_name']),
+        tableName: state.getIn(['burnSysOpRe', 'tableName']),
     }
 }
 
@@ -250,15 +272,20 @@ const mapDispathToProps = (dispatch) => {
     return {
 
         updateChange(NewData) {
-            dispatch(actionCreators.updateUpperData(NewData))
+
+            dispatch(actionCreators.updateData({data:deepCopy(NewData)}))
         },
 
-        saveToHome(index, tableType, tableName, date, data) {
+
+
+        //上表暂存一行数据
+        saveToHome(date, index, tableName, data) {
+
+
             dispatch(actionCreators.saveData({
-                index:index,
-                tableType:tableType,
-                tableName:tableName,
                 date:date,
+                index:index,
+                tableName:tableName,
                 data:data
             }))
         },

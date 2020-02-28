@@ -6,8 +6,8 @@ import UpperForm from './component/UpperForm';
 import BottomForm from './component/BottomForm';
 import { connect } from 'react-redux';
 import * as actionCreators from './store/actionCreators';
-import {checkAuthority} from "../../../Request/RequsetCenter";
-import {Mark, URL} from "../../../Request/Constant";
+import {requestCheckPermission} from "../../../http/request/RequestUser"
+import {deepCopy} from "../../../Helper/Copy";
 
 //福石水泥3000t/d中控室烧成系统运行记录
 class BurnSysOpRe extends Component {
@@ -18,21 +18,14 @@ class BurnSysOpRe extends Component {
 
     //判定是否已登录，是否有权限
     componentWillMount() {
-        checkAuthority(URL.HUAYS_CHECK)
-            .then((response)=>{
-                if(response === Mark.ERROR){
-                    this.props.history.push('/');
-                }
-            })
-            .catch()
-
     }
 
     componentDidMount() {
         /**首先查询当前页面是否有历史纪录并赋值formData**/
-        const {upperData,bottomData, date, t_name, setOldData,requestFlag} = this.props;
+        const {data, date, tableName, setOldData,requestFlag} = this.props;
+
         if(requestFlag){
-            setOldData(t_name,date,upperData,bottomData);
+            setOldData(date,tableName,deepCopy(data));
         }
 
     }
@@ -83,18 +76,17 @@ const mapStateToProps = (state) => {
     return {
         date:state.getIn(['burnSysOpRe', 'date']),
         timeChose:state.getIn(['burnSysOpRe', 'timeChose']),
-        upperData:state.getIn(['burnSysOpRe', 'upperData']),
-        bottomData:state.getIn(['burnSysOpRe', 'bottomData']),
+        data:state.getIn(['burnSysOpRe', 'data']),
         requestFlag:state.getIn(['burnSysOpRe', 'requestFlag']),
         person:state.getIn(['burnSysOpRe', 'person']),
-        t_name:state.getIn(['burnSysOpRe', 't_name']),
+        tableName:state.getIn(['burnSysOpRe', 'tableName']),
     }
 }
 
 const mapDispathToProps = (dispatch) => {
     return {
-        setOldData(tableName,date,upperData,bottomData){
-            dispatch(actionCreators.getData(tableName,date,upperData,bottomData))
+        setOldData(date,tableName,data){
+            dispatch(actionCreators.getData(date,tableName,data))
         }
     }//end return
 }

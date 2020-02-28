@@ -48,7 +48,7 @@ export function requestGetHuaYanShiDataByTableNameAndDate(
                 }else {
                     //深拷贝
                     //let newData = JSON.parse(JSON.stringify(response))
-                    let newData = deepCopy(response)
+                    let newData = deepCopy(response['data'])
 
                     let result = HuaYanShiFormat(
                         data,

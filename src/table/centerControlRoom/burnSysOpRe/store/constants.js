@@ -1,4 +1,4 @@
-export const UPDATE_DATA_BSO = 'update_date_bso'
+export const UPDATE_DATA_BSO = 'update_data_bso'//更新数据
 
 export const UPDATE_UPPER_DATA_BSO = 'update_upper_data_bso'
 

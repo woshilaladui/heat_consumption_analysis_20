@@ -27,7 +27,7 @@ export function requestUserLogin(
                 //直接回传
 
                 //TODO 进一步处理数据 requestUserLogin
-                resolve(response)
+                resolve(response['data'])
             })
             .catch()
     });
@@ -140,7 +140,9 @@ export function requestCheckPermission() {
             .then((response) => {
                 //直接回传 不进一步解析
                 //TODO 进一步处理数据 requestAddUsers
-                resolve(response.permission)
+
+
+                resolve(response['data'].permission)
             })
             .catch()
     });

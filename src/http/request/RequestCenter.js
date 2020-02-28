@@ -1,4 +1,5 @@
 import {Mark,URL,RequestMethod} from "../../../src/http/constant/Constant";
+import {deepCopy} from "../../Helper/Copy";
 
 /**
  *
@@ -53,10 +54,11 @@ export function RequestCenter(
                     return  res.json()})
 
                 .then(data => {
+
                     if (data['code'] === Mark.SUCCESS ) {//判定是否成功
 
 
-                        resolve(data['data']);
+                        resolve(deepCopy(data));
 
                     }else if(data['code'] === Mark.SUCCESS_NO_DATA){
 
@@ -66,7 +68,10 @@ export function RequestCenter(
                         //TODO 错误
                     }
                 })
-                .catch(error => console.error('Error:', error))
+                .catch(
+
+                    //error => console.error('Error:', error)
+                )
         });//JSON.stringify(jsonData),
 
     }else {//附带json式请求
@@ -84,7 +89,7 @@ export function RequestCenter(
 
                 .then(data => {
                     if (data['code'] === Mark.SUCCESS) {//判定是否成功
-                        resolve(data['data']);
+                        resolve(deepCopy(data));
                     } else {
                         //TODO 错误
                     }

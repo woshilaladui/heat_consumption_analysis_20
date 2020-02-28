@@ -85,9 +85,12 @@ export function updateOperator({Data,index = -1,num = 24}){
             if(Data[i]['t_data'].join(',')!==''){
                 Data[i]['user'] = window.localStorage.name;
 
+                console.log("updateOperator")
+
             }
         }//end for
     }else{//暂存一行
-        Data[index]['user'] = window.localStorage.name;
+        Data[index]['user'] = window.localStorage.username;
+
     }
 }

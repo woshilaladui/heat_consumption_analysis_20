@@ -1,37 +1,34 @@
 import * as constants from './constants';
 import {fromJS} from 'immutable';
 import moment from 'moment';
-
+import {TableName} from "../../../../Constant/TableNameConstant"
 
 const defaultState = fromJS({
 
-    date: moment().format("YYYY-MM-DD hh:mm:ss"),//moment().format("YYYY-MM-DD"),
-    //date:moment().format("YYYY/MM/DD"),//moment().format("YYYY-MM-DD"),
-    requestFlag:true,
-    timeChose: 0,
-    upperData: [
+    //注意日期格式 2020/2/27 YYYY/MM/DD 为后台识别日期
+    date: moment().format("YYYY/MM/DD"),//moment().format("YYYY-MM-DD"),
+    requestFlag:true,//是否需要更新数据
+    timeChose: 0,//默认0点班
+    data:[//定义该页面的数据模板
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},//0-7小时 0-7行
+        {data: []}, {data: []}, {data: []}, {data: ['', '', moment().format("YYYY/MM/DD hh:mm:ss").toString()]},//下表的数据 8-11行
 
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},//8-15小时 12-19行
+        {data: []}, {data: []}, {data: []}, {data: [
+                '', '', moment().format("YYYY/MM/DD hh:mm:ss").toString()
+            ]},//下表的数据 20-23行
 
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},//16-23小时 24-31行
+        {data: []}, {data: []}, {data: []}, {data: [
+                '', '', moment().format("YYYY/MM/DD hh:mm:ss").toString()
+            ]},//下表的数据 32-35行
 
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []}
-    ], //上表的数据
-    bottomData: [
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-        {t_data: ['', '', moment().format("YYYY/MM/DD hh:mm:ss").toString()]},
-
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-        {t_data: ['', '', moment().format("YYYY/MM/DD hh:mm:ss").toString()]},
-
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-        {t_data: ['', '', moment().format("YYYY/MM/DD hh:mm:ss").toString()]},
-    ], //下表的数据
-    person: window.localStorage.name, //传入的值班人员
-    t_name: "NS_BSO"//中控室烧成系统运行记录
+    ],
+    person: window.localStorage.username, //传入的值班人员
+    tableName:TableName.ZHONG_KONG_SHI_SCXT_YXJL//中控室烧成系统运行记录
 
 });
 export default (state = defaultState, action) => {
@@ -39,18 +36,11 @@ export default (state = defaultState, action) => {
     switch (action.type) {
         case constants.UPDATE_DATA_BSO:
             return state.merge({
-                'upperData': action.upperData,
-                'bottomData': action.bottomData,
+                'data': action.data,
                 'requestFlag':false//切换页面时候不需要刷新数据了（当页面刷新的时候自动初始化为true）
             });
         case constants.CHANGE_TIME_CHOSE_BSO:
             return state.set('timeChose', action.timeChose);
-
-        case constants.UPDATE_UPPER_DATA_BSO://更新上表的数据
-            return state.set('upperData', action.upperData);
-
-        case constants.UPDATE_BOTTOM_DATA_BSO:
-            return state.set('bottomData', action.bottomData);
 
         default:
             return state;

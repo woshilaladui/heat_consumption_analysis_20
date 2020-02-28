@@ -46,7 +46,9 @@ class UpperForm extends Component {
     postToHome(i) {//i是行数
         const {upperData, timeChose, date, t_name, saveToHome} = this.props;
         const Data = JSON.parse(JSON.stringify(upperData))
+
         const index = i + timeChose * 8
+
         saveToHome(index, 1, t_name, date, Data);
     }
 
@@ -59,6 +61,9 @@ class UpperForm extends Component {
         let NewData = JSON.parse(JSON.stringify(upperData))//复制一份出来
         let hour = indexH + timeChose * 8;
         NewData[hour]["t_data"][indexL] = value;
+
+
+
         updateChange(NewData)
     };
 
@@ -281,6 +286,9 @@ const mapDispathToProps = (dispatch) => {
         },
 
         saveToHome(index, tableType, tableName, date, data) {
+
+
+
             dispatch(actionCreators.saveData({
                 index: index,
                 tableType: tableType,

@@ -45,6 +45,9 @@ export function HuaYanShiFormat(resultData, responseData, tableName) {
         arr_endValue[i] = parseFloat(str_endValue[i]);
 
 
+    console.log(777777)
+    console.log(resultData)
+    console.log(777777)
 
     return [resultData, arr_startValue, arr_endValue]
 
@@ -52,4 +55,56 @@ export function HuaYanShiFormat(resultData, responseData, tableName) {
     //}
 
 
+}
+
+export function ZhongKongShiFormat(resultData, responseData, tableName) {
+
+    //解析数据data
+    for (let i = 0; i < responseData["zhongKongShis"].length; i++) {
+
+        let str_arr = responseData["zhongKongShis"][i]['data'].split(',');//取出data中的数据
+
+
+
+        //不做处理
+        // let arr = [];//临时的number数据数组
+        //
+        // for (let j = 0; j < str.length; j++) {
+        //
+        //     arr[j] = parseFloat(str[j]);
+        // }
+
+        //相当于替换了原来字符串数组，将其变成Number数组
+        responseData["zhongKongShis"][i]['data'] = str_arr;
+
+        let data_index = responseData["zhongKongShis"][i]['index'];//取出所在下标
+
+
+        //将结果赋值到对应位置
+        resultData[data_index] = responseData["zhongKongShis"][i];
+
+
+    }
+
+    return resultData
+
+}
+
+export function updateOperator(
+    {
+        data,
+        index = -1, //默认全部更新
+        num
+    }) {
+    //依此判断24行数据，不为空的时候更新操作人员
+    if(index ===-1){//提交整张表
+        for(let i = 0;i < num;i++){
+            if(data[i]['data'].join(',')!==''){
+                data[i]['user'] = window.localStorage.username;
+
+            }
+        }//end for
+    }else{//暂存一行
+        data[index]['user'] = window.localStorage.username;
+    }
 }

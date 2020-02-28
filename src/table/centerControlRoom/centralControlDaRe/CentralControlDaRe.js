@@ -23,7 +23,7 @@ export default class OnlineAutoDetOpRe extends Component {
                 {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
                 {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []}
             ], //表格数据
-            person: "" //传入的值班人员
+            person: "NS_CDR" //传入的值班人员
         };
     }
 

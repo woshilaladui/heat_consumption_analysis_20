@@ -76,6 +76,8 @@ export const getData = (tableName, date, upperData, bottomData) => {
     }
 }
 export function saveData({index = 0, tableType = 1, tableName, date, data, num = 1}) {
+
+
     return (dispatch) => {
         ZKSSave(
             URL.ZKS_SAVE,

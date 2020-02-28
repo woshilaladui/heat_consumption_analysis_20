@@ -38,13 +38,13 @@ export function getSaveZhongKongShiDataJson(
             duty:duty,
             tableName:tableName,
             authority:authority,
-            data:data[index]['t_data'].join(',')
+            data:data[index]['data'].join(',')
         }];
     }else {
 
         let j = 0;
         for (let i = 0; i < num; i++) {
-            if (data[i]['t_data'].join(',') !== '') {
+            if (data[i]['data'].join(',') !== '') {
                 tempData[j] = {
                     "date": date,
                     "index": i,
@@ -52,7 +52,7 @@ export function getSaveZhongKongShiDataJson(
                     "duty": duty,
                     "tableName": tableName,
                     "authority": authority,
-                    "data": data[i]['t_data'].join(','),
+                    "data": data[i]['data'].join(','),
                 }
                 j++;
             }

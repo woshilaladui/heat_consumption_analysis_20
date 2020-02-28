@@ -83,7 +83,7 @@ const URL={
     REQUEST_GET_ALL_LOGS_BY_USERNAME:Service.ROOT_URL + "/logRecordController/getAllLogRecordsByUsername",
 
     //通过日期区间和用户名查询日志信息（两个参数非必填）
-    REQUEST_GET_ALL_LOGS_BY_USERNAME_AND_DATE:Service.ROOT_URL + "logRecordController/getAllLogsByUsernameOrDateBetween",
+    REQUEST_GET_ALL_LOGS_BY_USERNAME_AND_DATE:Service.ROOT_URL + "/logRecordController/getAllLogsByUsernameOrDateBetween",
 
     //删除日志
     REQUEST_DELETE_LOGS:Service.ROOT_URL + "/logRecordController/deleteLogRecordById",
