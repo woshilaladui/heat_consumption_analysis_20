@@ -61,7 +61,7 @@ class BottomForm extends Component {
         //表头
         const columns = [
             {
-                title: '1',
+                title: 'sdfsdf',
                 dataIndex: '1',
                 width: '10%',
                 render(value, row, index) {
@@ -80,7 +80,8 @@ class BottomForm extends Component {
                         obj.props.colSpan = 2;
                     }
                     if (index === 3) {//空白
-                        obj.props.rowSpan = 6;
+                       // obj.props.rowSpan = 0;
+                        obj.props.rowSpan = 1;
                         obj.props.colSpan = 10;
                     }
                     if (index === 4) {
@@ -164,7 +165,7 @@ class BottomForm extends Component {
                         obj.props.colSpan = 0;
                     }
                     if (index === 1) {//接班
-                        obj.props.rowSpan = 1;
+                        //obj.props.rowSpan = 1;
                         obj.props.colSpan = 0;
                     }
                     if (index === 2) {//接班
@@ -661,6 +662,7 @@ class BottomForm extends Component {
                 },
             ]
         ;
+
 
 
         return (

@@ -5,6 +5,9 @@ import user from "../body/user/user";
 import Home from "../homePage/home/Home";
 import Login from "../login/Login";
 import Reg from "../reg/reg";
+import Test from "../table/centerControlRoom/burnSysOpRe/component/test"
+import Test2 from "../table/centerControlRoom/burnSysOpRe/component/test2"
+import {Radio} from "antd";
 
 export default class AppRouter extends Component {
 
@@ -20,6 +23,10 @@ export default class AppRouter extends Component {
                     <Route path="/user" component={user}/>
                     <Route path="/login" component={Login}/>
                     <Route path="/reg" component={Reg}/>
+
+                    <Route path="/test" component={Test}/>
+                    <Route path="/test2" component={Test2}/>
+
 
                     {/* <Route path="/login" component={Login}/>
                     <Route path="/RuYaoSLYCLHXFXBGD" component={RuYaoSLYCLHXFXBGD} onEnter={this.isLogin} />
