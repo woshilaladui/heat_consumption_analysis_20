@@ -60,7 +60,7 @@ const { Content} = Layout;
 
 
 
-class AppIndex extends Component {
+export default class AppIndex extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -113,42 +113,42 @@ class AppIndex extends Component {
     }
 
     componentWillMount() {
-        const {
-            _upperData, _bottomData, requestFlag, date, t_name,
-            setOldData, setOldStandard, startValue, endValue,
-            RAO_SHS, RMA_SHS, RAO_SY, RMA_SY, RMA_FMHg, RAO_FMHg,
-            date_HYS_RB, t_name_HYS_RB, RMA_FMHs, RAO_FMHs, RMA_TF, RAO_TF,
-            set_HYS_RB_Data, requestFlag_HYS_RB,
-            CX_CaCO3,
-        } = this.props;
-        if (requestFlag) {
-            const tempStartValue = deepCopy(startValue)//JSON.parse(JSON.stringify(startValue))
-            const tempEndValue = deepCopy(endValue)//JSON.parse(JSON.stringify(endValue))
-            const tempUpperData = deepCopy(_upperData);
-            const tempBottomData = deepCopy(_bottomData)
-            setOldStandard(tempStartValue, tempEndValue, t_name);
-            setOldData(t_name, date, tempUpperData, tempBottomData);
-
-        }
-        if (requestFlag_HYS_RB) {
-
-            const tempRMA_SHS = JSON.parse(JSON.stringify(RMA_SHS));
-            const tempRAO_SHS = JSON.parse(JSON.stringify(RAO_SHS));
-            const tempRMA_SY = JSON.parse(JSON.stringify(RMA_SY));
-            const tempRAO_SY = JSON.parse(JSON.stringify(RAO_SY));
-            const tempRMA_FMHg = JSON.parse(JSON.stringify(RMA_FMHg));
-            const tempRAO_FMHg = JSON.parse(JSON.stringify(RAO_FMHg));
-            const tempRMA_FMHs = JSON.parse(JSON.stringify(RMA_FMHs));
-            const tempRAO_FMHs = JSON.parse(JSON.stringify(RAO_FMHs));
-            const tempRMA_TF = JSON.parse(JSON.stringify(RMA_TF));
-            const tempRAO_TF = JSON.parse(JSON.stringify(RAO_TF));
-
-            const tempCX_CaCO3 = JSON.parse(JSON.stringify(CX_CaCO3));
-            set_HYS_RB_Data(t_name_HYS_RB, date_HYS_RB, tempRMA_SHS,
-                tempRAO_SHS, tempRMA_SY, tempRAO_SY, tempRMA_FMHg, tempRAO_FMHg,
-                tempRMA_FMHs, tempRAO_FMHs, tempRMA_TF, tempRAO_TF,tempCX_CaCO3);
-
-        }
+        // const {
+        //     _upperData, _bottomData, requestFlag, date, t_name,
+        //     setOldData, setOldStandard, startValue, endValue,
+        //     RAO_SHS, RMA_SHS, RAO_SY, RMA_SY, RMA_FMHg, RAO_FMHg,
+        //     date_HYS_RB, t_name_HYS_RB, RMA_FMHs, RAO_FMHs, RMA_TF, RAO_TF,
+        //     set_HYS_RB_Data, requestFlag_HYS_RB,
+        //     CX_CaCO3,
+        // } = this.props;
+        // if (requestFlag) {
+        //     const tempStartValue = deepCopy(startValue)//JSON.parse(JSON.stringify(startValue))
+        //     const tempEndValue = deepCopy(endValue)//JSON.parse(JSON.stringify(endValue))
+        //     const tempUpperData = deepCopy(_upperData);
+        //     const tempBottomData = deepCopy(_bottomData)
+        //     setOldStandard(tempStartValue, tempEndValue, t_name);
+        //     setOldData(t_name, date, tempUpperData, tempBottomData);
+        //
+        // }
+        // if (requestFlag_HYS_RB) {
+        //
+        //     const tempRMA_SHS = JSON.parse(JSON.stringify(RMA_SHS));
+        //     const tempRAO_SHS = JSON.parse(JSON.stringify(RAO_SHS));
+        //     const tempRMA_SY = JSON.parse(JSON.stringify(RMA_SY));
+        //     const tempRAO_SY = JSON.parse(JSON.stringify(RAO_SY));
+        //     const tempRMA_FMHg = JSON.parse(JSON.stringify(RMA_FMHg));
+        //     const tempRAO_FMHg = JSON.parse(JSON.stringify(RAO_FMHg));
+        //     const tempRMA_FMHs = JSON.parse(JSON.stringify(RMA_FMHs));
+        //     const tempRAO_FMHs = JSON.parse(JSON.stringify(RAO_FMHs));
+        //     const tempRMA_TF = JSON.parse(JSON.stringify(RMA_TF));
+        //     const tempRAO_TF = JSON.parse(JSON.stringify(RAO_TF));
+        //
+        //     const tempCX_CaCO3 = JSON.parse(JSON.stringify(CX_CaCO3));
+        //     set_HYS_RB_Data(t_name_HYS_RB, date_HYS_RB, tempRMA_SHS,
+        //         tempRAO_SHS, tempRMA_SY, tempRAO_SY, tempRMA_FMHg, tempRAO_FMHg,
+        //         tempRMA_FMHs, tempRAO_FMHs, tempRMA_TF, tempRAO_TF,tempCX_CaCO3);
+        //
+        // }
     }
     render() {
         return (
@@ -163,55 +163,55 @@ class AppIndex extends Component {
     }
 }
 //定义映射
-const mapStateToProps = (state) => {
-    return {
-        /**
-         * 荧光室原始记录
-         */
-        date:state.getIn(['ControlRoomOriginalRe', 'date']),
-        timeChose:state.getIn(['ControlRoomOriginalRe', 'timeChose']),
-        _upperData:state.getIn(['ControlRoomOriginalRe', 'upperData']),
-        _bottomData:state.getIn(['ControlRoomOriginalRe', 'bottomData']),
-        requestFlag:state.getIn(['ControlRoomOriginalRe', 'requestFlag']),
-        person:state.getIn(['ControlRoomOriginalRe', 'person']),
-        t_name:state.getIn(['ControlRoomOriginalRe', 't_name']),
-        startValue: state.getIn(['ControlRoomOriginalRe', 'startValue']),
-        endValue: state.getIn(['ControlRoomOriginalRe', 'endValue']),
-        /**化验室日报进厂**/
-        date_HYS_RB:state.getIn(['TableJCYCL', 'date_HYS_RB']),
-        RMA_SHS:state.getIn(['TableJCYCL', 'RMA_SHS']),
-        RAO_SHS:state.getIn(['TableJCYCL', 'RAO_SHS']),
-        RMA_SY:state.getIn(['TableJCYCL', 'RMA_SY']),
-        RAO_SY:state.getIn(['TableJCYCL', 'RAO_SY']),
-        RMA_FMHg:state.getIn(['TableJCYCL', 'RMA_FMHg']),
-        RAO_FMHg:state.getIn(['TableJCYCL', 'RAO_FMHg']),
-        RMA_FMHs:state.getIn(['TableJCYCL', 'RMA_FMHs']),
-        RAO_FMHs:state.getIn(['TableJCYCL', 'RAO_FMHs']),
-        RMA_TF:state.getIn(['TableJCYCL', 'RMA_TF']),
-        RAO_TF:state.getIn(['TableJCYCL', 'RAO_TF']),
-
-        /***************************仓下****************************************/
-        CX_CaCO3:state.getIn(['TableJCYCL', 'CX_CaCO3']),
-        /****************************end*****************/
-        t_name_HYS_RB:state.getIn(['TableJCYCL', 't_name_HYS_RB']),
-        requestFlag_HYS_RB:state.getIn(['TableJCYCL', 'requestFlag_HYS_RB']),
-    }
-}
-
-const mapDispathToProps = (dispatch) => {
-    return {
-        setOldData(tableName,date,upperData,bottomData){
-            dispatch(actionCreators.getData(tableName,date,upperData,bottomData))
-        },
-        setOldStandard(startValue, endValue,tableName) {
-            dispatch(actionCreators.getOldStandard(tableName, startValue, endValue))
-        },
-        set_HYS_RB_Data(tableName,date,RMA_SHS,RAO_SHS,RMA_SY,RAO_SY,RMA_FMHg,RAO_FMHg,RMA_FMHs,RAO_FMHs,RMA_TF,RAO_TF,CX_CaCO3){
-            dispatch(actionCreators_HYS_RB.getDataHYSRB(tableName,date,RMA_SHS,RAO_SHS,RMA_SY,RAO_SY,RMA_FMHg,RAO_FMHg,RMA_FMHs,RAO_FMHs,RMA_TF,RAO_TF,CX_CaCO3))
-
-        },
-    }//end return
-}
+// const mapStateToProps = (state) => {
+//     return {
+//         /**
+//          * 荧光室原始记录
+//          */
+//         date:state.getIn(['ControlRoomOriginalRe', 'date']),
+//         timeChose:state.getIn(['ControlRoomOriginalRe', 'timeChose']),
+//         _upperData:state.getIn(['ControlRoomOriginalRe', 'upperData']),
+//         _bottomData:state.getIn(['ControlRoomOriginalRe', 'bottomData']),
+//         requestFlag:state.getIn(['ControlRoomOriginalRe', 'requestFlag']),
+//         person:state.getIn(['ControlRoomOriginalRe', 'person']),
+//         t_name:state.getIn(['ControlRoomOriginalRe', 't_name']),
+//         startValue: state.getIn(['ControlRoomOriginalRe', 'startValue']),
+//         endValue: state.getIn(['ControlRoomOriginalRe', 'endValue']),
+//         /**化验室日报进厂**/
+//         date_HYS_RB:state.getIn(['TableJCYCL', 'date_HYS_RB']),
+//         RMA_SHS:state.getIn(['TableJCYCL', 'RMA_SHS']),
+//         RAO_SHS:state.getIn(['TableJCYCL', 'RAO_SHS']),
+//         RMA_SY:state.getIn(['TableJCYCL', 'RMA_SY']),
+//         RAO_SY:state.getIn(['TableJCYCL', 'RAO_SY']),
+//         RMA_FMHg:state.getIn(['TableJCYCL', 'RMA_FMHg']),
+//         RAO_FMHg:state.getIn(['TableJCYCL', 'RAO_FMHg']),
+//         RMA_FMHs:state.getIn(['TableJCYCL', 'RMA_FMHs']),
+//         RAO_FMHs:state.getIn(['TableJCYCL', 'RAO_FMHs']),
+//         RMA_TF:state.getIn(['TableJCYCL', 'RMA_TF']),
+//         RAO_TF:state.getIn(['TableJCYCL', 'RAO_TF']),
+//
+//         /***************************仓下****************************************/
+//         CX_CaCO3:state.getIn(['TableJCYCL', 'CX_CaCO3']),
+//         /****************************end*****************/
+//         t_name_HYS_RB:state.getIn(['TableJCYCL', 't_name_HYS_RB']),
+//         requestFlag_HYS_RB:state.getIn(['TableJCYCL', 'requestFlag_HYS_RB']),
+//     }
+// }
+//
+// const mapDispathToProps = (dispatch) => {
+//     return {
+//         setOldData(tableName,date,upperData,bottomData){
+//             dispatch(actionCreators.getData(tableName,date,upperData,bottomData))
+//         },
+//         setOldStandard(startValue, endValue,tableName) {
+//             dispatch(actionCreators.getOldStandard(tableName, startValue, endValue))
+//         },
+//         set_HYS_RB_Data(tableName,date,RMA_SHS,RAO_SHS,RMA_SY,RAO_SY,RMA_FMHg,RAO_FMHg,RMA_FMHs,RAO_FMHs,RMA_TF,RAO_TF,CX_CaCO3){
+//             dispatch(actionCreators_HYS_RB.getDataHYSRB(tableName,date,RMA_SHS,RAO_SHS,RMA_SY,RAO_SY,RMA_FMHg,RAO_FMHg,RMA_FMHs,RAO_FMHs,RMA_TF,RAO_TF,CX_CaCO3))
+//
+//         },
+//     }//end return
+// }
 
 //export default BurnSysOpRe;
-export default connect(mapStateToProps, mapDispathToProps)(AppIndex);
+//export default connect(mapStateToProps, mapDispathToProps)(AppIndex);

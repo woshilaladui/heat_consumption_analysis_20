@@ -195,6 +195,7 @@ class UpperForm extends Component {
         for (let i = 0; i < 8; i++) {
             const index = i + timeChose * 12;
             const value = Data[index]['data'];
+            //Data[index].data
 
 
             dataSource.push(

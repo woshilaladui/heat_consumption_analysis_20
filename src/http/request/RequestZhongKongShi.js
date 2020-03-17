@@ -17,7 +17,7 @@ import {deepCopy} from "../../Helper/Copy";
  * @param data 为页面中该表（24行数据）
  * @returns {Promise<any>}
  */
-export function requestGetHuaYanShiDataByTableNameAndDate(
+export function requestGetZhongKongShiDataByTableNameAndDate(
     date,
     tableName,
     data
@@ -71,7 +71,7 @@ export function requestGetHuaYanShiDataByTableNameAndDate(
 
 }
 
-export function requestSaveHuaYanShiData(
+export function requestSaveZhongKongShiData(
     {
         date,
         index,

@@ -3,8 +3,8 @@ import {message} from "antd";
 
 //导入中控室的请求方法
 import {
-    requestGetHuaYanShiDataByTableNameAndDate,
-    requestSaveHuaYanShiData,
+    requestGetZhongKongShiDataByTableNameAndDate,
+    requestSaveZhongKongShiData,
 } from "../../../../http/request/RequestZhongKongShi"
 import {
     Mark,
@@ -46,7 +46,7 @@ export const updateData = ({data}) => ({
 export const getData = (date, tableName, data) => {
     return (dispatch) => {
 
-        requestGetHuaYanShiDataByTableNameAndDate(
+        requestGetZhongKongShiDataByTableNameAndDate(
             date,
             tableName,
             data
@@ -55,6 +55,7 @@ export const getData = (date, tableName, data) => {
             dispatch(updateData({//将获取到的数据进行转发
                 data: response
             }));
+
         });//end requestGetHuaYanShiDataByTableNameAndDate
     }
 };//end getData
@@ -72,7 +73,7 @@ export function saveData(
 ) {
 
     return(dispatch) =>{
-        requestSaveHuaYanShiData({
+        requestSaveZhongKongShiData({
             date: date,
             index: index,
             duty: window.localStorage.duty,
