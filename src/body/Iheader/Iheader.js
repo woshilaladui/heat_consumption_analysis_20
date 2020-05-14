@@ -298,7 +298,18 @@ class Iheader extends Component {
                             化验室年报
                         </Menu.Item>
                     </SubMenu>
-
+                    <SubMenu
+                        key='sub5'
+                        style={{display: pageDisplay[7]}}
+                        title={<span className="submenu-title-wrapper"><Icon type="database"/>电量表格</span>}
+                    >
+                        <Menu.Item className="header_menuItem" key="44">
+                            每月电量表
+                        </Menu.Item>
+                        <Menu.Item className="header_menuItem" key="45">
+                            35KW表
+                        </Menu.Item>
+                    </SubMenu>
                     <Menu.Item className='header_menuItem' key="42" style={{display: pageDisplay[5]}}>
                         <Icon type="setting"/>设置合格标准
                     </Menu.Item>

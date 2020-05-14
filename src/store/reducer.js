@@ -14,6 +14,7 @@ import { reducer as ControlRoomOriginalReReducer } from '../table/fluorescenceAn
 import { reducer as TableJCYCLReducer } from '../table/huayanshiTable/huayanshiRibao/TableJCYCL/store';
 import { reducer as fluoAnaAndDetReReducer } from '../table/centerControlRoom/fluoAnaAndDetRe/store';
 
+
 /*******************************************化验室*******************************************************/
 import { reducer as RawMatCheAnaReReducer } from '../table/fluorescenceAnaTabel/RawMatCheAnaRe/store';
 import { reducer as RawMatCheAnaReSYReducer } from '../table/fluorescenceAnaTabel/RawMatCheAnaReSY/store';
@@ -26,6 +27,13 @@ import { reducer as KilnCAnaSumTableReducer } from '../table/fluorescenceAnaTabe
 import { reducer as FactoryCliAnaSumTableReducer } from '../table/fluorescenceAnaTabel/FactoryCliAnaSumTable/store';
 
 //FactoryCliAnaSumTable
+
+import { reducer as smIndusAnaOriReReducer } from '../table/analysisTable/SMIndusAnaOriRe/store';
+import { reducer as mfIndusAnaOriReReducer } from '../table/analysisTable/MFIndusAnaOriRe/store';
+
+import { reducer as monthElectricityReducer } from '../table/electricityTable/monthElectricity/store';
+import { reducer as threeFiveKwTableReducer } from '../table/electricityTable/threeFiveKwTable/store';
+
 
 const reducer = combineReducers({
 
@@ -54,8 +62,12 @@ const reducer = combineReducers({
 	KilnCAnaSumTable:KilnCAnaSumTableReducer,//出窑熟料全分析汇总表
 	FactoryCliAnaSumTable:FactoryCliAnaSumTableReducer,//出厂熟料全分析汇总表
 	home_app:homeAppReducer,
+	
+	smIndusAnaOriRe:smIndusAnaOriReReducer, //神木工业分析原始记录
+	mfIndusAnaOriRe:mfIndusAnaOriReReducer,  //煤粉工业分析原始记录
 
-
+	monthElectricity:monthElectricityReducer,  //每月电量表
+	threeFiveKwTable:threeFiveKwTableReducer  //35KW表
 });
 
 export default reducer;

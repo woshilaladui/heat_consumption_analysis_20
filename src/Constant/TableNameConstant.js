@@ -153,12 +153,12 @@ export const TableName ={
     * @tableName 
     * @directory /table/
     */
-    Eletri_MFA:"",
-    // /**
-    // * @tableName
-    // * @directory /table/
-    // */
-    // Eletri_MFA:"",
+    Eletri_ME:"ET_ME",
+    /**
+    * @tableName 
+    * @directory /table/
+    */
+    Eletri_TFKT:"ET_TFKT",
 
     /**********************************************中控室*********************************************/
 

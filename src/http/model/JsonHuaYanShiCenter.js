@@ -30,7 +30,6 @@ export function getSaveHuaYanShiDataJson(
         num = 1,//默认提交单行数据
     }
 ) {
-
     let tempData = [{}];
 
     if(num === 1){

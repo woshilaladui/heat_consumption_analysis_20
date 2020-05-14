@@ -55,6 +55,9 @@ import MFIndusAnaOriRe from '../../table/analysisTable/MFIndusAnaOriRe/MFIndusAn
 import HuayanshiRibao from "../../table/huayanshiTable/huayanshiRibao/HuayanshiRibao";
 import {deepCopy} from "../../Helper/Copy";
 
+import MonthElectricity from "../../table/electricityTable/monthElectricity/MonthElectricity";
+import ThreeFiveKwTable from "../../table/electricityTable/threeFiveKwTable/ThreeFiveKwTable";
+
 const { Content} = Layout;
 
 
@@ -106,7 +109,9 @@ export default class AppIndex extends Component {
                 <MFIndusAnaOriRe />,//37
                 <HuayanshiRibao />,"7","8","9",
                 <SetStandard />,
-                <StaffManagement />
+                <StaffManagement />,
+                <MonthElectricity />,//44
+                <ThreeFiveKwTable />//45
             ],
         }
 

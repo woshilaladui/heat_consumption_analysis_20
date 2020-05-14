@@ -7,8 +7,8 @@ import * as actionCreators from './store/actionCreators';
 import {requestCheckPermission} from "../../../http/request/RequestUser"
 import {deepCopy} from "../../../Helper/Copy";
 
-//神木工业分析原始记录
-class SMIndusAnaOriRe extends Component {
+//每月电量表
+class MonthElectricity extends Component {
     returnBack = () => {
         this.props.history.push("/index");
     };
@@ -25,11 +25,12 @@ class SMIndusAnaOriRe extends Component {
         }
 
     }
+
 	render(){
 		return(
 			<Fragment>
 				<div style={{padding: '1%'}} ref={(el) => this.refs = el}>
-					<h1 align="center">神木工业分析原始记录</h1>
+					<h1 align="center">每月电量表</h1>
 					{/*表单最上的时间及人员显示*/}
 					<TimeShow/>
 					<div
@@ -58,12 +59,11 @@ class SMIndusAnaOriRe extends Component {
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date:state.getIn(['smIndusAnaOriRe', 'date']),
-        /*timeChose:state.getIn(['smIndusAnaOriRe', 'timeChose']),*/
-        data:state.getIn(['smIndusAnaOriRe', 'data']),
-        requestFlag:state.getIn(['smIndusAnaOriRe', 'requestFlag']),
-        person:state.getIn(['smIndusAnaOriRe', 'person']),
-        tableName:state.getIn(['smIndusAnaOriRe', 'tableName']),
+        date:state.getIn(['monthElectricity', 'date']),
+        data:state.getIn(['monthElectricity', 'data']),
+        requestFlag:state.getIn(['monthElectricity', 'requestFlag']),
+        person:state.getIn(['monthElectricity', 'person']),
+        tableName:state.getIn(['monthElectricity', 'tableName']),
     }
 }
 
@@ -75,5 +75,5 @@ const mapDispathToProps = (dispatch) => {
     }//end return
 }
 
-//export default SMIndusAnaOriRe;
-export default connect(mapStateToProps, mapDispathToProps)(SMIndusAnaOriRe);
+//export default MonthElectricity;
+export default connect(mapStateToProps, mapDispathToProps)(MonthElectricity);
