@@ -3,14 +3,16 @@ import {Button} from 'antd';
 import { Popconfirm } from 'antd';
 import * as actionCreators from "../../RawFAnaRaRe/store/actionCreators";
 import {connect} from "react-redux";
+import {Table} from "../../../../http/constant/Constant";
+import {deepCopy} from "../../../../Helper/Copy";
 
 class ButtonConfirmationBox extends Component{
 
 
     postAllToHome(){
-        const { saveAllBottomToHome, t_name, bottomData,date} = this.props;
-        const tempBottomData = JSON.parse(JSON.stringify(bottomData))
-        saveAllBottomToHome(t_name,date,tempBottomData);
+        const {data, saveAllToHome, tableName,date} = this.props;
+        const Data = deepCopy(data)
+        saveAllToHome(date,tableName, Data);
     }
 
     cancel() {
@@ -36,30 +38,32 @@ class ButtonConfirmationBox extends Component{
 //定义映射
 const mapStateToProps = (state) => {
     return {
+
         date:state.getIn(['ruYSLYGFXJL', 'date']),
+        allTime:state.getIn(['ruYSLYGFXJL', 'allTime']),
         timeChose:state.getIn(['ruYSLYGFXJL', 'timeChose']),
-        upperDataFront:state.getIn(['ruYSLYGFXJL', 'upperDataFront']),
-        upperDataLast:state.getIn(['ruYSLYGFXJL', 'upperDataLast']),
-        bottomData:state.getIn(['ruYSLYGFXJL', 'bottomData']),
+        data:state.getIn(['ruYSLYGFXJL', 'data']),
+        requestFlag:state.getIn(['ruYSLYGFXJL', 'requestFlag']),
         person:state.getIn(['ruYSLYGFXJL', 'person']),
-        t_name:state.getIn(['ruYSLYGFXJL', 't_name']),
+        tableName:state.getIn(['ruYSLYGFXJL', 'tableName']),
+
 
     }
 }
 
 const mapDispathToProps = (dispatch) => {
     return {
-        saveAllBottomToHome( tableName, date, data){
+        saveAllToHome(date,tableName, data){
             dispatch(actionCreators.saveData({
-                tableType:2,
-                tableName:tableName,
+                tableType:Table.ALL_TABLE,
                 date:date,
+                tableName:tableName,
                 data:data,
-                num:1//提交下表的1行数据
-            }))
-        },
+                num:3
+            }));
+        }
 
     }//end return
-}
+};
 
 export default connect(mapStateToProps, mapDispathToProps)(ButtonConfirmationBox);

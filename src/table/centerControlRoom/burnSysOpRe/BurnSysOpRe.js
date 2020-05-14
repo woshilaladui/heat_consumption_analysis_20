@@ -6,7 +6,6 @@ import UpperForm from './component/UpperForm';
 import BottomForm from './component/BottomForm';
 import { connect } from 'react-redux';
 import * as actionCreators from './store/actionCreators';
-import {requestCheckPermission} from "../../../http/request/RequestUser"
 import {deepCopy} from "../../../Helper/Copy";
 
 //福石水泥3000t/d中控室烧成系统运行记录
@@ -25,6 +24,7 @@ class BurnSysOpRe extends Component {
         const {data, date, tableName, setOldData,requestFlag} = this.props;
 
         if(requestFlag){
+
             setOldData(date,tableName,deepCopy(data));
         }
 
@@ -46,7 +46,7 @@ class BurnSysOpRe extends Component {
                             margin: "0px 30px 0px 30px"
                         }}
                     >
-                        表单上半部分
+
                         <UpperForm/>
                         {/* 表单下半部分 */}
                         <BottomForm/>
@@ -81,7 +81,7 @@ const mapStateToProps = (state) => {
         person:state.getIn(['burnSysOpRe', 'person']),
         tableName:state.getIn(['burnSysOpRe', 'tableName']),
     }
-}
+};
 
 const mapDispathToProps = (dispatch) => {
     return {
@@ -89,7 +89,7 @@ const mapDispathToProps = (dispatch) => {
             dispatch(actionCreators.getData(date,tableName,data))
         }
     }//end return
-}
+};
 
 //export default BurnSysOpRe;
 export default connect(mapStateToProps, mapDispathToProps)(BurnSysOpRe);

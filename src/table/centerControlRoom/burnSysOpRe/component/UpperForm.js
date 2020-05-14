@@ -31,11 +31,14 @@ class UpperForm extends Component {
      * 表格输入数据变化的监听，同时所有的数据更新
      **/
     onInputNumberChange2 = (value, indexH, indexL) => {
-        const {data, timeChose, updateChange} = this.props;
-        let NewData = deepCopy(data)//复制一份出来
-        let index = indexH + timeChose * 12;
-        NewData[index]["data"][indexL] = value;
-        updateChange(NewData)
+        if(value != null){
+            const {data, timeChose, updateChange} = this.props;
+            let NewData = deepCopy(data)//复制一份出来
+            let index = indexH + timeChose * 12;
+            NewData[index]["data"][indexL] = value;
+            updateChange(NewData)
+        }
+
     };
 
     //控制输入框的样式
@@ -166,11 +169,11 @@ class UpperForm extends Component {
                 dataIndex: 'person',
                 width: '7.5%',
             },
-            {
-                title: '暂存',
-                dataIndex: 'btn_save',
-                width: '7.5%',
-            },
+            // {
+            //     title: '暂存',
+            //     dataIndex: 'btn_save',
+            //     width: '7.5%',
+            // },
         ];
 
         /**表头的设计**end**/
@@ -214,7 +217,9 @@ class UpperForm extends Component {
                         style={this.changeStyle(value[1])}
                         defaultValue={''}
                         value={isNaN(value[1]) ? null : value[1]}
-                        onChange={event => this.onInputNumberChange2(event.target.value, i, 1)}
+                        onChange={
+                            event => this.onInputNumberChange2(event.target.value, i, 1)
+                        }
                     /></span>,
                     SLWL: <span><Input
 
@@ -237,8 +242,8 @@ class UpperForm extends Component {
                         value={isNaN(value[4]) ? null : value[4]}
                         onChange={event => this.onInputNumberChange2(event.target.value, i, 4)}
                     /></span>,
-                    person: Data[index]['user'],
-                    btn_save: <Button type='primary' onClick={() => this.postToHome(i)}>暂存</Button>,
+                    person: Data[index]['user'],//Data[index].user
+                    //btn_save: <Button type='primary' onClick={() => this.postToHome(i)}>暂存</Button>,
                 })
         }
 
@@ -278,7 +283,6 @@ const mapDispathToProps = (dispatch) => {
         },
 
 
-
         //上表暂存一行数据
         saveToHome(date, index, tableName, data) {
 
@@ -292,7 +296,7 @@ const mapDispathToProps = (dispatch) => {
         },
 
     }//end return
-}
+};
 
 
 export default connect(mapStateToProps, mapDispathToProps)(UpperForm);

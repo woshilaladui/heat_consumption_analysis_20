@@ -1,6 +1,10 @@
 import React, { Component} from 'react';
 import {Button} from 'antd';
 import { Popconfirm} from 'antd';
+import * as actionCreators from "../../../fluorescenceAnaTabel/RawMatCheAnaRe/store/actionCreators";
+import {Table} from "../../../../http/constant/Constant";
+import {connect} from "react-redux";
+import {deepCopy} from "../../../../Helper/Copy";
 
 class ButtonConfirmationBox extends Component{
     
@@ -11,10 +15,17 @@ class ButtonConfirmationBox extends Component{
 
     }
 
+    postAllToHome(){
+        const {data, saveAllToHome, tableName,date} = this.props;
+        const Data = deepCopy(data)
+        saveAllToHome(date,tableName, Data);
+    }
+
+
     render()
     { 
         return(
-            <Popconfirm title={"是否"+this.props.buttonText} onConfirm={this.props.action} onCancel={this.cancel}
+            <Popconfirm title={"是否提交"} onConfirm={()=> this.postAllToHome()} onCancel={this.cancel}
                         placement={this.arrowPointAtCenter}
                         okText="是"
                         cancelText="否">
@@ -22,10 +33,41 @@ class ButtonConfirmationBox extends Component{
                         style={{
                             margin:'20px 5px 0px 5px'
                         }}
-                >{this.props.buttonText}</Button>
+                > 提交</Button>
             </Popconfirm>
 
         );
     }
 }
-export default ButtonConfirmationBox;
+//定义映射
+const mapStateToProps = (state) => {
+    return {
+
+        date:state.getIn(['RawMatCheAnaRe', 'date']),
+        allTime:state.getIn(['RawMatCheAnaRe', 'allTime']),
+        timeChose:state.getIn(['RawMatCheAnaRe', 'timeChose']),
+        data:state.getIn(['RawMatCheAnaRe', 'data']),
+        requestFlag:state.getIn(['RawMatCheAnaRe', 'requestFlag']),
+        person:state.getIn(['RawMatCheAnaRe', 'person']),
+        tableName:state.getIn(['RawMatCheAnaRe', 'tableName']),
+
+
+    }
+};
+
+const mapDispathToProps = (dispatch) => {
+    return {
+        saveAllToHome(date,tableName, data){
+            dispatch(actionCreators.saveData({
+                tableType:Table.ALL_TABLE,
+                date:date,
+                tableName:tableName,
+                data:data,
+                num:30
+            }));
+        }
+
+    }//end return
+};
+
+export default connect(mapStateToProps, mapDispathToProps)(ButtonConfirmationBox);

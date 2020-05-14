@@ -2,18 +2,26 @@ import React, {Component} from 'react';
 import { Input,Row, Col } from 'antd';
 import {connect} from "react-redux";
 import * as actionCreators from "../store/actionCreators";
+import {deepCopy} from "../../../../Helper/Copy";
 class Remark extends Component{
     handleInputChange(value,indexH,indexL){
-        const {bottomData,updateChange} = this.props;
-        let NewData = JSON.parse(JSON.stringify(bottomData))//复制一份出来
 
-        NewData[indexH]["t_data"][indexL] = value.toString();
-        updateChange(NewData)
+        if(value != null){
+            const {data, updateChange} = this.props;
+            let NewData = deepCopy(data)//复制一份出来
+
+            NewData[indexH]["data"][indexL] = value.toString();
+
+            updateChange(NewData)
+        }
+
     }
+
     render(){
         const titleArr = ["夜班","白班","中班"]//0 1 2
-        const { person,timeChose,bottomData} = this.props;
-        const Data = JSON.parse(JSON.stringify(bottomData))//下表的数据
+        const {data,timeChose,person} = this.props;
+
+        const Data = deepCopy(data);
         return(
             <div className = 'remark' style ={{width: "100%", height:72}}>
                 <div className = 'title'
@@ -26,26 +34,26 @@ class Remark extends Component{
                     <div>
                         <Row type="flex" justify="space-between">
                             <Col span={4}><label>原煤仓重:</label><Input
-                                onChange={event => {this.handleInputChange(event.target.value,timeChose,0)}}
-                                value={Data[timeChose]['t_data'][0]}
+                                onChange={event => {this.handleInputChange(event.target.value,8+timeChose*9,0)}}
+                                value={Data[8+timeChose*9]['data'][0]}
                                 type = "text"
                                 style={{width:'80px'}}
                             /></Col>
                             <Col span={5}><label>原煤仓累计量:</label><Input
-                                onChange={event => {this.handleInputChange(event.target.value,timeChose,1)}}
-                                value={Data[timeChose]['t_data'][1]}
+                                onChange={event => {this.handleInputChange(event.target.value,8+timeChose*9,1)}}
+                                value={Data[8+timeChose*9]['data'][1]}
                                 type = "text"
                                 style={{width:'80px'}}
                             /></Col>
                             <Col span={4}><label>头煤仓重:</label><Input
-                                onChange={event => {this.handleInputChange(event.target.value,timeChose,2)}}
-                                value={Data[timeChose]['t_data'][2]}
+                                onChange={event => {this.handleInputChange(event.target.value,8+timeChose*9,2)}}
+                                value={Data[8+timeChose*9]['data'][2]}
                                 type = "text"
                                 style={{width:'80px'}}
                             /></Col>
                             <Col span={4}><label>尾煤仓重:</label><Input
-                                onChange={event => {this.handleInputChange(event.target.value,timeChose,3)}}
-                                value={Data[timeChose]['t_data'][3]}
+                                onChange={event => {this.handleInputChange(event.target.value,8+timeChose*9,3)}}
+                                value={Data[8+timeChose*9]['data'][3]}
                                 type = "text"
                                 style={{width:'80px'}}
                             /></Col>
@@ -62,17 +70,20 @@ class Remark extends Component{
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date: state.getIn(['coalSysOpRe', 'date']),
-        timeChose: state.getIn(['coalSysOpRe', 'timeChose']),
-        bottomData: state.getIn(['coalSysOpRe', 'bottomData']),
-        person: state.getIn(['coalSysOpRe', 'person']),
+        date:state.getIn(['coalSysOpRe', 'date']),
+        allTime:state.getIn(['coalSysOpRe', 'allTime']),
+        timeChose:state.getIn(['coalSysOpRe', 'timeChose']),
+        data:state.getIn(['coalSysOpRe', 'data']),
+        requestFlag:state.getIn(['coalSysOpRe', 'requestFlag']),
+        person:state.getIn(['coalSysOpRe', 'person']),
+        tableName:state.getIn(['coalSysOpRe', 'tableName']),
     }
 }
 
 const mapDispathToProps = (dispatch) => {
     return {
         updateChange(NewData) {
-            dispatch(actionCreators.updateBottomData(NewData))
+            dispatch(actionCreators.updateData({data:deepCopy(NewData)}))
         },
     }//end return
 }

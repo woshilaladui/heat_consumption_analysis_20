@@ -3,6 +3,8 @@ import {Button} from 'antd';
 import { Popconfirm } from 'antd';
 import * as actionCreators from "../../rawSysOpRe/store/actionCreators";
 import {connect} from "react-redux";
+import {Table} from "../../../../http/constant/Constant";
+import {deepCopy} from "../../../../Helper/Copy";
 
 class ButtonConfirmBox extends Component{
 
@@ -11,11 +13,9 @@ class ButtonConfirmBox extends Component{
 
     }
     postAllToHome() {
-        const {upperData, saveAllUpperToHome, saveAllBottomToHome, t_name, bottomData, date} = this.props;
-        const tempUpperData = JSON.parse(JSON.stringify(upperData))
-        const tempBottomData = JSON.parse(JSON.stringify(bottomData))
-        saveAllUpperToHome(t_name, date, tempUpperData);
-        saveAllBottomToHome(t_name, date, tempBottomData);
+        const {data, saveAllToHome, tableName,date} = this.props;
+        const Data = deepCopy(data)
+        saveAllToHome(date,tableName, Data);
     }
 
 
@@ -39,39 +39,30 @@ class ButtonConfirmBox extends Component{
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date: state.getIn(['rawSysOpRe', 'date']),
-        timeChose: state.getIn(['rawSysOpRe', 'timeChose']),
-        bottomData: state.getIn(['rawSysOpRe', 'bottomData']),
-        person: state.getIn(['rawSysOpRe', 'person']),
-        upperData: state.getIn(['rawSysOpRe', 'upperData']),
-        t_name: state.getIn(['rawSysOpRe', 't_name']),
+
+        date:state.getIn(['rawSysOpRe', 'date']),
+        allTime:state.getIn(['rawSysOpRe', 'allTime']),
+        timeChose:state.getIn(['rawSysOpRe', 'timeChose']),
+        data:state.getIn(['rawSysOpRe', 'data']),
+        requestFlag:state.getIn(['rawSysOpRe', 'requestFlag']),
+        person:state.getIn(['rawSysOpRe', 'person']),
+        tableName:state.getIn(['rawSysOpRe', 'tableName']),
+
 
     }
 }
 
 const mapDispathToProps = (dispatch) => {
     return {
-        updateChange(NewData) {
-            dispatch(actionCreators.updateBottomData(NewData))
-        },
-        saveAllUpperToHome(tableName, date, data) {//提交上表的数据
+        saveAllToHome(date,tableName, data){
             dispatch(actionCreators.saveData({
-                tableType: 1,
-                tableName: tableName,
-                date: date,
-                data: data,
-                num: 24//24行数据 (24小时的数据)
-            }))
-        },
-        saveAllBottomToHome(tableName, date, data) {
-            dispatch(actionCreators.saveData({
-                tableType: 2,
-                tableName: tableName,
-                date: date,
-                data: data,
-                num: 6//提交下表的6行数据(每班2行 共3班)
-            }))
-        },
+                tableType:Table.ALL_TABLE,
+                date:date,
+                tableName:tableName,
+                data:data,
+                num:27
+            }));
+        }
 
     }//end return
 }

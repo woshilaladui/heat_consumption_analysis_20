@@ -11,11 +11,10 @@ import {
     Table
 } from "../../../../http/constant/Constant"
 import {
-    updateOperator
+    updateOperator, ZhongKongShiFormat
 } from "../../../../Helper/Format"
 
 
-import moment from "./reducer";
 import {deepCopy} from "../../../../Helper/Copy";
 
 
@@ -27,7 +26,7 @@ import {deepCopy} from "../../../../Helper/Copy";
 export const changeTimeChose = (timeChose) => ({
     type: constants.CHANGE_TIME_CHOSE_BSO,
     timeChose: timeChose
-})
+});
 
 
 export const updateData = ({data}) => ({
@@ -52,9 +51,24 @@ export const getData = (date, tableName, data) => {
             data
         ).then((response) => {
 
-            dispatch(updateData({//将获取到的数据进行转发
-                data: response
-            }));
+
+            if(response['code'] === 0){
+
+                //解析处理数据
+                let newData = deepCopy(response['data'])
+
+                let result = ZhongKongShiFormat(
+                    data,
+                    newData,
+                    tableName
+                );
+
+                dispatch(updateData({//将获取到的数据进行转发
+                    data: result
+                }));
+            }
+
+
 
         });//end requestGetHuaYanShiDataByTableNameAndDate
     }
@@ -104,7 +118,7 @@ export function saveData(
                     updateOperator({
                         data: data,
                         num: 36
-                    })//该表上表有36行数据
+                    })//该表有36行数据
 
                 dispatch(updateData({data:data}))//最后转发给updateData来更新数据
 

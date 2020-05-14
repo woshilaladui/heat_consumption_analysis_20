@@ -2,11 +2,15 @@ import {HuaYSOrder_JC,HuaYSOrder_CMRYSL} from "../Constant/TableOrder";
 import {JCYCL,CMRYSL} from "../Constant/JCstadnard";
 import {numCalculate_Initial, numCalculate, autoCalculate, divisionCalculate} from "../package/NumCalculate"
 
+
+
 /**
  * 化验室的计算
  */
 /***************************************进场原材料*****************************************/
-
+/**
+ * @Deprecated
+ */
 export function autoCalculateRMA_IL(hour,NewData) {//自动计算进场原材料的IL
     NewData[hour]["t_data"][HuaYSOrder_JC.IL] = autoCalculate(
         [

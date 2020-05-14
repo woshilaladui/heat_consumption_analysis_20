@@ -3,44 +3,12 @@ import ButtonConfirmationBox from "./components/ButtonConfirmBox";
 import TimeShow from "./components/ShowTime";
 import UpperForm from "./components/Upperform";
 import "antd/dist/antd.css";
-import moment from "moment";
-import {URL, Table, Mark, Standard} from "../../../Request/Constant"
-import {getOldData, checkAuthority, getStandard} from "../../../Request/RequsetCenter"
-import {getHuaYSJsonData} from "../../../Request/JsonCenter"
-import {requestGetHuaYanShiDataByTableNameAndDate} from "../../../../src/http/request/RequestHuaYanShi"
+
+import * as actionCreators from "../../fluorescenceAnaTabel/RawMatCheAnaRe/store/actionCreators";
+import {connect} from "react-redux";
+import {deepCopy} from "../../../Helper/Copy";
 // 进厂原材料分析化学报告单（石灰石）
-export default class RuYaoSLYCLHXFXBGD extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            date: moment().format("YYYY-MM-DD"),
-            timeChose: 0, //选择的班次 0代表1-7 1代表8-15 2代表16-23
-            startValue: [], //从数据库获取的标准
-            endValue: [],
-            upperData: [
-                {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-                {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-
-                {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-                {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-
-                {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-                {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []}
-            ], //表格数据
-            data:[
-                {data: []}, {data: []}, {data: []}, {data: []},
-                {data: []}, {data: []}, {data: []}, {data: []},
-
-                {data: []}, {data: []}, {data: []}, {data: []},
-                {data: []}, {data: []}, {data: []}, {data: []},
-
-                {data: []}, {data: []}, {data: []}, {data: []},
-                {data: []}, {data: []}, {data: []}, {data: []}
-            ],
-            person: "",//传入的值班人员
-            t_name: "RMA_SHS",//石灰石
-        };
-    }
+class RuYaoSLYCLHXFXBGD extends Component {
 
     /**onRef控制子组件提交表单**/
     onRef = ref => {
@@ -49,16 +17,14 @@ export default class RuYaoSLYCLHXFXBGD extends Component {
 
     /**点击提交数据**/
     handleSubmit = () => {
-        this.BottomForm.postAllToHome();
+
     };
 
     /**
      * 响应班次变化
      **/
     handleTimeChose(x) {
-        this.setState({
-            timeChose: x
-        });
+
     }
 
     returnBack = () => {
@@ -67,94 +33,35 @@ export default class RuYaoSLYCLHXFXBGD extends Component {
 
     //判定是否已登录，是否有权限
     componentWillMount() {
-
-        requestGetHuaYanShiDataByTableNameAndDate(
-            new Date(),
-            "RMA_SHS",
-            this.state.data
-        ).then((respone)=>{
-
-        })
-
-
-        // checkAuthority(URL.HUAYS_CHECK)
-        //     .then((response) => {
-        //         if (response === Mark.ERROR) {
-        //             this.props.history.push('/');
-        //         }
-        //     })
-        //     .catch()
     }
 
     //如果被查询表单调用，修改date
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            date: nextProps.date,
-        });
-        // console.log('componentWillReceiveProps')
-        // console.log(this.state.date)
-        this.setOldData()
 
 
     }
 
 
     componentDidMount() {
-        /**首先查询当前页面是否有历史纪录并赋值upperData**/
-        //获取请求参数
 
+        const {data, date, tableName, setOldData,requestFlag} = this.props;
 
-        // console.log('f_componentDidMount')
-        this.setOldData();
-        //设置标准
-        this.setStandard();
+        if(requestFlag){
 
+            setOldData(date,tableName,deepCopy(data));
+        }
     }
 
     setStandard() {
-        getStandard(
-            URL.HUAYS_STANDARD,
-            {t_name: this.state.t_name},
-            this.state.t_name,
-            this.state.startValue,
-            this.state.endValue)
-            .then((response) => {
-                this.setState(() => ({
-                    startValue: response.startValue,
-                    endValue: response.endValue
-                }))
 
-            })
-            .catch()
     }
 
 
     setOldData() {
-        // console.log('setOldData')
-        // console.log(this.state.date)
-        getOldData(
-            URL.HUAYS_QUERY,
-            getHuaYSJsonData(this.state.t_name, this.state.date),
-            this.state.t_name,
-            Standard.HAVA,
-            this.state.upperData
-        )
-            .then((response) => {
 
-                console.log(response)
-
-                this.setState(() => ({
-                    upperData: response,
-                    person: window.localStorage.name,
-                }))
-
-            })
-            .catch()
     }
 
     render() {
-        // console.log('父页面render')
-        // console.log(this.state.date)
         return (
             <Fragment style={{width: "100%", height: "100%"}}>
                 <div style={{padding: '1%'}} ref={(el) => this.refs = el}>
@@ -162,8 +69,7 @@ export default class RuYaoSLYCLHXFXBGD extends Component {
 
                     {/*表单最上的时间及人员显示*/}
                     <TimeShow
-                        person={this.state.person}
-                        handleTimeChose={this.handleTimeChose.bind(this)}
+
                     />
                     <div
                         style={{
@@ -173,15 +79,6 @@ export default class RuYaoSLYCLHXFXBGD extends Component {
                     >
                         {/*表单上半部分*/}
                         <UpperForm
-                            onRef={this.onRef}
-                            startValue={this.state.startValue}
-                            endValue={this.state.endValue}
-                            timeChose={this.state.timeChose}
-                            person={this.state.person}
-                            upperData={this.state.upperData}
-                            date={this.state.date}
-                            t_name={this.state.t_name}
-
                         />
                     </div>
                 </div>
@@ -202,3 +99,25 @@ export default class RuYaoSLYCLHXFXBGD extends Component {
         );
     }
 }
+
+//定义映射
+const mapStateToProps = (state) => {
+    return {
+        date:state.getIn(['RawMatCheAnaRe', 'date']),
+        timeChose:state.getIn(['RawMatCheAnaRe', 'timeChose']),
+        data:state.getIn(['RawMatCheAnaRe', 'data']),
+        requestFlag:state.getIn(['RawMatCheAnaRe', 'requestFlag']),
+        person:state.getIn(['RawMatCheAnaRe', 'person']),
+        tableName:state.getIn(['RawMatCheAnaRe', 'tableName']),
+    }
+};
+
+const mapDispathToProps = (dispatch) => {
+    return {
+        setOldData(date,tableName,data){
+            dispatch(actionCreators.getData(date,tableName,data))
+        }
+    }//end return
+};
+
+export default connect(mapStateToProps, mapDispathToProps)(RuYaoSLYCLHXFXBGD);

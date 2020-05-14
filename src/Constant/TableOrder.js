@@ -14,17 +14,17 @@ const HuaYSOrder_JC ={//化验室进场原材料顺序
     CaO:5,
     MgO:6,
     HJ:7
-}
+};
 
 const HuaYSOrder_CX ={//仓下原材料顺序
     FuZhuoShui:0,
     BuRongWu:1,
     LL:2,
 
-}
+};
 
 
-const HuaYSOrder_CMRYSL ={//出磨生料
+const HuaYSOrder_CMRYSL ={//出磨/入窑洞生料
     SF:0,
     IL:1,
     SiO2:2,
@@ -34,12 +34,11 @@ const HuaYSOrder_CMRYSL ={//出磨生料
     MgO:6,
     HJ:7,
     K2O:8,
-    Na2O:9,
-    KH:10,
-    N:11,
-    P:12
+    KH:9,
+    N:10,
+    P:11
 
-}
+};
 
 /**
  * 分析表格
@@ -56,7 +55,7 @@ const AnalysisOrder_YS = {//原材料分析表格原始记录表
     Na2O:7,
     K2O:8,
     Cl:9
-}
+};
 
 const AnalysisOrder_RawMaterial ={
     IL:0,
@@ -69,7 +68,7 @@ const AnalysisOrder_RawMaterial ={
     Na2O:7,
     K2O:8,
     CL_:9
-}
+};
 
 const AnalysisOrder_UpRipeMaterial = {
     IL:0,
@@ -82,7 +81,7 @@ const AnalysisOrder_UpRipeMaterial = {
     Na2O:7,
     K2O:8,
     CL_:9
-}
+};
 
 const AnalysisOrder_DownRipeMaterial = {
     KH_:0,
@@ -93,7 +92,7 @@ const AnalysisOrder_DownRipeMaterial = {
     C3S:5,
     C3A:6,
     C4AF:7
-}
+};
 
 
 /**
@@ -115,7 +114,7 @@ const ZhongKSOrder_CMS = {//出磨生料荧光分析及配比记录
     FMH:3,
     XD:1,
     SF:3,
-}
+};
 
 /**
  * 入窑生料荧光分析及检测记录 表从入窑生料化学分析报告单 中的数据中的下标和荧光分析中原始记录
@@ -132,7 +131,7 @@ const ZhongKSOrder_RYS = {//
     IM:12,
     XD:4,
     SF:6,
-}
+};
 
 /**
  * 熟料荧光分析及检测记录 从出窑熟料全分析汇总表 和原始记录的下标
@@ -149,7 +148,7 @@ const ZhongKSOrder_FAD = {//中控室
     IM:11,//P
     LSZ:4,//立升重 荧光原始记录表中
     fCaO:0,
-}
+};
 
 
 export {

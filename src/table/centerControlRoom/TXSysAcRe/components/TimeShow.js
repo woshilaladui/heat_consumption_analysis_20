@@ -33,8 +33,8 @@ const mapStateToProps = (state) => {
     return {
         date: state.getIn(['TXSysAcRe', 'date']),
         timeChose: state.getIn(['TXSysAcRe', 'timeChose']),
-        upperData: state.getIn(['TXSysAcRe', 'upperData']),
         person: state.getIn(['TXSysAcRe', 'person']),
+
     }
 }
 
@@ -42,7 +42,7 @@ const mapDispathToProps = (dispatch) => {
     return {
         handleTimeChange(e) {
             const x = parseInt(e)
-            dispatch(actionCreators.changeTimeChose(x))
+            dispatch(actionCreators.doChangeTimeChose(x))
         }
     }//end return
 }

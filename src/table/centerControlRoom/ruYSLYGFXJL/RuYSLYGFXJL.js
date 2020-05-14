@@ -10,14 +10,32 @@ import {deepCopy} from "../../../Helper/Copy";
 class RuYSLYGFXJL extends Component{
 
     componentDidMount() {
-        const {upperDataFront,upperDataLast,bottomData,requestFlag, date, t_name, setOldData} = this.props;
-        if(requestFlag){
-            const tempUpperDataFront = deepCopy(upperDataFront);
-            const tempUpperDataLast = deepCopy(upperDataLast);
-            const tempBottomData = deepCopy(bottomData)
 
-            setOldData(t_name,date,tempUpperDataFront,tempUpperDataLast,tempBottomData);
-        }
+        const{data,date,tableName,requestFlag,getOldData,upperDataFront,upperDataLast,getFrontOldData,getLastOldData} = this.props
+
+        if(requestFlag){
+            getOldData(
+                date,
+                tableName,
+                deepCopy(data)
+            );
+
+            //入窑生料化学分析报告单
+            getFrontOldData(
+                date,
+                "RMC",
+                deepCopy(upperDataFront)
+            );
+
+            //控制室原始记录
+            getLastOldData(
+                date,
+                "CRO",
+                deepCopy(upperDataLast)
+            );
+
+
+        }//end if
     }
 
     render(){
@@ -59,24 +77,56 @@ class RuYSLYGFXJL extends Component{
 //定义映射
 const mapStateToProps = (state) => {
     return {
+
         date:state.getIn(['ruYSLYGFXJL', 'date']),
         timeChose:state.getIn(['ruYSLYGFXJL', 'timeChose']),
-        upperDataFront:state.getIn(['ruYSLYGFXJL', 'upperDataFront']),
-        upperDataLast:state.getIn(['ruYSLYGFXJL', 'upperDataLast']),
+        data:state.getIn(['ruYSLYGFXJL', 'data']),
+        upperDataFront: state.getIn(['ruYSLYGFXJL', 'upperDataFront']),
+        upperDataLast: state.getIn(['ruYSLYGFXJL', 'upperDataLast']),
         requestFlag:state.getIn(['ruYSLYGFXJL', 'requestFlag']),
-        bottomData:state.getIn(['ruYSLYGFXJL', 'bottomData']),
         person:state.getIn(['ruYSLYGFXJL', 'person']),
-        t_name:state.getIn(['ruYSLYGFXJL', 't_name']),
+        tableName:state.getIn(['ruYSLYGFXJL', 'tableName']),
+
+
     }
 }
 
 const mapDispathToProps = (dispatch) => {
     return {
-        setOldData(tableName,date,upperDataFront,upperDataLast,bottomData){
-            dispatch(actionCreators.getData(tableName,date,upperDataFront,upperDataLast,bottomData))
-
+        getOldData(
+            date,
+            tableName,
+            data
+        ){
+            dispatch(
+                actionCreators.getData(date,tableName,data)
+            );
         },
+
+        getFrontOldData(
+            date,
+            tableName,
+            data
+        ){
+            dispatch(actionCreators.getFrontData(
+                date,
+                tableName,
+                data
+            ));
+        },
+
+        getLastOldData(
+            date,
+            tableName,
+            data
+        ){
+            dispatch(actionCreators.getLastData(
+                date,
+                tableName,
+                data
+            ));
+        }
     }//end return
-}
+};
 
 export default connect(mapStateToProps, mapDispathToProps)(RuYSLYGFXJL);

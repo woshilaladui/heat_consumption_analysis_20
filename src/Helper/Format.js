@@ -100,6 +100,7 @@ export function updateOperator(
     if(index ===-1){//提交整张表
         for(let i = 0;i < num;i++){
             if(data[i]['data'].join(',')!==''){
+
                 data[i]['user'] = window.localStorage.username;
 
             }

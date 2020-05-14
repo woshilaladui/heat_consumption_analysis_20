@@ -4,40 +4,27 @@ import "./UpperForm.css";
 
 import {connect} from "react-redux";
 import {ZhongKSOrder_RYS} from "../../../../Constant/TableOrder"
+import * as actionCreators from "../../RawFAnaRaRe/store/actionCreators";
+import {deepCopy} from "../../../../Helper/Copy";
 
 class UpperForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            Time: [],//第一列的时间变化自动控制
-        }
-    }
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         Time: [],//第一列的时间变化自动控制
+    //     }
+    // }
 
 
     /**
      * 第一列的时间变化
      */
     componentWillMount() {
-        const allTime = [
-            ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00'],
-            ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00'],
-            ['16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
-        ];
-        this.setState({
-            Time: [...allTime[this.props.timeChose]],
-        })
+
     }
 
     /**更新props**/
     componentWillReceiveProps(nextProps) {
-        const allTime = [
-            ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00'],
-            ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00'],
-            ['16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
-        ];
-        this.setState({
-            Time: [...allTime[nextProps.timeChose]],
-        });
     }
 
     render() {
@@ -89,18 +76,30 @@ class UpperForm extends Component {
             },
         ];
 
-        const {upperDataFront, upperDataLast,timeChose} = this.props;
-        const DataFront = JSON.parse(JSON.stringify(upperDataFront))
-        const DataLast = JSON.parse(JSON.stringify(upperDataLast))
-        const data = [];
+        const {data,timeChose,allTime,upperDataFront,upperDataLast} = this.props;
+        const Data = deepCopy(data);
+        const DataFront = deepCopy(upperDataFront);
+        const DataLast = deepCopy(upperDataLast);
+        const time = deepCopy(allTime);
+
+        const dataSource = [];
         // 中间八行的数据输入
         for (let i = 0; i < 8; i++) {
-            let hour = i + timeChose * 8;
-            const valueFront = DataFront[hour]['t_data'];
-            const valueLast = DataLast[hour]['t_data'];
-            data.push(
+
+            //入窑生料化学分析报告单每个班次8行
+            const index_Front = i + timeChose * 8;
+
+            //控制室原始记录每个班次表格12行
+            const index_Last = i + timeChose * 12;
+
+
+            const valueFront = DataFront[index_Front]['data'];
+            const valueLast = DataLast[index_Last]['data'];
+
+
+            dataSource.push(
                 {
-                    Time: this.state.Time[i],
+                    Time: time[timeChose][i],
                     SiO2: <span>{isNaN(valueFront[ZhongKSOrder_RYS.SiO2]) ? null : valueFront[ZhongKSOrder_RYS.SiO2]}</span>,
                     Al2O3: <span>{isNaN(valueFront[ZhongKSOrder_RYS.Al2O3]) ? null : valueFront[ZhongKSOrder_RYS.Al2O3]}</span>,
                     Fe2O3: <span>{isNaN(valueFront[ZhongKSOrder_RYS.Fe2O3]) ? null : valueFront[ZhongKSOrder_RYS.Fe2O3]}</span>,
@@ -120,7 +119,7 @@ class UpperForm extends Component {
 
         return (
             <div className="upper">
-                <Table columns={columns} bordered dataSource={data} pagination={false}/>
+                <Table columns={columns} bordered dataSource={dataSource} pagination={false}/>
             </div>
         )
     }
@@ -129,19 +128,29 @@ class UpperForm extends Component {
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date: state.getIn(['ruYSLYGFXJL', 'date']),
-        timeChose: state.getIn(['ruYSLYGFXJL', 'timeChose']),
+
+        date:state.getIn(['ruYSLYGFXJL', 'date']),
+        allTime:state.getIn(['ruYSLYGFXJL', 'allTime']),
+        timeChose:state.getIn(['ruYSLYGFXJL', 'timeChose']),
+        data:state.getIn(['ruYSLYGFXJL', 'data']),
         upperDataFront: state.getIn(['ruYSLYGFXJL', 'upperDataFront']),
         upperDataLast: state.getIn(['ruYSLYGFXJL', 'upperDataLast']),
-        bottomData: state.getIn(['ruYSLYGFXJL', 'bottomData']),
-        person: state.getIn(['ruYSLYGFXJL', 'person']),
-        t_name: state.getIn(['ruYSLYGFXJL', 't_name']),
+        requestFlag:state.getIn(['ruYSLYGFXJL', 'requestFlag']),
+        person:state.getIn(['ruYSLYGFXJL', 'person']),
+        tableName:state.getIn(['ruYSLYGFXJL', 'tableName']),
+
+
     }
-}
+};
 
 const mapDispathToProps = (dispatch) => {
     return {
+        updateChange(NewData) {
+
+            dispatch(actionCreators.updateData({data:deepCopy(NewData)}))
+        },
+
     }//end return
-}
+};
 
 export default connect(mapStateToProps, mapDispathToProps)(UpperForm);

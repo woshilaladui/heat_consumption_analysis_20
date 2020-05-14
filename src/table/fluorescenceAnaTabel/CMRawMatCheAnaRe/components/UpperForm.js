@@ -1,213 +1,141 @@
-// import React, {Component} from 'react';
-// import {Table, Input, InputNumber, Button, message} from 'antd';
-//import {numCalculate_Initial, numCalculate, autoCalculate, divisionCalculate} from "../../../../package/NumCalculate"
-// import {limitDecimals2, limitDecimals3} from "../../../../package/Limit"
+
 
 import React, {Component} from 'react';
-import {Table, Input, Button, message, InputNumber} from 'antd';
-import {numCalculate_Initial, numCalculate, autoCalculate} from "../../../../package/NumCalculate"
+import {Table, InputNumber} from 'antd';
+
 import {limitDecimals2} from "../../../../package/Limit";
-import {URL} from "../../../../Request/Constant"
-import { HuaYSSave} from "../../../../Request/RequsetCenter"
-import { getHuaYSJsonSaveData} from "../../../../Request/JsonCenter"
-import {HuaYSOrder_CMRYSL} from "../../../../Constant/TableOrder"
-import {autoCalculateRMC_HJ,autoCalculateRMC_IL,updateOperator,autoCalculateRMC_KH,autoCalculateRMC_P,autoCalculateRMC_N} from "../../../../Helper/AutoCalculate"
 
-export default class UpperForm extends Component {
+import {HuaYSOrder_CMRYSL, HuaYSOrder_JC} from "../../../../Constant/TableOrder"
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            Time: [],//第一列的时间变化自动控制
-            Data: [],//原始填写的数据
-            t_name: '',
-            date: '',
-            timeChose: 0,
-            width: 13,//当前表格需要填值得横向列数和
-            average: Array(13 * 3).fill(null),//平均
-            ratio: Array(13 * 3).fill(null),//比值
-            passRate: Array(13 * 3).fill(null),//合格率
-            order: [10, 11, 12],//当前表格需要计算合格率的列数顺序
-        }
-    }
+import * as actionCreators from "../../CMRawMatCheAnaRe/store/actionCreators";
+import {deepCopy} from "../../../../Helper/Copy";
+import {connect} from "react-redux";
+import {
+    autoCalculate_average,
+    autoCalculate_IL,
+    autoCalculateHJ,
+    calculate_pass_rate,
+    autoCalculate_KH,
+    autoCalculate_N,
+    autoCalculate_P
+} from "../../../../Helper/Calculate";
+
+class UpperForm extends Component {
 
 
-    /**初始化**/
+
+
     componentDidMount() {
-        //绑定ref
-        this.props.onRef(this);
+
     }
 
-    /**
-     * 第一列的时间变化
-     */
+
     componentWillMount() {
-        const allTime = [
-            ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00'],
-            ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00'],
-            ['16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
-        ];
-        this.setState({
-            Time: [...allTime[this.props.timeChose]],
-            Data: this.props.upperData,
-            startValue: this.props.startValue,
-            endValue: this.props.endValue,
-            timeChose: this.props.timeChose,
-            t_name: this.props.t_name,
-            date: this.props.date,
-        })
+
     }
 
-    /**更新props**/
     componentWillReceiveProps(nextProps) {
-        const allTime = [
-            ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00'],
-            ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00'],
-            ['16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
-        ];
-        this.setState({
-            Time: [...allTime[nextProps.timeChose]],
-            Data: nextProps.upperData,
-            startValue: nextProps.startValue,
-            endValue: nextProps.endValue,
-            timeChose: nextProps.timeChose,
-            t_name: nextProps.t_name,
-            date: nextProps.date,
-        });
-        this.updataData_Initial();
+
     }
 
-    //暂存函数
-    postToHome(i) {//i是行数
-        const index = i + this.props.timeChose * 8
-        HuaYSSave(
-            URL.HUAYS_SAVE,
-            getHuaYSJsonSaveData({
-                tableName:this.props.t_name,
-                date:this.props.date,
-                index:index,
-                data:this.state.Data
-            }))
-            .then((response) => {
-                message.info('暂存成功');
-                //获取存放的人
-                updateOperator({Data:this.state.Data,index:index})
-                this.setState({
-                    Data: this.state.Data
-                })
-            })
-            .catch()
-    }
-
-    //提交函数
-    postAllToHome() {
-        HuaYSSave(
-            URL.HUAYS_SAVE,
-            getHuaYSJsonSaveData({
-                tableName:this.props.t_name,
-                date:this.props.date,
-                data:this.state.Data,
-                num:24//24行数据提交
-            }))
-            .then((response) => {
-                message.info('提交成功');
-                //获取存放的人
-                updateOperator({Data:this.state.Data})
-                this.setState({
-                    Data: this.state.Data
-                })
-            })
-            .catch()
-    }
-
-    updataData_Initial() {
-        //返回比值，合格率，均值
-        console.log(this.state.average)
-        const arr = numCalculate_Initial(this.state)
-        const ratio = arr[0]//比值
-        const passRate = arr[1]//合格率
-        const average = arr[2]//均值
-        /**是否正常的判定*end*/
-        this.setState({
-            average: average,//比值
-            ratio: ratio,//合格率
-            passRate: passRate,//均值
-        })
-    }
-
-    /***
-     * 进行底部的合格率、平均数的计算更新以及是否正常的判断
-     **/
-    updataData() {
-        //numCalculate会自动计算合格比率，合格率，平均值
-        /**传入顺序
-         * state 当前修改的数据所在列 当前页面需要计算的总列数
-         * */
-        const arr = numCalculate(this.state);
-        this.setState({
-            ratio: arr[0],//合格比率
-            passRate: arr[1],//合格率
-            average: arr[2],//平均值
-        })
-    }
 
     /**
      * 表格输入数据变化的监听，同时所有的数据更新
      * 参数顺序  输入的数值，行数，列数
      **/
-    onInputNumberChange2 = (event, indexH, indexL) => {
-        let NewData = this.state.Data;
-        let hour = indexH + this.props.timeChose * 8;
-        NewData[hour]["t_data"][indexL] = event;
-        //数据自动处理
-        //IL(1):56
-        //合计(7):123456
-        //KH(10):2345
-        //N(11):234
-        //P(12):34
-        //Na2O:有问题待处理
-        /**
-         * 1    合计(7)
-         * 2    合计(7) KH(10) N(11)
-         * 3    合计(7) KH(10) N(11) P(12)
-         * 4    合计(7) KH(10) N(11) P(12)
-         * 5    IL(1) 合计(7) KH(10)
-         * 6    IL(1) 合计(7)
-         * **/
-        switch (indexL) {//触发自动计算函数
-            case HuaYSOrder_CMRYSL.SF:
-            case HuaYSOrder_CMRYSL.IL:
-            case HuaYSOrder_CMRYSL.SiO2:
-            case HuaYSOrder_CMRYSL.Al2O3:
-            case HuaYSOrder_CMRYSL.Fe2O3:
-            case HuaYSOrder_CMRYSL.CaO:
-            case HuaYSOrder_CMRYSL.MgO:
-                autoCalculateRMC_HJ(hour,NewData);
-                autoCalculateRMC_KH(hour,NewData);
-                autoCalculateRMC_N(hour,NewData);
-                autoCalculateRMC_P(hour,NewData);
-                // break;
-            // case HuaYSOrder_CMRYSL.CaO:
-            // case HuaYSOrder_CMRYSL.MgO:
-                autoCalculateRMC_IL(hour,NewData);
+    onInputNumberChange2 = (value, indexH, indexL) => {
+        const {data, updateChange, order, startValue, endValue, width, timeChose,tableWidth} = this.props;
+        let NewData = deepCopy(data);//复制一份出来
 
 
-                break;
-            default:
-                break;
+        //更新表中所填数据
+        if (value != null) {
+            NewData[indexH]["data"][indexL] = value;
         }
 
-        this.setState({
-            Data: NewData
-        });
-    };
-    onInputNumberChange3 = (event, indexH, indexL) => {
-        let NewData = this.state.Data;
-        let hour = indexH + this.props.timeChose * 8;
-        NewData[hour]["t_data"][indexL] = event;
-        this.setState({
-            Data: NewData
-        });
+        //更新IL字段
+        if(indexL === HuaYSOrder_CMRYSL.CaO || indexL === HuaYSOrder_CMRYSL.MgO){
+            autoCalculate_IL(NewData,indexH);
+        }
+
+        //更新KH字段
+        //(CaO-0.35* Fe2O3-1.65* Al2O3)/2.8*SiO2
+        if(
+            indexL === HuaYSOrder_CMRYSL.CaO
+            ||
+            indexL === HuaYSOrder_CMRYSL.Fe2O3
+            ||
+            indexL === HuaYSOrder_CMRYSL.Al2O3
+            ||
+            indexL === HuaYSOrder_CMRYSL.SiO2
+        ){
+
+            autoCalculate_KH(NewData,indexH);
+            // if(NewData[indexH]['data'][HuaYSOrder_CMRYSL.SiO2] !== null){
+            //     autoCalculate_KH
+            // }
+
+        }
+
+        //更新N字段
+        //SiO2/(Al2O3+Fe2O3)
+        if(
+            indexL === HuaYSOrder_CMRYSL.SiO2
+            ||
+            indexL === HuaYSOrder_CMRYSL.Al2O3
+            ||
+            indexL === HuaYSOrder_CMRYSL.Fe2O3
+        ){
+
+            autoCalculate_N(NewData,indexH);
+
+            // if(!(
+            //     NewData[indexH]['data'][HuaYSOrder_CMRYSL.Fe2O3] === null
+            //     &&
+            //     NewData[indexH]['data'][HuaYSOrder_CMRYSL.Al2O3] === null
+            // )){
+            //
+            // }
+
+        }
+
+        //更新P字段
+        //Al2O3/ Fe2O3
+        if(
+            indexL === HuaYSOrder_CMRYSL.Al2O3
+            ||
+            indexL === HuaYSOrder_CMRYSL.Fe2O3
+        ){
+
+            autoCalculate_P(NewData,indexH);
+
+            //Fe2O3 不能空
+            // if(
+            //
+            //         NewData[indexH]['data'][HuaYSOrder_CMRYSL.Fe2O3] !== null
+            //
+            // ){
+            //
+            // }
+        }
+
+
+        //计算合格率
+        const position = order.indexOf(indexL);//判断此列是否需要计算合格率
+
+        //判断是否需要计算
+        if (position >= 0) {
+            //计算合格率
+            calculate_pass_rate(NewData, startValue, endValue, order, width, timeChose, indexL);
+        }
+
+        //计算平均值
+        autoCalculate_average(NewData, timeChose, indexL,tableWidth);
+        let sum = autoCalculateHJ(NewData[indexH]['data'], width);
+        NewData[indexH]['data'][HuaYSOrder_JC.HJ] = sum;
+
+        //更新数据
+        updateChange(NewData);
     };
 
     //控制输入框的样式
@@ -220,6 +148,17 @@ export default class UpperForm extends Component {
                 }
             }
         }
+
+        const {startValue, endValue} = this.props;
+
+        if (value) {
+            if (isNaN(value) || value >= startValue || value <= endValue) {
+                return {
+                    borderColor: 'red',
+                    color: 'red',
+                }
+            }
+        }//end if
     };
 
     render() {
@@ -277,11 +216,11 @@ export default class UpperForm extends Component {
                 dataIndex: 'K2O',
                 width: "5.5%"
             },
-            {
-                title: 'Na2O',
-                dataIndex: 'Na2O',
-                width: "5.5%"
-            },
+            // {
+            //     title: 'Na2O',
+            //     dataIndex: 'Na2O',
+            //     width: "5.5%"
+            // },
             {
                 title: 'KH',
                 dataIndex: 'KH',
@@ -303,140 +242,138 @@ export default class UpperForm extends Component {
                 dataIndex: 'person',
                 width: "5%"
             },
-            {
-                title: '暂存',
-                key: 'btn_save',
-                dataIndex: 'btn_save',
-                width: "6%"
-            }
+            // {
+            //     title: '暂存',
+            //     key: 'btn_save',
+            //     dataIndex: 'btn_save',
+            //     width: "6%"
+            // }
         ];
 
-        const data = [];
+        const dataSource = [];
+        const {data, timeChose, allTime} = this.props;
+        const Data = deepCopy(data);
+        const time = deepCopy(allTime);
 
-
-            //中间八行的数据输入
-        const Data = this.state.Data;
         for (let i = 0; i < 8; i++) {
-            let hour = i + this.props.timeChose * 8;
-            const value = Data[hour]['t_data'];
-            data.push(
+            const index = i + timeChose * 10;
+
+            const value = Data[index]['data'];
+            dataSource.push(
                 {
-                    time: this.state.Time[i],
+                    time: time[timeChose][i],
                     SF: <span><InputNumber
-                        style={this.changeStyle(value[0])}
+                        style={this.changeStyle(value[HuaYSOrder_CMRYSL.SF])}
                         defaultValue={''}
-                        value={isNaN(value[0]) ? null : value[0]}
+                        value={isNaN(value[HuaYSOrder_CMRYSL.SF]) ? null : value[HuaYSOrder_CMRYSL.SF]}
                         formatter={limitDecimals2}//限制输入数值位数
                         parser={limitDecimals2}//限制输入数值位数
-                        onBlur={() => this.updataData()}
-                        onChange={event => this.onInputNumberChange2(event, i, 0)}
+                        onChange={event => this.onInputNumberChange2(event, index, HuaYSOrder_CMRYSL.SF)}
                     /></span>,
                     IL:
-                        <span>{isNaN(value[1]) ? null : value[1]}</span>,
+                        <span>{isNaN(value[HuaYSOrder_CMRYSL.IL]) ? null : value[HuaYSOrder_CMRYSL.IL]}</span>,
                     SiO2:
                         <span><InputNumber
-                            style={this.changeStyle(value[2])}
+                            style={this.changeStyle(value[HuaYSOrder_CMRYSL.SiO2])}
                             defaultValue={''}
-                            value={isNaN(value[2]) ? null : value[2]}
+                            value={isNaN(value[HuaYSOrder_CMRYSL.SiO2]) ? null : value[HuaYSOrder_CMRYSL.SiO2]}
                             formatter={limitDecimals2}//限制输入数值位数
                             parser={limitDecimals2}//限制输入数值位数
-                            onBlur={() => this.updataData(2)}
-                            onChange={event => this.onInputNumberChange2(event, i, 2)}
+
+                            onChange={event => this.onInputNumberChange2(event, index, HuaYSOrder_CMRYSL.SiO2)}
                         /></span>,
                     Al2O3:
                         <span><InputNumber
-                            style={this.changeStyle(value[3])}
+                            style={this.changeStyle(value[HuaYSOrder_CMRYSL.Al2O3])}
                             defaultValue={''}
-                            value={isNaN(value[3]) ? null : value[3]}
+                            value={isNaN(value[HuaYSOrder_CMRYSL.Al2O3]) ? null : value[HuaYSOrder_CMRYSL.Al2O3]}
                             formatter={limitDecimals2}//限制输入数值位数
                             parser={limitDecimals2}//限制输入数值位数
-                            onBlur={() => this.updataData(3)}
-                            onChange={event => this.onInputNumberChange2(event, i, 3)}
+
+                            onChange={event => this.onInputNumberChange2(event, index, HuaYSOrder_CMRYSL.Al2O3)}
                         /></span>,
                     Fe2O3:
                         <span><InputNumber
-                            style={this.changeStyle(value[4])}
+                            style={this.changeStyle(value[HuaYSOrder_CMRYSL.Fe2O3])}
                             defaultValue={''}
-                            value={isNaN(value[4]) ? null : value[4]}
+                            value={isNaN(value[HuaYSOrder_CMRYSL.Fe2O3]) ? null : value[HuaYSOrder_CMRYSL.Fe2O3]}
                             formatter={limitDecimals2}//限制输入数值位数
                             parser={limitDecimals2}//限制输入数值位数
-                            onBlur={() => this.updataData(4)}
-                            onChange={event => this.onInputNumberChange2(event, i, 4)}
+
+                            onChange={event => this.onInputNumberChange2(event, index, HuaYSOrder_CMRYSL.Fe2O3)}
                         /></span>,
                     CaO:
                         <span><InputNumber
-                            style={this.changeStyle(value[5])}
+                            style={this.changeStyle(value[HuaYSOrder_CMRYSL.CaO])}
                             defaultValue={''}
-                            value={isNaN(value[5]) ? null : value[5]}
+                            value={isNaN(value[HuaYSOrder_CMRYSL.CaO]) ? null : value[HuaYSOrder_CMRYSL.CaO]}
                             formatter={limitDecimals2}//限制输入数值位数
                             parser={limitDecimals2}//限制输入数值位数
-                            onBlur={() => this.updataData(5)}
-                            onChange={event => this.onInputNumberChange2(event, i, 5)}
+
+                            onChange={event => this.onInputNumberChange2(event, index, HuaYSOrder_CMRYSL.CaO)}
                         /></span>,
                     MgO:
                         <span><InputNumber
-                            style={this.changeStyle(value[6])}
+                            style={this.changeStyle(value[HuaYSOrder_CMRYSL.MgO])}
                             defaultValue={''}
-                            value={isNaN(value[6]) ? null : value[6]}
+                            value={isNaN(value[HuaYSOrder_CMRYSL.MgO]) ? null : value[HuaYSOrder_CMRYSL.MgO]}
                             formatter={limitDecimals2}//限制输入数值位数
                             parser={limitDecimals2}//限制输入数值位数
-                            onBlur={() => this.updataData(6)}
-                            onChange={event => this.onInputNumberChange2(event, i, 6)}
+
+                            onChange={event => this.onInputNumberChange2(event, index, HuaYSOrder_CMRYSL.MgO)}
                         /></span>,
                     HJ:
-                        <span>{isNaN(value[7]) ? null : value[7]}</span>,
+                        <span>{isNaN(value[HuaYSOrder_CMRYSL.HJ]) ? null : value[HuaYSOrder_CMRYSL.HJ]}</span>,
                     K2O:
                         <span><InputNumber
-                            style={this.changeStyle(value[8])}
+                            style={this.changeStyle(value[HuaYSOrder_CMRYSL.K2O])}
                             defaultValue={''}
-                            value={isNaN(value[8]) ? null : value[8]}
+                            value={isNaN(value[HuaYSOrder_CMRYSL.K2O]) ? null : value[HuaYSOrder_CMRYSL.K2O]}
                             formatter={limitDecimals2}//限制输入数值位数
                             parser={limitDecimals2}//限制输入数值位数
-                            onBlur={() => this.updataData(8)}
-                            onChange={event => this.onInputNumberChange2(event, i, 8)}
+
+                            onChange={event => this.onInputNumberChange2(event, index, HuaYSOrder_CMRYSL.K2O)}
                         /></span>,
-                    Na2O:
-                        <span><InputNumber
-                            style={this.changeStyle(value[9])}
-                            defaultValue={''}
-                            value={isNaN(value[9]) ? null : value[9]}
-                            formatter={limitDecimals2}//限制输入数值位数
-                            parser={limitDecimals2}//限制输入数值位数
-                            onBlur={() => this.updataData(9)}
-                            onChange={event => this.onInputNumberChange2(event, i, 9)}
-                        /></span>,
+                    // Na2O:
+                    //     <span><InputNumber
+                    //         style={this.changeStyle(value[9])}
+                    //         defaultValue={''}
+                    //         value={isNaN(value[9]) ? null : value[9]}
+                    //         formatter={limitDecimals2}//限制输入数值位数
+                    //         parser={limitDecimals2}//限制输入数值位数
+                    //         onBlur={() => this.updataData(9)}
+                    //         onChange={event => this.onInputNumberChange2(event, i, 9)}
+                    //     /></span>,
                     KH:
-                        <span>{isNaN(value[10]) ? null : value[10]}</span>,
+                        <span>{isNaN(value[HuaYSOrder_CMRYSL.KH]) ? null : value[HuaYSOrder_CMRYSL.KH]}</span>,
                     N:
-                        <span>{isNaN(value[11]) ? null : value[11]}</span>,
+                        <span>{isNaN(value[HuaYSOrder_CMRYSL.N]) ? null : value[HuaYSOrder_CMRYSL.N]}</span>,
                     P:
-                        <span>{isNaN(value[12]) ? null : value[12]}</span>,
+                        <span>{isNaN(value[HuaYSOrder_CMRYSL.P]) ? null : value[HuaYSOrder_CMRYSL.P]}</span>,
                     person:
-                        Data[hour]['name'],
-                    btn_save:
-                        <Button type='primary' onClick={() => this.postToHome(i)}>暂存</Button>,
+                        Data[index]['user'],
+                    // btn_save:
+                    //     <Button type='primary' onClick={() => this.postToHome(i)}>暂存</Button>,
                 }
             )
         }
 
-        //数据的自动处理显示部分
-        const page = this.state.timeChose * this.state.width;
-        data.push(
+
+        dataSource.push(
             {
                 time: '平均',
-                SF: this.state.average[page],
-                IL: this.state.average[1 + page],
-                SiO2: this.state.average[2 + page],
-                Al2O3: this.state.average[3 + page],
-                Fe2O3: this.state.average[4 + page],
-                CaO: this.state.average[5 + page],
-                MgO: this.state.average[6 + page],
-                HJ: this.state.average[7 + page],
-                K2O: this.state.average[8 + page],
-                Na2O: this.state.average[9 + page],
-                KH: this.state.average[10 + page],
-                N: this.state.average[11 + page],
-                P: this.state.average[12 + page],
+                SF:      Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.SF],
+                IL:      Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.IL],
+                SiO2:    Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.SiO2],
+                Al2O3:   Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.Al2O3],
+                Fe2O3:   Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.Fe2O3],
+                CaO:     Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.CaO],
+                MgO:     Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.MgO],
+                HJ:      Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.HJ],
+                K2O:     Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.K2O],
+                KH:      Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.KH],
+                N:       Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.N],
+                P:       Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.P],
 
             },
             {
@@ -450,10 +387,9 @@ export default class UpperForm extends Component {
                 MgO: '',
                 HJ: '',
                 K2O: '',
-                Na2O: '',
-                KH: this.state.passRate[10 + page],
-                N: this.state.passRate[11 + page],
-                P: this.state.passRate[12 + page],
+                KH:  Data[9 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.KH],
+                N:  Data[9 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.N],
+                P:  Data[9 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.P],
             }
         );
 
@@ -461,8 +397,39 @@ export default class UpperForm extends Component {
         return (
             <div className="upper">
                 {/*表格填写*/}
-                <Table columns={columns} bordered dataSource={data} pagination={false}/>
+                <Table columns={columns} bordered dataSource={dataSource} pagination={false}/>
             </div>
         );
     }
 }
+//定义映射
+const mapStateToProps = (state) => {
+    return {
+        date: state.getIn(['CMRawMatCheAnaRe', 'date']),
+        order: state.getIn(['CMRawMatCheAnaRe', 'order']),
+        width: state.getIn(['CMRawMatCheAnaRe', 'width']),
+        tableWidth: state.getIn(['CMRawMatCheAnaRe', 'tableWidth']),
+        allTime: state.getIn(['CMRawMatCheAnaRe', 'allTime']),
+        timeChose: state.getIn(['CMRawMatCheAnaRe', 'timeChose']),
+        data: state.getIn(['CMRawMatCheAnaRe', 'data']),
+        requestFlag: state.getIn(['CMRawMatCheAnaRe', 'requestFlag']),
+        startValue: state.getIn(['CMRawMatCheAnaRe', 'startValue']),
+        endValue: state.getIn(['CMRawMatCheAnaRe', 'endValue']),
+        person: state.getIn(['CMRawMatCheAnaRe', 'person']),
+        tableName: state.getIn(['CMRawMatCheAnaRe', 'tableName']),
+
+    }
+};
+
+const mapDispathToProps = (dispatch) => {
+    return {
+        updateChange(NewData) {
+
+            dispatch(actionCreators.updateData({data: deepCopy(NewData)}))
+        },
+
+
+    }//end return
+};
+
+export default connect(mapStateToProps, mapDispathToProps)(UpperForm);

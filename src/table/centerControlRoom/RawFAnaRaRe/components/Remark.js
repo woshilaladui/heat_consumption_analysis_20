@@ -2,31 +2,39 @@ import React, {Component} from 'react';
 import {Input} from 'antd';
 import * as actionCreators from "../../RawFAnaRaRe/store/actionCreators";
 import {connect} from "react-redux";
+import {deepCopy} from "../../../../Helper/Copy";
 
 const {TextArea} = Input;
 
 class Remark extends Component {
 
-    handleChangeTextAreaTest(value, indexH, indexL) {
-        const {bottomData, updateChange} = this.props;
-        let NewData = JSON.parse(JSON.stringify(bottomData))//复制一份出来
+    handleChangeTextAreaTest(value,indexH, indexL) {
+        if(value != null){
+            const {data, updateChange} = this.props;
+            let NewData = deepCopy(data)//复制一份出来
 
-        NewData[0]["t_data"][0] = value.toString();
-        updateChange(NewData)
+            NewData[indexH]["data"][indexL] = value.toString();
+
+            updateChange(NewData)
+        }
     }
 
 
     render() {
-        const {bottomData} = this.props;
-        const Data = JSON.parse(JSON.stringify(bottomData))
+        const {data,timeChose,person} = this.props;
+
+        const Data = deepCopy(data);
+
+        const index = 8 + timeChose*9;
+
         return (
 
             <div className='remark'>
                 <span><TextArea
                     rows={3}
                     placeholder="备注:"
-                    value={Data[0]['t_data'][0]}
-                    onChange={event => this.handleChangeTextAreaTest(event.target.value, 0, 0)}
+                    value={Data[index]['data'][0]}
+                    onChange={event => this.handleChangeTextAreaTest(event.target.value, index, 0)}
                     style={{
                         resize: "none"
                     }}/>
@@ -39,23 +47,26 @@ class Remark extends Component {
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date: state.getIn(['RawFAnaRaRe', 'date']),
-        timeChose: state.getIn(['RawFAnaRaRe', 'timeChose']),
-        bottomData: state.getIn(['RawFAnaRaRe', 'bottomData']),
 
-        person: state.getIn(['RawFAnaRaRe', 'person']),
-        t_name: state.getIn(['RawFAnaRaRe', 't_name']),
+        date:state.getIn(['RawFAnaRaRe', 'date']),
+        allTime:state.getIn(['RawFAnaRaRe', 'allTime']),
+        timeChose:state.getIn(['RawFAnaRaRe', 'timeChose']),
+        data:state.getIn(['RawFAnaRaRe', 'data']),
+        requestFlag:state.getIn(['RawFAnaRaRe', 'requestFlag']),
+        person:state.getIn(['RawFAnaRaRe', 'person']),
+        tableName:state.getIn(['RawFAnaRaRe', 'tableName']),
+
     }
-}
+};
 
 const mapDispathToProps = (dispatch) => {
     return {
         updateChange(NewData) {
-            dispatch(actionCreators.updateBottomData(NewData))
+            dispatch(actionCreators.updateData({data:deepCopy(NewData)}))
         },
 
     }//end return
-}
+};
 
 
 export default connect(mapStateToProps, mapDispathToProps)(Remark);

@@ -16,8 +16,7 @@ class BottomForm extends Component {
     handleChangeTextAreaTest(value, indexH, indexL) {
         const {data, timeChose, updateChange} = this.props;
         let NewData = deepCopy(data)//复制一份出来
-        let index = indexH + timeChose * 12;
-        NewData[index]["data"][indexL] = value.toString();
+        NewData[indexH]["data"][indexL] = value.toString();
 
         updateChange(NewData)
 
@@ -28,14 +27,17 @@ class BottomForm extends Component {
     /**
      * InputNumber输入监听
      */
-    handleChangeInputNumber(value, indexH, indexL) {
-        const {data, timeChose, updateChange} = this.props;
-        let NewData =deepCopy(data)//复制一份出来
-        let index = indexH + timeChose * 12;
-        NewData[index]["data"][indexL] = value.toString();
-        updateChange(NewData)
-
-    }
+    // handleChangeInputNumber(value, indexH, indexL) {
+    //
+    //     if(value != null){
+    //         const {data, timeChose, updateChange} = this.props;
+    //         let NewData =deepCopy(data)//复制一份出来
+    //         NewData[indexH]["data"][indexL] = value.toString();
+    //         updateChange(NewData)
+    //     }
+    //
+    //
+    // }
 
     handleTimeChange(time){
         const {data, timeChose, updateChange} = this.props;
@@ -48,11 +50,13 @@ class BottomForm extends Component {
      * Input输入监听
      */
     handleChangeInput(value, indexH,indexL) {
-        const {data, timeChose, updateChange} = this.props;
-        let NewData = deepCopy(data)//复制一份出来
-        let index = indexH + timeChose * 12;
-        NewData[index]["data"][indexL] = value.toString();
-        updateChange(NewData)
+        if(value != null){
+            const {data, timeChose, updateChange} = this.props;
+            let NewData = deepCopy(data)//复制一份出来
+            NewData[indexH]["data"][indexL] = value.toString();
+            updateChange(NewData)
+        }
+
     }
 
 
@@ -85,21 +89,6 @@ class BottomForm extends Component {
                         obj.props.colSpan = 10;
                     }
                     if (index === 4) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 5) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 6) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 7) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 8) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 9) {//班长
                         obj.props.rowSpan = 1;
                         obj.props.colSpan = 1;
                     }
@@ -131,21 +120,6 @@ class BottomForm extends Component {
                         obj.props.colSpan = 0;
                     }
                     if (index === 4) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 5) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 6) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 7) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 8) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 9) {//班长
                         obj.props.rowSpan = 1;
                         obj.props.colSpan = 1;
                     }
@@ -177,21 +151,6 @@ class BottomForm extends Component {
                         obj.props.colSpan = 0;
                     }
                     if (index === 4) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 5) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 6) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 7) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 8) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 9) {//班长
                         obj.props.rowSpan = 1;
                         obj.props.colSpan = 1;
                     }
@@ -223,21 +182,6 @@ class BottomForm extends Component {
                         obj.props.colSpan = 0;
                     }
                     if (index === 4) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 5) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 6) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 7) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 8) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 9) {//班长
                         obj.props.rowSpan = 1;
                         obj.props.colSpan = 1;
                     }
@@ -269,24 +213,10 @@ class BottomForm extends Component {
                         obj.props.colSpan = 0;
                     }
                     if (index === 4) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 5) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 6) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 7) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 8) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 9) {//班长
                         obj.props.rowSpan = 1;
                         obj.props.colSpan = 1;
                     }
+
                     return obj;
                 },
             },
@@ -315,24 +245,10 @@ class BottomForm extends Component {
                         obj.props.colSpan = 0;
                     }
                     if (index === 4) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 5) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 6) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 7) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 8) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 9) {//班长
                         obj.props.rowSpan = 1;
                         obj.props.colSpan = 1;
                     }
+
                     return obj;
                 },
             },
@@ -361,24 +277,10 @@ class BottomForm extends Component {
                         obj.props.colSpan = 0;
                     }
                     if (index === 4) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 5) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 6) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 7) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 8) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 9) {//班长
                         obj.props.rowSpan = 1;
                         obj.props.colSpan = 1;
                     }
+
                     return obj;
                 },
             },
@@ -407,24 +309,10 @@ class BottomForm extends Component {
                         obj.props.colSpan = 0;
                     }
                     if (index === 4) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 5) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 6) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 7) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 8) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 9) {//班长
                         obj.props.rowSpan = 1;
                         obj.props.colSpan = 1;
                     }
+
                     return obj;
                 },
             },
@@ -453,24 +341,11 @@ class BottomForm extends Component {
                         obj.props.colSpan = 0;
                     }
                     if (index === 4) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 5) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 6) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 7) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 8) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 9) {//班长
                         obj.props.rowSpan = 1;
                         obj.props.colSpan = 1;
                     }
+
+
                     return obj;
                 },
             },
@@ -499,24 +374,10 @@ class BottomForm extends Component {
                         obj.props.colSpan = 0;
                     }
                     if (index === 4) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 5) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 6) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 7) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 8) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 9) {//班长
                         obj.props.rowSpan = 1;
                         obj.props.colSpan = 1;
                     }
+
                     return obj;
                 },
             },
@@ -602,7 +463,7 @@ class BottomForm extends Component {
                         style={{
                             resize: "none"
                         }}/>,
-                }, {}, {}, {}, {}, {},
+                },
                 {
                     1: '班长：',//长度4
                     2: <Input

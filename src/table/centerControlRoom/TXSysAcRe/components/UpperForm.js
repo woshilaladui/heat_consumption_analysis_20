@@ -3,38 +3,38 @@ import {Table, Button, Tabs, Input} from 'antd';
 import "./UpperForm.css"
 import * as actionCreators from "../../TXSysAcRe/store/actionCreators";
 import {connect} from "react-redux";
-
+import {deepCopy} from "../../../../Helper/Copy";
 const TabPane = Tabs.TabPane;
 
 class UpperForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            Time: [],//第一列的时间变化自动控制
-            TabChoose: 0,
-        }
-    }
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         Time: [],//第一列的时间变化自动控制
+    //         TabChoose: 0,
+    //     }
+    // }
     componentWillMount() {
-        const allTime = [
-            ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'],
-            ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00'],
-            ['16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
-        ];
-        this.setState({
-            Time: [...allTime[this.props.timeChose]],
-        });
+        // const allTime = [
+        //     ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'],
+        //     ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00'],
+        //     ['16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
+        // ];
+        // this.setState({
+        //     Time: [...allTime[this.props.timeChose]],
+        // });
     }
 
     /**更新props**/
     componentWillReceiveProps(nextProps) {
-        const allTime = [
-            ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'],
-            ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00'],
-            ['16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
-        ];
-        this.setState({
-            Time: [...allTime[nextProps.timeChose]],
-        });
+        // const allTime = [
+        //     ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'],
+        //     ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00'],
+        //     ['16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
+        // ];
+        // this.setState({
+        //     Time: [...allTime[nextProps.timeChose]],
+        // });
     }
 
 
@@ -43,11 +43,14 @@ class UpperForm extends Component {
      **/
 
     onInputNumberChange2 = (value, indexH, indexL) => {
-        const {upperData, timeChose, updateChange} = this.props;
-        let NewData = JSON.parse(JSON.stringify(upperData))//复制一份出来
-        let hour = indexH + timeChose * 8;
-        NewData[hour]["t_data"][indexL] = value;
-        updateChange(NewData)
+        if(value != null){
+
+            const {data, updateChange} = this.props;
+            let NewData = deepCopy(data)//复制一份出来
+            NewData[indexH]["data"][indexL] = value;
+            updateChange(NewData)
+
+        }
     };
 //控制输入框的样式
     changeStyle = (value) => {
@@ -65,10 +68,10 @@ class UpperForm extends Component {
     //上传当前数据后台
     /**点击暂存之后上传当前行的数据到后台**start**/
     postToHome(i) {//i是行数
-        const {upperData, timeChose, date, t_name, saveToHome} = this.props;
-        const Data = JSON.parse(JSON.stringify(upperData))
-        const index = i + timeChose * 8
-        saveToHome(index, 1, t_name, date, Data);
+        // const {upperData, timeChose, date, t_name, saveToHome} = this.props;
+        // const Data = JSON.parse(JSON.stringify(upperData))
+        // const index = i + timeChose * 8
+        // saveToHome(index, 1, t_name, date, Data);
     }
 
     /**点击暂存之后上传当前行的数据到后台**end**/
@@ -148,11 +151,12 @@ class UpperForm extends Component {
                 title: '人员',
                 dataIndex: 'person',
                 width: '6%',
-            }, {
-                title: '暂存',
-                dataIndex: 'btn_save',
-                width: '6%',
             }
+            // , {
+            //     title: '暂存',
+            //     dataIndex: 'btn_save',
+            //     width: '6%',
+            // }
         ];
         const columns_tab2 = [
                 {
@@ -239,11 +243,11 @@ class UpperForm extends Component {
                     dataIndex: 'person',
                     width: '6%',
                 },
-                {
-                    title: '暂存',
-                    dataIndex: 'btn_save',
-                    width: '6%',
-                }
+                // {
+                //     title: '暂存',
+                //     dataIndex: 'btn_save',
+                //     width: '6%',
+                // }
             ]
         ;
         /**表头的设计**end**/
@@ -263,157 +267,161 @@ class UpperForm extends Component {
 
         /**中间八行的数据输入**start**/
         const data_tab1 = [];
-        const {upperData, timeChose} = this.props;
-        const Data = JSON.parse(JSON.stringify(upperData))
+
+        const {data,timeChose,allTime} = this.props;
+        const Data = deepCopy(data);
+        const time = deepCopy(allTime);
+
         for (let i = 0; i < 8; i++) {
-            const hour = i + timeChose * 8;
-            const value = Data[hour]['t_data'];
+            const index = i + timeChose * 9;
+            const value = Data[index]['data']; //value是个数组
+
             data_tab1.push(
                 {
-                    time: this.state.Time[i],
+                    time: time[timeChose][i],
                     HYJ1WD: <span><Input
-                        // style={this.changeStyle(value[0])}
+                        style={this.changeStyle(value[0])}
                         defaultValue={''}
                         value={isNaN(value[0]) ? null : value[0]}
-                        onChange={event => this.onInputNumberChange2(event.target.value, i, 0)}
+                        onChange={event => this.onInputNumberChange2(event.target.value, index, 0)}
                     /></span>,
                     HYJ1HJAND: <span><Input
                         // style={this.changeStyle(value[1])}
                         defaultValue={''}
                         value={isNaN(value[1]) ? null : value[1]}
-                        onChange={event => this.onInputNumberChange2(event.target.value, i, 1)}
+                        onChange={event => this.onInputNumberChange2(event.target.value, index, 1)}
                     /></span>,
                     HYJ2WD: <span><Input
                         // style={this.changeStyle(value[2])}
                         defaultValue={''}
                         value={isNaN(value[2]) ? null : value[2]}
-                        onChange={event => this.onInputNumberChange2(event.target.value, i, 2)}
+                        onChange={event => this.onInputNumberChange2(event.target.value, index, 2)}
                     /></span>,
 
                     HYJ2HJAND: <span><Input
                         // style={this.changeStyle(value[3])}
                         defaultValue={''}
                         value={isNaN(value[3]) ? null : value[3]}
-                        onChange={event => this.onInputNumberChange2(event.target.value, i, 3)}
+                        onChange={event => this.onInputNumberChange2(event.target.value, index, 3)}
                     /></span>,
 
                     ASND: <span><Input
                         // style={this.changeStyle(value[4])}
                         defaultValue={''}
                         value={isNaN(value[4]) ? null : value[4]}
-                        onChange={event => this.onInputNumberChange2(event.target.value, i, 4)}
+                        onChange={event => this.onInputNumberChange2(event.target.value, index, 4)}
                     /></span>,
 
                     ASLL: <span><Input
                         // style={this.changeStyle(value[5])}
                         defaultValue={''}
                         value={isNaN(value[5]) ? null : value[5]}
-                        onChange={event => this.onInputNumberChange2(event.target.value, i, 5)}
+                        onChange={event => this.onInputNumberChange2(event.target.value, index, 5)}
                     /></span>,
 
                     ATYL: <span><Input
                         // style={this.changeStyle(value[6])}
                         defaultValue={''}
                         value={isNaN(value[6]) ? null : value[6]}
-                        onChange={event => this.onInputNumberChange2(event.target.value, i, 6)}
+                        onChange={event => this.onInputNumberChange2(event.target.value, index, 6)}
                     /></span>,
 
                     PLBZT: <span><Input
                         // style={this.changeStyle(value[7])}
                         defaultValue={''}
                         value={isNaN(value[7]) ? null : value[7]}
-                        onChange={event => this.onInputNumberChange2(event.target.value, i, 7)}
+                        onChange={event => this.onInputNumberChange2(event.target.value, index, 7)}
                     /></span>,
 
                     AQXSGYW: <span><Input
                         // style={this.changeStyle(value[8])}
                         defaultValue={''}
                         value={isNaN(value[8]) ? null : value[8]}
-                        onChange={event => this.onInputNumberChange2(event.target.value, i, 8)}
+                        onChange={event => this.onInputNumberChange2(event.target.value, index, 8)}
                     /></span>,
                     PLYSGYW: <span><Input
                         // style={this.changeStyle(value[9])}
                         defaultValue={''}
                         value={isNaN(value[9]) ? null : value[9]}
-                        onChange={event => this.onInputNumberChange2(event.target.value, i, 9)}
+                        onChange={event => this.onInputNumberChange2(event.target.value, index, 9)}
                     /></span>,
 
-                    person: Data[hour]['user'],
-                    btn_save: <Button type='primary' onClick={() => this.postToHome(i)}>暂存</Button>,
+                    person: Data[index]['user'],
+                   // btn_save: <Button type='primary' onClick={() => this.postToHome(i)}>暂存</Button>,
                 }
             )
         }
         const data_tab2 = [];
         for (let i = 0; i < 8; i++) {
-            const hour = i + timeChose * 8;
-            const value = Data[hour]['t_data'];
+            const index = i + timeChose * 9;
+            const value = Data[index]['data']; //value是个数组
             const tab = 10;
-            // console.log(value[0]);
             data_tab2.push(
                 {
-                    time: this.state.Time[i],
+                    time:  time[timeChose][i],
                     QLYL: <span><Input
-                        // style={this.changeStyle(value[tab])}
+
+                        style={this.changeStyle(value[tab])}
                         value={isNaN(value[tab]) ? null : value[tab]}
-                        onChange={event => this.onInputNumberChange2(event.target.value, i, tab)}
+                        onChange={event => this.onInputNumberChange2(event.target.value, index, tab)}
                     /></span>,
                     YLYL: <span><Input
                         // style={this.changeStyle(value[1+tab])}
                         value={isNaN(value[tab + 1]) ? null : value[tab + 1]}
                         defaultValue={''}
-                        onChange={event => this.onInputNumberChange2(event.target.value, i, 1 + tab)}
+                        onChange={event => this.onInputNumberChange2(event.target.value, index, 1 + tab)}
                     /></span>,
                     GYBDLB1: <span><Input
                         // style={this.changeStyle(value[2+tab])}
                         value={isNaN(value[tab + 2]) ? null : value[tab + 2]}
                         defaultValue={''}
-                        onChange={event => this.onInputNumberChange2(event.target.value, i, 2 + tab)}
+                        onChange={event => this.onInputNumberChange2(event.target.value, index, 2 + tab)}
                     /></span>,
                     GYBDLB2: <span><Input
                         // style={this.changeStyle(value[3+tab])}
                         value={isNaN(value[tab + 3]) ? null : value[tab + 3]}
                         defaultValue={''}
-                        onChange={event => this.onInputNumberChange2(event.target.value, i, 3 + tab)}
+                        onChange={event => this.onInputNumberChange2(event.target.value, index, 3 + tab)}
                     /></span>,
                     GYBZSB1: <span><Input
                         // style={this.changeStyle(value[4+tab])}
                         value={isNaN(value[tab + 4]) ? null : value[tab + 4]}
                         defaultValue={''}
-                        onChange={event => this.onInputNumberChange2(event.target.value, i, 4 + tab)}
+                        onChange={event => this.onInputNumberChange2(event.target.value, index, 4 + tab)}
                     /></span>,
                     GYBZSB2: <span><Input
                         // style={this.changeStyle(value[5+tab])}
                         value={isNaN(value[tab + 5]) ? null : value[tab + 5]}
                         defaultValue={''}
-                        onChange={event => this.onInputNumberChange2(event.target.value, i, 5 + tab)}
+                        onChange={event => this.onInputNumberChange2(event.target.value, index, 5 + tab)}
                     /></span>,
                     BH: <span><Input
                         // style={this.changeStyle(value[6+tab])}
                         value={isNaN(value[tab + 6]) ? null : value[tab + 6]}
                         defaultValue={''}
-                        onChange={event => this.onInputNumberChange2(event.target.value, i, 6 + tab)}
+                        onChange={event => this.onInputNumberChange2(event.target.value, index, 6 + tab)}
                     /></span>,
                     SL: <span><Input
                         // style={this.changeStyle(value[7+tab])}
                         value={isNaN(value[tab + 7]) ? null : value[tab + 7]}
                         defaultValue={''}
-                        onChange={event => this.onInputNumberChange2(event.target.value, i, 7 + tab)}
+                        onChange={event => this.onInputNumberChange2(event.target.value, index, 7 + tab)}
                     /></span>,
                     MBZ: <span><Input
                         // style={this.changeStyle(value[8+tab])}
                         value={isNaN(value[tab + 8]) ? null : value[tab + 8]}
                         defaultValue={''}
-                        onChange={event => this.onInputNumberChange2(event.target.value, i, 8 + tab)}
+                        onChange={event => this.onInputNumberChange2(event.target.value, index, 8 + tab)}
                     /></span>,
                     SJZ: <span><Input
                         // style={this.changeStyle(value[9+tab])}
                         value={isNaN(value[tab + 9]) ? null : value[tab + 9]}
                         defaultValue={''}
-                        onChange={event => this.onInputNumberChange2(event.target.value, i, 9 + tab)}
+                        onChange={event => this.onInputNumberChange2(event.target.value, index, 9 + tab)}
                     /></span>,
 
-                    person: Data[hour]['user'],
-                    btn_save: <Button type='primary' onClick={() => this.postToHome(i)}>暂存</Button>,
+                    person:Data[index]['user'],
+                   // btn_save: <Button type='primary' onClick={() => this.postToHome(i)}>暂存</Button>,
                 }
             )
         }
@@ -448,12 +456,15 @@ class UpperForm extends Component {
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date: state.getIn(['TXSysAcRe', 'date']),
-        timeChose: state.getIn(['TXSysAcRe', 'timeChose']),
-        upperData: state.getIn(['TXSysAcRe', 'upperData']),
-        bottomData: state.getIn(['TXSysAcRe', 'bottomData']),
-        person: state.getIn(['TXSysAcRe', 'person']),
-        t_name: state.getIn(['TXSysAcRe', 't_name']),
+
+        date:state.getIn(['TXSysAcRe', 'date']),
+        allTime:state.getIn(['TXSysAcRe', 'allTime']),
+        timeChose:state.getIn(['TXSysAcRe', 'timeChose']),
+        data:state.getIn(['TXSysAcRe', 'data']),
+        requestFlag:state.getIn(['TXSysAcRe', 'requestFlag']),
+        person:state.getIn(['TXSysAcRe', 'person']),
+        tableName:state.getIn(['TXSysAcRe', 'tableName']),
+
     }
 }
 
@@ -461,15 +472,17 @@ const mapDispathToProps = (dispatch) => {
     return {
 
         updateChange(NewData) {
-            dispatch(actionCreators.updateUpperData(NewData))
+
+            dispatch(actionCreators.updateData({data:deepCopy(NewData)}))
         },
 
-        saveToHome(index, tableType, tableName, date, data) {
+        //上表暂存一行数据
+        saveToHome(date, index, tableName, data) {
+
             dispatch(actionCreators.saveData({
-                index:index,
-                tableType:tableType,
-                tableName:tableName,
                 date:date,
+                index:index,
+                tableName:tableName,
                 data:data
             }))
         },

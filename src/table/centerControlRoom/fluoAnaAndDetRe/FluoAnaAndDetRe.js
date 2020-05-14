@@ -23,15 +23,31 @@ class FluoAnaAndDetRe extends Component {
     componentWillMount() {}
 
     componentDidMount() {
-        const {upperDataFront,upperDataLast,bottomData,requestFlag, date, t_name,upperDataLSZ, setOldData} = this.props;
-        if(requestFlag){
-            const tempUpperDataFront = deepCopy(upperDataFront);
-            const tempUpperDataLast = deepCopy(upperDataLast);
-            const tempUpperDataLSZ = deepCopy(upperDataLSZ);
-            const tempBottomData = deepCopy(bottomData)
+        const{data,date,tableName,requestFlag,getOldData,upperDataFront,upperDataLast,getFrontOldData,getLastOldData} = this.props
 
-            setOldData(t_name,date,tempUpperDataFront,tempUpperDataLast,tempBottomData,tempUpperDataLSZ);
-        }
+        if(requestFlag){
+            getOldData(
+                date,
+                tableName,
+                deepCopy(data)
+            );
+
+            //出窑熟料全分析汇总表
+            getFrontOldData(
+                date,
+                "KAS",
+                deepCopy(upperDataFront)
+            );
+
+            //控制室原始记录
+            getLastOldData(
+                date,
+                "CRO",
+                deepCopy(upperDataLast)
+            );
+
+
+        }//end if
     }
 
     render() {
@@ -71,25 +87,56 @@ class FluoAnaAndDetRe extends Component {
 //定义映射
 const mapStateToProps = (state) => {
     return {
+
         date:state.getIn(['fluoAnaAndDetRe', 'date']),
         timeChose:state.getIn(['fluoAnaAndDetRe', 'timeChose']),
-        upperDataFront:state.getIn(['fluoAnaAndDetRe', 'upperDataFront']),
-        upperDataLast:state.getIn(['fluoAnaAndDetRe', 'upperDataLast']),
-        upperDataLSZ:state.getIn(['fluoAnaAndDetRe', 'upperDataLSZ']),
+        data:state.getIn(['fluoAnaAndDetRe', 'data']),
+        upperDataFront: state.getIn(['fluoAnaAndDetRe', 'upperDataFront']),
+        upperDataLast: state.getIn(['fluoAnaAndDetRe', 'upperDataLast']),
         requestFlag:state.getIn(['fluoAnaAndDetRe', 'requestFlag']),
-        bottomData:state.getIn(['fluoAnaAndDetRe', 'bottomData']),
         person:state.getIn(['fluoAnaAndDetRe', 'person']),
-        t_name:state.getIn(['fluoAnaAndDetRe', 't_name']),
+        tableName:state.getIn(['fluoAnaAndDetRe', 'tableName']),
+
+
     }
-}
+};
 
 const mapDispathToProps = (dispatch) => {
     return {
-        setOldData(tableName,date,upperDataFront,upperDataLast,bottomData,upperDataLSZ){
-            dispatch(actionCreators.getData(tableName,date,upperDataFront,upperDataLast,bottomData,upperDataLSZ))
-
+        getOldData(
+            date,
+            tableName,
+            data
+        ){
+            dispatch(
+                actionCreators.getData(date,tableName,data)
+            );
         },
+
+        getFrontOldData(
+            date,
+            tableName,
+            data
+        ){
+            dispatch(actionCreators.getFrontData(
+                date,
+                tableName,
+                data
+            ));
+        },
+
+        getLastOldData(
+            date,
+            tableName,
+            data
+        ){
+            dispatch(actionCreators.getLastData(
+                date,
+                tableName,
+                data
+            ));
+        }
     }//end return
-}
+};
 
 export default connect(mapStateToProps, mapDispathToProps)(FluoAnaAndDetRe);

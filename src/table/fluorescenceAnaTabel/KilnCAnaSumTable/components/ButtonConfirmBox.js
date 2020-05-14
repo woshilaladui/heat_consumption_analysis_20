@@ -12,7 +12,7 @@ class ButtonConfirmationBox extends Component{
     }
 
     render()
-    { 
+    {
         return(
             <Popconfirm title={"是否"+this.props.buttonText} onConfirm={this.props.action} onCancel={this.cancel}
                         placement={this.arrowPointAtCenter}

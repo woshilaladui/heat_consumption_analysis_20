@@ -39,31 +39,33 @@ export function requestGetZhongKongShiDataByTableNameAndDate(
                 //TODO 进一步处理数据 requestGetHuaYanShiDataByTableNameAndDate
 
 
+                //统一交给调用者处理
+                resolve(response);
 
-                //无数据的时候不处理
-                if (response === Mark.SUCCESS_NO_DATA) {
-
-                    //直接回传以前的数据
-                    resolve(data)
-
-                } else {
-                    //深拷贝
-                    //let newData = JSON.parse(JSON.stringify(response))
-
-
-
-                    let newData = deepCopy(response['data'])
-
-                    let result = ZhongKongShiFormat(
-                        data,
-                        newData,
-                        tableName
-                    );
-
-
-
-                    resolve(result)
-                }
+                // //无数据的时候不处理
+                // if (response === Mark.SUCCESS_NO_DATA) {
+                //
+                //     //直接回传以前的数据
+                //     resolve(data)
+                //
+                // } else {
+                //     //深拷贝
+                //     //let newData = JSON.parse(JSON.stringify(response))
+                //
+                //
+                //
+                //     let newData = deepCopy(response['data'])
+                //
+                //     let result = ZhongKongShiFormat(
+                //         data,
+                //         newData,
+                //         tableName
+                //     );
+                //
+                //
+                //
+                //     resolve(result)
+                // }
 
             })
             .catch()

@@ -14,6 +14,16 @@ import { reducer as ControlRoomOriginalReReducer } from '../table/fluorescenceAn
 import { reducer as TableJCYCLReducer } from '../table/huayanshiTable/huayanshiRibao/TableJCYCL/store';
 import { reducer as fluoAnaAndDetReReducer } from '../table/centerControlRoom/fluoAnaAndDetRe/store';
 
+/*******************************************化验室*******************************************************/
+import { reducer as RawMatCheAnaReReducer } from '../table/fluorescenceAnaTabel/RawMatCheAnaRe/store';
+import { reducer as RawMatCheAnaReSYReducer } from '../table/fluorescenceAnaTabel/RawMatCheAnaReSY/store';
+import { reducer as RawMatCheAnaReTFReducer } from '../table/fluorescenceAnaTabel/RawMatCheAnaReTF/store';
+import { reducer as RawMatCheAnaReFMHGReducer } from '../table/fluorescenceAnaTabel/RawMatCheAnaReFMHg/store';
+import { reducer as RawMatCheAnaReFMHSReducer } from '../table/fluorescenceAnaTabel/RawMatCheAnaReFMHs/store';
+import { reducer as CMRawMatCheAnaReReducer } from '../table/fluorescenceAnaTabel/CMRawMatCheAnaRe/store';
+import { reducer as RYRawMatCheAnaReReducer } from '../table/fluorescenceAnaTabel/RYRawMatCheAnaRe/store';
+import { reducer as KilnCAnaSumTableReducer } from '../table/fluorescenceAnaTabel/KilnCAnaSumTable/store';
+
 
 
 const reducer = combineReducers({
@@ -30,6 +40,17 @@ const reducer = combineReducers({
 	onlineAutoDetOpRe:onlineAutoDetOpReReducer,//自动检测
 	TableJCYCL:TableJCYCLReducer, //化验室日报的仓下进厂表格
 
+
+	/****************************化验室***************************************/
+	RawMatCheAnaRe:RawMatCheAnaReReducer,//进厂原材料分析化学报告单（石灰石）
+	RawMatCheAnaReSY:RawMatCheAnaReSYReducer,//进厂砂岩原材料分析化学报告单
+	RawMatCheAnaReTF:RawMatCheAnaReTFReducer,//进厂铁粉原材料分析化学报告单
+	RawMatCheAnaReFMHG:RawMatCheAnaReFMHGReducer,//进厂粉煤灰(干)原材料分析化学报告单
+	RawMatCheAnaReFMHS:RawMatCheAnaReFMHSReducer,//进厂粉煤灰(湿)原材料分析化学报告单
+	CMRawMatCheAnaRe:CMRawMatCheAnaReReducer,//出磨生料化学分析报告单
+	RYRawMatCheAnaRe:RYRawMatCheAnaReReducer,//入窑生料化学分析报告单
+
+	KilnCAnaSumTable:KilnCAnaSumTableReducer,//出窑熟料全分析汇总表
 
 	home_app:homeAppReducer,
 

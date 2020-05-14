@@ -2,21 +2,28 @@ import React, {Component} from 'react';
 import {Input, Row, Col} from 'antd';
 import * as actionCreators from "../../rawSysOpRe/store/actionCreators";
 import {connect} from "react-redux";
+import {deepCopy} from "../../../../Helper/Copy";
 
 class Remark extends Component {
     handleInputChange(value, indexH, indexL) {
-        const {bottomData, updateChange} = this.props;
-        let NewData = JSON.parse(JSON.stringify(bottomData))//复制一份出来
+        if(value != null){
+            const {data, updateChange} = this.props;
+            let NewData = deepCopy(data)//复制一份出来
 
-        NewData[indexH]["t_data"][indexL] = value.toString();
-        updateChange(NewData)
+            NewData[indexH]["data"][indexL] = value.toString();
+
+            updateChange(NewData)
+        }
     }
 
     render() {
         const titleArr = ["夜班", "白班", "中班"]
-        const {person, timeChose, bottomData} = this.props;
-        const Data = JSON.parse(JSON.stringify(bottomData))//下表的数据
-        const index = timeChose * 2;
+        const {data,timeChose,person} = this.props;
+
+        const Data = deepCopy(data);
+
+        const index = 8 + timeChose*9;
+
         return (
             <div className='remark' style={{width: "100%", height: 160}}>
                 <div className='title'
@@ -42,7 +49,7 @@ class Remark extends Component {
                                     type="text"
                                     style={{width: '80px'}}
                                     onChange={event => {this.handleInputChange(event.target.value,index,0)}}
-                                    value={Data[index]['t_data'][0]}
+                                    value={Data[index]['data'][0]}
                                 />
                             </Col>
                             <Col span={6}>
@@ -51,7 +58,7 @@ class Remark extends Component {
                                     type="text"
                                     style={{width: '80px'}}
                                     onChange={event => {this.handleInputChange(event.target.value,index,1)}}
-                                    value={Data[index]['t_data'][1]}
+                                    value={Data[index]['data'][1]}
                                 />
                             </Col>
                             <Col span={6}>
@@ -60,7 +67,7 @@ class Remark extends Component {
                                     type="text"
                                     style={{width: '80px'}}
                                     onChange={event => {this.handleInputChange(event.target.value,index,2)}}
-                                    value={Data[index]['t_data'][2]}
+                                    value={Data[index]['data'][2]}
                                 />
                             </Col>
                             <Col span={6}>
@@ -69,7 +76,7 @@ class Remark extends Component {
                                     type="text"
                                     style={{width: '80px'}}
                                     onChange={event => {this.handleInputChange(event.target.value,index,3)}}
-                                    value={Data[index]['t_data'][3]}
+                                    value={Data[index]['data'][3]}
                                 />
                             </Col>
                         </Row>
@@ -81,8 +88,8 @@ class Remark extends Component {
                                 <Input
                                     type="text"
                                     style={{width: '80px'}}
-                                    onChange={event => {this.handleInputChange(event.target.value,index+1,0)}}
-                                    value={Data[index+1]['t_data'][0]}
+                                    onChange={event => {this.handleInputChange(event.target.value,index,4)}}
+                                    value={Data[index]['data'][4]}
                                 />
                             </Col>
                             <Col span={6}>
@@ -90,8 +97,8 @@ class Remark extends Component {
                                 <Input
                                     type="text"
                                     style={{width: '80px'}}
-                                    onChange={event => {this.handleInputChange(event.target.value,index+1,1)}}
-                                    value={Data[index+1]['t_data'][1]}
+                                    onChange={event => {this.handleInputChange(event.target.value,index,5)}}
+                                    value={Data[index]['data'][5]}
                                 />
                             </Col>
                             <Col span={6}>
@@ -99,8 +106,8 @@ class Remark extends Component {
                                 <Input
                                     type="text"
                                     style={{width: '80px'}}
-                                    onChange={event => {this.handleInputChange(event.target.value,index+1,2)}}
-                                    value={Data[index+1]['t_data'][2]}
+                                    onChange={event => {this.handleInputChange(event.target.value,index,6)}}
+                                    value={Data[index]['data'][6]}
                                 />
                             </Col>
                         </Row>
@@ -116,17 +123,22 @@ class Remark extends Component {
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date: state.getIn(['rawSysOpRe', 'date']),
-        timeChose: state.getIn(['rawSysOpRe', 'timeChose']),
-        bottomData: state.getIn(['rawSysOpRe', 'bottomData']),
-        person: state.getIn(['rawSysOpRe', 'person']),
+
+        date:state.getIn(['rawSysOpRe', 'date']),
+        allTime:state.getIn(['rawSysOpRe', 'allTime']),
+        timeChose:state.getIn(['rawSysOpRe', 'timeChose']),
+        data:state.getIn(['rawSysOpRe', 'data']),
+        requestFlag:state.getIn(['rawSysOpRe', 'requestFlag']),
+        person:state.getIn(['rawSysOpRe', 'person']),
+        tableName:state.getIn(['rawSysOpRe', 'tableName']),
+
     }
 }
 
 const mapDispathToProps = (dispatch) => {
     return {
         updateChange(NewData) {
-            dispatch(actionCreators.updateBottomData(NewData))
+            dispatch(actionCreators.updateData({data:deepCopy(NewData)}))
         },
     }//end return
 }

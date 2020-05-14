@@ -8,9 +8,6 @@ import {deepCopy} from "../../../../Helper/Copy";
 import {Table} from "../../../../http/constant/Constant"
 
 class ButtonConfirmationBox extends Component{
-    
-
-    
 
     cancel() {
 

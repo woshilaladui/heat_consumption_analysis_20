@@ -31,21 +31,23 @@ class TimeShow extends Component{
 //定义映射
 const mapStateToProps = (state) => {
     return {
+
         date: state.getIn(['onlineAutoDetOpRe', 'date']),
         timeChose: state.getIn(['onlineAutoDetOpRe', 'timeChose']),
-        upperData: state.getIn(['onlineAutoDetOpRe', 'upperData']),
         person: state.getIn(['onlineAutoDetOpRe', 'person']),
+
+
     }
-}
+};
 
 const mapDispathToProps = (dispatch) => {
     return {
         handleTimeChange(e) {
             const x = parseInt(e)
-            dispatch(actionCreators.changeTimeChose(x))
+            dispatch(actionCreators.doChangeTimeChose(x))
         }
     }//end return
-}
+};
 
 
 export default connect(mapStateToProps, mapDispathToProps)(TimeShow);

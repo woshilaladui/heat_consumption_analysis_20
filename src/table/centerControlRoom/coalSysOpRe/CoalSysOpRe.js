@@ -6,28 +6,26 @@ import Remark from './components/Remark';
 import {connect} from 'react-redux';
 import * as actionCreators from './store/actionCreators';
 import 'antd/dist/antd.css';
-import {checkAuthority} from "../../../Request/RequsetCenter";
-import {Mark, URL} from "../../../Request/Constant";
+import {deepCopy} from "../../../Helper/Copy";
 
 // 福石水泥3000t/d中控室煤磨系统运行记录
 class CoalSysOpRe extends Component {
 
     componentWillMount() {
-        checkAuthority(URL.HUAYS_CHECK)
-            .then((response) => {
-                if (response === Mark.ERROR) {
-                    this.props.history.push('/');
-                }
-            })
-            .catch()
     }
 
     componentDidMount() {
         /**首先查询当前页面是否有历史纪录并赋值formData**/
-        const {upperData, bottomData, date, t_name, setOldData, requestFlag} = this.props;
-        if (requestFlag) {
-            setOldData(t_name, date, upperData, bottomData);
-        }
+
+        const{data,date,tableName,requestFlag,getOldData} = this.props
+
+        if(requestFlag){
+            getOldData(
+                date,
+                tableName,
+                deepCopy(data)
+            );
+        }//end if
 
     }
 
@@ -75,21 +73,31 @@ class CoalSysOpRe extends Component {
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date: state.getIn(['coalSysOpRe', 'date']),
-        timeChose: state.getIn(['coalSysOpRe', 'timeChose']),
-        upperData: state.getIn(['coalSysOpRe', 'upperData']),
-        bottomData: state.getIn(['coalSysOpRe', 'bottomData']),
-        requestFlag: state.getIn(['coalSysOpRe', 'requestFlag']),
-        person: state.getIn(['coalSysOpRe', 'person']),
-        t_name: state.getIn(['coalSysOpRe', 't_name']),
+
+        date:state.getIn(['coalSysOpRe', 'date']),
+        timeChose:state.getIn(['coalSysOpRe', 'timeChose']),
+        data:state.getIn(['coalSysOpRe', 'data']),
+        requestFlag:state.getIn(['coalSysOpRe', 'requestFlag']),
+        person:state.getIn(['coalSysOpRe', 'person']),
+        tableName:state.getIn(['coalSysOpRe', 'tableName']),
+
     }
 }
 
 const mapDispathToProps = (dispatch) => {
     return {
-        setOldData(tableName, date, upperData, bottomData) {
-            dispatch(actionCreators.getData(tableName, date, upperData, bottomData))
+
+        //和仓库建立联系
+        getOldData(
+            date,
+            tableName,
+            data
+        ){
+            dispatch(
+                actionCreators.getData(date,tableName,data)
+            );
         }
+
     }//end return
 }
 

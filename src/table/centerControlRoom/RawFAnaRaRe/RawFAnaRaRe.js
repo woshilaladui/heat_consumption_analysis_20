@@ -21,17 +21,35 @@ class RuYaoSLYCLHXFXBGD extends Component {
 
     componentDidMount() {
         /**首先查询当前页面是否有历史纪录并赋值formData**/
-        const {upperDataFront, upperDataMiddle, upperDataLast, bottomData, requestFlag, date, t_name, setOldData, setOldStandard, startValue, endValue} = this.props;
-        if (requestFlag) {
-            const tempStartValue = deepCopy(startValue)//JSON.parse(JSON.stringify(startValue))
-            const tempEndValue = deepCopy(endValue)//JSON.parse(JSON.stringify(endValue))
-            const tempUpperDataFront = deepCopy(upperDataFront);
-            const tempUpperDataMiddle = deepCopy(upperDataMiddle);
-            const tempUpperDataLast = deepCopy(upperDataLast);
-            const tempBottomData = deepCopy(bottomData);
-            setOldStandard(tempStartValue, tempEndValue);
-            setOldData(t_name, date, tempUpperDataFront, tempUpperDataMiddle, tempUpperDataLast, tempBottomData);
-        }
+
+
+        const{data,date,tableName,requestFlag,getOldData,upperDataFront,upperDataLast,getFrontOldData,getLastOldData} = this.props
+
+        if(requestFlag){
+            getOldData(
+                date,
+                tableName,
+                deepCopy(data)
+            );
+
+            //出磨生料荧光分析及配比记录
+            getFrontOldData(
+                date,
+                "CRM",
+                deepCopy(upperDataFront)
+            );
+
+            //控制室原始记录
+            getLastOldData(
+                date,
+                "CRO",
+                deepCopy(upperDataLast)
+            );
+
+
+        }//end if
+
+
     }
 
     render() {
@@ -72,31 +90,56 @@ class RuYaoSLYCLHXFXBGD extends Component {
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date: state.getIn(['RawFAnaRaRe', 'date']),
-        timeChose: state.getIn(['RawFAnaRaRe', 'timeChose']),
+        date:state.getIn(['RawFAnaRaRe', 'date']),
+        timeChose:state.getIn(['RawFAnaRaRe', 'timeChose']),
+        data:state.getIn(['RawFAnaRaRe', 'data']),
         upperDataFront: state.getIn(['RawFAnaRaRe', 'upperDataFront']),
-        upperDataMiddle: state.getIn(['RawFAnaRaRe', 'upperDataMiddle']),
         upperDataLast: state.getIn(['RawFAnaRaRe', 'upperDataLast']),
-        requestFlag: state.getIn(['RawFAnaRaRe', 'requestFlag']),
-        bottomData: state.getIn(['RawFAnaRaRe', 'bottomData']),
+        requestFlag:state.getIn(['RawFAnaRaRe', 'requestFlag']),
         startValue: state.getIn(['RawFAnaRaRe', 'startValue']),
         endValue: state.getIn(['RawFAnaRaRe', 'endValue']),
-        person: state.getIn(['RawFAnaRaRe', 'person']),
-        t_name: state.getIn(['RawFAnaRaRe', 't_name']),
+        person:state.getIn(['RawFAnaRaRe', 'person']),
+        tableName:state.getIn(['RawFAnaRaRe', 'tableName']),
+
     }
-}
+};
 
 const mapDispathToProps = (dispatch) => {
     return {
-        setOldData(tableName, date, upperDataFront, upperDataMiddle, upperDataLast, bottomData, startValue, endValue) {
-            //  dispatch(actionCreators.getAllData(tableName,date,upperDataFront,upperDataMiddle,upperDataLast,bottomData,startValue,endValue))
-            dispatch(actionCreators.getData(tableName, date, upperDataFront, upperDataMiddle, upperDataLast, bottomData))
+        getOldData(
+            date,
+            tableName,
+            data
+        ){
+            dispatch(
+                actionCreators.getData(date,tableName,data)
+            );
         },
-        setOldStandard(startValue, endValue) {
 
-            dispatch(actionCreators.getOldStandard('CRM', startValue, endValue))
+        getFrontOldData(
+            date,
+            tableName,
+            data
+        ){
+            dispatch(actionCreators.getFrontData(
+                date,
+                tableName,
+                data
+            ));
+        },
+
+        getLastOldData(
+            date,
+            tableName,
+            data
+        ){
+            dispatch(actionCreators.getLastData(
+                date,
+                tableName,
+                data
+            ));
         }
     }//end return
-}
+};
 
 export default connect(mapStateToProps, mapDispathToProps)(RuYaoSLYCLHXFXBGD);

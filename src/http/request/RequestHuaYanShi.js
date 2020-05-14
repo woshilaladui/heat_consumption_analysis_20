@@ -40,28 +40,31 @@ export function requestGetHuaYanShiDataByTableNameAndDate(
                 //TODO 进一步处理数据 requestGetHuaYanShiDataByTableNameAndDate
 
                 //无数据的时候不处理
-                if(response === Mark.SUCCESS_NO_DATA){
+                // if(response === Mark.SUCCESS_NO_DATA){
+                //
+                //     //直接回传以前的数据
+                //     resolve(data)
+                //
+                // }else {
+                //     //深拷贝
+                //     //let newData = JSON.parse(JSON.stringify(response))
+                //     let resultResponse = deepCopy(response);
+                //     let newData = deepCopy(response['data']);
+                //
+                //
+                //     let result = HuaYanShiFormat(
+                //         data,
+                //         newData,
+                //         tableName
+                //     );
+                //
+                //     resultResponse.data = result;
+                //
+                //     resolve(resultResponse)
+                // }
 
-                    //直接回传以前的数据
-                    resolve(data)
 
-                }else {
-                    //深拷贝
-                    //let newData = JSON.parse(JSON.stringify(response))
-                    let newData = deepCopy(response['data'])
-
-                    let result = HuaYanShiFormat(
-                        data,
-                        newData,
-                        tableName
-                    );
-
-                    resolve(result)
-                }
-
-
-
-
+                //统一交给调用者处理
                 resolve(response)
             })
             .catch()
@@ -70,14 +73,16 @@ export function requestGetHuaYanShiDataByTableNameAndDate(
 }
 
 export function requestSaveHuaYanShiData(
-    date,
-    index,
-    department,
-    duty,
-    tableName,
-    authority,
-    data,
-    num
+    {
+        date,
+        index,
+        department,
+        duty,
+        tableName,
+        authority,
+        data,
+        num
+    }
 ) {
     return new Promise((resolve, reject) => {
 

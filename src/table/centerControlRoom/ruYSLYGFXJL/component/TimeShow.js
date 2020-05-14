@@ -34,16 +34,17 @@ const mapStateToProps = (state) => {
     return {
         date: state.getIn(['ruYSLYGFXJL', 'date']),
         timeChose: state.getIn(['ruYSLYGFXJL', 'timeChose']),
-        upperData: state.getIn(['ruYSLYGFXJL', 'upperData']),
         person: state.getIn(['ruYSLYGFXJL', 'person']),
+
+
     }
-}
+};
 
 const mapDispathToProps = (dispatch) => {
     return {
         handleTimeChange(e) {
             const x = parseInt(e)
-            dispatch(actionCreators.changeTimeChose(x))
+            dispatch(actionCreators.doChangeTimeChose(x))
         }
     }//end return
 }

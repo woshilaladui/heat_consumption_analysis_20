@@ -15,21 +15,15 @@ import {Mark, URL} from "../../../Request/Constant";
 class OnlineAutoDetOpRe extends Component {
     //判定是否已登录，是否有权限
     componentWillMount() {
-        checkAuthority(URL.HUAYS_CHECK)
-            .then((response)=>{
-                if(response === Mark.ERROR){
-                    this.props.history.push('/');
-                }
-            })
-            .catch()
     }
 
     componentDidMount() {
-        const {upperData,bottomData,requestFlag, date, t_name, setOldData} = this.props;
+        const {data, date, tableName, setOldData,requestFlag} = this.props;
+
         if(requestFlag){
-            const tempUpperData = deepCopy(upperData);
-            const tempBottomData = deepCopy(bottomData)
-            setOldData(t_name,date,tempUpperData,tempBottomData);
+
+
+            setOldData(date,tableName,deepCopy(data));
         }
     }
 
@@ -70,22 +64,22 @@ class OnlineAutoDetOpRe extends Component {
 //定义映射
 const mapStateToProps = (state) => {
     return {
+
         date:state.getIn(['onlineAutoDetOpRe', 'date']),
         timeChose:state.getIn(['onlineAutoDetOpRe', 'timeChose']),
-        upperData:state.getIn(['onlineAutoDetOpRe', 'upperData']),
+        data:state.getIn(['onlineAutoDetOpRe', 'data']),
         requestFlag:state.getIn(['onlineAutoDetOpRe', 'requestFlag']),
-        bottomData:state.getIn(['onlineAutoDetOpRe', 'bottomData']),
         person:state.getIn(['onlineAutoDetOpRe', 'person']),
-        t_name:state.getIn(['onlineAutoDetOpRe', 't_name']),
+        tableName:state.getIn(['onlineAutoDetOpRe', 'tableName']),
+
     }
 }
 
 const mapDispathToProps = (dispatch) => {
     return {
-        setOldData(tableName,date,upperData,bottomData){
-            dispatch(actionCreators.getData(tableName,date,upperData,bottomData))
-
-        },
+        setOldData(date,tableName,data){
+            dispatch(actionCreators.getData(date,tableName,data))
+        }
     }//end return
 }
 export default connect(mapStateToProps, mapDispathToProps)(OnlineAutoDetOpRe);

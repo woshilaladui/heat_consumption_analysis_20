@@ -13,10 +13,10 @@ class TimeShow extends Component{
         return(
             <Fragment>
                 <Row type="flex" justify = "space-around" align="middle">
-                    <Col span ={4}>{moment().format('YYYY年MM月DD日')}</Col>
+                    <Col span ={4}>{moment().format('YYYY年MM月DD日 ')}</Col>
                     <Col span ={4}>{"星期"+day[moment().format('d')]}</Col>
                     <Col span ={4}>
-                    班次选择：<Select defaultValue='0'  onChange={handleTimeChange}>
+                        班次选择：<Select defaultValue='0' onChange={handleTimeChange}>
                             <Option  value='0'>0点班</Option>
                             <Option  value='1'>8点班</Option>
                             <Option  value='2'>16点班</Option>
@@ -30,10 +30,11 @@ class TimeShow extends Component{
 }
 //定义映射
 const mapStateToProps = (state) => {
+
+
     return {
         date: state.getIn(['coalSysOpRe', 'date']),
         timeChose: state.getIn(['coalSysOpRe', 'timeChose']),
-        upperData: state.getIn(['coalSysOpRe', 'upperData']),
         person: state.getIn(['coalSysOpRe', 'person']),
     }
 }
@@ -42,7 +43,7 @@ const mapDispathToProps = (dispatch) => {
     return {
         handleTimeChange(e) {
             const x = parseInt(e)
-            dispatch(actionCreators.changeTimeChose(x))
+            dispatch(actionCreators.doChangeTimeChose(x))
         }
     }//end return
 }

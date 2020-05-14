@@ -2,29 +2,37 @@ import React, {Component} from 'react';
 import {Input} from 'antd';
 import * as actionCreators from "../../TXSysAcRe/store/actionCreators";
 import {connect} from "react-redux";
+import {deepCopy} from "../../../../Helper/Copy";
 
 const {TextArea} = Input;
 
 class Remark extends Component {
 
     handleChangeTextAreaTest(value, indexH, indexL) {
-        const {bottomData, updateChange} = this.props;
-        let NewData = JSON.parse(JSON.stringify(bottomData))//复制一份出来
+        if(value != null){
+            const {data, updateChange} = this.props;
+            let NewData = deepCopy(data)//复制一份出来
 
-        NewData[0]["t_data"][0] = value.toString();
-        updateChange(NewData)
+            NewData[indexH]["data"][indexL] = value.toString();
+
+            updateChange(NewData)
+        }
     }
 
     render() {
-        const {bottomData} = this.props;
-        const Data = JSON.parse(JSON.stringify(bottomData))
+        const {data,timeChose} = this.props;
+
+        const Data = deepCopy(data);
+
+        const index =  8 + timeChose*9;
+
         return (
             <div className='remark'>
                 <span><TextArea
                     rows={3}
                     placeholder="记录情况"
-                    value={Data[0]['t_data'][0]}
-                    onChange={event => this.handleChangeTextAreaTest(event.target.value, 0, 0)}
+                    value={Data[index]['data'][0]}
+                    onChange={event => this.handleChangeTextAreaTest(event.target.value, index, 0)}
                     style={{
                         resize: "none"
                     }}/>
@@ -37,17 +45,21 @@ class Remark extends Component {
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date: state.getIn(['TXSysAcRe', 'date']),
-        timeChose: state.getIn(['TXSysAcRe', 'timeChose']),
-        bottomData: state.getIn(['TXSysAcRe', 'bottomData']),
-        person: state.getIn(['TXSysAcRe', 'person']),
+        date:state.getIn(['TXSysAcRe', 'date']),
+        allTime:state.getIn(['TXSysAcRe', 'allTime']),
+        timeChose:state.getIn(['TXSysAcRe', 'timeChose']),
+        data:state.getIn(['TXSysAcRe', 'data']),
+        requestFlag:state.getIn(['TXSysAcRe', 'requestFlag']),
+        person:state.getIn(['TXSysAcRe', 'person']),
+        tableName:state.getIn(['TXSysAcRe', 'tableName']),
+
     }
 }
 
 const mapDispathToProps = (dispatch) => {
     return {
         updateChange(NewData) {
-            dispatch(actionCreators.updateBottomData(NewData))
+            dispatch(actionCreators.updateData({data:deepCopy(NewData)}))
         },
     }//end return
 }
