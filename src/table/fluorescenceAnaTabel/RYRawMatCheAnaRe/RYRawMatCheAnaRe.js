@@ -1,4 +1,3 @@
-
 import React, {Component, Fragment} from "react";
 import ButtonConfirmationBox from "./components/ButtonConfirmBox";
 import TimeShow from "./components/TimeShow";

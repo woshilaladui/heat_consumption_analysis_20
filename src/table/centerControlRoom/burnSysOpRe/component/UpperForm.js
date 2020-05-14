@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Input, Table, Button} from 'antd';
+import {Input, Table} from 'antd';
 import "./UpperForm.css"
 import * as actionCreators from "../store/actionCreators";
 import {connect} from "react-redux";

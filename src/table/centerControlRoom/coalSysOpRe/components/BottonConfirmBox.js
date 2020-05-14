@@ -12,9 +12,9 @@ class ButtonConfirmBox extends Component {
     }
 
     postAllToHome() {
-
-
-        
+        const {data, saveAllToHome, tableName,date} = this.props;
+        const Data = deepCopy(data)
+        saveAllToHome(date,tableName, Data);
 
     }
 

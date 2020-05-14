@@ -1,6 +1,8 @@
 import {deepCopy} from "./Copy";
 
-import {HuaYSOrder_CMRYSL} from "../Constant/TableOrder";
+import {HuaYSOrder_CMRYSL, HuaYSOrder_RMC} from "../Constant/TableOrder";
+
+import {TableName} from "../Constant/TableNameConstant";
 
 //计算进厂石灰石原材料分析化学报告单 的合计
 export function autoCalculateHJ(data,width) {//data为数组
@@ -36,63 +38,160 @@ export function autoCalculate_IL(
 export function autoCalculate_KH(
     data,
     indexH,//CaO Fe2O3 Al2O3 SiO2 (CaO-0.35* Fe2O3-1.65* Al2O3)/2.8*SiO2
+    tableName
 ) {
 
     //注意SiO2不能为0
-    let CaO = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_CMRYSL.CaO])?0:data[indexH]['data'][HuaYSOrder_CMRYSL.CaO]);
-    let Fe2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_CMRYSL.Fe2O3])?0:data[indexH]['data'][HuaYSOrder_CMRYSL.Fe2O3]);
-    let Al2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_CMRYSL.Al2O3])?0:data[indexH]['data'][HuaYSOrder_CMRYSL.Al2O3]);
-    let SiO2 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_CMRYSL.SiO2]) ?0:data[indexH]['data'][HuaYSOrder_CMRYSL.SiO2]);
+    let CaO;
+    let Fe2O3;
+    let Al2O3;
+    let SiO2 ;
+
+
+
+    if(tableName ===TableName.Limestone_RMC ||tableName === TableName.Limestone_KAS){
+        CaO = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_RMC.CaO])?0:data[indexH]['data'][HuaYSOrder_RMC.CaO]);
+        Fe2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_RMC.Fe2O3])?0:data[indexH]['data'][HuaYSOrder_RMC.Fe2O3]);
+        Al2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_RMC.Al2O3])?0:data[indexH]['data'][HuaYSOrder_RMC.Al2O3]);
+        SiO2 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_RMC.SiO2]) ?0:data[indexH]['data'][HuaYSOrder_RMC.SiO2]);
+
+        if(SiO2 !== 0){
+
+            data[indexH]['data'][HuaYSOrder_RMC.KH] = parseFloat(
+                ((CaO - 0.35 * Fe2O3 - 1.65*Al2O3)/(2.8*SiO2)).toString()
+            ).toFixed(3);
+        }
+    }else {
+        CaO = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_CMRYSL.CaO])?0:data[indexH]['data'][HuaYSOrder_CMRYSL.CaO]);
+        Fe2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_CMRYSL.Fe2O3])?0:data[indexH]['data'][HuaYSOrder_CMRYSL.Fe2O3]);
+        Al2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_CMRYSL.Al2O3])?0:data[indexH]['data'][HuaYSOrder_CMRYSL.Al2O3]);
+        SiO2 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_CMRYSL.SiO2]) ?0:data[indexH]['data'][HuaYSOrder_CMRYSL.SiO2]);
+
+        if(SiO2 !== 0){
+
+            data[indexH]['data'][HuaYSOrder_CMRYSL.KH] = parseFloat(
+                ((CaO - 0.35 * Fe2O3 - 1.65*Al2O3)/(2.8*SiO2)).toString()
+            ).toFixed(3);
+        }
+
+    }
+
+
+
+    
+}
+
+//计算KH-
+export function autoCalculate_KH_1(
+    data,
+    indexH,//CaO Fe2O3 Al2O3 SiO2 (CaO-0.35* Fe2O3-1.65* Al2O3)/2.8*SiO2
+    tableName
+) {
+
+    //注意SiO2不能为0
+    let CaO;
+    let Fe2O3;
+    let Al2O3;
+    let SiO2 ;
+    let fCaO;
+
+
+
+    if(tableName ===TableName.Limestone_RMC || tableName === TableName.Limestone_KAS ){
+        CaO = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_RMC.CaO])?0:data[indexH]['data'][HuaYSOrder_RMC.CaO]);
+        Fe2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_RMC.Fe2O3])?0:data[indexH]['data'][HuaYSOrder_RMC.Fe2O3]);
+        Al2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_RMC.Al2O3])?0:data[indexH]['data'][HuaYSOrder_RMC.Al2O3]);
+        SiO2 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_RMC.SiO2]) ?0:data[indexH]['data'][HuaYSOrder_RMC.SiO2]);
+        fCaO = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_RMC.fCaO]) ?0:data[indexH]['data'][HuaYSOrder_RMC.fCaO]);
+    }
+
+
+
+    if(isNaN(fCaO)){
+        fCaO = 0;
+    }
 
     if(SiO2 !== 0){
 
-        data[indexH]['data'][HuaYSOrder_CMRYSL.KH] = parseFloat(
-            ((CaO - 0.35 * Fe2O3 - 1.65*Al2O3)/(2.8*SiO2)).toString()
+        data[indexH]['data'][HuaYSOrder_RMC.KH_] = parseFloat(
+            ((CaO - 0.35 * Fe2O3 - 1.65*Al2O3 - fCaO)/(2.8*SiO2)).toString()
         ).toFixed(3);
     }
-    
+
 }
 
 export function autoCalculate_N(
     data,
     indexH,// SiO2/(Al2O3+Fe2O3)
+    tableName
 ) {
 
 
-    if(data[indexH]['data'][HuaYSOrder_CMRYSL.SiO2] === null){
-        console.log("null")
-    }else {
-        console.log("aaaa")
-    }
-
-
     //注意Al2O3+Fe2O3 不能为0
-    let SiO2 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_CMRYSL.SiO2])?0:data[indexH]['data'][HuaYSOrder_CMRYSL.SiO2]);
-    let Al2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_CMRYSL.Al2O3])?0:data[indexH]['data'][HuaYSOrder_CMRYSL.Al2O3]);
-    let Fe2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_CMRYSL.Fe2O3])?0:data[indexH]['data'][HuaYSOrder_CMRYSL.Fe2O3]);
+    let SiO2 ;
+    let Al2O3;
+    let Fe2O3;
 
+    if(tableName === TableName.Limestone_RMC || tableName === TableName.Limestone_KAS){
+        SiO2 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_RMC.SiO2])?0:data[indexH]['data'][HuaYSOrder_RMC.SiO2]);
+        Al2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_RMC.Al2O3])?0:data[indexH]['data'][HuaYSOrder_RMC.Al2O3]);
+        Fe2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_RMC.Fe2O3])?0:data[indexH]['data'][HuaYSOrder_RMC.Fe2O3]);
 
-    if((Al2O3+Fe2O3) !== 0){
-        data[indexH]['data'][HuaYSOrder_CMRYSL.N] = parseFloat(
-            (SiO2/(Al2O3 + Fe2O3)).toString()
-        ).toFixed(3);
+        if((Al2O3+Fe2O3) !== 0){
+            data[indexH]['data'][HuaYSOrder_RMC.N] = parseFloat(
+                (SiO2/(Al2O3 + Fe2O3)).toString()
+            ).toFixed(3);
+        }
+    }else {
+        SiO2 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_CMRYSL.SiO2])?0:data[indexH]['data'][HuaYSOrder_CMRYSL.SiO2]);
+        Al2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_CMRYSL.Al2O3])?0:data[indexH]['data'][HuaYSOrder_CMRYSL.Al2O3]);
+        Fe2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_CMRYSL.Fe2O3])?0:data[indexH]['data'][HuaYSOrder_CMRYSL.Fe2O3]);
+
+        if((Al2O3+Fe2O3) !== 0){
+            data[indexH]['data'][HuaYSOrder_CMRYSL.N] = parseFloat(
+                (SiO2/(Al2O3 + Fe2O3)).toString()
+            ).toFixed(3);
+        }
     }
+
+
+
+
+
 
 }
 
 export function autoCalculate_P(
     data,
     indexH,//Al2O3 Fe2O3 Al2O3/ Fe2O3
+    tableName
 ) {
     //注意Fe2O3 不能为0
-    let Al2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_CMRYSL.Al2O3])?0:data[indexH]['data'][HuaYSOrder_CMRYSL.Al2O3]);
-    let Fe2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_CMRYSL.Fe2O3] )?0:data[indexH]['data'][HuaYSOrder_CMRYSL.Fe2O3]);
+    let Al2O3;
+    let Fe2O3;
 
-    if(Fe2O3 !== 0){
-        data[indexH]['data'][HuaYSOrder_CMRYSL.P] = parseFloat(
-            (Al2O3/Fe2O3).toString()
-        ).toFixed(3);
+
+    if(tableName === TableName.Limestone_RMC){
+        Al2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_RMC.Al2O3])?0:data[indexH]['data'][HuaYSOrder_RMC.Al2O3]);
+        Fe2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_RMC.Fe2O3] )?0:data[indexH]['data'][HuaYSOrder_RMC.Fe2O3]);
+
+        if(Fe2O3 !== 0){
+            data[indexH]['data'][HuaYSOrder_RMC.P] = parseFloat(
+                (Al2O3/Fe2O3).toString()
+            ).toFixed(3);
+        }
+    }else {
+        Al2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_CMRYSL.Al2O3])?0:data[indexH]['data'][HuaYSOrder_CMRYSL.Al2O3]);
+        Fe2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_CMRYSL.Fe2O3] )?0:data[indexH]['data'][HuaYSOrder_CMRYSL.Fe2O3]);
+
+        if(Fe2O3 !== 0){
+            data[indexH]['data'][HuaYSOrder_CMRYSL.P] = parseFloat(
+                (Al2O3/Fe2O3).toString()
+            ).toFixed(3);
+        }
     }
+
+
 
 }
 

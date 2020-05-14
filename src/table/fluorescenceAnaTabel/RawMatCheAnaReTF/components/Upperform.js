@@ -1,13 +1,10 @@
 import React, {Component} from 'react';
-import {Table, Input, Button, message, InputNumber} from 'antd';
-import {numCalculate_Initial, numCalculate, autoCalculate} from "../../../../package/NumCalculate"
+import {Table,  InputNumber} from 'antd';
+
 import {limitDecimals2} from "../../../../package/Limit";
-import {URL, Mark, Standard} from "../../../../Request/Constant"
-import {getOldData, checkAuthority, getStandard, HuaYSSave} from "../../../../Request/RequsetCenter"
-import {getHuaYSJsonData, getHuaYSJsonSaveData} from "../../../../Request/JsonCenter"
-import {JCYCL} from "../../../../Constant/JCstadnard"
+
 import {HuaYSOrder_JC} from "../../../../Constant/TableOrder"
-import {autoCalculateRMA_HJ, autoCalculateRMA_IL, updateOperator} from "../../../../Helper/AutoCalculate"
+
 import * as actionCreators from "../../RawMatCheAnaReTF/store/actionCreators";
 import {deepCopy} from "../../../../Helper/Copy";
 import {connect} from "react-redux";

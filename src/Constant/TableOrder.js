@@ -40,6 +40,26 @@ const HuaYSOrder_CMRYSL ={//出磨/入窑洞生料
 
 };
 
+const HuaYSOrder_RMC = {//出窑熟料全分析汇总表/出厂熟料全分析汇总表
+
+    SJ:0,
+    SiO2:1,
+    Al2O3:2,
+    Fe2O3:3,
+    CaO:4,
+    MgO:5,
+    HJ:6,
+    fCaO:7,
+    KH:8,
+    KH_:9,
+    N:10,
+    P:11,
+    C3S:12,
+    C2S:13,
+    C3A:14,
+    C4AF:15
+};
+
 /**
  * 分析表格
  */
@@ -161,5 +181,6 @@ export {
     HuaYSOrder_CMRYSL,
     ZhongKSOrder_CMS,
     ZhongKSOrder_RYS,
-    ZhongKSOrder_FAD
+    ZhongKSOrder_FAD,
+    HuaYSOrder_RMC
 }

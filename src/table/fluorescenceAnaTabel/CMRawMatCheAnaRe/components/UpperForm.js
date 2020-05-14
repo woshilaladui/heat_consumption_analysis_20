@@ -1,5 +1,4 @@
 
-
 import React, {Component} from 'react';
 import {Table, InputNumber} from 'antd';
 
@@ -44,7 +43,7 @@ class UpperForm extends Component {
      * 参数顺序  输入的数值，行数，列数
      **/
     onInputNumberChange2 = (value, indexH, indexL) => {
-        const {data, updateChange, order, startValue, endValue, width, timeChose,tableWidth} = this.props;
+        const {data, updateChange, order, startValue, endValue, width, timeChose,tableWidth,tableName} = this.props;
         let NewData = deepCopy(data);//复制一份出来
 
 
@@ -70,10 +69,7 @@ class UpperForm extends Component {
             indexL === HuaYSOrder_CMRYSL.SiO2
         ){
 
-            autoCalculate_KH(NewData,indexH);
-            // if(NewData[indexH]['data'][HuaYSOrder_CMRYSL.SiO2] !== null){
-            //     autoCalculate_KH
-            // }
+            autoCalculate_KH(NewData,indexH,tableName);
 
         }
 
@@ -87,7 +83,7 @@ class UpperForm extends Component {
             indexL === HuaYSOrder_CMRYSL.Fe2O3
         ){
 
-            autoCalculate_N(NewData,indexH);
+            autoCalculate_N(NewData,indexH,tableName);
 
             // if(!(
             //     NewData[indexH]['data'][HuaYSOrder_CMRYSL.Fe2O3] === null
@@ -107,7 +103,7 @@ class UpperForm extends Component {
             indexL === HuaYSOrder_CMRYSL.Fe2O3
         ){
 
-            autoCalculate_P(NewData,indexH);
+            autoCalculate_P(NewData,indexH,tableName);
 
             //Fe2O3 不能空
             // if(

@@ -14,7 +14,7 @@ class BottomForm extends Component {
 
 
     handleChangeTextAreaTest(value, indexH, indexL) {
-        const {data, timeChose, updateChange} = this.props;
+        const {data, updateChange} = this.props;
         let NewData = deepCopy(data)//复制一份出来
         NewData[indexH]["data"][indexL] = value.toString();
 

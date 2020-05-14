@@ -42,7 +42,7 @@ class UpperForm extends Component {
      * 表格输入数据变化的监听，同时所有的数据更新
      **/
     onInputNumberChange2 = (value, indexH, indexL) => {
-        const {data, updateChange, order, startValue, endValue, width, timeChose,tableWidth} = this.props;
+        const {data, updateChange, order, startValue, endValue, width, timeChose,tableWidth,tableName} = this.props;
         let NewData = deepCopy(data);//复制一份出来
 
 
@@ -67,7 +67,7 @@ class UpperForm extends Component {
             ||
             indexL === HuaYSOrder_CMRYSL.SiO2
         ){
-            autoCalculate_KH(NewData,indexH);
+            autoCalculate_KH(NewData,indexH,tableName);
         }
 
         //更新N字段
@@ -80,7 +80,7 @@ class UpperForm extends Component {
             indexL === HuaYSOrder_CMRYSL.Fe2O3
         ){
 
-            autoCalculate_N(NewData,indexH);
+            autoCalculate_N(NewData,indexH,tableName);
 
         }
 
@@ -92,7 +92,7 @@ class UpperForm extends Component {
             indexL === HuaYSOrder_CMRYSL.Fe2O3
         ){
 
-            autoCalculate_P(NewData,indexH);
+            autoCalculate_P(NewData,indexH,tableName);
 
         }
 

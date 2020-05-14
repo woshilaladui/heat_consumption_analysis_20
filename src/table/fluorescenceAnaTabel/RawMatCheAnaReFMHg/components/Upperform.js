@@ -1,11 +1,8 @@
 import React, {Component} from 'react';
-import {Table, Input, Button, message, InputNumber} from 'antd';
-import {numCalculate_Initial, numCalculate, autoCalculate} from "../../../../package/NumCalculate"
+import {Table,InputNumber} from 'antd';
+
 import {limitDecimals2} from "../../../../package/Limit";
-import {HuaYSSave} from "../../../../Request/RequsetCenter";
-import {URL} from "../../../../Request/Constant";
-import {getHuaYSJsonSaveData} from "../../../../Request/JsonCenter";
-import {autoCalculateRMA_HJ,autoCalculateRMA_IL,updateOperator} from "../../../../Helper/AutoCalculate";
+
 import {HuaYSOrder_JC} from "../../../../Constant/TableOrder";
 import * as actionCreators from "../../RawMatCheAnaReFMHg/store/actionCreators";
 import {deepCopy} from "../../../../Helper/Copy";

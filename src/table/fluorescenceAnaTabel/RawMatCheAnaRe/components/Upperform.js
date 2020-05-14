@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Table, Input, Button, message, InputNumber} from 'antd';
+import {Table, InputNumber} from 'antd';
 
 import {limitDecimals2} from "../../../../package/Limit";
 

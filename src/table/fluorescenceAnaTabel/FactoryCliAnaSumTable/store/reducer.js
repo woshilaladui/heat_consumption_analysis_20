@@ -26,13 +26,13 @@ const defaultState = fromJS({
         {data: []},//16点班的合格率
 
     ],
-    order: [10,11,12],//当前表格需要计算合格率的列数顺序
+    order: [],//当前表格需要计算合格率的列数顺序 该表暂无
     startValue: [], //从数据库获取的标准
     endValue: [],
     person: window.localStorage.username, //传入的值班人员
     width:6,//SJ`MgO
     tableWidth:16,
-    tableName: TableName.Limestone_RMC,//进厂石灰石原材料分析化学报告单
+    tableName: TableName.Limestone_KAS,//进厂石灰石原材料分析化学报告单
     allTime:[
         ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00'],
         ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00'],
@@ -43,15 +43,15 @@ const defaultState = fromJS({
 export default (state = defaultState, action) => {
 
     switch (action.type) {
-        case constants.UPDATE_DATA_RMA_RMC:
+        case constants.UPDATE_DATA_KAS:
             return state.merge({
                 'data': action.data,
                 'requestFlag': false//切换页面时候不需要刷新数据了（当页面刷新的时候自动初始化为true）
             });
-        case constants.CHANGE_TIME_CHOSE_RMA_RMC:
+        case constants.CHANGE_TIME_CHOSE_KAS:
             return state.set('timeChose', action.timeChose);
 
-        case constants.UPDATE_STANDARD_RMA_RMC://更新该表的标准
+        case constants.UPDATE_STANDARD_KAS://更新该表的标准
             return state.merge({
                 'startValue': action.startValue,
                 'endValue': action.endValue

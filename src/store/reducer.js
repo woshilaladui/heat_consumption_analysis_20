@@ -23,8 +23,9 @@ import { reducer as RawMatCheAnaReFMHSReducer } from '../table/fluorescenceAnaTa
 import { reducer as CMRawMatCheAnaReReducer } from '../table/fluorescenceAnaTabel/CMRawMatCheAnaRe/store';
 import { reducer as RYRawMatCheAnaReReducer } from '../table/fluorescenceAnaTabel/RYRawMatCheAnaRe/store';
 import { reducer as KilnCAnaSumTableReducer } from '../table/fluorescenceAnaTabel/KilnCAnaSumTable/store';
+import { reducer as FactoryCliAnaSumTableReducer } from '../table/fluorescenceAnaTabel/FactoryCliAnaSumTable/store';
 
-
+//FactoryCliAnaSumTable
 
 const reducer = combineReducers({
 
@@ -51,7 +52,7 @@ const reducer = combineReducers({
 	RYRawMatCheAnaRe:RYRawMatCheAnaReReducer,//入窑生料化学分析报告单
 
 	KilnCAnaSumTable:KilnCAnaSumTableReducer,//出窑熟料全分析汇总表
-
+	FactoryCliAnaSumTable:FactoryCliAnaSumTableReducer,//出厂熟料全分析汇总表
 	home_app:homeAppReducer,
 
 

@@ -12,7 +12,7 @@ import {
 } from "../../../../http/constant/Constant"
 import {
     HuaYanShiFormat,
-    updateOperator,
+    updateOperator, ZhongKongShiFormat
 } from "../../../../Helper/Format"
 
 
@@ -25,7 +25,7 @@ import {deepCopy} from "../../../../Helper/Copy";
  * @returns {{timeChose: *, type: string}}
  */
 export const changeTimeChose = (timeChose) => ({
-    type: constants.CHANGE_TIME_CHOSE_RMA_SY_SHS,
+    type: constants.CHANGE_TIME_CHOSE_KAS,
     timeChose: timeChose
 });
 
@@ -40,13 +40,13 @@ export function doChangeTimeChose(timeChose) {
 
 
 export const updateData = ({data}) => ({
-    type: constants.UPDATE_DATA_RMA_SY_SHS,
+    type: constants.UPDATE_DATA_KAS,
     data: data
 });
 
 //更新标准
 export const updateStandard = (startValue, endValue) => ({
-    type: constants.UPDATE_STANDARD_RMA_SY_SHS,
+    type: constants.UPDATE_STANDARD_KAS,
     startValue: startValue,
     endValue: endValue
 });
