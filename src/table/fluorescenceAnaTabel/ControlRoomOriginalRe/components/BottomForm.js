@@ -307,6 +307,14 @@ class BottomForm extends Component {
                     if (index === 3) {
                         obj.props.rowSpan = 0;
                     }
+                    if (index === 4) {
+                        obj.props.colSpan = 2;
+                        obj.props.rowSpan = 1;
+                    }
+                    if (index === 5) {
+                        obj.props.colSpan = 2;
+                        obj.props.rowSpan = 1;
+                    }
                     return obj;
                 },
             }, {
@@ -322,6 +330,12 @@ class BottomForm extends Component {
                     if (index === 0 || index === 1
                         || index === 2 || index === 3
                     ) {
+                        obj.props.rowSpan = 0;
+                    }
+                    if (index === 4) {
+                        obj.props.rowSpan = 0;
+                    }
+                    if (index === 5) {
                         obj.props.rowSpan = 0;
                     }
                     return obj;
@@ -366,6 +380,12 @@ class BottomForm extends Component {
                     if (index === 1 || index === 3) {
                         obj.props.rowSpan = 0;
                     }
+                    if( index === 4 ){
+                        obj.props.colSpan = 1;
+                    }
+                    if( index === 5 ){
+                        obj.props.colSpan = 1;
+                    }
                     return obj;
                 },
             }, {
@@ -393,7 +413,7 @@ class BottomForm extends Component {
                         children: value,
                         props: {}
                     };
-                    if (index === 3) {
+                    /*if (index === 3) {
                         obj.props.rowSpan = 3;
                         obj.props.colSpan = 2;
                     }
@@ -401,6 +421,13 @@ class BottomForm extends Component {
                         obj.props.rowSpan = 0;
                     }
                     if (index === 5) {
+                        obj.props.rowSpan = 0;
+                    }*/
+                    if( index === 1) {
+                        obj.props.rowSpan = 5;
+                        obj.props.colSpan = 2;
+                    }
+                    if( index > 1) {
                         obj.props.rowSpan = 0;
                     }
                     return obj;
@@ -415,13 +442,16 @@ class BottomForm extends Component {
                         children: value,
                         props: {}
                     };
-                    if (index === 3) {
+                    /*if (index === 3) {
                         obj.props.rowSpan = 0;
                     }
                     if (index === 4) {
                         obj.props.rowSpan = 0;
                     }
                     if (index === 5) {
+                        obj.props.rowSpan = 0;
+                    }*/
+                    if (index > 0 ) {
                         obj.props.rowSpan = 0;
                     }
                     return obj;
@@ -499,7 +529,7 @@ class BottomForm extends Component {
                     formatter={limitDecimals2}//限制输入数值位数
                     parser={limitDecimals2}//限制输入数值位数
                     onBlur={event => this.handleChangeInputNumber(event.target.value, timeChose * 3, 4)}/>,
-                9: '煤筛',
+                /*9: '煤筛',
                 10: <InputNumber
                 //    defaultValue={""}
                     defaultValue={Data[timeChose * 3]['t_data'][5]}
@@ -509,7 +539,18 @@ class BottomForm extends Component {
                     style={{width: 'auto'}}
                     formatter={limitDecimals2}//限制输入数值位数
                     parser={limitDecimals2}//限制输入数值位数
-                    onBlur={event => this.handleChangeInputNumber(event.target.value, timeChose * 3, 5)}/>
+                    onBlur={event => this.handleChangeInputNumber(event.target.value, timeChose * 3, 5)}/>*/
+                9: <span>
+                    备注：
+                    <TextArea
+                       defaultValue={Data[1 + timeChose * 3]['t_data'][7]} rows={11}
+                  //      defaultValue={'备注：'}
+                        onBlur={event => this.handleChangeTextAreaTest(event.target.value, 1 + timeChose * 3, 7)}
+                        style={{
+                            resize: "none"
+                        }}
+                    />
+                    </span>
             }, {
                 1: '生料班长',
                 2: <TextArea rows={3}
@@ -542,7 +583,7 @@ class BottomForm extends Component {
                     formatter={limitDecimals2}//限制输入数值位数
                     parser={limitDecimals2}//限制输入数值位数
                     onBlur={event => this.handleChangeInputNumber(event.target.value, 1 + timeChose * 3, 3)}/>,
-                9: '外卖',
+                /*9: '外卖',
                 10: <InputNumber
                  //   defaultValue={""}
                     defaultValue={Data[1 + timeChose * 3]['t_data'][4]}
@@ -550,7 +591,7 @@ class BottomForm extends Component {
                     formatter={limitDecimals2}//限制输入数值位数
                     parser={limitDecimals2}//限制输入数值位数
                     step={0.1}
-                    onBlur={event => this.handleChangeInputNumber(event.target.value, 1 + timeChose * 3, 4)}/>
+                    onBlur={event => this.handleChangeInputNumber(event.target.value, 1 + timeChose * 3, 4)}/>*/
             }, {
                 6: '铁粉',
                 7: <InputNumber
@@ -565,7 +606,7 @@ class BottomForm extends Component {
                     formatter={limitDecimals2}//限制输入数值位数
                     parser={limitDecimals2}//限制输入数值位数
                     onBlur={event => this.handleChangeInputNumber(event.target.value, 1 + timeChose * 3, 6)}/>,
-                9: <span>
+                /*9: <span>
                     备注：
                     <TextArea
                        defaultValue={Data[1 + timeChose * 3]['t_data'][7]} rows={5}
@@ -575,55 +616,81 @@ class BottomForm extends Component {
                             resize: "none"
                         }}
                     />
-                    </span>
+                    </span>*/
             }, {
                 1: '时间',
-                2: timeChose * 8,
-                3: timeChose * 8 + 7,
-                4: '平均',
-                5: '合格',
-                6: '粉煤灰',
-                7: <InputNumber
-                  //  defaultValue={""}
+                /*2: timeChose * 8,
+                3: timeChose * 8 + 7,*/
+                2: <InputNumber
                     defaultValue={Data[2 + timeChose * 3]['t_data'][0]}
                     formatter={limitDecimals2}//限制输入数值位数
                     parser={limitDecimals2}//限制输入数值位数
                     onBlur={event => this.handleChangeInputNumber(event.target.value, 2 + timeChose * 3, 0)}/>,
-                8: <InputNumber
-                 //   defaultValue={""}
+                /*3:'',
+                4: '平均',
+                5: '合格',*/
+                4: <InputNumber
                     defaultValue={Data[2 + timeChose * 3]['t_data'][1]}
                     formatter={limitDecimals2}//限制输入数值位数
                     parser={limitDecimals2}//限制输入数值位数
-                    onBlur={event => this.handleChangeInputNumber(event.target.value, 2 + timeChose * 3, 1)}/>
+                    onBlur={event => this.handleChangeInputNumber(event.target.value, 2 + timeChose * 3, 1)}/>,
+                5: <InputNumber
+                    defaultValue={Data[2 + timeChose * 3]['t_data'][2]}
+                    formatter={limitDecimals2}//限制输入数值位数
+                    parser={limitDecimals2}//限制输入数值位数
+                    onBlur={event => this.handleChangeInputNumber(event.target.value, 2 + timeChose * 3, 2)}/>,
+                6: '粉煤灰',
+                7: <InputNumber
+                  //  defaultValue={""}
+                    defaultValue={Data[2 + timeChose * 3]['t_data'][3]}
+                    formatter={limitDecimals2}//限制输入数值位数
+                    parser={limitDecimals2}//限制输入数值位数
+                    onBlur={event => this.handleChangeInputNumber(event.target.value, 2 + timeChose * 3, 3)}/>,
+                8: <InputNumber
+                 //   defaultValue={""}
+                    defaultValue={Data[2 + timeChose * 3]['t_data'][4]}
+                    formatter={limitDecimals2}//限制输入数值位数
+                    parser={limitDecimals2}//限制输入数值位数
+                    onBlur={event => this.handleChangeInputNumber(event.target.value, 2 + timeChose * 3, 4)}/>
             }, {
                 1: '立升重g/l',
                 2: <InputNumber
                   //  defaultValue={""}
-                    value={Data[2 + timeChose * 3]['t_data'][2]?Data[2 + timeChose * 3]['t_data'][2]:"a"}
+                    value={Data[2 + timeChose * 3]['t_data'][5]?Data[2 + timeChose * 3]['t_data'][5]:"a"}
                     formatter={limitDecimals2}//限制输入数值位数
                     parser={limitDecimals2}//限制输入数值位数
-                    onChange={event => this.handleChangeInputNumber(event, 2 + timeChose * 3, 2)}/>,
-                3: <InputNumber
+                    onChange={event => this.handleChangeInputNumber(event, 2 + timeChose * 3, 5)}/>,
+                /*3: <InputNumber
                    // defaultValue={""}
                     value={Data[2 + timeChose * 3]['t_data'][3]}
                     formatter={limitDecimals2}//限制输入数值位数
                     parser={limitDecimals2}//限制输入数值位数
                     onChange={event => this.handleChangeInputNumber(event, 2 + timeChose * 3, 3)}/>,
                 4: Data[2 + timeChose * 3]['t_data'][4]? Data[2 + timeChose * 3]['t_data'][4]:"-",
-                5: Data[2 + timeChose * 3]['t_data'][5]? Data[2 + timeChose * 3]['t_data'][5]:'-    ',
-                6: '烟煤',
-                7: <InputNumber
-                  //  defaultValue={""}
+                5: Data[2 + timeChose * 3]['t_data'][5]? Data[2 + timeChose * 3]['t_data'][5]:'-    ',*/
+                4:<InputNumber
                     defaultValue={Data[2 + timeChose * 3]['t_data'][6]}
                     formatter={limitDecimals2}//限制输入数值位数
                     parser={limitDecimals2}//限制输入数值位数
-                    onBlur={event => this.handleChangeInputNumber(event.target.value, 2 + timeChose * 3, 6)}/>,
-                8: <InputNumber
-                    //defaultValue={""}
+                    onBlur={event => this.handleChangeInputNumber(event.target.value, 2 + timeChose * 3,6)}/>,
+                5:<InputNumber
                     defaultValue={Data[2 + timeChose * 3]['t_data'][7]}
                     formatter={limitDecimals2}//限制输入数值位数
                     parser={limitDecimals2}//限制输入数值位数
-                    onBlur={event => this.handleChangeInputNumber(event.target.value, 2 + timeChose * 3, 7)}/>
+                    onBlur={event => this.handleChangeInputNumber(event.target.value, 2 + timeChose * 3, 7)}/>,
+                6: '烟煤',
+                7: <InputNumber
+                  //  defaultValue={""}
+                    defaultValue={Data[2 + timeChose * 3]['t_data'][8]}
+                    formatter={limitDecimals2}//限制输入数值位数
+                    parser={limitDecimals2}//限制输入数值位数
+                    onBlur={event => this.handleChangeInputNumber(event.target.value, 2 + timeChose * 3, 8)}/>,
+                8: <InputNumber
+                    //defaultValue={""}
+                    defaultValue={Data[2 + timeChose * 3]['t_data'][9]}
+                    formatter={limitDecimals2}//限制输入数值位数
+                    parser={limitDecimals2}//限制输入数值位数
+                    onBlur={event => this.handleChangeInputNumber(event.target.value, 2 + timeChose * 3, 9)}/>
             }
         ];
 
