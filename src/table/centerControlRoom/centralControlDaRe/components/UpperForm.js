@@ -7,7 +7,7 @@ export default class UpperForm extends Component {
         super(props);
         this.state = {
             Time: [],//第一列的时间变化自动控制
-            Data: [],//原始填写的数据
+            //Data: [],//原始填写的数据
             passRate: [],//合格率
             average: [],//平均
             LX: ['立磨','','','煤磨','','','旋窑','',''] //表头类型
@@ -52,7 +52,7 @@ export default class UpperForm extends Component {
 
     //暂存函数
     postToHome(i) {//i是行数
-        const hour = i + this.props.timeChose * 8;
+        /*const hour = i + this.props.timeChose * 8;
         const a = this.state.Data[hour]['t_data'];
         const t_data = a.join(',');
         const jsondata = {
@@ -87,11 +87,22 @@ export default class UpperForm extends Component {
                 }
             })
             .catch(error => console.error('Error:', error))
-            .then(response => console.log('Success:', response));
+            .then(response => console.log('Success:', response));*/
+        const {data, timeChose, date, tableName, saveToHome} = this.props;
+        const Data = deepCopy(data)
+
+        //计算具体下标位置
+        const index = i + timeChose * 12//每班有13行数据
+        saveToHome(
+            date,
+            index,
+            tableName,
+            Data
+        )
     }
 
     //提交函数
-    postAllToHome() {
+    /*postAllToHome() {
         const timeChoose = this.props.timeChose * 8;
         for (let i = timeChoose; i < timeChoose + 8; i++) {
             const a = this.state.Data[i]['t_data'];
@@ -131,7 +142,7 @@ export default class UpperForm extends Component {
                     }
                 })
                 .catch(error => console.error('Error:', error))
-        }
+        }*/
     }
 
     updataData_Initial(standard) {
@@ -388,27 +399,6 @@ export default class UpperForm extends Component {
         }
     };
 
-    // onInputStringChange = (event, indexH, indexL) => {
-    //     let NewData = this.state.Data;
-    //     let hour = indexH + this.props.timeChose * 8;
-    //     NewData[hour]["t_data"][indexL] = event.target.value;
-    //     this.setState({
-    //         Data: NewData
-    //     });
-    // };
-
-    // limitDecimals2 = (value: string | number): string => {
-    //     // const reg = /^(\-)*(\d+)\.(\d\d).*$/;
-    //     const reg = /^(([1-9]{1}\d*)|(0{1}))\.(\d{2})$/;
-    //     if (typeof value === 'string') {
-    //         return !isNaN(Number(value)) ? value.replace(reg, '$1$2.$3') : ''
-    //     } else if (typeof value === 'number') {
-    //         return !isNaN(value) ? String(value).replace(reg, '$1$2.$3') : ''
-    //     } else {
-    //         return ''
-    //     }
-    // };
-
     render() {
 
         // 表头
@@ -541,34 +531,15 @@ export default class UpperForm extends Component {
             }
         ];
 
-
-        /**限制输入数值位数的函数**/
-            // const limitDecimals2 = (value: string | number): string => {
-            //     const reg = /^(([1-9]{1}\d*)|(0{1}))(\.\d{2})$/;
-            //     if (typeof value === 'string') {
-            //         return !isNaN(Number(value)) ? value.replace(reg, '$1$2.$3') : ''
-            //     } else if (typeof value === 'number') {
-            //         return !isNaN(value) ? String(value).replace(reg, '$1$2.$3') : ''
-            //     } else {
-            //         return ''
-            //     }
-            // };
-            // const limitDecimals3 = (value: string | number): string => {
-            //     const reg = /^(\-)*(\d+)\.(\d\d\d).*$/;
-            //     if (typeof value === 'string') {
-            //         return !isNaN(Number(value)) ? value.replace(reg, '$1$2.$3') : ''
-            //     } else if (typeof value === 'number') {
-            //         return !isNaN(value) ? String(value).replace(reg, '$1$2.$3') : ''
-            //     } else {
-            //         return ''
-            //     }
-            // };
-
         const data = [];
         //中间八行的数据输入
-        const Data = this.state.Data;
+        //const Data = this.state.Data;
+        const {data, timeChose,person} = this.props;
+        const Data = deepCopy(data)
+
         for (let i = 0; i < 9; i++) {
-            let hour = i + this.props.timeChose * 6;
+            //let hour = i + this.props.timeChose * 6;
+            let hour = i + timeChose * 6;
             const value = Data[hour]['t_data'];
             data.push(
                 {   
@@ -659,3 +630,41 @@ export default class UpperForm extends Component {
         );
     }
 }
+
+//定义映射
+const mapStateToProps = (state) => {
+    return {
+        date: state.getIn(['centralControlDaRe', 'date']),
+        timeChose: state.getIn(['centralControlDaRe', 'timeChose']),
+        data: state.getIn(['centralControlDaRe', 'data']),
+        person: state.getIn(['centralControlDaRe', 'person']),
+        tableName: state.getIn(['centralControlDaRe', 'tableName']),
+    }
+}
+
+const mapDispathToProps = (dispatch) => {
+    return {
+
+        updateChange(NewData) {
+
+            dispatch(actionCreators.updateData({data:deepCopy(NewData)}))
+        },
+
+
+        //上表暂存一行数据
+        saveToHome(date, index, tableName, data) {
+
+
+            dispatch(actionCreators.saveData({
+                date:date,
+                index:index,
+                tableName:tableName,
+                data:data
+            }))
+        },
+
+    }//end return
+};
+
+
+export default connect(mapStateToProps, mapDispathToProps)(UpperForm);

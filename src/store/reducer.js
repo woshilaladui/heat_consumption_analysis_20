@@ -14,6 +14,7 @@ import { reducer as ControlRoomOriginalReReducer } from '../table/fluorescenceAn
 import { reducer as TableJCYCLReducer } from '../table/huayanshiTable/huayanshiRibao/TableJCYCL/store';
 import { reducer as fluoAnaAndDetReReducer } from '../table/centerControlRoom/fluoAnaAndDetRe/store';
 
+import { reducer as centralControlDaReReducer } from '../table/centerControlRoom/centralControlDaRe/store';
 
 /*******************************************化验室*******************************************************/
 import { reducer as RawMatCheAnaReReducer } from '../table/fluorescenceAnaTabel/RawMatCheAnaRe/store';
@@ -49,6 +50,7 @@ const reducer = combineReducers({
 	onlineAutoDetOpRe:onlineAutoDetOpReReducer,//自动检测
 	TableJCYCL:TableJCYCLReducer, //化验室日报的仓下进厂表格
 
+	centralControlDaRe:centralControlDaReReducer,//中控日报
 
 	/****************************化验室***************************************/
 	RawMatCheAnaRe:RawMatCheAnaReReducer,//进厂原材料分析化学报告单（石灰石）
