@@ -206,7 +206,7 @@ export const TableName ={
 
     /**
      * @tableName 熟料荧光分析及检测记录
-     * @directory /table/centerControlRoom/fluoAnaAndDetRe 在线自动检测运行记录(排放物)
+     * @directory /table/centerControlRoom/fluoAnaAndDetRe 熟料荧光分析及检测记录(排放物)
      */
     ZHONG_KONG_SHI_SL_JCJL:"NS_FAD",
 
