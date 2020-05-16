@@ -17,7 +17,13 @@ export function HuaYanShiFormat(resultData, responseData, tableName) {
 
         for (let j = 0; j < str.length; j++) {
 
-            arr[j] = parseFloat(str[j]);
+            if (isNaN(str[i])) {//非数字
+                arr[j] = str[j];
+            }else {
+                arr[j] = parseFloat(str[j]);
+            }
+
+
         }
 
         //相当于替换了原来字符串数组，将其变成Number数组

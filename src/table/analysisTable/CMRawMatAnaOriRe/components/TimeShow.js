@@ -1,33 +1,18 @@
+import * as actionCreators from "../../../analysisTable/CMRawMatAnaOriRe/store/actionCreators";
+import {connect} from "react-redux";
 import React, { Component,Fragment } from 'react';
 import { Row, Col, Select } from 'antd';
 import moment from 'moment';
 
+
 const Option = Select.Option;
 class TimeShow extends Component{
 
-    constructor(props){
-        super(props);
-        this.state={
-            timeChose:'0点班'
-        }
-    }
 
-    /**
-     *班次选择响应
-     */
-    handleTimeChange = (e) => {
-        const x=parseInt(e)
-        const timeChose=['0点班','8点班','16点班'];
-        this.props.handleTimeChose(x);
-        this.setState({
-            timeChose:timeChose[x]
-        })
-
-    }
 
     render() {
         const day=(['天','一','二','三','四','五','六']);
-
+        const {person} = this.props;
         return(
             <Fragment>
                 <Row type="flex" justify = "space-around" align="middle">
@@ -40,11 +25,28 @@ class TimeShow extends Component{
                             <Option  value='2'>16点班</Option>
                         </Select>
                     </Col> */}
-                    <Col xs={{ span: 5, offset: 1 }} lg={{ span: 6, offset: 2 }}>{"值班人员："+this.props.person}</Col>
+                    <Col xs={{ span: 5, offset: 1 }} lg={{ span: 6, offset: 2 }}>{"值班人员："+person}</Col>
                 </Row>
             </Fragment>
         );
     }
 }
+//定义映射
+const mapStateToProps = (state) => {
+    return {
+        date:state.getIn(['CMRawMatAnaOriRe', 'date']),
+        timeChose:state.getIn(['CMRawMatAnaOriRe', 'timeChose']),
+        data:state.getIn(['CMRawMatAnaOriRe', 'data']),
+        requestFlag:state.getIn(['CMRawMatAnaOriRe', 'requestFlag']),
+        person:state.getIn(['CMRawMatAnaOriRe', 'person']),
+        tableName:state.getIn(['CMRawMatAnaOriRe', 'tableName']),
+    }
+};
 
-export default TimeShow;
+const mapDispathToProps = (dispatch) => {
+    return {
+
+    }//end return
+};
+
+export default connect(mapStateToProps, mapDispathToProps)(TimeShow);

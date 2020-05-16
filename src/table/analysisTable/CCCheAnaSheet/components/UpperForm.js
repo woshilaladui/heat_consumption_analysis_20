@@ -1,59 +1,87 @@
 import React, {Component} from 'react';
 import {Input, Table, Button, message} from 'antd';
-import {HuaYSSave} from "../../../../Request/RequsetCenter";
-import {URL} from "../../../../Request/Constant";
-import {getAnalysisJsonSaveData} from "../../../../Request/JsonCenter";
-import {updateOperator} from "../../../../Helper/AutoCalculate";
+
 import {AnalysisOrder_DownRipeMaterial, AnalysisOrder_UpRipeMaterial} from "../../../../Constant/TableOrder";
 
+import * as actionCreators from "../../../analysisTable/CCCheAnaSheet/store/actionCreators";
+import {deepCopy} from "../../../../Helper/Copy";
+import {connect} from "react-redux";
 
-export default class UpperForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            Time: [],//第一列的时间变化自动控制
-            Data: [],//原始填写的数据
-            t_name:"",
-            date:"",
-            isNormal: [],
-            BanCi : ['滴定值','','消耗数','含量']
-        }
-    }
+
+class UpperForm extends Component {
 
     componentDidMount() {
-        this.props.onRef(this);
-    }
 
-    /**
-     * 第一列的时间变化
-     */
+    }
     componentWillMount() {
-        this.setState({
-            Data: this.props.upperData,
-            date: this.props.date,
-            t_name: this.props.t_name,
-        });
     }
 
-    /**更新props**/
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            Data: this.props.upperData,
-            date: this.props.date,
-            t_name: this.props.t_name,
-        });
+
     }
 
     /**
      * 表格输入数据变化的监听，同时所有的数据更新
      **/
-    onInputNumberChange2 = (event, indexH, indexL) => {
-        let NewData = this.state.Data;
-        let hour = indexH + this.props.timeChose * 8;
-        NewData[hour]["t_data"][indexL] = event;
-        this.setState({
-            Data: NewData
-        });
+    onInputNumberChange2 = (value, indexH, indexL) => {
+        const {data, updateChange,tableName} = this.props;
+        let NewData = deepCopy(data);//复制一份出来
+
+
+        //更新表中所填数据
+        if (value != null) {
+            NewData[indexH]["data"][indexL] = value;
+
+
+        }
+
+        //更新KH字段
+        //(CaO-0.35* Fe2O3-1.65* Al2O3)/2.8*SiO2
+        if(
+            indexL === AnalysisOrder_UpRipeMaterial.CaO
+            ||
+            indexL === AnalysisOrder_UpRipeMaterial.Fe2O3
+            ||
+            indexL === AnalysisOrder_UpRipeMaterial.Al2O3
+            ||
+            indexL === AnalysisOrder_UpRipeMaterial.SiO2
+        ){
+            //TODO 计算不知道以那个值计算 autoCalculate_KH 出窑熟料化学分析单
+            //autoCalculate_KH(NewData,indexH,tableName);
+        }
+
+        //更新N字段
+        //SiO2/(Al2O3+Fe2O3)
+        if(
+            indexL === AnalysisOrder_UpRipeMaterial.SiO2
+            ||
+            indexL === AnalysisOrder_UpRipeMaterial.Al2O3
+            ||
+            indexL === AnalysisOrder_UpRipeMaterial.Fe2O3
+        ){
+
+            //TODO 计算不知道以那个值计算 autoCalculate_N 出窑熟料化学分析单
+            //autoCalculate_N(NewData,indexH,tableName);
+
+        }
+
+        //更新P字段
+        //Al2O3/ Fe2O3
+        if(
+            indexL === AnalysisOrder_UpRipeMaterial.Al2O3
+            ||
+            indexL === AnalysisOrder_UpRipeMaterial.Fe2O3
+        ){
+
+            //TODO 计算不知道以那个值计算 autoCalculate_P 出窑熟料化学分析单
+            //autoCalculate_P(NewData,indexH,tableName);
+
+        }
+
+        //TODO 计算KH- 但是该表没有fcao 出窑熟料化学分析单
+
+
+        updateChange(NewData);
     };
 
     //控制输入框的样式
@@ -66,50 +94,8 @@ export default class UpperForm extends Component {
                 }
             }
         }
-    }
+    };
 
-    //上传当前数据后台
-    postToHome(i) {//i是行数
-        HuaYSSave(
-            URL.HUAYS_SAVE,
-            getAnalysisJsonSaveData({
-                tableName:this.props.t_name,
-                date:this.props.date,
-                index:i,
-                data:this.state.Data
-            }))
-            .then((response) => {
-                message.info('暂存成功');
-                //获取存放的人
-                updateOperator({Data:this.state.Data,index:i})
-                this.setState({
-                    Data: this.state.Data
-                })
-            })
-            .catch()
-    }
-
-
-    postAllToHome() {
-        HuaYSSave(
-            URL.HUAYS_SAVE,
-            getAnalysisJsonSaveData({
-                tableName:this.props.t_name,
-                date:this.props.date,
-                data:this.state.Data,
-                num:5//4行数据提交
-            }))
-            .then((response) => {
-                message.info('提交成功');
-                //获取存放的人
-                updateOperator({Data:this.state.Data,num: 5})
-                this.setState({
-                    Data: this.state.Data
-                })
-            })
-            .catch()
-
-    }
 
     render() {
         /**表头的设计**start**/
@@ -176,11 +162,11 @@ export default class UpperForm extends Component {
                 key: 'person',
                 dataIndex: 'person',
             },
-            {
-                title: '暂存',
-                key: 'btn_save',
-                dataIndex: 'btn_save',
-            }
+            // {
+            //     title: '暂存',
+            //     key: 'btn_save',
+            //     dataIndex: 'btn_save',
+            // }
         ];
 
         const columns_bottom = [
@@ -227,7 +213,7 @@ export default class UpperForm extends Component {
                     };
                     if(index === 0){
                         obj.props.rowSpan = 1
-                    };
+                    }
                     // if(index === 1){
                     //     obj.props.rowSpan = 0
                     // };
@@ -255,24 +241,26 @@ export default class UpperForm extends Component {
                 key: 'person',
                 dataIndex: 'person',
             },
-            {
-                title: '暂存',
-                key: 'btn_save',
-                dataIndex: 'btn_save',
-            }
+            // {
+            //     title: '暂存',
+            //     key: 'btn_save',
+            //     dataIndex: 'btn_save',
+            // }
         ];
 
         /**限制输入数值位数的函数**end**/
 
         /**中间八行的数据输入**start**/
-        const data = [];
-        const Data = this.state.Data;
+        const dataSource = [];
+        const {data,LX} = this.props;
+        const Data = deepCopy(data);
+        const lx = deepCopy(LX);
         for (let i = 0; i < 4; i++) {
-            const hour = i
-            const value = Data[hour]['t_data'];
-            data.push(
+            const hour = i;
+            const value = Data[hour]['data'];
+            dataSource.push(
                 {
-                    LX: this.state.BanCi[i],
+                    LX: lx[i],
                     IL: <span><Input
                         style={this.changeStyle(value[AnalysisOrder_UpRipeMaterial.IL])}
                         defaultValue={''}
@@ -342,17 +330,17 @@ export default class UpperForm extends Component {
                         onChange={event => this.onInputNumberChange2(event.target.value, i, AnalysisOrder_UpRipeMaterial.Cl)}
                     /></span>,
                     person: Data[hour]['user'],
-                    btn_save: <Button type='primary' onClick={() => this.postToHome(i)}>暂存</Button>,
+                    //btn_save: <Button type='primary' onClick={() => this.postToHome(i)}>暂存</Button>,
                 })
         }//end for
 
         const data_bottom = [];
 
-        const valueBottom =Data[4]['t_data'];
+        const valueBottom =Data[4]['data'];
 
         data_bottom.push(
             {
-                1: this.state.BanCi[0],
+                1: '率值',
                 KH_: <span><Input
 
                     // style={this.changeStyle(value[1])}
@@ -410,7 +398,7 @@ export default class UpperForm extends Component {
                 /></span>,
                 person: Data[4]['user'],
                 btn_save: <Button type='primary' onClick={() => this.postToHome(4)}>暂存</Button>,
-            })
+            });
 
 
 
@@ -420,7 +408,7 @@ export default class UpperForm extends Component {
                 {/*表格填写*/}
                 <Table
                     className="pper_table" columns={columns} bordered
-                    dataSource={data} pagination={false}/>
+                    dataSource={dataSource} pagination={false}/>
                 <Table
                     className="pper_table" columns={columns_bottom} bordered
                     dataSource={data_bottom} pagination={false}/>
@@ -430,3 +418,30 @@ export default class UpperForm extends Component {
     }
 
 }
+//定义映射
+const mapStateToProps = (state) => {
+    return {
+        //LX
+        date: state.getIn(['CCCheAnaSheet', 'date']),
+        LX: state.getIn(['CCCheAnaSheet', 'LX']),
+        timeChose: state.getIn(['CCCheAnaSheet', 'timeChose']),
+        data: state.getIn(['CCCheAnaSheet', 'data']),
+        requestFlag: state.getIn(['CCCheAnaSheet', 'requestFlag']),
+        person: state.getIn(['CCCheAnaSheet', 'person']),
+        tableName: state.getIn(['CCCheAnaSheet', 'tableName']),
+
+    }
+};
+
+const mapDispathToProps = (dispatch) => {
+    return {
+        updateChange(NewData) {
+
+            dispatch(actionCreators.updateData({data: deepCopy(NewData)}))
+        },
+
+
+    }//end return
+};
+
+export default connect(mapStateToProps, mapDispathToProps)(UpperForm);

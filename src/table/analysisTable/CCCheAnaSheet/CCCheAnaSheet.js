@@ -2,89 +2,33 @@ import React, {Component , Fragment} from 'react';
 import ButtonComfirmBox from './components/ButtonConfirmBox';
 import TimeShow from './components/TimeShow';
 import UpperForm from './components/UpperForm';
-import MiddleForm from './components/MiddleForm';
-import BottomForm from './components/BottomForm';
-import moment from 'moment';
 import { Input } from 'antd';
-import {checkAuthority, getOldData, getStandard} from "../../../Request/RequsetCenter";
-import {Mark, Standard, URL} from "../../../Request/Constant";
-import {getHuaYSJsonData} from "../../../Request/JsonCenter";
+
+import * as actionCreators from "../../analysisTable/CCCheAnaSheet/store/actionCreators";
+import {connect} from "react-redux";
+import {deepCopy} from "../../../Helper/Copy";
 
 const { TextArea } = Input;
 
 //出厂熟料化学分析单
-export default class CCCheAnaSheet extends Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-            date: moment().format("YYYY-MM-DD"),
-            timeChose: 0, //选择的班次 0代表1-7 1代表8-15 2代表16-23
-            upperData: [
-                {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-                {t_data: []}
-            ], //表格数据
-            person: "", //传入的值班人员
-            t_name:"NS_CCA"//出厂熟料化学分析单
-        };
-    }
-
-    /**onRef控制子组件提交表单**/
-    onRef = ref => {
-        this.UpperForm = ref;
-    };
-
-    /**点击提交数据**/
-    handleSubmit = () => {
-        this.UpperForm.postAllToHome();
-    };
-
-    /**
-     * 响应班次变化
-     **/
-    handleTimeChose(x) {
-        this.setState({
-            timeChose: x
-        });
-    }
-
+class CCCheAnaSheet extends Component{
     returnBack = () => {
         this.props.history.push("/index");
     };
 
-    //判定是否已登录，是否有权限
     componentWillMount() {
-        checkAuthority(URL.HUAYS_CHECK)
-            .then((response)=>{
-                if(response === Mark.ERROR){
-                    this.props.history.push('/');
-                }
-            })
-            .catch()
+
     }
 
     componentDidMount() {
-        /**首先查询当前页面是否有历史纪录并赋值formData**/
+        const {data, date, tableName, setOldData,requestFlag} = this.props;
 
-        this.setOldData();
+        if(requestFlag){
+
+            setOldData(date,tableName,deepCopy(data));
+        }
     }
 
-    setOldData() {
-        getOldData(
-            URL.HUAYS_QUERY,
-            getHuaYSJsonData(this.state.t_name, this.state.date),
-            this.state.t_name,
-            Standard.HAVA,
-            this.state.upperData
-        )
-            .then((response) => {
-                this.setState(() => ({
-                    upperData: response,
-                    person: window.localStorage.name,
-                }))
-
-            })
-            .catch()
-    }
 
     render(){
         return(
@@ -93,8 +37,7 @@ export default class CCCheAnaSheet extends Component{
                     <h1 align="center">出厂熟料化学分析单</h1>
                     {/*表单最上的时间及人员显示*/}
                     <TimeShow
-                        person={this.state.person}
-                        handleTimeChose={this.handleTimeChose.bind(this)}
+
                     />
                     <div
                         style={{
@@ -105,12 +48,7 @@ export default class CCCheAnaSheet extends Component{
 
                         {/*表单上半部分*/}
                         <UpperForm
-                            onRef={this.onRef}
-                            timeChose={this.state.timeChose}
-                            person={this.state.person}
-                            upperData={this.state.upperData}
-                            t_name={this.state.t_name}
-                            date={this.state.date}
+
                         />
 
                     </div>
@@ -123,12 +61,30 @@ export default class CCCheAnaSheet extends Component{
                     }}
                 >
                     <ButtonComfirmBox
-                        type="primary"
-                        buttonText="提交"
-                        action={this.handleSubmit}
                     />
                 </div>
             </Fragment>
         )
     }
 }
+//定义映射
+const mapStateToProps = (state) => {
+    return {
+        date:state.getIn(['CCCheAnaSheet', 'date']),
+        timeChose:state.getIn(['CCCheAnaSheet', 'timeChose']),
+        data:state.getIn(['CCCheAnaSheet', 'data']),
+        requestFlag:state.getIn(['CCCheAnaSheet', 'requestFlag']),
+        person:state.getIn(['CCCheAnaSheet', 'person']),
+        tableName:state.getIn(['CCCheAnaSheet', 'tableName']),
+    }
+};
+
+const mapDispathToProps = (dispatch) => {
+    return {
+        setOldData(date,tableName,data){
+            dispatch(actionCreators.getData(date,tableName,data))
+        }
+    }//end return
+};
+
+export default connect(mapStateToProps, mapDispathToProps)(CCCheAnaSheet);

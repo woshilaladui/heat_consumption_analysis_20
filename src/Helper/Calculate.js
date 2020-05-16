@@ -1,6 +1,6 @@
 import {deepCopy} from "./Copy";
 
-import {HuaYSOrder_CMRYSL, HuaYSOrder_RMC,AnalysisOrder_YS} from "../Constant/TableOrder";
+import {HuaYSOrder_CMRYSL, HuaYSOrder_RMC,AnalysisOrder_YS,AnalysisOrder_RawMaterial} from "../Constant/TableOrder";
 
 import {TableName} from "../Constant/TableNameConstant";
 
@@ -60,6 +60,18 @@ export function autoCalculate_KH(
         if(SiO2 !== 0){
 
             data[indexH]['data'][HuaYSOrder_RMC.KH] = parseFloat(
+                ((CaO - 0.35 * Fe2O3 - 1.65*Al2O3)/(2.8*SiO2)).toString()
+            ).toFixed(3);
+        }
+    }else if(tableName === TableName.Analysis_BS || tableName === TableName.Analysis_RY){
+        CaO = parseFloat(isNaN(data[indexH]['data'][AnalysisOrder_RawMaterial.CaO])?0:data[indexH]['data'][AnalysisOrder_RawMaterial.CaO]);
+        Fe2O3 = parseFloat(isNaN(data[indexH]['data'][AnalysisOrder_RawMaterial.Fe2O3])?0:data[indexH]['data'][AnalysisOrder_RawMaterial.Fe2O3]);
+        Al2O3 = parseFloat(isNaN(data[indexH]['data'][AnalysisOrder_RawMaterial.Al2O3])?0:data[indexH]['data'][AnalysisOrder_RawMaterial.Al2O3]);
+        SiO2 = parseFloat(isNaN(data[indexH]['data'][AnalysisOrder_RawMaterial.SiO2]) ?0:data[indexH]['data'][AnalysisOrder_RawMaterial.SiO2]);
+
+        if(SiO2 !== 0){
+
+            data[indexH]['data'][AnalysisOrder_RawMaterial.KH] = parseFloat(
                 ((CaO - 0.35 * Fe2O3 - 1.65*Al2O3)/(2.8*SiO2)).toString()
             ).toFixed(3);
         }
@@ -144,6 +156,16 @@ export function autoCalculate_N(
                 (SiO2/(Al2O3 + Fe2O3)).toString()
             ).toFixed(3);
         }
+    }else if(tableName === TableName.Analysis_BS || tableName === TableName.Analysis_RY){
+        SiO2 = parseFloat(isNaN(data[indexH]['data'][AnalysisOrder_RawMaterial.SiO2])?0:data[indexH]['data'][AnalysisOrder_RawMaterial.SiO2]);
+        Al2O3 = parseFloat(isNaN(data[indexH]['data'][AnalysisOrder_RawMaterial.Al2O3])?0:data[indexH]['data'][AnalysisOrder_RawMaterial.Al2O3]);
+        Fe2O3 = parseFloat(isNaN(data[indexH]['data'][AnalysisOrder_RawMaterial.Fe2O3])?0:data[indexH]['data'][AnalysisOrder_RawMaterial.Fe2O3]);
+
+        if((Al2O3+Fe2O3) !== 0){
+            data[indexH]['data'][AnalysisOrder_RawMaterial.N] = parseFloat(
+                (SiO2/(Al2O3 + Fe2O3)).toString()
+            ).toFixed(3);
+        }
     }else {
         SiO2 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_CMRYSL.SiO2])?0:data[indexH]['data'][HuaYSOrder_CMRYSL.SiO2]);
         Al2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_CMRYSL.Al2O3])?0:data[indexH]['data'][HuaYSOrder_CMRYSL.Al2O3]);
@@ -179,6 +201,15 @@ export function autoCalculate_P(
 
         if(Fe2O3 !== 0){
             data[indexH]['data'][HuaYSOrder_RMC.P] = parseFloat(
+                (Al2O3/Fe2O3).toString()
+            ).toFixed(3);
+        }
+    }else if(tableName === TableName.Analysis_BS || tableName === TableName.Analysis_RY){
+        Al2O3 = parseFloat(isNaN(data[indexH]['data'][AnalysisOrder_RawMaterial.Al2O3])?0:data[indexH]['data'][AnalysisOrder_RawMaterial.Al2O3]);
+        Fe2O3 = parseFloat(isNaN(data[indexH]['data'][AnalysisOrder_RawMaterial.Fe2O3] )?0:data[indexH]['data'][AnalysisOrder_RawMaterial.Fe2O3]);
+
+        if(Fe2O3 !== 0){
+            data[indexH]['data'][AnalysisOrder_RawMaterial.P] = parseFloat(
                 (Al2O3/Fe2O3).toString()
             ).toFixed(3);
         }

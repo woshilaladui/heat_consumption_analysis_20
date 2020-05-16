@@ -77,7 +77,7 @@ const AnalysisOrder_YS = {//原材料分析表格原始记录表
     Cl:9
 };
 
-const AnalysisOrder_RawMaterial ={
+const AnalysisOrder_RawMaterial ={//出磨生料分析原始记录 /入窑生料分析原始记录
     IL:0,
     SiO2:1,
     Al2O3:2,
@@ -90,7 +90,7 @@ const AnalysisOrder_RawMaterial ={
     CL_:9
 };
 
-const AnalysisOrder_UpRipeMaterial = {
+const AnalysisOrder_UpRipeMaterial = {//出窑熟料化学分析单/出厂熟料化学分析单 上半部分
     IL:0,
     SiO2:1,
     Al2O3:2,
@@ -103,7 +103,7 @@ const AnalysisOrder_UpRipeMaterial = {
     CL_:9
 };
 
-const AnalysisOrder_DownRipeMaterial = {
+const AnalysisOrder_DownRipeMaterial = {//出窑熟料化学分析单/出厂熟料化学分析单 下半部分
     KH_:0,
     KH:1,
     N:2,

@@ -1,61 +1,34 @@
 import React, {Component} from 'react';
-import {Input, Table, Button, message} from 'antd';
-import {HuaYSSave} from "../../../../Request/RequsetCenter";
-import {URL} from "../../../../Request/Constant";
-import {getAnalysisJsonSaveData} from "../../../../Request/JsonCenter";
-import {updateOperator} from "../../../../Helper/AutoCalculate";
+import {Input, Table} from 'antd';
 
+import * as actionCreators from "../../../analysisTable/CYPhyPerTest/store/actionCreators";
+import {deepCopy} from "../../../../Helper/Copy";
+import {connect} from "react-redux";
 
-export default class UpperForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-
-            Data: [],//原始填写的数据
-            t_name:"",
-            date:"",
-            BanCi : ['安定性','初凝(min)','终凝(min)','SO3','比表面积'],
-            Placeholder:['不合格','','','','']
-            // person: this.props.person
-        }
-    }
-
+class UpperForm extends Component {
 
     componentDidMount() {
-        this.props.onRef(this);
     }
 
-
-    /**
-     * 第一列的时间变化
-     */
     componentWillMount() {
-        this.setState({
-            Data: this.props.upperData,
-            date: this.props.date,
-            t_name: this.props.t_name,
-        });
+
     }
 
-    /**更新props**/
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            Data: this.props.upperData,
-            date: this.props.date,
-            t_name: this.props.t_name,
-        });
     }
 
     /**
      * 表格输入数据变化的监听，同时所有的数据更新
      **/
-    onInputChange2 = (event, indexH, indexL) => {
-        let NewData = this.state.Data;
+    onInputChange2 = (value, indexH, indexL) => {
+        const {data, updateChange} = this.props;
+        let NewData = deepCopy(data);//复制一份出来
 
-        NewData[indexH]["t_data"][indexL] = event;
-        this.setState({
-            Data: NewData
-        });
+        //更新表中所填数据
+        if (value != null) {
+            NewData[indexH]["data"][indexL] = value;
+            updateChange(NewData);
+        }
     };
 
     //控制输入框的样式
@@ -68,50 +41,9 @@ export default class UpperForm extends Component {
                 }
             }
         }
-    }
+    };
 
-    //上传当前数据后台
-    /**点击暂存之后上传当前行的数据到后台**start**/
-    postToHome(i) {//i是行数
-        HuaYSSave(
-            URL.HUAYS_SAVE,
-            getAnalysisJsonSaveData({
-                tableName:this.props.t_name,
-                date:this.props.date,
-                index:i,
-                data:this.state.Data
-            }))
-            .then((response) => {
-                message.info('暂存成功');
-                //获取存放的人
-                updateOperator({Data:this.state.Data,index:i})
-                this.setState({
-                    Data: this.state.Data
-                })
-            })
-            .catch()
-    }
 
-    postAllToHome() {
-        HuaYSSave(
-            URL.HUAYS_SAVE,
-            getAnalysisJsonSaveData({
-                tableName:this.props.t_name,
-                date:this.props.date,
-                data:this.state.Data,
-                num:5//5行数据提交
-            }))
-            .then((response) => {
-                message.info('提交成功');
-                //获取存放的人
-                updateOperator({Data:this.state.Data,num: 5})
-                this.setState({
-                    Data: this.state.Data
-                })
-            })
-            .catch()
-
-    }
 
     /**点击暂存之后上传当前行的数据到后台**end**/
     render() {
@@ -130,11 +62,11 @@ export default class UpperForm extends Component {
                 key: 'person',
                 dataIndex: 'person',
             },
-            {
-                title: '暂存',
-                key: 'btn_save',
-                dataIndex: 'btn_save',
-            }
+            // {
+            //     title: '暂存',
+            //     key: 'btn_save',
+            //     dataIndex: 'btn_save',
+            // }
         ];
 
         /**表头的设计**end**/
@@ -143,26 +75,29 @@ export default class UpperForm extends Component {
         /**限制输入数值位数的函数**end**/
 
         /**中间八行的数据输入**start**/
-        const data = [];
-        const Data = this.state.Data;
+        const dataSource = [];
+        const {data,LX,Placeholder} = this.props;
+        const Data = deepCopy(data);
+        const lx = deepCopy(LX);
+        const placeholder = deepCopy(Placeholder);
         for (let i = 0; i < 5; i++) {
             //const hour = i
-            const value = Data[i]['t_data'];
+            const value = Data[i]['data'];
 
 
-            data.push(
+            dataSource.push(
                 {
-                    XMMC: this.state.BanCi[i],
+                    XMMC: lx[i],
                     TXNR: <span><Input
                         //style={this.changeStyle(value[0])}
-                        placeholder={this.state.Placeholder[i]}
+                        placeholder={placeholder[i]}
                         defaultValue={''}
                         //value={isNaN(value[0]) ? null : value[0]}
                         value={value[0]}
                         onChange={event => this.onInputChange2(event.target.value, i, 0)}
                     /></span>,
                     person:Data[i]['user'],
-                    btn_save: <Button type='primary' onClick={() => this.postToHome(i)}>暂存</Button>,
+                    //btn_save: <Button type='primary' onClick={() => this.postToHome(i)}>暂存</Button>,
                 })
         }
 
@@ -173,10 +108,38 @@ export default class UpperForm extends Component {
                 {/*表格填写*/}
                 <Table
                     className="pper_table" columns={columns} bordered
-                    dataSource={data} pagination={false}/>
+                    dataSource={dataSource} pagination={false}/>
 
             </div>
         );
     }
 
 }
+//定义映射
+const mapStateToProps = (state) => {
+    return {
+        //LX
+        date: state.getIn(['CYPhyPerTest', 'date']),
+        LX: state.getIn(['CYPhyPerTest', 'LX']),
+        timeChose: state.getIn(['CYPhyPerTest', 'timeChose']),
+        data: state.getIn(['CYPhyPerTest', 'data']),
+        requestFlag: state.getIn(['CYPhyPerTest', 'requestFlag']),
+        person: state.getIn(['CYPhyPerTest', 'person']),
+        tableName: state.getIn(['CYPhyPerTest', 'tableName']),
+        Placeholder:state.getIn(['CYPhyPerTest', 'Placeholder'])
+
+    }
+};
+
+const mapDispathToProps = (dispatch) => {
+    return {
+        updateChange(NewData) {
+
+            dispatch(actionCreators.updateData({data: deepCopy(NewData)}))
+        },
+
+
+    }//end return
+};
+
+export default connect(mapStateToProps, mapDispathToProps)(UpperForm);
