@@ -41,13 +41,10 @@ import { reducer as CYPhyPerTestReducer } from '../table/analysisTable/CYPhyPerT
 import { reducer as CCPhyPerTestReducer } from '../table/analysisTable/CCPhyPerTest/store';
 import { reducer as JCMoCoCoMaReducer } from '../table/analysisTable/JCMoCoCoMa/store';
 
-
-
-
 import { reducer as smIndusAnaOriReReducer } from '../table/analysisTable/SMIndusAnaOriRe/store';
 import { reducer as mfIndusAnaOriReReducer } from '../table/analysisTable/MFIndusAnaOriRe/store';
 
-
+import { reducer as setStandardReducer } from '../table/setStandard/store';
 
 /*******************************************电量表格*******************************************************/
 import { reducer as monthElectricityReducer } from '../table/electricityTable/monthElectricity/store';
@@ -95,13 +92,15 @@ const reducer = combineReducers({
 	CCPhyPerTest:CCPhyPerTestReducer,//出厂熟料物理性能检测
 	JCMoCoCoMa:JCMoCoCoMaReducer,//进厂原燃材料水分
 
-
+	smIndusAnaOriRe:smIndusAnaOriReReducer, //神木工业分析原始记录
+	mfIndusAnaOriRe:mfIndusAnaOriReReducer,  //煤粉工业分析原始记录
 
 
 	home_app:homeAppReducer,
-	
-	smIndusAnaOriRe:smIndusAnaOriReReducer, //神木工业分析原始记录
-	mfIndusAnaOriRe:mfIndusAnaOriReReducer,  //煤粉工业分析原始记录
+
+	setStandard:setStandardReducer,//设置标准
+
+
 
 	monthElectricity:monthElectricityReducer,  //每月电量表
 	threeFiveKwTable:threeFiveKwTableReducer  //35KW表

@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 import {Table, Select, message, Input, DatePicker,InputNumber} from 'antd';
 import moment from 'moment';
-import {HuaYSSave} from "../../../../Request/RequsetCenter";
-import {URL} from "../../../../Request/Constant";
-import {getAnalysisJsonSaveData} from "../../../../Request/JsonCenter";
-import {updateOperator} from "../../../../Helper/AutoCalculate";
+
 
 import * as actionCreators from "../../../analysisTable/JCMoCoCoMa/store/actionCreators";
 import {deepCopy} from "../../../../Helper/Copy";

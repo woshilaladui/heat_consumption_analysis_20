@@ -121,32 +121,32 @@ export default class SearchTable extends Component {
 
     //判定是否已登录，是否有权限
     componentWillMount() {
-        if (window.localStorage.type < 1 || window.localStorage.state < 1) {
-            this.props.history.push('/');
-        } else {
-            if (window.localStorage.type >= 2) {//部门是化验室之外的可以看中控表
-                this.setState({
-                    t_name_dispaly: true,
-                })
-            }
-        }
-        fetch('/api/Judgetype', {
-            method: 'post',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-                'authorization': window.localStorage.authorization,
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data['code'] === 0) {
-                }
-                else {
-                    this.props.history.push('/index');
-                }
-            })
-            .catch(error => console.error('Error:', error))
+        // if (window.localStorage.type < 1 || window.localStorage.state < 1) {
+        //     this.props.history.push('/');
+        // } else {
+        //     if (window.localStorage.type >= 2) {//部门是化验室之外的可以看中控表
+        //         this.setState({
+        //             t_name_dispaly: true,
+        //         })
+        //     }
+        // }
+        // fetch('/api/Judgetype', {
+        //     method: 'post',
+        //     credentials: 'include',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'authorization': window.localStorage.authorization,
+        //     }
+        // })
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         if (data['code'] === 0) {
+        //         }
+        //         else {
+        //             this.props.history.push('/index');
+        //         }
+        //     })
+        //     .catch(error => console.error('Error:', error))
     }
 
 

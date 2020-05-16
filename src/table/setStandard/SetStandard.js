@@ -31,57 +31,57 @@ export default class SetStandard extends Component {
 
     //判定是否已登录，是否有权限
     componentWillMount() {
-        fetch('/api/JudgeOnline', {
-            method: 'post',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-                'authorization': window.localStorage.authorization,
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data['code'] === 0) {
-                }
-                else {
-                    this.props.history.push('/');
-                }
-            })
-            .catch(error => console.error('Error:', error))
+        // fetch('/api/JudgeOnline', {
+        //     method: 'post',
+        //     credentials: 'include',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'authorization': window.localStorage.authorization,
+        //     }
+        // })
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         if (data['code'] === 0) {
+        //         }
+        //         else {
+        //             this.props.history.push('/');
+        //         }
+        //     })
+        //     .catch(error => console.error('Error:', error))
     }
 
     componentDidMount() {
-        const t_name_list = this.state.t_name_list
-        const {startValue, endValue, username, time, reason} = this.state
-        for (let i = 0; i < t_name_list.length; i++) {
-            const t_name = {'t_name': t_name_list[i]};
-
-            console.log(JSON.stringify(t_name));
-
-            fetch("/api/standard/query", {
-                method: 'POST',
-                body: JSON.stringify(t_name), // data can be `string` or {object}!
-                headers: {
-                    'Content-Type': 'application/json',
-                    'authorization': window.localStorage.authorization,
-                }
-            })
-                .then(res => res.json())
-                .then(data => {
-                        if (data['code'] === 0 && data['standard']['t_name'] === t_name['t_name']) { //判定是否成功
-                            const arr = SetStandardFormat(data['standard'], startValue, endValue, username, time, reason, i)
-                            this.setState({
-                                startValue: arr[0],
-                                endValue: arr[1],
-                                username: arr[2],
-                                time: arr[3],
-                                reason: arr[4],
-                            });
-                        }
-                    }
-                )
-                .catch(error => console.error('Error:', error))
-        }
+        // const t_name_list = this.state.t_name_list
+        // const {startValue, endValue, username, time, reason} = this.state
+        // for (let i = 0; i < t_name_list.length; i++) {
+        //     const t_name = {'t_name': t_name_list[i]};
+        //
+        //     console.log(JSON.stringify(t_name));
+        //
+        //     fetch("/api/standard/query", {
+        //         method: 'POST',
+        //         body: JSON.stringify(t_name), // data can be `string` or {object}!
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             'authorization': window.localStorage.authorization,
+        //         }
+        //     })
+        //         .then(res => res.json())
+        //         .then(data => {
+        //                 if (data['code'] === 0 && data['standard']['t_name'] === t_name['t_name']) { //判定是否成功
+        //                     const arr = SetStandardFormat(data['standard'], startValue, endValue, username, time, reason, i)
+        //                     this.setState({
+        //                         startValue: arr[0],
+        //                         endValue: arr[1],
+        //                         username: arr[2],
+        //                         time: arr[3],
+        //                         reason: arr[4],
+        //                     });
+        //                 }
+        //             }
+        //         )
+        //         .catch(error => console.error('Error:', error))
+        // }
 
     }
 
@@ -103,7 +103,7 @@ export default class SetStandard extends Component {
 
     /***返回按钮事件 ***/
     returnBack = () => {
-        this.props.history.push("/index");
+        //this.props.history.push("/index");
     };
 
     render() {

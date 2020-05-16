@@ -87,10 +87,31 @@ export function ZhongKongShiFormat(resultData, responseData, tableName) {
         resultData[data_index] = responseData["zhongKongShis"][i];
 
 
+
     }
 
     return resultData
 
+}
+
+export function StandardFormat(
+    responseData,
+) {
+
+    let arr_startValue = [], arr_endValue = [];
+
+    let str_startValue = responseData["standards"]["startValue"].split(',');
+    let str_endValue = responseData["standards"]["endValue"].split(',');
+    let str_reason = responseData["standards"]["reason"].split(',');
+
+    for (let i = 0; i < str_startValue.length; i++)
+        arr_startValue[i] = parseFloat(str_startValue[i]);
+
+
+    for (let i = 0; i < str_endValue.length; i++)
+        arr_endValue[i] = parseFloat(str_endValue[i]);
+
+    return [ arr_startValue, arr_endValue,str_reason]
 }
 
 export function updateOperator(

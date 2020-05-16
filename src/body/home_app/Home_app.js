@@ -62,7 +62,7 @@ const mapStateToProps = (state) => {
         permission:state.getIn(['home_app', 'permission']),
         requestFlag:state.getIn(['home_app', 'requestFlag']),
     }
-}
+};
 
 const mapDispathToProps = (dispatch) => {
     return {
