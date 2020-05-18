@@ -111,7 +111,9 @@ export function StandardFormat(
     for (let i = 0; i < str_endValue.length; i++)
         arr_endValue[i] = parseFloat(str_endValue[i]);
 
-    return [ arr_startValue, arr_endValue,str_reason]
+    let username =  responseData["standards"]["username"]
+
+    return [ arr_startValue, arr_endValue,str_reason,username]
 }
 
 export function updateOperator(

@@ -10,9 +10,16 @@ const defaultState = fromJS({
     //date:moment().format("YYYY/MM/DD"),//moment().format("YYYY-MM-DD"),
     requestFlag: true,
     tableChose: 0,
-    startValue: [], //从数据库获取的标准
-    endValue: [],
-    reason: [],
+    oldStartValue: [], //从数据库获取的标准
+    oldEndValue: [],
+    oldReason: [],
+    oldUsername:'',//填写人的名字
+
+    newStartValue:[],
+    newEndValue:[],
+    newReason:[],
+    newUsername:'',
+
     tableNameList: [
         TableName.Limestone_SHS,
         TableName.Limestone_SY,
@@ -44,15 +51,38 @@ const defaultState = fromJS({
 export default (state = defaultState, action) => {
 
     switch (action.type) {
-        case constants.UPDATE_DATA_STANDARD://更新数据
+        case constants.UPDATE_DATA_OLD_STANDARD://更新数据
             return state.merge({
-                startValue: action.startValue,
-                endValue: action.endValue,
-                reason: action.reason,
+                oldStartValue: action.oldStartValue,
+                oldEndValue: action.oldEndValue,
+                oldReason: action.oldReason,
+                oldUsername:action.oldUsername,
                 requestFlag: false
             });
+        case constants.UPDATE_DATA_NEW_STANDARD:
+            return state.merge({
+                newStartValue: action.newStartValue,
+                newEndValue: action.newEndValue,
+                newReason: action.newReason,
+                newUsername:action.newUsername,
+                requestFlag: false
+            });
+
+        case constants.UPDATE_DATA_NEW_STANDARD_NEW_START_VALUE:
+            return state.set('newStartValue', action.newStartValue);
+
+        case constants.UPDATE_DATA_NEW_STANDARD_NEW_END_VALUE:
+            return state.set('newEndValue', action.newEndValue);
+
+        case constants.UPDATE_DATA_NEW_STANDARD_NEW_REASON:
+            return state.set('newReason', action.newReason);
+
         case constants.CHANGE_TABLE_CHOSE_STANDARD://更新时间
-            return state.set('tableChose', action.tableChose);
+            return state.merge({
+                tableChose: action.tableChose,
+                requestFlag: true
+            });
+
 
 
         default:

@@ -65,7 +65,7 @@ const URL={
     REQUEST_GET_STANDARDS_DATA_BY_TABLENAME:Service.ROOT_URL + "/standard/getStandardsDataByTableName",
 
     //通过表名获取当前表下最新的标准
-    REQUEST_GET_STANDARD_DATA_BY_TABLENAME:Service.ROOT_URL + "/standard/getStandardDataByTableName",
+    REQUEST_GET_STANDARD_DATA_BY_TABLENAME:Service.ROOT_URL + "/standard/getStandardsDataByTableName",
 
     //设置标准
     REQUEST_SET_STANDARD:Service.ROOT_URL + "/standard/setStandard",
