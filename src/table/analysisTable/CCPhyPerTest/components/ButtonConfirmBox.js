@@ -2,16 +2,27 @@ import React, { Component} from 'react';
 import {Button} from 'antd';
 import { Popconfirm } from 'antd';
 
+import * as actionCreators from "../../../analysisTable/CCPhyPerTest/store/actionCreators";
+import {Table} from "../../../../http/constant/Constant";
+import {connect} from "react-redux";
+import {deepCopy} from "../../../../Helper/Copy";
+
 class ButtonConfirmationBox extends Component{
     
     cancel() {
 
     }
 
+    postAllToHome(){
+        const {data, saveAllToHome, tableName,date} = this.props;
+        const Data = deepCopy(data);
+        saveAllToHome(date,tableName, Data);
+    }
+
     render()
-    { 
+    {
         return(
-            <Popconfirm title={"是否"+this.props.buttonText} onConfirm={this.props.action} onCancel={this.cancel}
+            <Popconfirm title={"是否提交"} onConfirm={()=> this.postAllToHome()} onCancel={this.cancel}
                         placement={this.arrowPointAtCenter}
                         okText="是"
                         cancelText="否">
@@ -19,10 +30,41 @@ class ButtonConfirmationBox extends Component{
                         style={{
                             margin:'20px 5px 0px 5px'
                         }}
-                >{this.props.buttonText}</Button>
+                > 提交</Button>
             </Popconfirm>
 
         );
     }
 }
-export default ButtonConfirmationBox;
+//定义映射
+const mapStateToProps = (state) => {
+    return {
+
+        date:state.getIn(['CCPhyPerTest', 'date']),
+        allTime:state.getIn(['CCPhyPerTest', 'allTime']),
+        timeChose:state.getIn(['CCPhyPerTest', 'timeChose']),
+        data:state.getIn(['CCPhyPerTest', 'data']),
+        requestFlag:state.getIn(['CCPhyPerTest', 'requestFlag']),
+        person:state.getIn(['CCPhyPerTest', 'person']),
+        tableName:state.getIn(['CCPhyPerTest', 'tableName']),
+
+
+    }
+};
+
+const mapDispathToProps = (dispatch) => {
+    return {
+        saveAllToHome(date,tableName, data){
+            dispatch(actionCreators.saveData({
+                tableType:Table.ALL_TABLE,
+                date:date,
+                tableName:tableName,
+                data:data,
+                num:13
+            }));
+        }
+
+    }//end return
+};
+
+export default connect(mapStateToProps, mapDispathToProps)(ButtonConfirmationBox);

@@ -1,3 +1,6 @@
+import * as actionCreators from "../../../analysisTable/rawMatAnaOriReFMHg/store/actionCreators";
+import {connect} from "react-redux";
+
 import React, { Component,Fragment } from 'react';
 import { Row, Col, Select } from 'antd';
 import moment from 'moment';
@@ -5,29 +8,11 @@ import moment from 'moment';
 const Option = Select.Option;
 class TimeShow extends Component{
 
-    constructor(props){
-        super(props);
-        this.state={
-            timeChose:'0点班'
-        }
-    }
-
-    /**
-     *班次选择响应
-     */
-    handleTimeChange = (e) => {
-        const x=parseInt(e)
-        const timeChose=['0点班','8点班','16点班'];
-        this.props.handleTimeChose(x);
-        this.setState({
-            timeChose:timeChose[x]
-        })
-
-    }
 
     render() {
         const day=(['天','一','二','三','四','五','六']);
 
+        const {person} = this.props;
         return(
             <Fragment>
                 <Row type="flex" justify = "space-around" align="middle">
@@ -40,11 +25,29 @@ class TimeShow extends Component{
                             <Option  value='2'>16点班</Option>
                         </Select>
                     </Col> */}
-                    <Col xs={{ span: 5, offset: 1 }} lg={{ span: 6, offset: 2 }}>{"值班人员："+this.props.person}</Col>
+                    <Col xs={{ span: 5, offset: 1 }} lg={{ span: 6, offset: 2 }}>{"值班人员："+person}</Col>
                 </Row>
             </Fragment>
         );
     }
 }
 
-export default TimeShow;
+//定义映射
+const mapStateToProps = (state) => {
+    return {
+        date:state.getIn(['rawMatAnaOriReFMHg', 'date']),
+        timeChose:state.getIn(['rawMatAnaOriReFMHg', 'timeChose']),
+        data:state.getIn(['rawMatAnaOriReFMHg', 'data']),
+        requestFlag:state.getIn(['rawMatAnaOriReFMHg', 'requestFlag']),
+        person:state.getIn(['rawMatAnaOriReFMHg', 'person']),
+        tableName:state.getIn(['rawMatAnaOriReFMHg', 'tableName']),
+    }
+};
+
+const mapDispathToProps = (dispatch) => {
+    return {
+
+    }//end return
+};
+
+export default connect(mapStateToProps, mapDispathToProps)(TimeShow);

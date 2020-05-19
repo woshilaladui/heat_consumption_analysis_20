@@ -15,51 +15,71 @@ export const TableName ={
     * @directory /table/fluorescenceAnaTabel/RawMatCheAnaRe
     */
     Limestone_SHS:"RMA_SHS",
+
+
     /**
     * @tableName 进厂砂岩原材料分析化学报告单
     * @directory /table/fluorescenceAnaTabel/RawMatCheAnaReSY
     */
     Limestone_SY:"RMA_SY",
+
+
     /**
     * @tableName 进厂铁粉原材料分析化学报告单
     * @directory /table/fluorescenceAnaTabel/RawMatCheAnaReTF
     */
     Limestone_TF:"RMA_TF",
+
+
     /**
     * @tableName 进厂粉煤灰（干）原材料分析化学报告单
     * @directory /table/fluorescenceAnaTabel/RawMatCheAnaReFMHg
     */
     Limestone_FMHg:"RMA_FMHg",
+
+
     /**
     * @tableName 进厂粉煤灰（湿）原材料分析化学报告单
     * @directory /table/fluorescenceAnaTabel/RawMatCheAnaReFMHs
     */
     Limestone_FMHs:"RMA_FMHs",
+
+
     /**
     * @tableName 仓下石灰石原材料化学分析报告单
     * @directory /table/fluorescenceAnaTabel/wareHouseRawMatCARe
     */
     Limestone_CaCO3:"CX_CaCO3",
+
+
     /**
     * @tableName 出磨生料化学分析报告单
     * @directory /table/fluorescenceAnaTabel/CMRawMatCheAnaRe
     */
     Limestone_CRM:"CRM",
+
+
     /**
     * @tableName 入窑生料化学分析报告单
     * @directory /table/fluorescenceAnaTabel/RYRawMatCheAnaRe
     */
     Limestone_RMC:"RMC",
+
+
     /**
     * @tableName 出窑熟料全分析汇总表
     * @directory /table/fluorescenceAnaTabel/KilnCAnaSumTable
     */
     Limestone_KAS:"KAS",
+
+
     /**
     * @tableName 出厂熟料全分析汇总表
     * @directory /table/fluorescenceAnaTabel/FactoryCliAnaSumTable
     */
     Limestone_FAS:"FAS",
+
+
     /**
     * @tableName 临城中联福石控制室原始记录
     * @directory /table/fluorescenceAnaTabel/ControlRoomOriginalRe
@@ -77,71 +97,100 @@ export const TableName ={
     * @directory /table/analysisTable/rawMatAnaOriRe
     */
     Analysis_SHS:"RAO_SHS",
+
+
     /**
     * @tableName 原材料分析原始记录 砂岩
     * @directory /table/analysisTable/rawMatAnaOriReSY
     */
     Analysis_SY:"RAO_SY",
+
+
     /**
     * @tableName 原材料分析原始记录 铁粉
     * @directory /table/analysisTable/rawMatAnaOriReTF
     */
     Analysis_TF:"RAO_TF",
+
+
     /**
     * @tableName 原材料分析原始记录 粉煤灰(干)
     * @directory /table/analysisTable/rawMatAnaOriReFMHg
     */
     Analysis_FMHg:"RAO_FMHg",
+
+
     /**
     * @tableName 原材料分析原始记录 粉煤灰(湿)
     * @directory /table/analysisTable/rawMatAnaOriReFMHs
     */
     Analysis_FMHs:"RAO_FMHs",
+
+
     /**
     * @tableName 出磨生料分析原始记录
     * @directory /table/analysisTable/CMRawMatAnaOriRe
     */
     Analysis_BS:"Raw_BS",
+
+
     /**
     * @tableName 入窑生料分析原始记录
     * @directory /table/analysisTable/RYRawMatAnaOriRe
     */
     Analysis_RY:"Raw_RY",
+
+
     /**
     * @tableName 出窑熟料化学分析单
     * @directory /table/analysisTable/CYCheAnaSheet
     */
     Analysis_CYA:"NS_CYA",
+
+
+
     /**
     * @tableName 出厂熟料化学分析单
     * @directory /table/analysisTable/CCCheAnaSheet
     */
     Analysis_CCA:"NS_CCA",
+
+
     /**
     * @tableName 出窑熟料物理性能检测
     * @directory /table/analysisTable/CYPhyPerTest
     */
     Analysis_CYT:"NS_CYT",
+
+
     /**
     * @tableName 出厂熟料物理性能检测
     * @directory /table/analysisTable/CCPhyPerTest
     */
     Analysis_CCT:"NS_CCT",
+
+
     /**
     * @tableName 进厂原燃材料水分
     * @directory /table/analysisTable/JCMoCoCoMa
     */
     Analysis_JCM:"NS_JCM",
+
+
     /**
     * @tableName 神木工业分析原始记录
     * @directory /table/analysisTable/SMIndusAnaOriRe
     */
     Analysis_SMA:"NS_SMA",
+
+
     /**
     * @tableName 煤粉工业分析原始记录
     * @directory /table/analysisTable/MFIndusAnaOriRe
     */
     Analysis_MFA:"NS_MFA",
+
+
 
     /**********************************************电量表格*********************************************/
 
@@ -206,7 +255,7 @@ export const TableName ={
 
     /**
      * @tableName 熟料荧光分析及检测记录
-     * @directory /table/centerControlRoom/fluoAnaAndDetRe 在线自动检测运行记录(排放物)
+     * @directory /table/centerControlRoom/fluoAnaAndDetRe 熟料荧光分析及检测记录(排放物)
      */
     ZHONG_KONG_SHI_SL_JCJL:"NS_FAD",
 

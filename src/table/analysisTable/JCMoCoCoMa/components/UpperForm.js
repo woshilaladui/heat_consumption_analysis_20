@@ -1,47 +1,28 @@
 import React, {Component} from 'react';
 import {Table, Select, message, Input, DatePicker,InputNumber} from 'antd';
 import moment from 'moment';
-import {HuaYSSave} from "../../../../Request/RequsetCenter";
-import {URL} from "../../../../Request/Constant";
-import {getAnalysisJsonSaveData} from "../../../../Request/JsonCenter";
-import {updateOperator} from "../../../../Helper/AutoCalculate";
+
+
+import * as actionCreators from "../../../analysisTable/JCMoCoCoMa/store/actionCreators";
+import {deepCopy} from "../../../../Helper/Copy";
+import {connect} from "react-redux";
 
 const {Option} = Select;
 const dateFormat = 'YYYY/MM/DD';
 
-export default class UpperForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            timeChose: 0,
-            Data: [],//原始填写的数据
-            t_name: "",
-            date: "",
-            person: this.props.person
-        }
-    }
+class UpperForm extends Component {
 
-    /**
-     * 第一列的时间变化
-     */
     componentWillMount() {
-        this.setState({
-            Data: this.props.upperData,
-            date: this.props.date,
-            t_name: this.props.t_name,
-            person:this.props.person
-        });
+
     }
 
-    /**更新props**/
+
     componentWillReceiveProps(nextProps) {
     }
 
     componentDidMount() {
-        this.props.onRef(this);
+
     }
-
-
 
     //控制输入框的样式
     changeStyle = (value) => {
@@ -53,95 +34,45 @@ export default class UpperForm extends Component {
                 }
             }
         }
-    }
+    };
 
-    //上传当前数据后台
-    /**点击暂存之后上传当前行的数据到后台**start**/
-    postToHome(i) {//i是行数const index = i + this.props.timeChose * 8
-        HuaYSSave(
-            URL.HUAYS_SAVE,
-            getAnalysisJsonSaveData({
-                tableName:this.props.t_name,
-                date:this.props.date,
-                index:i,
-                data:this.state.Data
-            }))
-            .then((response) => {
-                message.info('暂存成功');
-                //获取存放的人
-                updateOperator({Data:this.state.Data,index:i})
-                this.setState({
-                    Data: this.state.Data
-                })
-            })
-            .catch()
-    }
+    onInputChange2 = (value, indexH, indexL) => {
+        const {data, updateChange} = this.props;
+        let NewData = deepCopy(data);//复制一份出来
 
-
-    postAllToHome() {
-
-        //TODO 判断时间选项是否没选过，没选过则提交当前的日期
-        //TODO 直接修改了state的属性  待修改
-        if(!this.state.Data[2]['t_data'][0])//如果为空的话则对该字段(时间段进行保存)
-            this.state.Data[2]['t_data'][0] = moment(this.props.date).format('YYYY/MM/DD').toString()
-        //设置提交人
-        this.state.Data[6]['t_data'][0] = window.localStorage.name;
-
-
-        HuaYSSave(
-            URL.HUAYS_SAVE,
-            getAnalysisJsonSaveData({
-                tableName:this.props.t_name,
-                date:this.state.date,
-                data:this.state.Data,
-                num:7//7行数据提交
-            }))
-            .then((response) => {
-                message.info('提交成功');
-                //获取存放的人
-               // updateOperator({Data:this.state.Data,num: 7})
-                this.setState({
-                    Data: this.state.Data
-                })
-            })
-            .catch()
-
-    }
-
-
-    /**
-     * 表格输入数据变化的监听，同时所有的数据更新
-     **/
-    onInputChange2 = (event, indexH, indexL) => {
-        let NewData = this.state.Data;
-        NewData[indexH]["t_data"][indexL] = event;
-        this.setState({
-            Data: NewData
-        });
+        //更新表中所填数据
+        if (value != null) {
+            NewData[indexH]["data"][indexL] = value;
+            updateChange(NewData);
+        }
     };
 
 
-    timeChange(time){
+    timeChange(time,indexH,indexL){
 
-        let NewData = JSON.parse(JSON.stringify(this.state.Data));// JSON.parse(JSON.stringify(response))
+        const {data, updateChange} = this.props;
+        let NewData = deepCopy(data);//复制一份出来
 
-        NewData[2]['t_data'][0] = moment(time).format('YYYY/MM/DD').toString()
-
-        this.setState({
-           // date:moment(time).format('YYYY/MM/DD'),
-            Data: NewData
-        })
+        //更新表中所填数据
+        if (time != null) {
+            NewData[indexH]["data"][indexL] = moment(time).format('YYYY/MM/DD').toString();
+            updateChange(NewData);
+        }
     }
 
 
     // select方法
     onChangeSelect = (value,indexH,indexL) => {
-        let NewData = this.state.Data;
-        NewData[indexH]["t_data"][indexL] = value;
-        this.setState({
-            Data: NewData
-        });
-    }
+        const {data, updateChange} = this.props;
+        let NewData = deepCopy(data);//复制一份出来
+
+        //更新表中所填数据
+        if (value != null) {
+            NewData[indexH]["data"][indexL] = value;
+            updateChange(NewData);
+        }
+
+    };
 
     /**点击暂存之后上传当前行的数据到后台**end**/
     render() {
@@ -157,15 +88,17 @@ export default class UpperForm extends Component {
             },
         ];
 
-        const data = [];
-        const Data = this.state.Data;
+        const dataSource = [];
+        const {data,date,person} = this.props;
+        const Data = deepCopy(data);
 
 
-        data.push(
+
+        dataSource.push(
             {
                 XMMC: '原材料名称',
                 NRSM: <Select
-                    value={Data[0]['t_data'][0]}
+                    value={Data[0]['data'][0]}
                     style={{width: 200}}
                     placeholder="请选择原材料"
                     onChange={value => this.onChangeSelect(value, 0, 0)}
@@ -180,7 +113,7 @@ export default class UpperForm extends Component {
             {
                 XMMC: '产地',
                 NRSM: <Input
-                    value={Data[1]['t_data'][0]}
+                    value={Data[1]['data'][0]}
                     onChange={event => this.onInputChange2(event.target.value, 1, 0)}
                     style={{width: 200}}
                 />
@@ -190,18 +123,18 @@ export default class UpperForm extends Component {
 
                 NRSM: <DatePicker
                     format='YYYY/MM/DD'
-                    onChange={date => this.timeChange(date)}
-                    value={ Data[2]['t_data'][0]?moment(Data[2]['t_data'][0], dateFormat):moment(this.state.date, dateFormat)}
+                    onChange={date => this.timeChange(date,2,0)}
+                    value={ Data[2]['data'][0]?moment(Data[2]['data'][0], dateFormat):moment(date, dateFormat)}
 
-                    defaultValue={ moment(this.state.date, dateFormat)}
+                    defaultValue={ moment(date, dateFormat)}
                                   style={{width: 200}}/>
             },
             {
                 XMMC: '班次',
                 NRSM: <Select
                     showSearch
-                    value={Data[3]['t_data'][0]}
-                    //defaultValue={Data[3]['t_data'][0]}
+                    value={Data[3]['data'][0]}
+                    //defaultValue={Data[3]['data'][0]}
                     style={{width: 200}}
                     placeholder="请选择班次"
                     onChange={value => this.onChangeSelect(value, 3, 0)}
@@ -214,22 +147,22 @@ export default class UpperForm extends Component {
             {
                 XMMC: '水分',
                 NRSM: <InputNumber
-                    value={Data[4]['t_data'][0]}
+                    value={Data[4]['data'][0]}
                     onChange={event => this.onInputChange2(event, 4, 0)}
                     style={{width: 200}}/>
             },
             {
                 XMMC: '取样人',
                 NRSM: <Input
-                    value={Data[5]['t_data'][0]}
+                    value={Data[5]['data'][0]}
                     onChange={event => this.onInputChange2(event.target.value, 5, 0)}
                     style={{width: 200}}/>
             },
             {
                 XMMC: '做样人',
-                NRSM: window.localStorage.name
+                NRSM: person
             }
-        )
+        );
         // }
 
         /**中间八行的数据输入**end**/
@@ -239,10 +172,36 @@ export default class UpperForm extends Component {
                 {/*表格填写*/}
                 <Table
                     className="pper_table" columns={columns} bordered
-                    dataSource={data} pagination={false}/>
+                    dataSource={dataSource} pagination={false}/>
 
             </div>
         );
     }
 
 }
+//定义映射
+const mapStateToProps = (state) => {
+    return {
+        //LX
+        date: state.getIn(['JCMoCoCoMa', 'date']),
+        timeChose: state.getIn(['JCMoCoCoMa', 'timeChose']),
+        data: state.getIn(['JCMoCoCoMa', 'data']),
+        requestFlag: state.getIn(['JCMoCoCoMa', 'requestFlag']),
+        person: state.getIn(['JCMoCoCoMa', 'person']),
+        tableName: state.getIn(['JCMoCoCoMa', 'tableName']),
+
+    }
+};
+
+const mapDispathToProps = (dispatch) => {
+    return {
+        updateChange(NewData) {
+
+            dispatch(actionCreators.updateData({data: deepCopy(NewData)}))
+        },
+
+
+    }//end return
+};
+
+export default connect(mapStateToProps, mapDispathToProps)(UpperForm);

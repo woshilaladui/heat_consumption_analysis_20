@@ -1,8 +1,10 @@
 import {deepCopy} from "./Copy";
 
-import {HuaYSOrder_CMRYSL, HuaYSOrder_RMC} from "../Constant/TableOrder";
+import {HuaYSOrder_CMRYSL, HuaYSOrder_RMC,AnalysisOrder_YS,AnalysisOrder_RawMaterial} from "../Constant/TableOrder";
 
 import {TableName} from "../Constant/TableNameConstant";
+
+/*******************************************荧光分析表格*****************************************************/
 
 //计算进厂石灰石原材料分析化学报告单 的合计
 export function autoCalculateHJ(data,width) {//data为数组
@@ -58,6 +60,18 @@ export function autoCalculate_KH(
         if(SiO2 !== 0){
 
             data[indexH]['data'][HuaYSOrder_RMC.KH] = parseFloat(
+                ((CaO - 0.35 * Fe2O3 - 1.65*Al2O3)/(2.8*SiO2)).toString()
+            ).toFixed(3);
+        }
+    }else if(tableName === TableName.Analysis_BS || tableName === TableName.Analysis_RY){
+        CaO = parseFloat(isNaN(data[indexH]['data'][AnalysisOrder_RawMaterial.CaO])?0:data[indexH]['data'][AnalysisOrder_RawMaterial.CaO]);
+        Fe2O3 = parseFloat(isNaN(data[indexH]['data'][AnalysisOrder_RawMaterial.Fe2O3])?0:data[indexH]['data'][AnalysisOrder_RawMaterial.Fe2O3]);
+        Al2O3 = parseFloat(isNaN(data[indexH]['data'][AnalysisOrder_RawMaterial.Al2O3])?0:data[indexH]['data'][AnalysisOrder_RawMaterial.Al2O3]);
+        SiO2 = parseFloat(isNaN(data[indexH]['data'][AnalysisOrder_RawMaterial.SiO2]) ?0:data[indexH]['data'][AnalysisOrder_RawMaterial.SiO2]);
+
+        if(SiO2 !== 0){
+
+            data[indexH]['data'][AnalysisOrder_RawMaterial.KH] = parseFloat(
                 ((CaO - 0.35 * Fe2O3 - 1.65*Al2O3)/(2.8*SiO2)).toString()
             ).toFixed(3);
         }
@@ -142,6 +156,16 @@ export function autoCalculate_N(
                 (SiO2/(Al2O3 + Fe2O3)).toString()
             ).toFixed(3);
         }
+    }else if(tableName === TableName.Analysis_BS || tableName === TableName.Analysis_RY){
+        SiO2 = parseFloat(isNaN(data[indexH]['data'][AnalysisOrder_RawMaterial.SiO2])?0:data[indexH]['data'][AnalysisOrder_RawMaterial.SiO2]);
+        Al2O3 = parseFloat(isNaN(data[indexH]['data'][AnalysisOrder_RawMaterial.Al2O3])?0:data[indexH]['data'][AnalysisOrder_RawMaterial.Al2O3]);
+        Fe2O3 = parseFloat(isNaN(data[indexH]['data'][AnalysisOrder_RawMaterial.Fe2O3])?0:data[indexH]['data'][AnalysisOrder_RawMaterial.Fe2O3]);
+
+        if((Al2O3+Fe2O3) !== 0){
+            data[indexH]['data'][AnalysisOrder_RawMaterial.N] = parseFloat(
+                (SiO2/(Al2O3 + Fe2O3)).toString()
+            ).toFixed(3);
+        }
     }else {
         SiO2 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_CMRYSL.SiO2])?0:data[indexH]['data'][HuaYSOrder_CMRYSL.SiO2]);
         Al2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_CMRYSL.Al2O3])?0:data[indexH]['data'][HuaYSOrder_CMRYSL.Al2O3]);
@@ -177,6 +201,15 @@ export function autoCalculate_P(
 
         if(Fe2O3 !== 0){
             data[indexH]['data'][HuaYSOrder_RMC.P] = parseFloat(
+                (Al2O3/Fe2O3).toString()
+            ).toFixed(3);
+        }
+    }else if(tableName === TableName.Analysis_BS || tableName === TableName.Analysis_RY){
+        Al2O3 = parseFloat(isNaN(data[indexH]['data'][AnalysisOrder_RawMaterial.Al2O3])?0:data[indexH]['data'][AnalysisOrder_RawMaterial.Al2O3]);
+        Fe2O3 = parseFloat(isNaN(data[indexH]['data'][AnalysisOrder_RawMaterial.Fe2O3] )?0:data[indexH]['data'][AnalysisOrder_RawMaterial.Fe2O3]);
+
+        if(Fe2O3 !== 0){
+            data[indexH]['data'][AnalysisOrder_RawMaterial.P] = parseFloat(
                 (Al2O3/Fe2O3).toString()
             ).toFixed(3);
         }
@@ -248,7 +281,8 @@ export function calculate_pass_rate(
  *  计算平均值
  * @param data
  * @param timeChoose
- *  @param indexL
+ * @param indexL
+ * @param tableWidth
  */
 export function autoCalculate_average(data, timeChoose, indexL,tableWidth) {
 
@@ -292,6 +326,31 @@ export function autoCalculate_average(data, timeChoose, indexL,tableWidth) {
 
     //计算平均值
     data[8 + timeChoose * 10]['data'][indexL] = ((sum[timeChoose][indexL] * 1.0) / inputCount[timeChoose][indexL]).toFixed(3);
+
+
+}
+
+
+/*******************************************分析表格*****************************************************/
+export function autoCalculate_content(
+    data,
+    indexL
+){
+
+    let titration_1 = parseFloat(isNaN(data[0]['data'][indexL])?0:data[0]['data'][indexL]);
+    if(titration_1 === null){
+        titration_1 = 0;
+    }
+    let titration_2 = parseFloat(isNaN(data[1]['data'][indexL])?0:data[1]['data'][indexL]);
+    if(titration_2 === null){
+        titration_2 = 0;
+    }
+    let consume = parseFloat(isNaN(data[2]['data'][indexL])?0:data[2]['data'][indexL]);
+    if(consume === null){
+        consume = 0;
+    }
+
+    data[3]['data'][indexL] = ((((titration_1 + titration_2)/2)*consume)/0.5).toFixed(3);
 
 
 }

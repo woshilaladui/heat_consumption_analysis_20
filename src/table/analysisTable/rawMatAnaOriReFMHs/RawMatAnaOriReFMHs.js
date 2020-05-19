@@ -7,40 +7,16 @@ import { Input } from 'antd';
 import {checkAuthority, getOldData} from "../../../Request/RequsetCenter";
 import {Mark, Standard, URL} from "../../../Request/Constant";
 import {getAnalysisJsonData} from "../../../Request/JsonCenter";
+
+import * as actionCreators from "../../analysisTable/rawMatAnaOriReFMHs/store/actionCreators";
+import {connect} from "react-redux";
+import {deepCopy} from "../../../Helper/Copy";
+
 const { TextArea } = Input;
 
+
 //原材料分析原始记录 粉煤灰(湿)
-export default class BurnSysOpReFMHs extends Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-            date: moment().format("YYYY-MM-DD"),
-            upperData: [//上表的数据
-                {t_data: []}, {t_data: []}, {t_data: []},{t_data: []}
-            ], //表格数据
-            person: "", //传入的值班人员
-            t_name:"RAO_FMHs"
-        };
-    }
-
-    /**onRef控制子组件提交表单**/
-    onRef = ref => {
-        this.UpperForm = ref;
-    };
-
-    /**点击提交数据**/
-    handleSubmit = () => {
-        this.UpperForm.postAllToHome();
-    };
-
-    /**
-     * 响应班次变化
-     **/
-    handleTimeChose(x) {
-        this.setState({
-            timeChose: x
-        });
-    }
+class BurnSysOpReFMHs extends Component{
 
     returnBack = () => {
         this.props.history.push("/");
@@ -48,39 +24,18 @@ export default class BurnSysOpReFMHs extends Component{
 
     //判定是否已登录，是否有权限
     componentWillMount() {
-        checkAuthority(URL.HUAYS_CHECK)
-            .then((response)=>{
-                if(response === Mark.ERROR){
-                    this.props.history.push('/');
-                }
-            })
-            .catch()
+
     }
 
     componentDidMount() {
-        /**首先查询当前页面是否有历史纪录并赋值formData**/
-        this.setOldData();
+        const {data, date, tableName, setOldData,requestFlag} = this.props;
 
+        if(requestFlag){
+
+            setOldData(date,tableName,deepCopy(data));
+        }
     }
 
-
-    setOldData() {
-        getOldData(
-            URL.HUAYS_QUERY,
-            getAnalysisJsonData(this.state.t_name, this.state.date),
-            this.state.t_name,
-            Standard.NONE,
-            this.state.upperData
-        )
-            .then((response) => {
-                this.setState(() => ({
-                    upperData: response,
-                    person: window.localStorage.name,
-                }))
-
-            })
-            .catch()
-    }
 
     render(){
 
@@ -90,8 +45,7 @@ export default class BurnSysOpReFMHs extends Component{
                     <h1 align="center">粉煤灰(湿)原材料分析原始记录</h1>
                     {/*表单最上的时间及人员显示*/}
                     <TimeShow
-                        person={this.state.person}
-                        handleTimeChose={this.handleTimeChose.bind(this)}
+
                     />
                     <div
                         style={{
@@ -102,11 +56,7 @@ export default class BurnSysOpReFMHs extends Component{
 
                         {/*表单上半部分*/}
                         <UpperForm
-                            onRef={this.onRef}
-                            person={this.state.person}
-                            upperData={this.state.upperData}
-                            t_name={this.state.t_name}
-                            date={this.state.date}
+
                         />
 
                     </div>
@@ -119,12 +69,30 @@ export default class BurnSysOpReFMHs extends Component{
                     }}
                 >
                     <ButtonComfirmBox
-                        type="primary"
-                        buttonText="提交"
-                        action={this.handleSubmit}
                     />
                 </div>
             </Fragment>
         )
     }
 }
+//定义映射
+const mapStateToProps = (state) => {
+    return {
+        date:state.getIn(['rawMatAnaOriReFMHs', 'date']),
+        timeChose:state.getIn(['rawMatAnaOriReFMHs', 'timeChose']),
+        data:state.getIn(['rawMatAnaOriReFMHs', 'data']),
+        requestFlag:state.getIn(['rawMatAnaOriReFMHs', 'requestFlag']),
+        person:state.getIn(['rawMatAnaOriReFMHs', 'person']),
+        tableName:state.getIn(['rawMatAnaOriReFMHs', 'tableName']),
+    }
+};
+
+const mapDispathToProps = (dispatch) => {
+    return {
+        setOldData(date,tableName,data){
+            dispatch(actionCreators.getData(date,tableName,data))
+        }
+    }//end return
+};
+
+export default connect(mapStateToProps, mapDispathToProps)(BurnSysOpReFMHs);
