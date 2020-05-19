@@ -19,6 +19,9 @@ class UpperForm extends Component {
         updateChange(NewData)
     };
 
+    componentWillMount() {
+    }
+
     //控制输入框的样式
     changeStyle = (value) => {
         if (value) {
@@ -61,8 +64,7 @@ class UpperForm extends Component {
         /**中间八行的数据输入**start**/
         const dataSource = [];
         const {data, person, date} = this.props;
-        const Data = deepCopy(data)
-
+        const Data = deepCopy(data);
         for( let i=0;i<24;i++){
             const value = Data[i]['data'];
             dataSource.push({

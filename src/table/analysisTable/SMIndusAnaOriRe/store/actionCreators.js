@@ -12,6 +12,7 @@ import {
     Department
 } from "../../../../http/constant/Constant"
 import {
+    HuaYanShiFormat,
     updateOperator
 } from "../../../../Helper/Format"
 
@@ -51,10 +52,23 @@ export const getData = (date, tableName, data) => {
             tableName,
             data
         ).then((response) => {
+            if(response['code'] === 0){
+                //解析处理数据
+                //解析数据
+                let newData = deepCopy(response['data']);
+                let result = HuaYanShiFormat(
+                    data,
+                    newData,
+                    tableName
+                );
 
-            dispatch(updateData({//将获取到的数据进行转发
-                data: response
-            }));
+                dispatch(updateData({//将获取到的数据进行转发
+                    data: result[0]
+                }));
+
+                //更新标准
+                //dispatch(updateStandard(result[1], result[2]));
+            }
 
         });//end requestGetHuaYanShiDataByTableNameAndDate
     }
@@ -76,18 +90,17 @@ export function saveData(
         requestSaveHuaYanShiData({
             date: date,
             index: index,
-            department: Department.DEPARTMENT_HUAYS,
+            //department: Department.DEPARTMENT_HUAYS,
             duty: window.localStorage.duty,
             tableName: tableName,
             authority: window.localStorage.authority,
             data: data,
             num: num
         }).then((response) => {
-
             //处理是否提交成功
-            if (response == Mark.SUCCESS && num == 1) {
+            if (response['code'] == Mark.SUCCESS && num == 1) {
                 message.info('暂存成功');
-            } else if (response == Mark.SUCCESS && num > 1) {
+            } else if (response['code'] == Mark.SUCCESS && num > 1) {
                 message.info('提交成功');
             } else {
                 message.info('存放失败');

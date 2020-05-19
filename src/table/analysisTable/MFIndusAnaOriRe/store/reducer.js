@@ -20,7 +20,7 @@ const defaultState = fromJS({
 
     ],
     person: window.localStorage.username, //传入的值班人员
-    tableName:TableName.Analysis_NS_MFA//煤粉工业分析原始记录
+    tableName:TableName.Analysis_MFA//煤粉工业分析原始记录
 
 });
 export default (state = defaultState, action) => {
