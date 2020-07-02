@@ -60,13 +60,13 @@ export function requestGetAllLogRecordsByUsername(
  * @param endDate
  * @returns {Promise<any>}
  */
-export function requestGetAllLogsByUsernameOrDateBetween(
-    username,
-    startDate,
-    endDate
-){
-    return new Promise((resolve, reject) => {
+export function requestGetAllLogsByUsernameOrDateBetween({
+    username='',
+    startDate='2001/01/01',
+    endDate='2025/01/01'
+                                                         }){
 
+    return new Promise((resolve, reject) => {
         //拼接请求体
         const formData = new FormData();
         formData.append('username', username);

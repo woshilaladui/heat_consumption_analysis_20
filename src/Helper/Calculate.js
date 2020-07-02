@@ -243,7 +243,7 @@ export function calculate_pass_rate(
 
     for (let i = 0; i < width; i++) {
         inputCount[i] = Array(width).fill(0);
-    }
+}
 
     let passCount = Array(3);
     for (let i = 0; i < width; i++) {

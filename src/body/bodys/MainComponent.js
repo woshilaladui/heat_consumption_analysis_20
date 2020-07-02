@@ -51,6 +51,7 @@ import CCPhyPerTest from '../../table/analysisTable/CCPhyPerTest/CCPhyPerTest';
 import JCMoCoCoMa from '../../table/analysisTable/JCMoCoCoMa/JCMoCoCoMa';
 import SMIndusAnaOriRe from '../../table/analysisTable/SMIndusAnaOriRe/SMIndusAnaOriRe';
 import MFIndusAnaOriRe from '../../table/analysisTable/MFIndusAnaOriRe/MFIndusAnaOriRe';
+import Log from '../../table/log/log.js'
 //import HuayanshiRibaoCeshi from "../../table/huayanshiTable/huayanshiRibao/HuayanshiRibaoCeshi";
 import HuayanshiRibao from "../../table/huayanshiTable/huayanshiRibao/HuayanshiRibao";
 import {deepCopy} from "../../Helper/Copy";
@@ -111,7 +112,8 @@ export default class AppIndex extends Component {
                 <SetStandard />,
                 <StaffManagement />,
                 <MonthElectricity />,//44
-                <ThreeFiveKwTable />//45
+                <ThreeFiveKwTable />,//45
+                <Log />//46
             ],
         }
 

@@ -47,13 +47,13 @@ export const getUserPermission = ({})=>{
 
 
                     if(permission.authority === AUTHORITY.AUTHORITY_MANAGER){//总经理
-                        dispatch(updateDisplay({pageDisplay: ['', '', '', '', '', '', '']}));
+                        dispatch(updateDisplay({pageDisplay: ['', '', '', '', '', '', '','','']}));
 
 
                     }else {
                         switch (permission.department) {//校验属于哪个部门
                             case Department.DEPARTMENT_NONE://无部门
-                                dispatch(updateDisplay({pageDisplay: ['none', 'none', 'none', 'none', 'none', 'none', 'none']}));
+                                dispatch(updateDisplay({pageDisplay: ['none', 'none', 'none', 'none', 'none', 'none', 'none', 'none', 'none']}));
 
                                 break;
                             case Department.DEPARTMENT_HUAYS://化验室

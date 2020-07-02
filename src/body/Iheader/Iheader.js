@@ -11,7 +11,7 @@ class Iheader extends Component {
         super(props);
         this.state = {
             //display: ['none','none','none','none','none','none','none'],
-            display: ['', '', '', '', '', '', ''],
+            display: ['', '', '', '', '', '', '','',''],
             choose_num: 0,
             CompanyName: '临城中联福石水泥有限公司',
         };
@@ -315,6 +315,9 @@ class Iheader extends Component {
                     </Menu.Item>
                     <Menu.Item className='header_menuItem' key="43" style={{display:pageDisplay[6]}}>
                         <Icon type="team"/>员工管理
+                    </Menu.Item>
+                    <Menu.Item className='header_menuItem' key="46" style={{display:pageDisplay[8]}}>
+                        <Icon type="team"/>日志
                     </Menu.Item>
                 </Menu>
             </div>

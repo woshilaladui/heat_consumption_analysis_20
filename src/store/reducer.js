@@ -51,6 +51,11 @@ import { reducer as setStandardReducer } from '../table/setStandard/store';
 import { reducer as monthElectricityReducer } from '../table/electricityTable/monthElectricity/store';
 import { reducer as threeFiveKwTableReducer } from '../table/electricityTable/threeFiveKwTable/store';
 
+/********************************************日志************************************************************************/
+import { reducer as logReducer } from '../table/log/store'
+	;
+
+
 
 const reducer = combineReducers({
 
@@ -105,7 +110,8 @@ const reducer = combineReducers({
 
 
 	monthElectricity:monthElectricityReducer,  //每月电量表
-	threeFiveKwTable:threeFiveKwTableReducer  //35KW表
+	threeFiveKwTable:threeFiveKwTableReducer  ,//35KW表
+	log:logReducer //日志
 });
 
 export default reducer;
