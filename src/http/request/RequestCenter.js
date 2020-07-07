@@ -54,24 +54,30 @@ export function RequestCenter(
                     return  res.json()})
 
                 .then(data => {
-
+                    console.log('datesss')
+                    console.log(data)
+                    console.log('datesss')
                     if (data['code'] === Mark.SUCCESS ) {//判定是否成功
 
 
                         resolve(deepCopy(data));
 
                     }else if(data['code'] === Mark.SUCCESS_NO_DATA){
+                        resolve(deepCopy(data));
+                        // resolve(Mark.SUCCESS_NO_DATA)//标记为无数据
 
-                        resolve(Mark.SUCCESS_NO_DATA)//标记为无数据
-
-                    }else {
-                        //TODO 错误
+                    }
+                    else if(data['code'] === Mark.ERROR){
+                        console.log('dateerrosss')
+                        console.log(data)
+                        console.log('dateroorsss')
+                        resolve(deepCopy(data));
                     }
                 })
-                .catch(
-
-                    //error => console.error('Error:', error)
-                )
+                .catch(function(error) {
+// 处理 getJSON 和 前一个回调函数运行时发生的错误
+                    console.log('发生错误！', error);
+                })
         });//JSON.stringify(jsonData),
 
     }else {//附带json式请求

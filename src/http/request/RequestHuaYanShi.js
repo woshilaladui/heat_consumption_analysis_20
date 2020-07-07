@@ -102,11 +102,17 @@ export function requestSaveHuaYanShiData(
             flag: RequestMethod.jsonDta,
         })
             .then((response) => {
+                console.log('response')
+                console.log(response)
+                console.log('response')
                 //直接回传 不进一步解析
                 //TODO 进一步处理数据 requestSaveHuaYanShiData
                 resolve(response)
             })
-            .catch()
+            .catch(function(error) {
+// 处理 getJSON 和 前一个回调函数运行时发生的错误
+                console.log('发生错误！', error);
+            })
     });
 
 }

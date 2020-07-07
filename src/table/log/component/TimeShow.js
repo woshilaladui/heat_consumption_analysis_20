@@ -18,7 +18,7 @@ class TimeShow extends Component {
                 <Row type="flex" justify="space-around" align="middle">
                     <Col span={4}>{moment().format('YYYY年MM月DD日')}</Col>
                     <Col span={4}>{"星期" + day[moment().format('d')]}</Col>
-                    <Col span={4}>{"值班人员：" + person}</Col>
+                    <Col span={4}>{"值班人员：" + window.localStorage.username}</Col>
                 </Row>
             </Fragment>
         );

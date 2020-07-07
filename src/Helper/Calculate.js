@@ -29,7 +29,7 @@ export function autoCalculate_IL(
     indexH,//CaO MgO 0.77*CaO+1.09*MgO
 ){
 
-    if(data[indexH]['data'][5] != null && data[indexH]['data'][6] != null){
+    if( data[indexH]['data'][6] != null){
 
         data[indexH]['data'][1] = parseFloat((0.77*data[indexH]['data'][5] +1.09*data[indexH]['data'][6]).toFixed(3));
 

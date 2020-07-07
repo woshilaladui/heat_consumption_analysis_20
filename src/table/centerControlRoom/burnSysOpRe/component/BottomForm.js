@@ -116,7 +116,7 @@ class BottomForm extends Component {
                         obj.props.colSpan = 0;
                     }
                     if (index === 3) {//空白
-                        obj.props.rowSpan = 6;
+                        obj.props.rowSpan = 1;
                         obj.props.colSpan = 0;
                     }
                     if (index === 4) {
@@ -382,6 +382,7 @@ class BottomForm extends Component {
                 },
             },
         ];
+
         /**限制输入数值位数的函数**start**/
         const limitDecimals = (value: string | number): string => {
             const reg = /^(\-)*(\d+)\.(\d\d).*$/;
@@ -414,7 +415,7 @@ class BottomForm extends Component {
                         value={parseFloat(Data[8 + timeChose * 12]['data'][1])}
                         formatter={limitDecimals}//限制输入数值位数
                         parser={limitDecimals}//限制输入数值位数
-                        onChange={event => this.handleChangeInputNumber(event, 8 + timeChose * 12, 1)}
+                        onChange={event => this.handleChangeInput(event, 8 + timeChose * 12, 1)}
                         style={{
                             resize: "none"
                         }}/>&emsp;风机</span>,
@@ -424,7 +425,7 @@ class BottomForm extends Component {
                         formatter={limitDecimals}//限制输入数值位数
 
                         parser={limitDecimals}//限制输入数值位数
-                        onChange={event => this.handleChangeInputNumber(event, 8 + timeChose * 12, 2)}
+                        onChange={event => this.handleChangeInput(event, 8 + timeChose * 12, 2)}
                         style={{
                             resize: "none"
                         }}/>&emsp;风机</span>,
@@ -435,22 +436,22 @@ class BottomForm extends Component {
                 {
                     1: '接班:中心风  内风  外风',//长度2
                     3: <Input
-                        value={Data[9 + timeChose * 12]['data'][3]}
-                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 12, 3)}/>,//长度2
+                        value={Data[9 + timeChose * 12]['data'][0]}
+                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 12, 0)}/>,//长度2
 
                     5: <span>燃烧器:&emsp;<InputNumber
-                        value={parseFloat(Data[9 + timeChose * 12]['data'][4])}
+                        value={parseFloat(Data[9 + timeChose * 12]['data'][1])}
                         formatter={limitDecimals}//限制输入数值位数
                         parser={limitDecimals}//限制输入数值位数
-                        onChange={event => this.handleChangeInputNumber(event, 9 + timeChose * 12, 4)}
+                        onChange={event => this.handleChangeInput(event, 9 + timeChose * 12, 1)}
                         style={{
                             resize: "none"
                         }}/>&emsp;位</span>,//长度3
                     8: <span>孰料仓位:&emsp;<InputNumber
-                        value={parseFloat(Data[9 + timeChose * 12]['data'][5])}
+                        value={parseFloat(Data[9 + timeChose * 12]['data'][2])}
                         formatter={limitDecimals}//限制输入数值位数
                         parser={limitDecimals}//限制输入数值位数
-                        onChange={event => this.handleChangeInputNumber(event, 9 + timeChose * 12, 5)}
+                        onChange={event => this.handleChangeInput(event, 9 + timeChose * 12, 2)}
                         style={{
                             resize: "none"
                         }}/>&emsp;米</span>,//长度3
@@ -488,7 +489,7 @@ class BottomForm extends Component {
                             value={Data[11 + timeChose * 12]['data'][3]}
                             formatter={limitDecimals}//限制输入数值位数
                             parser={limitDecimals}//限制输入数值位数
-                            onChange={event => this.handleChangeInputNumber(event, 11 + timeChose * 12, 3)}
+                            onChange={event => this.handleChangeInput(event, 11 + timeChose * 12, 3)}
                             style={{
                                 resize: "none"
                             }}/>/
@@ -496,7 +497,7 @@ class BottomForm extends Component {
                             value={Data[11 + timeChose * 12]['data'][4]}
                             formatter={limitDecimals}//限制输入数值位数
                             parser={limitDecimals}//限制输入数值位数
-                            onChange={event => this.handleChangeInputNumber(event, 11 + timeChose * 12, 4)}
+                            onChange={event => this.handleChangeInput(event, 11 + timeChose * 12, 4)}
                             style={{
                                 resize: "none"
                             }}/></span>,//长度3
@@ -507,7 +508,7 @@ class BottomForm extends Component {
                             value={Data[11 + timeChose * 12]['data'][5]}
                             formatter={limitDecimals}//限制输入数值位数
                             parser={limitDecimals}//限制输入数值位数
-                            onChange={event => this.handleChangeInputNumber(event, 11 + timeChose * 12, 5)}
+                            onChange={event => this.handleChangeInput(event, 11 + timeChose * 12, 5)}
                             style={{
                                 resize: "none"
                             }}/>/
@@ -515,7 +516,7 @@ class BottomForm extends Component {
                         value={Data[11 + timeChose * 12]['data'][6]}
                         formatter={limitDecimals}//限制输入数值位数
                         parser={limitDecimals}//限制输入数值位数
-                        onChange={event => this.handleChangeInputNumber(event, 11 + timeChose * 12, 6)}
+                        onChange={event => this.handleChangeInput(event, 11 + timeChose * 12, 6)}
                         style={{
                             resize: "none"
                         }}/></span>,

@@ -25,7 +25,7 @@ class TimeShow extends Component {
                         <Option value='2'>16点班</Option>
                     </Select>
                     </Col>
-                    <Col span={4}>{"值班人员：" + person}</Col>
+                    <Col span={4}>{"值班人员：" + window.localStorage.username}</Col>
                 </Row>
             </Fragment>
         );

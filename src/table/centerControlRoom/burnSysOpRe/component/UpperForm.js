@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import {Input, Table} from 'antd';
+import {Table, Tabs, Input} from 'antd';
 import "./UpperForm.css"
 import * as actionCreators from "../store/actionCreators";
 import {connect} from "react-redux";
 import {deepCopy} from "../../../../Helper/Copy";
 
+const TabPane = Tabs.TabPane;
 
 class UpperForm extends Component {
 
@@ -31,7 +32,7 @@ class UpperForm extends Component {
      * 表格输入数据变化的监听，同时所有的数据更新
      **/
     onInputNumberChange2 = (value, indexH, indexL) => {
-        if(value != null){
+        if (value != null) {
             const {data, timeChose, updateChange} = this.props;
             let NewData = deepCopy(data)//复制一份出来
             let index = indexH + timeChose * 12;
@@ -175,7 +176,406 @@ class UpperForm extends Component {
             //     width: '7.5%',
             // },
         ];
+        const columns_tab2 = [
+            {
+                title: '时间',
+                dataIndex: 'time',
+            },
+            {
+                title: '各点温度',
+                dataIndex: 'DFC',
+                children: [
+                    {
+                        title: 'C1',
+                        dataIndex: 'CKWD',
+                        children: [
+                            {
+                                title: '出口',
+                                dataIndex: 'out',
+                                children: [
+                                    {
+                                        title: '℃',
+                                        dataIndex: 'c1_1_out',
+                                    },
+                                    {
+                                        title: '℃',
+                                        dataIndex: 'c1_2_out',
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        title: 'C2',
+                        dataIndex: 'C2',
+                        children: [
+                            {
+                                title: '出口',
+                                dataIndex: 'C2out',
+                                children: [
+                                    {
+                                        title: '℃',
+                                        dataIndex: 'c2_out',
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        title: 'C3',
+                        dataIndex: 'C3',
+                        children: [
+                            {
+                                title: '出口',
+                                dataIndex: 'outC3',
+                                children: [
+                                    {
+                                        title: '℃',
+                                        dataIndex: 'c3_out',
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        title: 'C4',
+                        dataIndex: 'C4',
+                        children: [
+                            {
+                                title: '出口',
+                                dataIndex: 'outC4',
+                                children: [
+                                    {
+                                        title: '℃',
+                                        dataIndex: 'c4_out',
+                                    }
+                                ]
+                            },
+                            {
+                                title: '下料',
+                                dataIndex: 'xialiao',
+                                children: [
+                                    {
+                                        title: '℃',
+                                        dataIndex: 'c4_xialiao',
+                                    },
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        title: 'C5',
+                        dataIndex: 'C5',
+                        children: [
+                            {
+                                title: '出口',
+                                dataIndex: 'out',
+                                children: [
+                                    {
+                                        title: '℃',
+                                        dataIndex: 'c5_out',
+                                    },
+                                ]
+                            },
+                            {
+                                title: '下料',
+                                dataIndex: 'xialiao',
+                                children: [
+                                    {
+                                        title: '℃',
+                                        dataIndex: 'c5_xialiao',
+                                    },
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        title: '分解炉',
+                        dataIndex: 'fenjielu',
+                        children: [
+                            {
+                                title: '出口',
+                                dataIndex: 'out',
+                                children: [
+                                    {
+                                        title: '℃',
+                                        dataIndex: 'fjl_out',
+                                    },
+                                ]
+                            },
+                            {
+                                title: '压强',
+                                dataIndex: 'yaqiang',
+                                children: [
+                                    {
+                                        title: '℃',
+                                        dataIndex: 'fjl_yq',
+                                    },
+                                ]
+                            },
+                            {
+                                title: '中部',
+                                dataIndex: 'zhongbu',
+                                children: [
+                                    {
+                                        title: '℃',
+                                        dataIndex: 'fjl_middle',
+                                    },
+                                ]
+                            },
 
+                        ]
+                    },
+                    {
+                        title: '温室温度',
+                        dataIndex: 'wenshiTem',
+                        children: [
+                            {
+                                title: '℃',
+                                dataIndex: 'wswd',
+                            },
+                        ]
+                    },
+                    {
+                        title: '胴温最高',
+                        dataIndex: 'dongwen',
+                        children: [
+                            {
+                                title: '℃',
+                                dataIndex: 'dw_top',
+                            },
+                        ]
+                    },
+                    {
+                        title: '二次风温',
+                        dataIndex: 'ecfw',
+                        children: [
+                            {
+                                title: '℃',
+                                dataIndex: 'ercifengwen',
+                            },
+                        ]
+                    },
+                    {
+                        title: '瓦温最高',
+                        dataIndex: 'wwzg',
+                        children: [
+                            {
+                                title: '℃',
+                                dataIndex: 'wawenzuigao',
+                            },
+                        ]
+                    },
+                ]
+            },
+            {
+                title: '负压',
+                dataIndex: 'fy',
+                children: [
+                    {
+                        title: '烟室',
+                        children: [
+                            {
+                                title: 'Pa',
+                                dataIndex: 'yanshi'
+                            }
+                        ]
+                    },
+                    {
+                        title: '窑头',
+                        children: [
+                            {
+                                title: 'Pa',
+                                dataIndex: 'yaotou'
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                title: '电机电流',
+                dataIndex: 'djdl',
+                children: [
+                    {
+                        title: '高温风机电流',
+                        children: [
+                            {
+                                title: 'A',
+                                dataIndex: 'gaowenfengjidianliu'
+                            }
+                        ]
+                    },
+                    {
+                        title: '提升机',
+                        children: [
+                            {
+                                title: 'A',
+                                dataIndex: 'tishengji'
+                            }
+                        ]
+                    },
+                    {
+                        title: '排风机',
+                        children: [
+                            {
+                                title: 'A',
+                                dataIndex: 'paifengji'
+                            }
+                        ]
+                    },
+                    {
+                        title: '破碎机',
+                        children: [
+                            {
+                                title: 'A',
+                                dataIndex: 'posuiji'
+                            }
+                        ]
+                    },
+                    {
+                        title: '斜拉链',
+                        children: [
+                            {
+                                title: 'A',
+                                dataIndex: 'xielalian'
+                            }
+                        ]
+                    },
+                ]
+            },
+            {
+                title: '冷机',
+                children: [
+                    {
+                        title: '一室压力',
+                        dataIndex: 'ysyl',
+                        children: [
+                            {
+                                title: 'Pa',
+                                dataIndex: 'yishiyali'
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                title: '气体分析仪',
+                children: [
+                    {
+                        title: 'O2',
+                        dataIndex: 'O2',
+                        children: [
+                            {
+                                title: 'Pa',
+                                dataIndex: 'o2'
+                            }
+                        ]
+                    },
+                    {
+                        title: 'CO',
+                        dataIndex: 'CO',
+                        children: [
+                            {
+                                title: 'Pa',
+                                dataIndex: 'co'
+                            }
+                        ]
+                    },
+                    {
+                        title: 'NOX',
+                        dataIndex: 'NOX',
+                        children: [
+                            {
+                                title: 'Pa',
+                                dataIndex: 'nox'
+                            }
+                        ]
+                    },
+                ]
+            },
+            {
+                title: '收尘',
+                children: [
+                    {
+                        title: '电压',
+                        dataIndex: 'scdy',
+                        children: [
+                            {
+                                title: '1#',
+                                dataIndex: '1_dy',
+                                children: [
+                                    {
+                                        title: 'KV',
+                                        dataIndex: 'dy_kv_1'
+                                    }
+                                ]
+                            },
+                            {
+                                title: '2#',
+                                dataIndex: '2_dy',
+                                children: [
+                                    {
+                                        title: 'KV',
+                                        dataIndex: 'dy_kv_2'
+                                    }
+                                ]
+                            },
+                            {
+                                title: '3#',
+                                dataIndex: '3_dy',
+                                children: [
+                                    {
+                                        title: 'KV',
+                                        dataIndex: 'dy_kv_3'
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        title: '电流',
+                        dataIndex: 'scdl',
+                        children: [
+                            {
+                                title: '1#',
+                                dataIndex: '1_dl',
+                                children: [
+                                    {
+                                        title: 'MA',
+                                        dataIndex: 'dl_ma_1'
+                                    }
+                                ]
+                            },
+                            {
+                                title: '2#',
+                                dataIndex: '2_dl',
+                                children: [
+                                    {
+                                        title: 'MA',
+                                        dataIndex: 'dl_ma_2'
+                                    }
+                                ]
+                            },
+                            {
+                                title: '3#',
+                                dataIndex: '3_dl',
+                                children: [
+                                    {
+                                        title: 'MA',
+                                        dataIndex: 'dl_ma_3'
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                ]
+            },
+            // {
+            //     title: '暂存',
+            //     dataIndex:'btn_save',
+            //     width:'5%',
+            // }
+        ];
         /**表头的设计**end**/
 
         /**
@@ -188,11 +588,10 @@ class UpperForm extends Component {
 
         /**中间八行的数据输入**start**/
         const dataSource = [];
-        const {data, timeChose,person} = this.props;
+        const {data, timeChose, person, allTime} = this.props;
 
 
         const Data = deepCopy(data)
-
 
 
         for (let i = 0; i < 8; i++) {
@@ -248,14 +647,274 @@ class UpperForm extends Component {
         }
 
         /**中间八行的数据输入**end**/
+        const dataSource_tab2 = [];
+
+        const tab = 5;
+        for (let i = 0; i < 8; i++) {
+            const index = i + timeChose * 12;
+            const value = Data[index]['data'];
+            //Data[index].data
+            const time = deepCopy(allTime);
+
+
+            dataSource_tab2.push(
+                {
+                    time: time[timeChose][i],
+                    c1_1_out: <span><Input
+
+                        style={this.changeStyle(value[0 + tab])}
+                        defaultValue={''}
+
+                        value={isNaN(value[0 + tab]) ? null : value[0 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 0 + tab)}
+                    /></span>,
+                    c1_2_out: <span><Input
+
+                        style={this.changeStyle(value[1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[1 + tab]) ? null : value[1 + tab]}
+                        onChange={
+                            event => this.onInputNumberChange2(event.target.value, i, 1 + tab)
+                        }
+                    /></span>,
+                    c2_out: <span><Input
+                        style={this.changeStyle(value[2 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[2 + tab]) ? null : value[2 + tab]}
+                        onChange={event => this.onInputNumberChange2 (event.target.value, i, 2 + tab)}
+                    /></span>,
+                    c3_out: <span><Input
+
+                        style={this.changeStyle(value[3 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[3 + tab]) ? null : value[3 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 3 + tab)}
+                    /></span>,
+                    c4_out: <span><Input
+
+                        style={this.changeStyle(value[4 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[4 + tab]) ? null : value[4 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 4 + tab)}
+                    /></span>,
+                    c4_xialiao: <span><Input
+
+                        style={this.changeStyle(value[5 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[5 + tab]) ? null : value[5 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 5 + tab)}
+                    /></span>,
+                    c5_out: <span><Input
+
+                        style={this.changeStyle(value[5 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[5 + 1 + tab]) ? null : value[5 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 5 + 1 + tab)}
+                    /></span>,
+                    c5_xialiao: <span><Input
+
+                        style={this.changeStyle(value[6 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[6 + 1 + tab]) ? null : value[6 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 6 + 1 + tab)}
+                    /></span>,
+                    fjl_out: <span><Input
+
+                        style={this.changeStyle(value[7 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[7 + 1 + tab]) ? null : value[7 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 7 + 1 + tab)}
+                    /></span>,
+                    fjl_yq: <span><Input
+
+                        style={this.changeStyle(value[8 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[8 + 1 + tab]) ? null : value[8 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 8 + 1 + tab)}
+                    /></span>,
+                    fjl_middle: <span><Input
+
+                        style={this.changeStyle(value[9 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[9 + 1 + tab]) ? null : value[9 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 9 + 1 + tab)}
+                    /></span>,
+                    wswd: <span><Input
+
+                        style={this.changeStyle(value[10 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[10 + 1 + tab]) ? null : value[10 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 10 + 1 + tab)}
+                    /></span>,
+                    dw_top: <span><Input
+
+                        style={this.changeStyle(value[11 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[11 + 1 + tab]) ? null : value[11 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 11 + 1 + tab)}
+                    /></span>,
+                    ercifengwen: <span><Input
+
+                        style={this.changeStyle(value[12 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[12 + 1 + tab]) ? null : value[12 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 12 + 1 + tab)}
+                    /></span>,
+                    wawenzuigao: <span><Input
+
+                        style={this.changeStyle(value[13 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[13 + 1 + tab]) ? null : value[13 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 13 + 1 + tab)}
+                    /></span>,
+                    yanshi: <span><Input
+
+                        style={this.changeStyle(value[14 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[14 + 1 + tab]) ? null : value[14 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 14 + 1 + tab)}
+                    /></span>,
+                    yaotou: <span><Input
+
+                        style={this.changeStyle(value[15 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[15 + 1 + tab]) ? null : value[15 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 15 + 1 + tab)}
+                    /></span>,
+                    gaowenfengjidianliu: <span><Input
+
+                        style={this.changeStyle(value[16 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[16 + 1 + tab]) ? null : value[16 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 16 + 1 + tab)}
+                    /></span>,
+                    tishengji: <span><Input
+
+                        style={this.changeStyle(value[17 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[17 + 1 + tab]) ? null : value[17 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 17 + 1 + tab)}
+                    /></span>,
+                    paifengji: <span><Input
+
+                        style={this.changeStyle(value[18 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[18 + 1 + tab]) ? null : value[18 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 18 + 1 + tab)}
+                    /></span>,
+                    posuiji: <span><Input
+
+                        style={this.changeStyle(value[19 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[19 + 1 + tab]) ? null : value[19 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 19 + 1 + tab)}
+                    /></span>,
+                    xielalian: <span><Input
+
+                        style={this.changeStyle(value[20 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[20 + 1 + tab]) ? null : value[20 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 20 + 1 + tab)}
+                    /></span>,
+                    yishiyali: <span><Input
+
+                        style={this.changeStyle(value[21 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[21 + 1 + tab]) ? null : value[21 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 21 + 1 + tab)}
+                    /></span>,
+                    o2: <span><Input
+
+                        style={this.changeStyle(value[22 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[22 + 1 + tab]) ? null : value[22 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 22 + 1 + tab)}
+                    /></span>,
+                    co: <span><Input
+
+                        style={this.changeStyle(value[23 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[23 + 1 + tab]) ? null : value[23 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 23 + 1 + tab)}
+                    /></span>,
+                    nox: <span><Input
+
+                        style={this.changeStyle(value[24 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[24 + 1 + tab]) ? null : value[24 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 24 + 1 + tab)}
+                    /></span>,
+                    dy_kv_1: <span><Input
+
+                        style={this.changeStyle(value[25 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[25 + 1 + tab]) ? null : value[25 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 25 + 1 + tab)}
+                    /></span>,
+                    dy_kv_2: <span><Input
+
+                        style={this.changeStyle(value[26 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[26 + 1 + tab]) ? null : value[26 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 26 + 1 + tab)}
+                    /></span>,
+                    dy_kv_3: <span><Input
+
+                        style={this.changeStyle(value[27 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[27 + 1 + tab]) ? null : value[27 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 27 + 1 + tab)}
+                    /></span>,
+                    dl_ma_1: <span><Input
+
+                        style={this.changeStyle(value[28 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[28 + 1 + tab]) ? null : value[28 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 28 + 1 + tab)}
+                    /></span>,
+                    dl_ma_2: <span><Input
+
+                        style={this.changeStyle(value[29 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[29 + 1 + tab]) ? null : value[29 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 29 + 1 + tab)}
+                    /></span>,
+                    dl_ma_3: <span><Input
+
+                        style={this.changeStyle(value[30 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[30 + 1 + tab]) ? null : value[30 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 30 + 1 + tab)}
+                    /></span>,
+
+
+                    //btn_save: <Button type='primary' onClick={() => this.postToHome(i)}>暂存</Button>,
+                })
+        }
+
+        /**数据的自动处理显示部分**end**/
+        function callback(key) {
+            this.setState({
+                TabChoose: key
+            });
+        }
 
         return (
             <div className="upper">
                 {/*表格填写*/}
-                <Table
-                    className="pper_table" columns={columns} bordered
-                    dataSource={dataSource} pagination={false}
-                />
+
+                <Tabs defaultActiveKey="0" onChange={callback.bind(this)}>
+                    <TabPane tab="表1" key="0">
+                        <Table
+                            className="pper_table" columns={columns} bordered
+                            dataSource={dataSource} pagination={false}
+                        />
+                    </TabPane>
+                    <TabPane tab="表2" key="1"><Table
+                        className="pper_table2" columns={columns_tab2} bordered
+                        dataSource={dataSource_tab2} scroll={{x: 1300}} pagination={false}/>
+                    </TabPane>
+                </Tabs>
 
             </div>
         );
@@ -271,6 +930,7 @@ const mapStateToProps = (state) => {
         data: state.getIn(['burnSysOpRe', 'data']),
         person: state.getIn(['burnSysOpRe', 'person']),
         tableName: state.getIn(['burnSysOpRe', 'tableName']),
+        allTime: state.getIn(['burnSysOpRe', 'allTime']),
     }
 }
 
@@ -279,7 +939,7 @@ const mapDispathToProps = (dispatch) => {
 
         updateChange(NewData) {
 
-            dispatch(actionCreators.updateData({data:deepCopy(NewData)}))
+            dispatch(actionCreators.updateData({data: deepCopy(NewData)}))
         },
 
 
@@ -288,10 +948,10 @@ const mapDispathToProps = (dispatch) => {
 
 
             dispatch(actionCreators.saveData({
-                date:date,
-                index:index,
-                tableName:tableName,
-                data:data
+                date: date,
+                index: index,
+                tableName: tableName,
+                data: data
             }))
         },
 
