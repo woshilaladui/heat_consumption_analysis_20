@@ -15,7 +15,7 @@ class ButtonConfirmationBox extends Component{
 
     postAllToHome(){
         const {data, saveAllToHome, tableName,date} = this.props;
-        const Data = deepCopy(data)
+        const Data = deepCopy(data);
         saveAllToHome(date,tableName, Data);
 
     }
@@ -45,10 +45,10 @@ class ButtonConfirmationBox extends Component{
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date: state.getIn(['burnSysOpRe', 'date']),
-        timeChose: state.getIn(['burnSysOpRe', 'timeChose']),
-        data: state.getIn(['burnSysOpRe', 'data']),
-        tableName: state.getIn(['burnSysOpRe', 'tableName']),
+        date: state.getIn(['centralControlDaRe', 'date']),
+        timeChose: state.getIn(['centralControlDaRe', 'timeChose']),
+        data: state.getIn(['centralControlDaRe', 'data']),
+        tableName: state.getIn(['centralControlDaRe', 'tableName']),
 
     }
 }
@@ -62,7 +62,7 @@ const mapDispathToProps = (dispatch) => {
                 date:date,
                 tableName:tableName,
                 data:data,
-                num:36
+                num:33
             }));
         }
 

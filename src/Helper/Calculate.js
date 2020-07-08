@@ -33,6 +33,8 @@ export function autoCalculate_IL(
 
         data[indexH]['data'][1] = parseFloat((0.77*data[indexH]['data'][5] +1.09*data[indexH]['data'][6]).toFixed(3));
 
+    }else{
+        data[indexH]['data'][1] = parseFloat((0.77*data[indexH]['data'][5]).toFixed(3));
     }
 
 }

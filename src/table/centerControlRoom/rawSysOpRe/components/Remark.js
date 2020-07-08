@@ -44,7 +44,7 @@ class Remark extends Component {
                     <div>
                         <Row type="flex" justify="space-between">
                             <Col span={6}>
-                                <label>原煤仓重:</label>
+                                <label>石灰石称累计:</label>
                                 <Input
                                     type="text"
                                     style={{width: '80px'}}
@@ -53,7 +53,7 @@ class Remark extends Component {
                                 />
                             </Col>
                             <Col span={6}>
-                                <label>原煤仓累计量:</label>
+                                <label>砂岩称累计:</label>
                                 <Input
                                     type="text"
                                     style={{width: '80px'}}
@@ -62,7 +62,7 @@ class Remark extends Component {
                                 />
                             </Col>
                             <Col span={6}>
-                                <label>头煤仓重:</label>
+                                <label>铁粉称累计:</label>
                                 <Input
                                     type="text"
                                     style={{width: '80px'}}
@@ -71,7 +71,7 @@ class Remark extends Component {
                                 />
                             </Col>
                             <Col span={6}>
-                                <label>尾煤仓重:</label>
+                                <label>粉煤灰称累计:</label>
                                 <Input
                                     type="text"
                                     style={{width: '80px'}}
@@ -84,30 +84,21 @@ class Remark extends Component {
                     <div style={{margin: "3px 0"}}>
                         <Row type="flex" justify="start">
                             <Col span={6}>
-                                <label>原煤仓重:</label>
+                                <label>总累计:</label>
                                 <Input
                                     type="text"
                                     style={{width: '80px'}}
                                     onChange={event => {this.handleInputChange(event.target.value,index,4)}}
-                                    value={Data[index]['data'][4]}
+                                    Value={Data[index]['data'][0]+Data[index]['data'][1]}
                                 />
                             </Col>
                             <Col span={6}>
-                                <label>原煤仓累计量:</label>
+                                <label>均化库库位:</label>
                                 <Input
                                     type="text"
                                     style={{width: '80px'}}
                                     onChange={event => {this.handleInputChange(event.target.value,index,5)}}
                                     value={Data[index]['data'][5]}
-                                />
-                            </Col>
-                            <Col span={6}>
-                                <label>头煤仓重:</label>
-                                <Input
-                                    type="text"
-                                    style={{width: '80px'}}
-                                    onChange={event => {this.handleInputChange(event.target.value,index,6)}}
-                                    value={Data[index]['data'][6]}
                                 />
                             </Col>
                         </Row>

@@ -18,11 +18,11 @@ class TimeShow extends Component{
                     <Col span ={4}>
                         班次选择：<Select defaultValue='0'  onChange={handleTimeChange}>
                         <Option  value='0'>0点班</Option>
-                        <Option  value='1'>8点班</Option>
-                        <Option  value='2'>16点班</Option>
+                        <Option  value='1'>10点班</Option>
+                        <Option  value='2'>20点班</Option>
                     </Select>
                     </Col>
-                    <Col span ={4}>{"值班人员："+person}</Col>
+                    <Col span ={4}>{"值班人员："+window.localStorage.username}</Col>
                 </Row>
             </Fragment>
         );

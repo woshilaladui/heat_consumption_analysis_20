@@ -159,47 +159,47 @@ class BottomForm extends Component {
                 },
                 {
                     2:<Input
-                        value={Data[9 + timeChose * 12]['data'][0]}
-                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 12, 0)}/>,
+                        value={Data[9 + timeChose * 11]['data'][0]}
+                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 11, 0)}/>,
                     3:<Input
-                        value={Data[9 + timeChose * 12]['data'][1]}
-                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 12, 1)}/>,
+                        value={Data[9 + timeChose * 11]['data'][1]}
+                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 11, 1)}/>,
                     4:<Input
-                        value={Data[9 + timeChose * 12]['data'][2]}
-                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 12, 2)}/>,
+                        value={Data[9 + timeChose * 11]['data'][2]}
+                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 11, 2)}/>,
                     5:<Input
-                        value={Data[9 + timeChose * 12]['data'][3]}
-                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 12, 3)}/>,
+                        value={Data[9 + timeChose * 11]['data'][3]}
+                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 11, 3)}/>,
                     6:<Input
-                        value={Data[9 + timeChose * 12]['data'][4]}
-                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 12, 4)}/>,
+                        value={Data[9 + timeChose * 11]['data'][4]}
+                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 11, 4)}/>,
                     7:<Input
-                        value={Data[9 + timeChose * 12]['data'][5]}
-                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 12, 5)}/>,
+                        value={Data[9 + timeChose * 11]['data'][5]}
+                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 11, 5)}/>,
                     8:<Input
-                        value={Data[9 + timeChose * 12]['data'][6]}
-                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 12, 6)}/>,
+                        value={Data[9 + timeChose * 11]['data'][6]}
+                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 11, 6)}/>,
                     9:<Input
-                        value={Data[9 + timeChose * 12]['data'][7]}
-                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 12, 7)}/>,
+                        value={Data[9 + timeChose * 11]['data'][7]}
+                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 11, 7)}/>,
                     10:<Input
-                        value={Data[9 + timeChose * 12]['data'][8]}
-                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 12, 8)}/>,
+                        value={Data[9 + timeChose * 11]['data'][8]}
+                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 11, 8)}/>,
                     /*2: <span>均化XX:&emsp;<InputNumber
-                        value={parseFloat(Data[8 + timeChose * 12]['data'][1])}
+                        value={parseFloat(Data[8 + timeChose * 11]['data'][1])}
                         formatter={limitDecimals}//限制输入数值位数
                         parser={limitDecimals}//限制输入数值位数
-                        onChange={event => this.handleChangeInputNumber(event, 8 + timeChose * 12, 1)}
+                        onChange={event => this.handleChangeInputNumber(event, 8 + timeChose * 11, 1)}
                         style={{
                             resize: "none"
                         }}/>&emsp;风机</span>,
                     5: <span>移重XX:&emsp;<InputNumber
 
-                        value={parseFloat(Data[8 + timeChose * 12]['data'][2])}
+                        value={parseFloat(Data[8 + timeChose * 11]['data'][2])}
                         formatter={limitDecimals}//限制输入数值位数
 
                         parser={limitDecimals}//限制输入数值位数
-                        onChange={event => this.handleChangeInputNumber(event, 8 + timeChose * 12, 2)}
+                        onChange={event => this.handleChangeInputNumber(event, 8 + timeChose * 11, 2)}
                         style={{
                             resize: "none"
                         }}/>&emsp;风机</span>,
@@ -217,14 +217,14 @@ class BottomForm extends Component {
                     7:'?粉消耗'
                     /*1: '接班:中心风  内风  外风',//长度2
                     3: <Input
-                        value={Data[9 + timeChose * 12]['data'][3]}
-                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 12, 3)}/>,//长度2
+                        value={Data[10 + timeChose * 11]['data'][3]}
+                        onChange={event => this.handleChangeInput(event.target.value, 10 + timeChose * 11, 3)}/>,//长度2
 
                     5: <span>燃烧器:&emsp;<InputNumber
-                        value={parseFloat(Data[9 + timeChose * 12]['data'][4])}
+                        value={parseFloat(Data[9 + timeChose * 11]['data'][4])}
                         formatter={limitDecimals}//限制输入数值位数
                         parser={limitDecimals}//限制输入数值位数
-                        onChange={event => this.handleChangeInputNumber(event, 9 + timeChose * 12, 4)}
+                        onChange={event => this.handleChangeInputNumber(event, 9 + timeChose * 11, 4)}
                         style={{
                             resize: "none"
                         }}/>&emsp;位</span>,//长度3
@@ -239,23 +239,23 @@ class BottomForm extends Component {
                 },
                 {
                     2:<Input
-                        value={Data[9 + timeChose * 12]['data'][9]}
-                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 12, 9)}/>,
+                        value={Data[10 + timeChose * 11]['data'][0]}
+                        onChange={event => this.handleChangeInput(event.target.value, 10 + timeChose * 11, 0)}/>,
                     3:<Input
-                        value={Data[9 + timeChose * 12]['data'][10]}
-                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 12, 10)}/>,
+                        value={Data[10 + timeChose * 11]['data'][1]}
+                        onChange={event => this.handleChangeInput(event.target.value, 10 + timeChose * 11, 1)}/>,
                     4:<Input
-                        value={Data[9 + timeChose * 12]['data'][11]}
-                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 12, 11)}/>,
+                        value={Data[10 + timeChose * 11]['data'][2]}
+                        onChange={event => this.handleChangeInput(event.target.value, 10 + timeChose * 11, 2)}/>,
                     5:<Input
-                        value={Data[9 + timeChose * 12]['data'][12]}
-                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 12, 12)}/>,
+                        value={Data[10 + timeChose * 11]['data'][3]}
+                        onChange={event => this.handleChangeInput(event.target.value, 10 + timeChose * 11, 3)}/>,
                     6:<Input
-                        value={Data[9 + timeChose * 12]['data'][13]}
-                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 12, 13)}/>,
+                        value={Data[10 + timeChose * 11]['data'][4]}
+                        onChange={event => this.handleChangeInput(event.target.value, 10 + timeChose * 11, 4)}/>,
                     7:<Input
-                        value={Data[9 + timeChose * 12]['data'][14]}
-                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 12, 14)}/>,
+                        value={Data[10 + timeChose * 11]['data'][5]}
+                        onChange={event => this.handleChangeInput(event.target.value, 10 + timeChose * 11, 5)}/>,
                     /*1: <TextArea
                         value={Data[10 + timeChose * 12]['data'][0]}
                         placeholder='备注'

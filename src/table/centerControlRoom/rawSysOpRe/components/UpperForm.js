@@ -247,27 +247,27 @@ class UpperForm extends Component {
                     children: [
                         {
                             title: '入口阀门开度%',
-                            dataIndex: 'RKFMKD',
+                            dataIndex: 'XHFJ_RKFMKD',
                             width: '4%',
                         },
                         {
                             title: '电流A',
-                            dataIndex: 'XHFJDL',
+                            dataIndex: 'XHFJ_XHFJDL',
                             width: '4%',
                         },
                         {
                             title: '风机轴承温度℃',
-                            dataIndex: 'FJZCWD',
+                            dataIndex: 'XHFJ_FJZCWD',
                             width: '4%',
                         },
                         {
                             title: '电机轴承温度℃',
-                            dataIndex: 'DJZCWD',
+                            dataIndex: 'XHFJ_DJZCWD',
                             width: '4%',
                         },
                         {
                             title: '电机绕组温度℃',
-                            dataIndex: 'DJRZWD',
+                            dataIndex: 'XHFJ_DJRZWD',
                             width: '4%',
                         },
                         {
@@ -314,27 +314,32 @@ class UpperForm extends Component {
                     children: [
                         {   
                             title: '入口阀门开度%',
-                            dataIndex: 'RKFMKD',
+                            dataIndex: 'WPfJ_RKFMKD',
                             width: '4%',
                         },
                         {
                             title: '电流A',
-                            dataIndex: 'WPFJDL',
+                            dataIndex: 'WPfJ_WPFJDL',
+                            width: '4%',
+                        },
+                        {
+                            title: '转速rpm',
+                            dataIndex: 'WPfJ_SLMZS',
                             width: '4%',
                         },
                         {
                             title: '风机轴承温度℃',
-                            dataIndex: 'FJZCWD',
+                            dataIndex: 'WPfJ_FJZCWD',
                             width: '4%',
                         },
                         {
                             title: '电机轴承温度℃',
-                            dataIndex: 'DJZCWD',
+                            dataIndex: 'WPfJ_DJZCWD',
                             width: '4%',
                         },
                         {
                             title: '电机绕组温度℃',
-                            dataIndex: 'DJRZWD',
+                            dataIndex: 'WPfJ_DJRZWD',
                             width: '4%',
                         }
                     ]
@@ -553,31 +558,31 @@ class UpperForm extends Component {
                     defaultValue={''}
                     onChange={event => this.onInputNumberChange2(event.target.value, index, 3+tab)}
                 /></span>,
-                    RKFMKD: <span><Input
+                    XHFJ_RKFMKD: <span><Input
                     style={this.changeStyle(value[4+tab])}
                     value={isNaN(value[tab+4]) ? null : value[tab+4]}
                     defaultValue={''}
                     onChange={event => this.onInputNumberChange2(event.target.value, index, 4+tab)}
                 /></span>,
-                    XHFJDL: <span><Input
+                    XHFJ_XHFJDL: <span><Input
                     style={this.changeStyle(value[5+tab])}
                     value={isNaN(value[tab+5]) ? null : value[tab+5]}
                     defaultValue={''}
                     onChange={event => this.onInputNumberChange2(event.target.value, index, 5+tab)}
                 /></span>,
-                    FJZCWD: <span><Input
+                    XHFJ_FJZCWD: <span><Input
                     style={this.changeStyle(value[6+tab])}
                     value={isNaN(value[tab+6]) ? null : value[tab+6]}
                     defaultValue={''}
                     onChange={event => this.onInputNumberChange2(event.target.value, index, 6+tab)}
                 /></span>,
-                    DJZCWD: <span><Input
+                    XHFJ_DJZCWD: <span><Input
                     style={this.changeStyle(value[7+tab])}
                     value={isNaN(value[tab+7]) ? null : value[tab+7]}
                     defaultValue={''}
                     onChange={event => this.onInputNumberChange2(event.target.value, index, 7+tab)}
                 /></span>,
-                    DJRZWD:<span><Input
+                    XHFJ_DJRZWD:<span><Input
                     style={this.changeStyle(value[8+tab])}
                     value={isNaN(value[tab+8]) ? null : value[tab+8]}
                     defaultValue={''}
@@ -619,41 +624,47 @@ class UpperForm extends Component {
                     defaultValue={''}
                     onChange={event => this.onInputNumberChange2(event.target.value, index, 14+tab)}
                 /></span>,
-                    RKFMKD: <span><Input
+                    WPfJ_RKFMKD: <span><Input
                     style={this.changeStyle(value[15+tab])}
                     value={isNaN(value[tab+15]) ? null : value[tab+15]}
                     defaultValue={''}
                     onChange={event => this.onInputNumberChange2(event.target.value, index, 15+tab)}
                 /></span>,
-                    WPFJDL: <span><Input
+                    WPfJ_WPFJDL: <span><Input
                         style={this.changeStyle(value[16+tab])}
                         value={isNaN(value[tab+16]) ? null : value[tab+16]}
                         defaultValue={''}
                         onChange={event => this.onInputNumberChange2(event.target.value, index, 16+tab)}
                     /></span>,
-                    FJZCWD: <span><Input
-                        style={this.changeStyle(value[17+tab])}
-                        value={isNaN(value[tab+17]) ? null : value[tab+17]}
+                    WPfJ_SLMZS: <span><Input
+                        style={this.changeStyle(value[16+1+tab])}
+                        value={isNaN(value[1+tab+16]) ? null : value[1+tab+16]}
                         defaultValue={''}
-                        onChange={event => this.onInputNumberChange2(event.target.value, index, 17+tab)}
+                        onChange={event => this.onInputNumberChange2(event.target.value, index, 16+1+tab)}
                     /></span>,
-                    DJZCWD: <span><Input
-                        style={this.changeStyle(value[18+tab])}
-                        value={isNaN(value[tab+18]) ? null : value[tab+18]}
+                    WPfJ_FJZCWD: <span><Input
+                        style={this.changeStyle(value[17+1+tab])}
+                        value={isNaN(value[1+tab+17]) ? null : value[1+tab+17]}
                         defaultValue={''}
-                        onChange={event => this.onInputNumberChange2(event.target.value, index, 18+tab)}
+                        onChange={event => this.onInputNumberChange2(event.target.value, index, 17+1+tab)}
                     /></span>,
-                    DJRZWD: <span><Input
-                        style={this.changeStyle(value[19+tab])}
-                        value={isNaN(value[tab+19]) ? null : value[tab+19]}
+                    WPfJ_DJZCWD: <span><Input
+                        style={this.changeStyle(value[18+1+tab])}
+                        value={isNaN(value[1+tab+18]) ? null : value[1+tab+18]}
                         defaultValue={''}
-                        onChange={event => this.onInputNumberChange2(event.target.value, index, 19+tab)}
+                        onChange={event => this.onInputNumberChange2(event.target.value, index, 18+1+tab)}
+                    /></span>,
+                    WPfJ_DJRZWD: <span><Input
+                        style={this.changeStyle(value[19+1+tab])}
+                        value={isNaN(value[1+tab+19]) ? null : value[1+tab+19]}
+                        defaultValue={''}
+                        onChange={event => this.onInputNumberChange2(event.target.value, index, 19+1+tab)}
                     /></span>,
                     ZSTCKWD: <span><Input
-                        style={this.changeStyle(value[20+tab])}
-                        value={isNaN(value[tab+20]) ? null : value[tab+20]}
+                        style={this.changeStyle(value[20+1+tab])}
+                        value={isNaN(value[1+tab+20]) ? null : value[1+tab+20]}
                         defaultValue={''}
-                        onChange={event => this.onInputNumberChange2(event.target.value, index, 20+tab)}
+                        onChange={event => this.onInputNumberChange2(event.target.value, index, 20+1+tab)}
                     /></span>,
                     person:Data[index]['user'],
                     //btn_save: <Button type='primary' onClick={() => this.postToHome(i)}>暂存</Button>,

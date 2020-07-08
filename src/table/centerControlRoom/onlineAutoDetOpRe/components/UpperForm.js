@@ -143,8 +143,8 @@ class UpperForm extends Component {
         const {data, timeChose,allTime} = this.props;
         const time = deepCopy(allTime);
         const Data = deepCopy(data);
-        for (let i = 0; i < 6; i++) {
-            const index = i + timeChose * 7;
+        for (let i = 0; i < 5; i++) {
+            const index = i + timeChose * 5;
             const value = Data[index]['data'];
 
             dataSource.push(

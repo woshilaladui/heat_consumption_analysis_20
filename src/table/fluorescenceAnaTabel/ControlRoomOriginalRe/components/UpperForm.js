@@ -348,29 +348,29 @@ class UpperForm extends Component {
                     return obj;
                 },
             },
-            {
-                title: '暂存',
-                width: "7.5%",
-                key: 'btn_save',
-                dataIndex: 'btn_save',
-                render: (value, row, index) => {
-                    const obj = {
-                        children: value,
-                        props: {}
-                    };
-                    if (index === 9) {
-                        obj.props.rowSpan = 3;
-                    }
-                    if (index === 10) {
-                        obj.props.rowSpan = 0;
-                    }
-                    if (index === 11) {
-                        obj.props.rowSpan = 0;
-                    }
-
-                    return obj;
-                },
-            }
+            // {
+            //     title: '暂存',
+            //     width: "7.5%",
+            //     key: 'btn_save',
+            //     dataIndex: 'btn_save',
+            //     render: (value, row, index) => {
+            //         const obj = {
+            //             children: value,
+            //             props: {}
+            //         };
+            //         if (index === 9) {
+            //             obj.props.rowSpan = 3;
+            //         }
+            //         if (index === 10) {
+            //             obj.props.rowSpan = 0;
+            //         }
+            //         if (index === 11) {
+            //             obj.props.rowSpan = 0;
+            //         }
+            //
+            //         return obj;
+            //     },
+            // }
         ];
         /**表头的设计**end**/
 
@@ -510,7 +510,7 @@ class UpperForm extends Component {
                         onChange={event => this.onInputNumberChange(event, i, 8)}
                     /></span>,
                     person: Data[i + page]['user'],
-                    btn_save: <Button type='primary' onClick={() => this.postToHome(i)}>暂存</Button>,
+                    // btn_save: <Button type='primary' onClick={() => this.postToHome(i)}>暂存</Button>,
                 }
             )
         }

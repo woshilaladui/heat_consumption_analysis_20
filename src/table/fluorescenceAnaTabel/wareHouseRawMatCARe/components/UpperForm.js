@@ -407,12 +407,12 @@ export default class UpperForm extends Component {
                 dataIndex: 'person',
                 width:"3%"
             },
-            {
-                title: '暂存',
-                key: 'btn_save',
-                dataIndex: 'btn_save',
-                width:"4%"
-            }
+            // {
+            //     title: '暂存',
+            //     key: 'btn_save',
+            //     dataIndex: 'btn_save',
+            //     width:"4%"
+            // }
         ];
 
         const data = [];
@@ -554,8 +554,8 @@ export default class UpperForm extends Component {
                         /></span>,
                     person:
                         Data[hour]['user'],
-                    btn_save:
-                        <Button type='primary' onClick={() => this.postToHome(i)}>暂存</Button>,
+                    // btn_save:
+                    //     <Button type='primary' onClick={() => this.postToHome(i)}>暂存</Button>,
                 }
             )
         }
