@@ -169,7 +169,6 @@ class UpperForm extends Component {
             const index = i + timeChose * 10;
 
             const value = Data[index]['data'];
-
             dataSource.push(
                 {
                     time: time[timeChose][i],

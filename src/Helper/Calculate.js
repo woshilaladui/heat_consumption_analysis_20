@@ -332,6 +332,115 @@ export function autoCalculate_average(data, timeChoose, indexL,tableWidth) {
 
 }
 
+/******************************CRO***************start************************************/
+/**
+ *  计算平均值
+ * @param data
+ * @param timeChoose
+ * @param indexL
+ * @param tableWidth
+ * @param HangNum 表格行总数
+ */
+export function autoCalculate_average_CRO(data, timeChoose, indexL,tableWidth,HangNum=15) {
+
+    //i = 8 18 28
+    let sum = Array(3);
+
+    //累加
+    for (let i = 0; i < 3; i++)
+        sum[i] = Array(tableWidth).fill(0);
+
+    //存放平均值
+    let average = Array(3);//输入的数组
+
+    for (let i = 0; i < 3; i++)
+        average[i] = Array(tableWidth).fill(0);
+
+    //表中非空的个数
+    let inputCount = Array(3);//3个班次
+
+    for (let i = 0; i < tableWidth; i++) {
+        inputCount[i] = Array(tableWidth).fill(0);
+    }
+
+    for (let i = 0; i < 8; i++) {
+
+        let index = i + timeChoose * HangNum;
+
+        if (!isNaN(parseFloat(data[index]['data'][indexL]))
+            &&
+            (parseFloat(data[index]['data'][indexL]) != null)
+            &&
+            data[index]['data'][indexL] != ''
+        ) {
+            inputCount[timeChoose][indexL]++;
+
+            sum[timeChoose][indexL] += data[index]['data'][indexL];
+        }
+
+
+    }//end for
+
+    //计算平均值
+    data[8 + timeChoose * HangNum]['data'][indexL] = ((sum[timeChoose][indexL] * 1.0) / inputCount[timeChoose][indexL]).toFixed(3);
+
+
+}
+export function calculate_pass_rate_CRO(
+    data,
+    startValue,
+    endValue,
+    order,//需要计算合格率的下标
+    width,
+    timeChose,
+    indexL,
+    hangSum=15
+) {
+
+    let inputCount = Array(3);//3个班次
+
+    for (let i = 0; i < 3; i++) {
+        inputCount[i] = Array(width).fill(0);
+    }
+
+    let passCount = Array(3);
+    for (let i = 0; i < 3; i++) {
+        passCount[i] = Array(width).fill(0);
+    }
+
+
+    //计算合格率
+    for (let i = 0; i < 8; i++) {
+
+        let index = i + timeChose * hangSum;
+
+        //计算需要计算合格率这一列 也就是indexL
+        const position = order.indexOf(indexL);//判断此列是否需要计算合格率
+        if (!isNaN(parseFloat(data[index]['data'][indexL])) && (parseFloat(data[index]['data'][indexL]) != null)) {
+
+            inputCount[timeChose][indexL]++;
+
+            if (position >= 0) {
+
+                if (parseFloat(data[index]['data'][indexL]) >= startValue[position] && parseFloat(data[index]['data'][indexL]) <= endValue[position]) {
+                    passCount[timeChose][indexL]++;
+                }
+            }
+        }//end if
+    }
+
+    //更新合格率
+    let temp = (passCount[timeChose][indexL] * 1.0) / inputCount[timeChose][indexL];
+    let  str0 = passCount[timeChose][indexL]+ '\/' + inputCount[timeChose][indexL];
+
+    data[9 + timeChose * hangSum]['data'][indexL] = str0;
+    data[10 + timeChose * hangSum]['data'][indexL] = Number(temp * 100).toFixed(1) ;
+}
+
+
+
+
+
 
 /*******************************************分析表格*****************************************************/
 export function autoCalculate_content(

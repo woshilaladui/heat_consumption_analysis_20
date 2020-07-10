@@ -20,6 +20,17 @@ const defaultState = fromJS({
         {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//18-25行代表 16-23小时
         {data: []},//下表
     ],
+    KZSUpperData: [
+
+        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+
+        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+
+        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []}
+    ], //控制室原始记录上表的数据
     person: window.localStorage.username, //传入的值班人员
     tableName:TableName.ZHONG_KONG_SHI_MFXT_YXJL,//中控室烧成系统运行记录
     allTime:[

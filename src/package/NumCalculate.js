@@ -1,5 +1,7 @@
 /**数值计算 state 需要计算合格率的列**/
-function numCalculate(state) {
+import {deepCopy} from "../Helper/Copy";
+
+export  function numCalculate(state) {
     let temp = 0;//临时中间值
     let str = '';//临时比值
     const {Data, ratio, passRate, average, startValue, endValue, timeChose, order, width} = state
@@ -53,7 +55,7 @@ function numCalculate(state) {
 }
 
 //数组为[[数值1，参数1],[数值2，参数2],...]
-function autoCalculate(arr) {
+export  function autoCalculate(arr) {
     let num = 0;
     for (let i = 0; i < arr.length; i++) {
         //遍历所有数值均不为空且不为NaN
@@ -66,7 +68,7 @@ function autoCalculate(arr) {
 }
 
 //数组为数值1 数值2
-function divisionCalculate(num1, num2) {
+export  function divisionCalculate(num1, num2) {
     let num = 0
     if (num2)
         num = num1 / num2
@@ -78,22 +80,26 @@ function divisionCalculate(num1, num2) {
 
 
 /**数值计算 state **/
-function numCalculate_Initial(state) {
+export  function numCalculate_Initial(state) {
+    console.log('state')
+    console.log(state)
+    console.log('state')
     const {Data, ratio, passRate, average, startValue, endValue, order, width} = state
     let str0 = '', str8 = '', str16 = '';//临时比值
     let temp0 = 0, temp8 = 0, temp16 = 0;//计算均值和合格率的临时数据
     let inputCount0 = Array(width).fill(0), inputCount8 = Array(width).fill(0), inputCount16 = Array(width).fill(0);//各班次输入的总数
     let passCount0 = Array(width).fill(0), passCount8 = Array(width).fill(0), passCount16 = Array(width).fill(0);//各班次的合格数
     /**计算合格率和比值的部分**/
+    const data = deepCopy(Data);
     for (let i = 0; i < width; i++) {//i是列
         const position = order.indexOf(i)//判断此列是否需要计算合格率
 
         //0点班
         for (let j = 0; j < 8; j++) {//j是行i是列
-            if (!isNaN(parseFloat(Data[j]['t_data'][i])) && (parseFloat(Data[j]['t_data'][i]) != null)) {
+            if (!isNaN(parseFloat(data[j]['data'][i])) && (parseFloat(data[j]['data'][i]) != null)) {
                 inputCount0[i]++;//0点班第i列的已填写数据个数
                 if (position >= 0) {
-                    if (parseFloat(Data[j]['t_data'][i]) >= startValue[position] && parseFloat(Data[j]['t_data'][i]) <= endValue[position]) {
+                    if (parseFloat(data[j]['data'][i]) >= startValue[position] && parseFloat(data[j]['data'][i]) <= endValue[position]) {
                         passCount0[i]++;//0点班第i列的合格数据个数
                     }
                 }
@@ -116,10 +122,10 @@ function numCalculate_Initial(state) {
 
         //8点班
         for (let j = 8; j < 16; j++) {//j是行i是列
-            if (!isNaN(parseFloat(Data[j]['t_data'][i])) && (parseFloat(Data[j]['t_data'][i]) != null)) {
+            if (!isNaN(parseFloat(data[j]['data'][i])) && (parseFloat(data[j]['data'][i]) != null)) {
                 inputCount8[i]++;
                 if (position >= 0) {
-                    if (parseFloat(Data[j]['t_data'][i]) >= startValue[position] && parseFloat(Data[j]['t_data'][i]) <= endValue[position]) {
+                    if (parseFloat(data[j]['data'][i]) >= startValue[position] && parseFloat(data[j]['data'][i]) <= endValue[position]) {
                         passCount8[i]++;
                     }
                 }
@@ -141,10 +147,10 @@ function numCalculate_Initial(state) {
 
         //16点班
         for (let j = 16; j < 24; j++) {//j是行i是列
-            if (!isNaN(parseFloat(Data[j]['t_data'][i])) && (parseFloat(Data[j]['t_data'][i]) != null)) {
+            if (!isNaN(parseFloat(data[j]['data'][i])) && (parseFloat(data[j]['data'][i]) != null)) {
                 inputCount16[i]++;
                 if (position >= 0) {
-                    if (parseFloat(Data[j]['t_data'][i]) >= startValue[position] && parseFloat(Data[j]['t_data'][i]) <= endValue[position]) {
+                    if (parseFloat(data[j]['data'][i]) >= startValue[position] && parseFloat(data[j]['data'][i]) <= endValue[position]) {
                         passCount16[i]++;
                     }
                 }
@@ -175,8 +181,8 @@ function numCalculate_Initial(state) {
         } else {
             //累加第i列中数据
             for (let j = 0; j < 8; j++) {
-                if (!isNaN(parseFloat(Data[j]['t_data'][i]))) {
-                    num[i] += parseFloat(Data[j]['t_data'][i]);
+                if (!isNaN(parseFloat(data[j]['data'][i]))) {
+                    num[i] += parseFloat(data[j]['data'][i]);
                 }
             }
             //计算平均值
@@ -195,8 +201,8 @@ function numCalculate_Initial(state) {
         } else {
             //累加第i列中数据
             for (let j = 8; j < 16; j++) {
-                if (!isNaN(parseFloat(Data[j]['t_data'][i]))) {
-                    num[i + width] += parseFloat(Data[j]['t_data'][i]);
+                if (!isNaN(parseFloat(data[j]['data'][i]))) {
+                    num[i + width] += parseFloat(data[j]['data'][i]);
                 }
             }
             //计算平均值
@@ -215,8 +221,8 @@ function numCalculate_Initial(state) {
         } else {
             //累加第i列中数据
             for (let j = 16; j < 24; j++) {
-                if (!isNaN(parseFloat(Data[j]['t_data'][i]))) {
-                    num[i + width * 2] += parseFloat(Data[j]['t_data'][i]);
+                if (!isNaN(parseFloat(data[j]['data'][i]))) {
+                    num[i + width * 2] += parseFloat(data[j]['data'][i]);
                 }
             }
             //计算平均值
@@ -234,9 +240,3 @@ function numCalculate_Initial(state) {
     return [ratio, passRate, average]
 }
 
-module.exports = {
-    numCalculate,
-    numCalculate_Initial,
-    autoCalculate,
-    divisionCalculate
-}

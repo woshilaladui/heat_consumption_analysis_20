@@ -4,143 +4,25 @@ import {limitDecimals2,} from '../../../../package/Limit';
 import {numCalculate, numCalculate_Initial} from '../../../../package/NumCalculate';
 import * as actionCreators from "../store/actionCreators";
 import {connect} from "react-redux";
+import {deepCopy} from "../../../../Helper/Copy";
+import {
+    autoCalculate_average, autoCalculate_average_CRO,
+    autoCalculate_IL,
+    autoCalculateHJ,
+    calculate_pass_rate, calculate_pass_rate_CRO
+} from "../../../../Helper/Calculate";
+import {HuaYSOrder_JC, ZhongKSOrder_CRO} from "../../../../Constant/TableOrder";
 
 
 class UpperForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            Time: [],//第一列的时间变化自动控制
-            Data: [],//原始填写的数据
-            width: 9,//当前表格需要填值得横向列数和
-            average: new Array(9 * 3).fill(null),//平均
-            ratio: new Array(9 * 3).fill(null),//比值
-            passRate: new Array(9 * 3).fill(null),//合格率
-            isNormal: [],
-            order: [0, 1, 2],//当前表格需要计算合格率的列数顺序
-            // person: this.props.person
-        }
-    }
 
-    /**
-     * 第一列的时间变化
-     */
-    /**初始化**/
+
     componentDidMount() {
-        //绑定ref
-        // this.props.onRef(this);
-    }
 
-    componentWillMount() {
-        const allTime = [
-            ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'],
-            ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00'],
-            ['16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
-        ];
-        const temp = JSON.parse(JSON.stringify((this.props.upperData)))
 
-        this.setState({
-            Time: [...allTime[this.props.timeChose]],
-            Data: temp,
-            startValue: this.props.startValue,
-            endValue: this.props.endValue,
-            timeChose: this.props.timeChose,
-            t_name: this.props.t_name,
-            date: this.props.date,
-        });
     }
 
     /**更新props**/
-    componentWillReceiveProps(nextProps) {
-        const allTime = [
-            ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'],
-            ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00'],
-            ['16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
-        ];
-
-        this.setState({
-            Time: [...allTime[nextProps.timeChose]],
-            Data: nextProps.upperData,
-            startValue: nextProps.startValue,
-            endValue: nextProps.endValue,
-            timeChose: nextProps.timeChose,
-            t_name: nextProps.t_name,
-            date: nextProps.date,
-        });
-        this.updataData_Initial();
-    }
-
-
-    updataData_Initial() {
-        //返回比值，合格率，均值
-        const {startValue, endValue} = this.state
-        const arr = numCalculate_Initial(this.state)
-        const ratio = arr[0]//比值
-        const passRate = arr[1]//合格率
-        const average = arr[2]//均值
-        //是否正常的更新部分
-        const isNormal = [];
-        /**是否正常的判定*start*/
-        //循环24小时
-        for (let i = 0; i < 24; i++) {
-            //每小时的第一列的数据非空且合法
-            if (!isNaN(this.state.Data[i]['t_data'][0]) && (this.state.Data[i]['t_data'][0] != null)) {
-                //对第一列数据判定是否正常
-                if (this.state.Data[i]['t_data'][0] >= startValue[0] && this.state.Data[i]['t_data'][0] <= endValue[0]) {
-                    isNormal[i] = '正常';
-                } else {
-                    isNormal[i] = '异常';
-                }
-            }
-            //数据空或非法
-            else {
-                isNormal[i] = '';
-            }
-        }
-        /**是否正常的判定*end*/
-        this.setState({
-            average: average,//比值
-            ratio: ratio,//合格率
-            passRate: passRate,//均值
-            isNormal: isNormal//是否正常
-        })
-    }
-
-    /***
-     * 进行底部的合格率、平均数的计算更新以及是否正常的判断
-     **/
-    updataData(i) {
-        //是否正常的更新部分
-        const {Data, startValue, endValue, isNormal} = this.state
-        const hour = this.state.timeChose * 8
-
-        if (i === 0) {
-            for (let j = hour; j < hour + 8; j++) {
-                if (!isNaN(Data[j]['t_data'][0]) && (Data[j]['t_data'][0] != null)) {
-                    if (Data[j]['t_data'][0] >= startValue[0] && Data[j]['t_data'][0] <= endValue[0]) {
-                        isNormal[j] = '正常';
-                    } else {
-                        isNormal[j] = '异常';
-                    }
-                } else {
-                    isNormal[j] = '';
-                }
-            }
-        }
-
-        //numCalculate会自动计算合格比率，合格率，平均值
-        /**传入顺序
-         * state 当前修改的数据所在列 当前页面需要计算的总列数
-         * */
-        const arr = numCalculate(this.state, i);
-
-        this.setState({
-            ratio: arr[0],//合格比率
-            passRate: arr[1],//合格率
-            average: arr[2],//平均值
-            isNormal: isNormal,//是否正常
-        })
-    }
 
 
     /**
@@ -148,34 +30,35 @@ class UpperForm extends Component {
      **/
     onInputNumberChange = (value, indexH, indexL) => {
 
-        //更新到仓库 下面还是保持原来的操作
-        const {upperData, timeChose, updateChange} = this.props;
-        let NewData = JSON.parse(JSON.stringify(upperData))//复制一份出来
-        let hour = indexH + timeChose * 8;
+        const {data, updateChange, order, startValue, endValue, timeChose,tableWidth} = this.props;
+        let NewData = deepCopy(data);//复制一份出来
 
 
-        NewData[hour]["t_data"][indexL] = value;
-        updateChange(NewData)
+        //更新表中所填数据
+        if (value != null) {
+            NewData[indexH]["data"][indexL] = value;
+        }
 
 
-        let _NewData = this.state.Data;
-        let _hour = indexH + this.props.timeChose * 8;
 
-        _NewData[_hour]["t_data"][indexL] = value;
-        this.setState({
-            Data: NewData
-        });
+        //计算合格率
+        const position = order.indexOf(indexL);//判断此列是否需要计算合格率
+
+        //判断是否需要计算
+        if (position >= 0) {
+            //计算合格率
+            calculate_pass_rate_CRO(NewData, startValue, endValue, order, tableWidth, timeChose, indexL);
+        }
+
+        //计算平均值
+        autoCalculate_average_CRO(NewData, timeChose, indexL,tableWidth);
+
+        //更新数据
+        updateChange(NewData);
+
+
     };
-    // onInputNumberChange3 = (event, indexH, indexL) => {
-    //     let NewData = this.state.Data;
-    //     let hour = indexH + this.props.timeChose * 8;
-    //     // const rep = /^(\-)*(\d+)\.(\d{3}).*$/;
-    //     // event = event.replace(rep, '$1$2.$3');
-    //     NewData[hour]["t_data"][indexL] = event;
-    //     this.setState({
-    //         Data: NewData
-    //     });
-    // };
+
     //控制输入框的样式
     changeStyle = (value) => {
         if (value) {
@@ -190,12 +73,12 @@ class UpperForm extends Component {
 
     //上传当前数据后台
     /**点击暂存之后上传当前行的数据到后台**start**/
-    postToHome(i) {//i是行数
-        const {upperData, timeChose, date, t_name, saveToHome} = this.props;
-        const Data = JSON.parse(JSON.stringify(upperData))
-        const index = i + timeChose * 8
-        saveToHome(index, 1, t_name, date, Data)
-    }
+    // postToHome(i) {//i是行数
+    //     const {data, timeChose, date, t_name, saveToHome} = this.props;
+    //     const Data = JSON.parse(JSON.stringify(upperData))
+    //     const index = i + timeChose * 8
+    //     saveToHome(index, 1, t_name, date, Data)
+    // }
 
     /**点击暂存之后上传当前行的数据到后台**end**/
 
@@ -218,44 +101,45 @@ class UpperForm extends Component {
                     width: "7.5%",
                     key: 'FCaO',
                     dataIndex: 'FCaO',
-                    render: (value, row, index) => {
-                        const obj = {
-                            children: value,
-                            props: {}
-                        };
-                        if (index === 9) {
-                            obj.props.colSpan = 2;
-                        }
-                        if (index === 10) {
-                            obj.props.colSpan = 2;
-                        }
-                        if (index === 11) {
-                            obj.props.colSpan = 2;
-                        }
-                        return obj;
-                    },
-                }, {
-                    title: '是否正常',
-                    width: "7.5%",
-                    key: 'IsNormal',
-                    dataIndex: 'IsNormal',
-                    render: (value, row, index) => {
-                        const obj = {
-                            children: value,
-                            props: {}
-                        };
-                        if (index === 9) {
-                            obj.props.colSpan = 0
-                        }
-                        if (index === 10) {
-                            obj.props.colSpan = 0;
-                        }
-                        if (index === 11) {
-                            obj.props.colSpan = 0;
-                        }
-                        return obj;
-                    },
-                }
+                    // render: (value, row, index) => {
+                    //     const obj = {
+                    //         children: value,
+                    //         props: {}
+                    //     };
+                    //     if (index === 9) {
+                    //         obj.props.colSpan = 2;
+                    //     }
+                    //     if (index === 10) {
+                    //         obj.props.colSpan = 2;
+                    //     }
+                    //     if (index === 11) {
+                    //         obj.props.colSpan = 2;
+                    //     }
+                    //     return obj;
+                    // },
+                },
+                //     {
+                //     title: '是否正常',
+                //     width: "7.5%",
+                //     key: 'IsNormal',
+                //     dataIndex: 'IsNormal',
+                //     render: (value, row, index) => {
+                //         const obj = {
+                //             children: value,
+                //             props: {}
+                //         };
+                //         if (index === 9) {
+                //             obj.props.colSpan = 0
+                //         }
+                //         if (index === 10) {
+                //             obj.props.colSpan = 0;
+                //         }
+                //         if (index === 11) {
+                //             obj.props.colSpan = 0;
+                //         }
+                //         return obj;
+                //     },
+                // }
                 ],
 
             },
@@ -336,7 +220,7 @@ class UpperForm extends Component {
                         props: {}
                     };
                     if (index === 9) {
-                        obj.props.rowSpan = 3;
+                        obj.props.rowSpan = 2;
                     }
                     if (index === 10) {
                         obj.props.rowSpan = 0;
@@ -374,49 +258,26 @@ class UpperForm extends Component {
         ];
         /**表头的设计**end**/
 
-        /**第一行里的标准**start**/
-        const data = [
-            // {
-            //     time: '指标',
-            //     FCaO: '≤' + this.props.startValue[0],
-            //     ChuFineness: '≤' + this.props.startValue[1],
-            //     Chu900: '≤' + this.props.startValue[2],
-            //     ChuWater: '≤' + this.props.startValue[3],
-            //     RuFineness: '≤' + this.props.startValue[4],
-            //     Ru900: '≤' + this.props.startValue[5],
-            //     RuWater: '≤' + this.props.startValue[6],
-            //     CoalFineness: '≤' + this.props.startValue[7],
-            //     CoalWater: '≤' + this.props.startValue[8]
-            // }
-        ];
-        /**第一行里的标准**end**/
 
-        // /**限制输入数值位数的函数**start**/
-        // const limitDecimals = (value: string | number): string => {
-        //     const reg = /^(\-)*(\d+)\.(\d\d).*$/;
-        //     if (typeof value === 'string') {
-        //         return !isNaN(Number(value)) ? value.replace(reg, '$1$2.$3') : ''
-        //     } else if (typeof value === 'number') {
-        //         return !isNaN(value) ? String(value).replace(reg, '$1$2.$3') : ''
-        //     } else {
-        //         return ''
-        //     }
-        // };
-        // /**限制输入数值位数的函数**end**/
+        const dataSource = [];
 
-        /**中间八行的数据输入**start**/
-            // const Data = this.state.Data
+        const {data, timeChose, allTime} = this.props;
+        console.log('upper')
+        console.log(data)
+        console.log('upper')
+        const Data = deepCopy(data);
+        const time = deepCopy(allTime);
 
-        const {upperData, timeChose} = this.props;
-        const Data = JSON.parse(JSON.stringify(upperData))
-       // const Data = JSON.parse(JSON.stringify(this.state.Data))
-
+        console.log('upper')
+        console.log(Data)
+        console.log('upper')
         for (let i = 0; i < 8; i++) {
-            const page = this.state.timeChose * 8
-            const value = Data[i + page]['t_data']
-            data.push(
+            const index = i + timeChose * 15;
+
+            const value = Data[index]['data'];
+            dataSource.push(
                 {
-                    time: this.state.Time[i],
+                    time: time[timeChose][i],
                     FCaO: <span><InputNumber
                         style={this.changeStyle(value[0])}
                         defaultValue={''}
@@ -424,11 +285,9 @@ class UpperForm extends Component {
                         formatter={limitDecimals2}//限制输入数值位数
                         parser={limitDecimals2}//限制输入数值位数
                         // precision={2}//数值精确值
-                        onBlur={() => this.updataData(0)}//失焦后对数据平均值等进行计算
+                        // onBlur={() => this.updataData(0)}//失焦后对数据平均值等进行计算
                         onChange={event => this.onInputNumberChange(event, i, 0)}
                     /></span>,
-                    IsNormal:
-                        this.state.isNormal[i + page],
                     ChuFineness: <span><InputNumber
                         style={this.changeStyle(value[1])}
                         defaultValue={''}
@@ -436,7 +295,7 @@ class UpperForm extends Component {
                         formatter={limitDecimals2}//限制输入数值位数
                         parser={limitDecimals2}//限制输入数值位数
                         // precision={2}//数值精确值
-                        onBlur={() => this.updataData(1)}//失焦后对数据平均值等进行计算
+                        // onBlur={() => this.updataData(1)}//失焦后对数据平均值等进行计算
                         onChange={event => this.onInputNumberChange(event, i, 1)}
                     /></span>,
                     Chu900: <span><InputNumber
@@ -446,7 +305,7 @@ class UpperForm extends Component {
                         formatter={limitDecimals2}//限制输入数值位数
                         parser={limitDecimals2}//限制输入数值位数
                         // precision={2}//数值精确值
-                        onBlur={() => this.updataData(2)}//对数据平均值等进行计算
+                        // onBlur={() => this.updataData(2)}//对数据平均值等进行计算
                         onChange={event => this.onInputNumberChange(event, i, 2)}
                     /></span>,
                     ChuWater: <span><InputNumber
@@ -456,7 +315,7 @@ class UpperForm extends Component {
                         formatter={limitDecimals2}//限制输入数值位数
                         parser={limitDecimals2}//限制输入数值位数
                         // precision={2}//数值精确值
-                        onBlur={() => this.updataData(3)}//对数据平均值等进行计算
+                        // onBlur={() => this.updataData(3)}//对数据平均值等进行计算
                         onChange={event => this.onInputNumberChange(event, i, 3)}
                     /></span>,
                     RuFineness: <span><InputNumber
@@ -466,7 +325,7 @@ class UpperForm extends Component {
                         formatter={limitDecimals2}//限制输入数值位数
                         parser={limitDecimals2}//限制输入数值位数
                         // precision={2}//数值精确值
-                        onBlur={() => this.updataData(4)}//对数据平均值等进行计算
+                        // onBlur={() => this.updataData(4)}//对数据平均值等进行计算
                         onChange={event => this.onInputNumberChange(event, i, 4)}
                     /></span>,
                     Ru900: <span><InputNumber
@@ -476,7 +335,7 @@ class UpperForm extends Component {
                         formatter={limitDecimals2}//限制输入数值位数
                         parser={limitDecimals2}//限制输入数值位数
                         // precision={2}//数值精确值
-                        onBlur={() => this.updataData(5)}//对数据平均值等进行计算
+                        // onBlur={() => this.updataData(5)}//对数据平均值等进行计算
                         onChange={event => this.onInputNumberChange(event, i, 5)}
                     /></span>,
                     RuWater: <span><InputNumber
@@ -486,7 +345,7 @@ class UpperForm extends Component {
                         formatter={limitDecimals2}//限制输入数值位数
                         parser={limitDecimals2}//限制输入数值位数
                         // precision={2}//数值精确值
-                        onBlur={() => this.updataData(6)}//对数据平均值等进行计算
+                        // onBlur={() => this.updataData(6)}//对数据平均值等进行计算
                         onChange={event => this.onInputNumberChange(event, i, 6)}
                     /></span>,
                     CoalFineness: <span><InputNumber
@@ -496,7 +355,7 @@ class UpperForm extends Component {
                         formatter={limitDecimals2}//限制输入数值位数
                         parser={limitDecimals2}//限制输入数值位数
                         // precision={2}//数值精确值
-                        onBlur={() => this.updataData(7)}//对数据平均值等进行计算
+                        // onBlur={() => this.updataData(7)}//对数据平均值等进行计算
                         onChange={event => this.onInputNumberChange(event, i, 7)}
                     /></span>,
                     CoalWater: <span><InputNumber
@@ -506,10 +365,10 @@ class UpperForm extends Component {
                         formatter={limitDecimals2}//限制输入数值位数
                         parser={limitDecimals2}//限制输入数值位数
                         // precision={2}//数值精确值
-                        onBlur={() => this.updataData(8)}//对数据平均值等进行计算
+                        // onBlur={() => this.updataData(8)}//对数据平均值等进行计算
                         onChange={event => this.onInputNumberChange(event, i, 8)}
                     /></span>,
-                    person: Data[i + page]['user'],
+                    person: Data[i + index]['user'],
                     // btn_save: <Button type='primary' onClick={() => this.postToHome(i)}>暂存</Button>,
                 }
             )
@@ -517,41 +376,41 @@ class UpperForm extends Component {
         /**中间八行的数据输入**end**/
 
         /**数据的自动处理显示部分**start**/
-        const page = this.state.timeChose * this.state.width;
-        data.push(
+
+        dataSource.push(
             {
                 time: '平均',
-                FCaO: this.state.average[page],
-                ChuFineness: this.state.average[1 + page],
-                Chu900: this.state.average[2 + page],
-                ChuWater: this.state.average[3 + page],
-                RuFineness: this.state.average[4 + page],
-                Ru900: this.state.average[5 + page],
-                RuWater: this.state.average[6 + page],
-                CoalFineness: this.state.average[7 + page],
-                CoalWater: this.state.average[8 + page]
+                FCaO:Data[8 + timeChose * 15]['data'][ZhongKSOrder_CRO.fcao] ,
+                ChuFineness: Data[8 + timeChose * 15]['data'][ZhongKSOrder_CRO.CMSL_XD],
+                Chu900:Data[8 + timeChose * 15]['data'][ZhongKSOrder_CRO.CMSL_900K] ,
+                ChuWater:Data[8 + timeChose * 15]['data'][ZhongKSOrder_CRO.CMSL_SF] ,
+                RuFineness: Data[8 + timeChose * 15]['data'][ZhongKSOrder_CRO.RMSL_XD],
+                Ru900: Data[8 + timeChose * 15]['data'][ZhongKSOrder_CRO.RMSL_900K],
+                RuWater: Data[8 + timeChose * 15]['data'][ZhongKSOrder_CRO.RMSL_SF],
+                CoalFineness: Data[8 + timeChose * 15]['data'][ZhongKSOrder_CRO.MF_XD],
+                CoalWater: Data[8 + timeChose * 15]['data'][ZhongKSOrder_CRO.MF_SF]
             }, {
                 time: '总合格数\/总数',
-                FCaO: this.state.ratio[page],
-                ChuFineness: this.state.ratio[1 + page],
-                Chu900: this.state.ratio[2 + page],
-                // ChuWater: this.state.ratio[3 + page],
-                // RuFineness: this.state.ratio[4 + page],
-                // Ru900: this.state.ratio[5 + page],
-                // RuWater: this.state.ratio[6 + page],
-                // CoalFineness: this.state.ratio[7 + page],
-                // CoalWater: this.state.ratio[8 + page]
+                FCaO:Data[9 + timeChose * 15]['data'][ZhongKSOrder_CRO.fcao] ,
+                ChuFineness: Data[9 + timeChose * 15]['data'][ZhongKSOrder_CRO.CMSL_XD],
+                Chu900:Data[9 + timeChose * 15]['data'][ZhongKSOrder_CRO.CMSL_900K] ,
+                ChuWater:Data[9 + timeChose * 15]['data'][ZhongKSOrder_CRO.CMSL_SF] ,
+                RuFineness: Data[9 + timeChose * 15]['data'][ZhongKSOrder_CRO.RMSL_XD],
+                Ru900: Data[9 + timeChose * 15]['data'][ZhongKSOrder_CRO.RMSL_900K],
+                RuWater: Data[9 + timeChose * 15]['data'][ZhongKSOrder_CRO.RMSL_SF],
+                CoalFineness: Data[9 + timeChose * 15]['data'][ZhongKSOrder_CRO.MF_XD],
+                CoalWater: Data[9 + timeChose * 15]['data'][ZhongKSOrder_CRO.MF_SF]
             }, {
                 time: '合格率',
-                FCaO: this.state.passRate[page],
-                ChuFineness: this.state.passRate[1 + page],
-                Chu900: this.state.passRate[2 + page],
-                // ChuWater: this.state.passRate[3 + page],
-                // RuFineness: this.state.passRate[4 + page],
-                // Ru900: this.state.passRate[5 + page],
-                // RuWater: this.state.passRate[6 + page],
-                // CoalFineness: this.state.passRate[7 + page],
-                // CoalWater: this.state.passRate[8 + page]
+                FCaO:Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.fcao]+" %" ,
+                ChuFineness: Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.CMSL_XD]+" %" ,
+                Chu900:Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.CMSL_900K]+" %"  ,
+                ChuWater:Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.CMSL_SF]+" %"  ,
+                RuFineness: Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.RMSL_XD]+" %" ,
+                Ru900: Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.RMSL_900K]+" %" ,
+                RuWater: Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.RMSL_SF]+" %" ,
+                CoalFineness: Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.MF_XD]+" %" ,
+                CoalWater: Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.MF_SF]+" %"
             }
         );
         /**数据的自动处理显示部分**end**/
@@ -560,7 +419,7 @@ class UpperForm extends Component {
         return (
             <div className="upper">
                 {/*表格填写*/}
-                <Table className="upper" columns={columns} bordered dataSource={data} pagination={false}/>
+                <Table className="upper" columns={columns} bordered dataSource={dataSource} pagination={false}/>
             </div>
         );
     }
@@ -572,26 +431,24 @@ const mapStateToProps = (state) => {
     return {
         date: state.getIn(['ControlRoomOriginalRe', 'date']),
         timeChose: state.getIn(['ControlRoomOriginalRe', 'timeChose']),
-        upperData: state.getIn(['ControlRoomOriginalRe', 'upperData']),
+        data: state.getIn(['ControlRoomOriginalRe', 'data']),
+        order: state.getIn(['ControlRoomOriginalRe', 'order']),
+        tableWidth: state.getIn(['ControlRoomOriginalRe', 'tableWidth']),
+        allTime: state.getIn(['ControlRoomOriginalRe', 'allTime']),
+        startValue: state.getIn(['ControlRoomOriginalRe', 'startValue']),
+        endValue: state.getIn(['ControlRoomOriginalRe', 'endValue']),
         person: state.getIn(['ControlRoomOriginalRe', 'person']),
-        t_name: state.getIn(['ControlRoomOriginalRe', 't_name']),
+        tableName: state.getIn(['ControlRoomOriginalRe', 'tableName']),
     }
 }
 
 const mapDispathToProps = (dispatch) => {
     return {
         updateChange(NewData) {
-            dispatch(actionCreators.updateUpperData(NewData))
+
+            dispatch(actionCreators.updateData({data: deepCopy(NewData)}))
         },
-        saveToHome(index, tableType, tableName, date, data) {
-            dispatch(actionCreators.saveData({
-                index: index,
-                tableType: tableType,
-                tableName: tableName,
-                date: date,
-                data: data
-            }))
-        },
+
 
     }//end return
 }

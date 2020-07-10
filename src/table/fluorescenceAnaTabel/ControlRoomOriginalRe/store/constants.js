@@ -1,4 +1,4 @@
-export const UPDATE_DATA_CRO = 'update_date_cro'
+export const UPDATE_DATA_CRO = 'update_data_cro'
 
 export const UPDATE_UPPER_DATA_CRO = 'update_upper_data_cro'
 

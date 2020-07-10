@@ -13,28 +13,28 @@ import moment from "moment";
 
 // 临城中联福石控制室原始记录
 class CMRawMatCheAnaRe extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            date: moment().format("YYYY-MM-DD"),
-            timeChose: 0, //选择的班次 0代表1-7 1代表8-15 2代表16-23
-            startValue: [], //从数据库获取的标准
-            endValue: [],
-            upperData: [
-                {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-                {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-
-                {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-                {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-
-                {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-                {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []}
-            ], //表格数据
-            //bottomData: [[[], [], [], [], ''], [[], [], [], [], ''], [[], [], [], [], '']],
-            person: "", //传入的值班人员
-            t_name: "CRO"
-        };
-    }
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         date: moment().format("YYYY-MM-DD"),
+    //         timeChose: 0, //选择的班次 0代表1-7 1代表8-15 2代表16-23
+    //         startValue: [], //从数据库获取的标准
+    //         endValue: [],
+    //         upperData: [
+    //             {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+    //             {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+    //
+    //             {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+    //             {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+    //
+    //             {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+    //             {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []}
+    //         ], //表格数据
+    //         //bottomData: [[[], [], [], [], ''], [[], [], [], [], ''], [[], [], [], [], '']],
+    //         person: "", //传入的值班人员
+    //         t_name: "CRO"
+    //     };
+    // }
 
     // /**onRef控制子组件提交表单**/
     // onRef = ref => {
@@ -59,15 +59,24 @@ class CMRawMatCheAnaRe extends Component {
         this.props.history.push("/");
     };
 
+    componentDidMount() {
+        /**首先查询当前页面是否有历史纪录并赋值formData**/
+        const {data, date, tableName, setOldData,requestFlag,person} = this.props;
+        if(requestFlag){
+
+            setOldData(date,tableName,deepCopy(data));
+        }
+
+    }
     //判定是否已登录，是否有权限
     componentWillMount() {
-        checkAuthority(URL.HUAYS_CHECK)
-            .then((response)=>{
-                if(response === Mark.ERROR){
-                    this.props.history.push('/');
-                }
-            })
-            .catch()
+        // checkAuthority(URL.HUAYS_CHECK)
+        //     .then((response)=>{
+        //         if(response === Mark.ERROR){
+        //             this.props.history.push('/');
+        //         }
+        //     })
+        //     .catch()
 
         // const {_upperData, _bottomData, requestFlag, date, t_name, setOldData, setOldStandard, startValue, endValue} = this.props;
         // if (requestFlag) {
@@ -182,14 +191,14 @@ class CMRawMatCheAnaRe extends Component {
                     >
                         {/*表单上半部分*/}
                         <UpperForm
-                            onRef={this.onRef}
-                            startValue={this.state.startValue}
-                            endValue={this.state.endValue}
-                            timeChose={this.state.timeChose}
-                            person={this.state.person}
-                            upperData={deepCopy(this.state.upperData)}
-                            date={this.state.date}
-                            t_name={this.state.t_name}
+                            // onRef={this.onRef}
+                            // startValue={this.state.startValue}
+                            // endValue={this.state.endValue}
+                            // timeChose={this.state.timeChose}
+                            // person={this.state.person}
+                            // upperData={deepCopy(this.state.upperData)}
+                            // date={this.state.date}
+                            // t_name={this.state.t_name}
                         />
                         {/* 表单下部分 */}
                         <BottomForm
@@ -225,26 +234,22 @@ const mapStateToProps = (state) => {
     return {
         date:state.getIn(['ControlRoomOriginalRe', 'date']),
         timeChose:state.getIn(['ControlRoomOriginalRe', 'timeChose']),
-        _upperData:state.getIn(['ControlRoomOriginalRe', 'upperData']),
-        _bottomData:state.getIn(['ControlRoomOriginalRe', 'bottomData']),
+        data:state.getIn(['ControlRoomOriginalRe', 'data']),
         requestFlag:state.getIn(['ControlRoomOriginalRe', 'requestFlag']),
         person:state.getIn(['ControlRoomOriginalRe', 'person']),
-        t_name:state.getIn(['ControlRoomOriginalRe', 't_name']),
+        tableName:state.getIn(['ControlRoomOriginalRe', 'tableName']),
         startValue: state.getIn(['ControlRoomOriginalRe', 'startValue']),
-
         endValue: state.getIn(['ControlRoomOriginalRe', 'endValue']),
     }
 }
 
 const mapDispathToProps = (dispatch) => {
     return {
-        setOldData(tableName,date,upperData,bottomData){
-            dispatch(actionCreators.getData(tableName,date,upperData,bottomData))
+        setOldData(date,tableName,data){
+            dispatch(actionCreators.getData(date,tableName,data))
         },
+
         setOldStandard(startValue, endValue,tableName) {
-
-            console.log()
-
             dispatch(actionCreators.getOldStandard(tableName, startValue, endValue))
         }
     }//end return

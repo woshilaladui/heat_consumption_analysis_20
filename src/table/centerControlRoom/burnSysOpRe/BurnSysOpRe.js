@@ -22,10 +22,6 @@ class BurnSysOpRe extends Component {
     componentDidMount() {
         /**首先查询当前页面是否有历史纪录并赋值formData**/
         const {data, date, tableName, setOldData,requestFlag,person} = this.props;
-        console.log('person')
-        console.log(person)
-        console.log(window.localStorage.username)
-        console.log('person')
         if(requestFlag){
 
             setOldData(date,tableName,deepCopy(data));

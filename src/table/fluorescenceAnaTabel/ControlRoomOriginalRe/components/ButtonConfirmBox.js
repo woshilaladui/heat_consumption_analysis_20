@@ -3,19 +3,18 @@ import {Button} from 'antd';
 import { Popconfirm } from 'antd';
 import * as actionCreators from "../store/actionCreators";
 import {connect} from "react-redux";
+import {deepCopy} from "../../../../Helper/Copy";
+import {Table} from "../../../../http/constant/Constant";
 
 class ButtonConfirmationBox extends Component{
 
 
 
     postAllToHome(){
-        const {upperData, saveAllUpperToHome, saveAllBottomToHome, t_name, bottomData,date} = this.props;
-        const tempUpperData = JSON.parse(JSON.stringify(upperData))
-        const tempBottomData = JSON.parse(JSON.stringify(bottomData))
-        saveAllUpperToHome(t_name,date,tempUpperData);
-        saveAllBottomToHome(t_name,date,tempBottomData);
+        const {data, saveAllToHome, tableName,date} = this.props;
+        const Data = deepCopy(data)
+        saveAllToHome(date,tableName, Data);
     }
-
     cancel() {
 
     }
@@ -43,39 +42,26 @@ const mapStateToProps = (state) => {
     return {
         date: state.getIn(['ControlRoomOriginalRe', 'date']),
         timeChose: state.getIn(['ControlRoomOriginalRe', 'timeChose']),
-        bottomData: state.getIn(['ControlRoomOriginalRe', 'bottomData']),
         person: state.getIn(['ControlRoomOriginalRe', 'person']),
-        upperData: state.getIn(['ControlRoomOriginalRe', 'upperData']),
-        t_name: state.getIn(['ControlRoomOriginalRe', 't_name']),
+        data: state.getIn(['ControlRoomOriginalRe', 'data']),
+        tableName: state.getIn(['ControlRoomOriginalRe', 'tableName']),
 
     }
 }
 
 const mapDispathToProps = (dispatch) => {
     return {
-        updateChange(NewData) {
-            dispatch(actionCreators.updateBottomData(NewData))
-        },
-        saveAllUpperToHome( tableName, date, data) {//提交上表的数据
+        saveAllToHome(date,tableName, data){
             dispatch(actionCreators.saveData({
-                tableType:1,
-                tableName:tableName,
+                tableType:Table.ALL_TABLE,
                 date:date,
-                data:data,
-                num:24//24行数据
-            }))
-        },
-        saveAllBottomToHome( tableName, date, data){
-            dispatch(actionCreators.saveData({
-                tableType:2,
                 tableName:tableName,
-                date:date,
                 data:data,
-                num:9//提交下表的9行数据
-            }))
-        },
+                num:45
+            }));
+        }
 
     }//end return
-}
+};
 
 export default connect(mapStateToProps, mapDispathToProps)(ButtonConfirmationBox);

@@ -170,6 +170,19 @@ const ZhongKSOrder_FAD = {//中控室
     fCaO:0,
 };
 
+const ZhongKSOrder_CRO={//控制室原始记录
+    fcao:0,
+    CMSL_XD:1,
+    CMSL_900K:2,
+    CMSL_SF:3,
+    RMSL_XD:4,
+    RMSL_900K:5,
+    RMSL_SF:6,
+    MF_XD:7,
+    MF_SF:8,
+
+}
+
 
 export {
     HuaYSOrder_JC,
@@ -182,5 +195,6 @@ export {
     ZhongKSOrder_CMS,
     ZhongKSOrder_RYS,
     ZhongKSOrder_FAD,
-    HuaYSOrder_RMC
+    HuaYSOrder_RMC,
+    ZhongKSOrder_CRO
 }

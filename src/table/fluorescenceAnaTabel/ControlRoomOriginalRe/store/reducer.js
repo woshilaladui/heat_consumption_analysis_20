@@ -5,33 +5,38 @@ import moment from 'moment';
 
 const defaultState = fromJS({
 
-    date: moment().format("YYYY-MM-DD hh:mm:ss"),//moment().format("YYYY-MM-DD"),
+    date: moment().format("YYYY/MM/DD"),//moment().format("YYYY-MM-DD"),
     //date:moment().format("YYYY/MM/DD"),//moment().format("YYYY-MM-DD"),
     requestFlag:true,
-    startValue: [], //表头前端部分的标准 KH N P这3列有标准
+    startValue: [],
     endValue: [],
     timeChose: 0,
-    upperData: [
+    tableWidth:9,//表格总长度
+    data: [
 
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []},//均值 比值 合格率
+        {data: []}, {data: []}, {data: []}, {data: []},//下表数据
 
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
 
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []}
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
     ], //上表的数据
-    bottomData: [
-        {t_data: []}, {t_data: []}, {t_data: []},
-
-        {t_data: []}, {t_data: []}, {t_data: []},
-
-        {t_data: []}, {t_data: []}, {t_data: []},
-    ], //下表的数据
-    order:[0,1,2],//0,1,2行需要计算合格率
-    person: window.localStorage.name, //传入的值班人员
-    t_name: "CRO"//临城中联福石控制室原始记录
+     allTime : [
+        ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'],
+        ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00'],
+        ['16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
+    ],
+    order:[0,1,2,3,4,5,6,7,8],//需要计算合格率的行
+    person: window.localStorage.username, //传入的值班人员
+    tableName: "CRO",
 
 });
 export default (state = defaultState, action) => {
@@ -39,15 +44,14 @@ export default (state = defaultState, action) => {
     switch (action.type) {
         case constants.UPDATE_DATA_CRO:
             return state.merge({
-                'upperData': action.upperData,
-                'bottomData': action.bottomData,
+                'data': action.data,
                 'requestFlag':false//切换页面时候不需要刷新数据了（当页面刷新的时候自动初始化为true）
             });
         case constants.CHANGE_TIME_CHOSE_CRO:
             return state.set('timeChose', action.timeChose);
 
         case constants.UPDATE_UPPER_DATA_CRO://更新上表的数据
-            return state.set('upperData', action.upperData);
+            return state.set('data', action.data);
 
         case constants.UPDATE_BOTTOM_DATA_CRO:
             return state.set('bottomData', action.bottomData);

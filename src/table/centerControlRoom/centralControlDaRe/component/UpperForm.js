@@ -280,22 +280,192 @@ class UpperForm extends Component {
                 {
                     title: '运转时间',
                     dataIndex: 'YZSJ',
+                    render: (value, row, index) => {
+                        const obj = {
+                            children: value,
+                            props: {}
+                        };
+                        if (index === 0) {
+                            obj.props.rowSpan = 3;
+                        }
+                        if (index === 1) {
+                            obj.props.rowSpan = 0;
+                        }
+                        if (index === 2) {
+                            obj.props.rowSpan = 0;
+                        }
+                        if (index === 3) {
+                            obj.props.rowSpan = 3;
+                        }
+                        if (index === 4) {
+                            obj.props.rowSpan = 0;
+                        }
+                        if (index === 5) {
+                            obj.props.rowSpan = 0;
+                        }
+                        if (index === 6) {
+                            obj.props.rowSpan = 3;
+                        }
+                        if (index === 7) {
+                            obj.props.rowSpan = 0;
+                        }
+                        if (index === 8) {
+                            obj.props.rowSpan = 0;
+                        }
+                        return obj;
+                    },
                 },
                 {
                     title: '消耗量',
                     dataIndex: 'XHL',
+                    render: (value, row, index) => {
+                        const obj = {
+                            children: value,
+                            props: {}
+                        };
+                        if (index === 0) {
+                            obj.props.rowSpan = 3;
+                        }
+                        if (index === 1) {
+                            obj.props.rowSpan = 0;
+                        }
+                        if (index === 2) {
+                            obj.props.rowSpan = 0;
+                        }
+                        if (index === 3) {
+                            obj.props.rowSpan = 3;
+                        }
+                        if (index === 4) {
+                            obj.props.rowSpan = 0;
+                        }
+                        if (index === 5) {
+                            obj.props.rowSpan = 0;
+                        }
+                        if (index === 6) {
+                            obj.props.rowSpan = 3;
+                        }
+                        if (index === 7) {
+                            obj.props.rowSpan = 0;
+                        }
+                        if (index === 8) {
+                            obj.props.rowSpan = 0;
+                        }
+                        return obj;
+                    },
                 },
                 {
                     title: '产量',
                     dataIndex: 'CL',
+                    render: (value, row, index) => {
+                        const obj = {
+                            children: value,
+                            props: {}
+                        };
+                        if (index === 0) {
+                            obj.props.rowSpan = 3;
+                        }
+                        if (index === 1) {
+                            obj.props.rowSpan = 0;
+                        }
+                        if (index === 2) {
+                            obj.props.rowSpan = 0;
+                        }
+                        if (index === 3) {
+                            obj.props.rowSpan = 3;
+                        }
+                        if (index === 4) {
+                            obj.props.rowSpan = 0;
+                        }
+                        if (index === 5) {
+                            obj.props.rowSpan = 0;
+                        }
+                        if (index === 6) {
+                            obj.props.rowSpan = 3;
+                        }
+                        if (index === 7) {
+                            obj.props.rowSpan = 0;
+                        }
+                        if (index === 8) {
+                            obj.props.rowSpan = 0;
+                        }
+                        return obj;
+                    },
                 },
                 {
                     title: '备注',
                     dataIndex: 'BZ',
+                    render: (value, row, index) => {
+                        const obj = {
+                            children: value,
+                            props: {}
+                        };
+                        if (index === 0) {
+                            obj.props.rowSpan = 3;
+                        }
+                        if (index === 1) {
+                            obj.props.rowSpan = 0;
+                        }
+                        if (index === 2) {
+                            obj.props.rowSpan = 0;
+                        }
+                        if (index === 3) {
+                            obj.props.rowSpan = 3;
+                        }
+                        if (index === 4) {
+                            obj.props.rowSpan = 0;
+                        }
+                        if (index === 5) {
+                            obj.props.rowSpan = 0;
+                        }
+                        if (index === 6) {
+                            obj.props.rowSpan = 3;
+                        }
+                        if (index === 7) {
+                            obj.props.rowSpan = 0;
+                        }
+                        if (index === 8) {
+                            obj.props.rowSpan = 0;
+                        }
+                        return obj;
+                    },
                 },
                 {
                     title: '操作员',
                     dataIndex: 'person',
+                    render: (value, row, index) => {
+                        const obj = {
+                            children: value,
+                            props: {}
+                        };
+                        if (index === 0) {
+                            obj.props.rowSpan = 3;
+                        }
+                        if (index === 1) {
+                            obj.props.rowSpan = 0;
+                        }
+                        if (index === 2) {
+                            obj.props.rowSpan = 0;
+                        }
+                        if (index === 3) {
+                            obj.props.rowSpan = 3;
+                        }
+                        if (index === 4) {
+                            obj.props.rowSpan = 0;
+                        }
+                        if (index === 5) {
+                            obj.props.rowSpan = 0;
+                        }
+                        if (index === 6) {
+                            obj.props.rowSpan = 3;
+                        }
+                        if (index === 7) {
+                            obj.props.rowSpan = 0;
+                        }
+                        if (index === 8) {
+                            obj.props.rowSpan = 0;
+                        }
+                        return obj;
+                    },
                 },
                 // {
                 //     title: '暂存',
