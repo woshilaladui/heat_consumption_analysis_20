@@ -26,13 +26,30 @@ const defaultState = fromJS({
         {data: []},//16点班的合格率
 
     ],
+    data_CRO: [
+
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []},//均值 比值 合格率
+        {data: []}, {data: []}, {data: []}, {data: []},//下表数据
+
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+    ], //控制室原始记录的数据
     order: [],//当前表格需要计算合格率的列数顺序 该表暂无
     startValue: [], //从数据库获取的标准
     endValue: [],
     person: window.localStorage.username, //传入的值班人员
     width:6,//SJ`MgO
     tableWidth:16,
-    tableName: TableName.Limestone_KAS,//进厂石灰石原材料分析化学报告单
+    tableName: TableName.Limestone_FAS,//进厂石灰石原材料分析化学报告单
     allTime:[
         ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00'],
         ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00'],
@@ -47,6 +64,10 @@ export default (state = defaultState, action) => {
             return state.merge({
                 'data': action.data,
                 'requestFlag': false//切换页面时候不需要刷新数据了（当页面刷新的时候自动初始化为true）
+            });
+        case constants.UPDATE_DATA_FAS_CRO:
+            return state.merge({
+                'data_CRO': action.data,
             });
         case constants.CHANGE_TIME_CHOSE_KAS:
             return state.set('timeChose', action.timeChose);

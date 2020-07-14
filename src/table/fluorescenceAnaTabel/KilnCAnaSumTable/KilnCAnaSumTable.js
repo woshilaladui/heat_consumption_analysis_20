@@ -21,11 +21,16 @@ class CMRawMatCheAnaRe extends Component {
     }
 
     componentDidMount() {
-        const {data, date, tableName, setOldData,requestFlag} = this.props;
+        const {data, date, tableName, setOldData,requestFlag,getCROData,data_CRO} = this.props;
 
         if(requestFlag){
 
             setOldData(date,tableName,deepCopy(data));
+            getCROData(
+                date,
+                "CRO",
+                deepCopy(data_CRO)
+            );
         }
     }
 
@@ -72,6 +77,7 @@ const mapStateToProps = (state) => {
         date:state.getIn(['KilnCAnaSumTable', 'date']),
         timeChose:state.getIn(['KilnCAnaSumTable', 'timeChose']),
         data:state.getIn(['KilnCAnaSumTable', 'data']),
+        data_CRO:state.getIn(['KilnCAnaSumTable', 'data_CRO']),
         requestFlag:state.getIn(['KilnCAnaSumTable', 'requestFlag']),
         person:state.getIn(['KilnCAnaSumTable', 'person']),
         tableName:state.getIn(['KilnCAnaSumTable', 'tableName']),
@@ -82,6 +88,13 @@ const mapDispathToProps = (dispatch) => {
     return {
         setOldData(date,tableName,data){
             dispatch(actionCreators.getData(date,tableName,data))
+        },
+        getCROData(
+            date,
+            tableName,
+            data
+        ){
+            dispatch(actionCreators.get_CRO_Data(date,tableName,data))
         }
     }//end return
 };

@@ -63,41 +63,23 @@ export const updateStandard = (startValue,endValue)=>({
  */
 export const getData = (date, tableName, data) => {
     return (dispatch) => {
-        console.log('date,table,data')
-        console.log(date)
-        console.log(tableName)
-        console.log(data)
-        console.log('date,table,data')
-
         requestGetHuaYanShiDataByTableNameAndDate(
             date,
             tableName,
             data
         ).then((response) => {
-            console.log('date,table,data-------response')
-
-            console.log(response)
-
-            console.log('date,table,data-------response')
-
             if(response['code'] === 0){
-
                 //解析处理数据
                 let newData = deepCopy(response['data'])
-
                 let result = HuaYanShiFormat(
                     data,
                     newData,
                     tableName
                 );
-
                 dispatch(updateData({//将获取到的数据进行转发
                     data: result[0]
                 }));
             }
-
-
-
         });//end requestGetHuaYanShiDataByTableNameAndDate
     }
 };//end getData

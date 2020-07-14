@@ -9,6 +9,7 @@ const defaultState = fromJS({
     //注意日期格式 2020/2/27 YYYY/MM/DD 为后台识别日期
     date: moment().format("YYYY/MM/DD"),//moment().format("YYYY-MM-DD"),
     requestFlag:true,//是否需要更新数据
+    requestFlag_CRO:true,//是否需要更新数据
     timeChose: 0,//默认0点班
     data:[//定义该页面的数据模板 27
         {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//0-7行代表 0-7小时
@@ -20,19 +21,26 @@ const defaultState = fromJS({
         {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//18-25行代表 16-23小时
         {data: []},//下表
     ],
-    KZSUpperData: [
+    CRO_data: [
 
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []},//均值 比值 合格率
+        {data: []}, {data: []}, {data: []}, {data: []},//下表数据
 
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
 
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []}
-    ], //控制室原始记录上表的数据
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+    ], //控制室原始记录的数据
     person: window.localStorage.username, //传入的值班人员
     tableName:TableName.ZHONG_KONG_SHI_MFXT_YXJL,//中控室烧成系统运行记录
+    tableName_CRO:TableName.Limestone_CRO,//中控室烧成系统运行记录
     allTime:[
         ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00'],
         ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00'],
@@ -50,6 +58,11 @@ export default (state = defaultState, action) => {
             return state.merge({
                 data:action.data,
                 requestFlag:false
+            });
+        case constants.UPDATE_DATA_CSO_CRO:
+            return state.merge({
+                CRO_data:action.data,
+                requestFlag_CRO:false
             });
         case constants.UPDATE_TIME_CHOSE_CSO:
             return state.set('timeChose', action.timeChose);

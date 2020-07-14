@@ -37,7 +37,10 @@ export function doChangeTimeChose(timeChose) {
     }
 
 }
-
+export const updateData_CRO = ({data}) => ({
+    type: constants.UPDATE_DATA_FAS_CRO,
+    data: data
+});
 
 export const updateData = ({data}) => ({
     type: constants.UPDATE_DATA_KAS,
@@ -51,7 +54,29 @@ export const updateStandard = (startValue, endValue) => ({
     endValue: endValue
 });
 
-
+//拿到T16控制室原始记录表的数据
+export const get_CRO_Data = (date, tableName, data) => {
+    return (dispatch) => {
+        requestGetHuaYanShiDataByTableNameAndDate(
+            date,
+            tableName,
+            data
+        ).then((response) => {
+            if(response['code'] === 0){
+                //解析处理数据
+                let newData = deepCopy(response['data'])
+                let result = HuaYanShiFormat(
+                    data,
+                    newData,
+                    tableName
+                );
+                dispatch(updateData_CRO({//将获取到的数据进行转发
+                    data: result[0]
+                }));
+            }
+        });//end requestGetHuaYanShiDataByTableNameAndDate
+    }
+};//end getData
 /**
  *
  * @param date

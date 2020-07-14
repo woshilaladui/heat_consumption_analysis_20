@@ -6,6 +6,7 @@ import "antd/dist/antd.css";
 
 import * as actionCreators from "../../fluorescenceAnaTabel/FactoryCliAnaSumTable/store/actionCreators";
 import {connect} from "react-redux";
+import {deepCopy} from "../../../Helper/Copy";
 // 出厂熟料全分析汇总表
 class CMRawMatCheAnaRe extends Component {
 
@@ -15,7 +16,17 @@ class CMRawMatCheAnaRe extends Component {
     }
 
     componentDidMount() {
+        const {data, date, tableName, setOldData,requestFlag,getCROData,data_CRO} = this.props;
 
+        if(requestFlag){
+
+            setOldData(date,tableName,deepCopy(data));
+            getCROData(
+                date,
+                "CRO",
+                deepCopy(data_CRO)
+            );
+        }
     }
 
 
@@ -64,6 +75,7 @@ const mapStateToProps = (state) => {
         date:state.getIn(['FactoryCliAnaSumTable', 'date']),
         timeChose:state.getIn(['FactoryCliAnaSumTable', 'timeChose']),
         data:state.getIn(['FactoryCliAnaSumTable', 'data']),
+        data_CRO:state.getIn(['FactoryCliAnaSumTable', 'data_CRO']),
         requestFlag:state.getIn(['FactoryCliAnaSumTable', 'requestFlag']),
         person:state.getIn(['FactoryCliAnaSumTable', 'person']),
         tableName:state.getIn(['FactoryCliAnaSumTable', 'tableName']),
@@ -74,6 +86,13 @@ const mapDispathToProps = (dispatch) => {
     return {
         setOldData(date,tableName,data){
             dispatch(actionCreators.getData(date,tableName,data))
+        },
+        getCROData(
+            date,
+            tableName,
+            data
+        ){
+            dispatch(actionCreators.get_CRO_Data(date,tableName,data))
         }
     }//end return
 };

@@ -53,7 +53,7 @@ export function autoCalculate_KH(
 
 
 
-    if(tableName ===TableName.Limestone_RMC ||tableName === TableName.Limestone_KAS){
+    if(tableName === TableName.Limestone_KAS||tableName === TableName.Limestone_FAS){
         CaO = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_RMC.CaO])?0:data[indexH]['data'][HuaYSOrder_RMC.CaO]);
         Fe2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_RMC.Fe2O3])?0:data[indexH]['data'][HuaYSOrder_RMC.Fe2O3]);
         Al2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_RMC.Al2O3])?0:data[indexH]['data'][HuaYSOrder_RMC.Al2O3]);
@@ -100,6 +100,7 @@ export function autoCalculate_KH(
 //计算KH-
 export function autoCalculate_KH_1(
     data,
+    data_CRO,
     indexH,//CaO Fe2O3 Al2O3 SiO2 (CaO-0.35* Fe2O3-1.65* Al2O3)/2.8*SiO2
     tableName
 ) {
@@ -113,12 +114,13 @@ export function autoCalculate_KH_1(
 
 
 
-    if(tableName ===TableName.Limestone_RMC || tableName === TableName.Limestone_KAS ){
+    if(tableName === TableName.Limestone_FAS || tableName === TableName.Limestone_KAS ){
         CaO = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_RMC.CaO])?0:data[indexH]['data'][HuaYSOrder_RMC.CaO]);
         Fe2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_RMC.Fe2O3])?0:data[indexH]['data'][HuaYSOrder_RMC.Fe2O3]);
         Al2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_RMC.Al2O3])?0:data[indexH]['data'][HuaYSOrder_RMC.Al2O3]);
         SiO2 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_RMC.SiO2]) ?0:data[indexH]['data'][HuaYSOrder_RMC.SiO2]);
-        fCaO = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_RMC.fCaO]) ?0:data[indexH]['data'][HuaYSOrder_RMC.fCaO]);
+        fCaO = parseFloat(isNaN(data_CRO[indexH]['data'][0]) ?0:data_CRO[indexH]['data'][0]);//0表示在控制室原始记录种第一列为fCao
+
     }
 
 
@@ -148,7 +150,7 @@ export function autoCalculate_N(
     let Al2O3;
     let Fe2O3;
 
-    if(tableName === TableName.Limestone_RMC || tableName === TableName.Limestone_KAS){
+    if( tableName === TableName.Limestone_KAS||tableName === TableName.Limestone_FAS){
         SiO2 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_RMC.SiO2])?0:data[indexH]['data'][HuaYSOrder_RMC.SiO2]);
         Al2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_RMC.Al2O3])?0:data[indexH]['data'][HuaYSOrder_RMC.Al2O3]);
         Fe2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_RMC.Fe2O3])?0:data[indexH]['data'][HuaYSOrder_RMC.Fe2O3]);
@@ -197,7 +199,8 @@ export function autoCalculate_P(
     let Fe2O3;
 
 
-    if(tableName === TableName.Limestone_RMC){
+    if(tableName === TableName.Limestone_KAS||tableName === TableName.Limestone_FAS){
+        //HuaYSOrder_RMC指的是出窑熟料全分析汇总表
         Al2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_RMC.Al2O3])?0:data[indexH]['data'][HuaYSOrder_RMC.Al2O3]);
         Fe2O3 = parseFloat(isNaN(data[indexH]['data'][HuaYSOrder_RMC.Fe2O3] )?0:data[indexH]['data'][HuaYSOrder_RMC.Fe2O3]);
 

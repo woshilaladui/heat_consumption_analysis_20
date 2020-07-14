@@ -17,7 +17,7 @@ class CoalSysOpRe extends Component {
     componentDidMount() {
         /**首先查询当前页面是否有历史纪录并赋值formData**/
 
-        const{data,date,tableName,requestFlag,getOldData} = this.props
+        const{data,CRO_data,date,tableName,tableName_CRO,requestFlag,getOldData,setOldData,requestFlag_CRO} = this.props
 
         if(requestFlag){
             getOldData(
@@ -26,7 +26,13 @@ class CoalSysOpRe extends Component {
                 deepCopy(data)
             );
         }//end if
-
+        if(requestFlag_CRO){
+            setOldData(
+                date,
+                tableName_CRO,
+                deepCopy(CRO_data)
+            );
+        }//end if
     }
 
 
@@ -77,16 +83,20 @@ const mapStateToProps = (state) => {
         date:state.getIn(['coalSysOpRe', 'date']),
         timeChose:state.getIn(['coalSysOpRe', 'timeChose']),
         data:state.getIn(['coalSysOpRe', 'data']),
+        CRO_data:state.getIn(['coalSysOpRe', 'CRO_data']),
         requestFlag:state.getIn(['coalSysOpRe', 'requestFlag']),
+        requestFlag_CRO:state.getIn(['coalSysOpRe', 'requestFlag_CRO']),
         person:state.getIn(['coalSysOpRe', 'person']),
         tableName:state.getIn(['coalSysOpRe', 'tableName']),
-
+        tableName_CRO:state.getIn(['coalSysOpRe', 'tableName_CRO']),
     }
 }
 
 const mapDispathToProps = (dispatch) => {
     return {
-
+        setOldData(date,tableName,data){
+            dispatch(actionCreators.get_CRO_Data(date,tableName,data))
+        },
         //和仓库建立联系
         getOldData(
             date,

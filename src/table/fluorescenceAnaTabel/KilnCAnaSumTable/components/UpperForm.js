@@ -40,8 +40,10 @@ class UpperForm extends Component {
      * 表格输入数据变化的监听，同时所有的数据更新
      **/
     onInputNumberChange2 = (value, indexH, indexL) => {
-        const {data, updateChange, width, timeChose,tableWidth,tableName} = this.props;
+        const {data, updateChange, width, timeChose,tableWidth,tableName,data_CRO} = this.props;
         let NewData = deepCopy(data);//复制一份出来
+        let NewData_CRO = deepCopy(data_CRO);//复制一份出来
+
 
 
         //更新表中所填数据
@@ -65,7 +67,7 @@ class UpperForm extends Component {
         ){
 
             autoCalculate_KH(NewData,indexH,tableName);
-            autoCalculate_KH_1(NewData,indexH,tableName)
+            autoCalculate_KH_1(NewData,NewData_CRO,indexH,tableName)
 
         }
 
@@ -246,15 +248,17 @@ class UpperForm extends Component {
         const dataSource = [];
 
 
-        const {data, timeChose, allTime} = this.props;
+        const {data, timeChose, allTime,data_CRO} = this.props;
         const Data = deepCopy(data);
+        const Data_CRO = deepCopy(data_CRO);
         const time = deepCopy(allTime);
 
 
         for (let i = 0; i < 8; i++) {
             const index = i + timeChose * 10;
-
+            const index_CRO = i + timeChose * 14;
             const value = Data[index]['data'];
+            const value_CRO = Data_CRO[index_CRO]['data'];
             dataSource.push(
                 {
                     time: time[timeChose][i],
@@ -308,7 +312,7 @@ class UpperForm extends Component {
                     HJ:
                         <span>{isNaN(value[HuaYSOrder_RMC.HJ]) ? null : value[HuaYSOrder_RMC.HJ]}</span>,
                     fCaO:
-                        <span>{isNaN(0) ? null : 0}</span>,
+                        <span>{isNaN(value_CRO[0]) ? null : value_CRO[0]}</span>,
                     KH:
                         <span>{isNaN(value[HuaYSOrder_RMC.KH]) ? null : value[HuaYSOrder_RMC.KH]}</span>,
                     KH_:
@@ -421,6 +425,7 @@ const mapStateToProps = (state) => {
         allTime: state.getIn(['KilnCAnaSumTable', 'allTime']),
         timeChose: state.getIn(['KilnCAnaSumTable', 'timeChose']),
         data: state.getIn(['KilnCAnaSumTable', 'data']),
+        data_CRO: state.getIn(['KilnCAnaSumTable', 'data_CRO']),
         requestFlag: state.getIn(['KilnCAnaSumTable', 'requestFlag']),
         startValue: state.getIn(['KilnCAnaSumTable', 'startValue']),
         endValue: state.getIn(['KilnCAnaSumTable', 'endValue']),

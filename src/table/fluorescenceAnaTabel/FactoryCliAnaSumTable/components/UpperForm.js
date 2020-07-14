@@ -27,8 +27,9 @@ class UpperForm extends Component {
     }
 
     onInputNumberChange2 = (value, indexH, indexL) => {
-        const {data, updateChange, width, timeChose,tableWidth,tableName} = this.props;
+        const {data, updateChange, width, timeChose,tableWidth,tableName,data_CRO} = this.props;
         let NewData = deepCopy(data);//复制一份出来
+        let NewData_CRO = deepCopy(data_CRO);//复制一份出来
 
         //更新表中所填数据
         if (value != null) {
@@ -49,7 +50,7 @@ class UpperForm extends Component {
         ){
 
             autoCalculate_KH(NewData,indexH,tableName);
-            autoCalculate_KH_1(NewData,indexH,tableName)
+            autoCalculate_KH_1(NewData,NewData_CRO,indexH,tableName)
 
         }
 
@@ -227,14 +228,16 @@ class UpperForm extends Component {
         const dataSource = [];
 
 
-        const {data, timeChose, allTime} = this.props;
+        const {data, timeChose, allTime,data_CRO} = this.props;
         const Data = deepCopy(data);
+        const Data_CRO = deepCopy(data_CRO);
         const time = deepCopy(allTime);
 
         for (let i = 0; i < 8; i++) {
             const index = i + timeChose * 10;
-
+            const index_CRO = i + timeChose * 14;
             const value = Data[index]['data'];
+            const value_CRO = Data_CRO[index_CRO]['data'];
             dataSource.push(
                 {
                     time:time[timeChose][i],
@@ -288,7 +291,7 @@ class UpperForm extends Component {
                     HJ:
                         <span>{isNaN(value[6]) ? null : value[6]}</span>,
                     fCaO:
-                        <span>{isNaN(0) ? null : 0}</span>,
+                        <span>{isNaN(value_CRO[0]) ? null : value_CRO[0]}</span>,
                     KH:
                         <span>{isNaN(value[8]) ? null : value[8]}</span>,
                     KH_:
@@ -398,6 +401,7 @@ const mapStateToProps = (state) => {
         allTime: state.getIn(['FactoryCliAnaSumTable', 'allTime']),
         timeChose: state.getIn(['FactoryCliAnaSumTable', 'timeChose']),
         data: state.getIn(['FactoryCliAnaSumTable', 'data']),
+        data_CRO: state.getIn(['FactoryCliAnaSumTable', 'data_CRO']),
         requestFlag: state.getIn(['FactoryCliAnaSumTable', 'requestFlag']),
         startValue: state.getIn(['FactoryCliAnaSumTable', 'startValue']),
         endValue: state.getIn(['FactoryCliAnaSumTable', 'endValue']),

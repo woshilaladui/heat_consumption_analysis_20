@@ -428,9 +428,12 @@ class UpperPartOfTheForm extends Component {
             )
         }
         const data_tab2 = [];
+        const Data_CRO=deepCopy(this.props.CRO_data);
         for (let i = 0; i < 8; i++) {
             const index = i + timeChose * 9;
+            const index_CRO = i + timeChose * 14;
             const value = Data[index]['data']; //value是个数组
+            const value_CRO = Data_CRO[index_CRO]['data'];
             const tab = 15;
             data_tab2.push(
                 {
@@ -519,14 +522,14 @@ class UpperPartOfTheForm extends Component {
                     onChange={event => this.onInputNumberChange2(event.target.value, index, 13+tab)}
                 /></span>,
                     XD: <span><Input
-                    style={this.changeStyle(value[14+tab])}
-                    value={isNaN(value[tab+14]) ? null : value[tab+14]}
+                    style={this.changeStyle(value_CRO[7])}
+                    value={isNaN(value_CRO[7]) ? null : value_CRO[7]}
                     defaultValue={''}
                     onChange={event => this.onInputNumberChange2(event.target.value, index, 14+tab)}
                 /></span>,
                     SF: <span><Input
-                    style={this.changeStyle(value[15+tab])}
-                    value={isNaN(value[tab+15]) ? null : value[tab+15]}
+                    style={this.changeStyle(value_CRO[8])}
+                    value={isNaN(value_CRO[8]) ? null : value_CRO[8]}
                     defaultValue={''}
                     onChange={event => this.onInputNumberChange2(event.target.value, index, 15+tab)}
                 /></span>,
@@ -578,6 +581,7 @@ const mapStateToProps = (state) => {
         allTime:state.getIn(['coalSysOpRe', 'allTime']),
         timeChose:state.getIn(['coalSysOpRe', 'timeChose']),
         data:state.getIn(['coalSysOpRe', 'data']),
+        CRO_data:state.getIn(['coalSysOpRe', 'CRO_data']),
         requestFlag:state.getIn(['coalSysOpRe', 'requestFlag']),
         person:state.getIn(['coalSysOpRe', 'person']),
         tableName:state.getIn(['coalSysOpRe', 'tableName']),

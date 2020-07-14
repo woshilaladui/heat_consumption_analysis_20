@@ -1,4 +1,4 @@
-export const UPDATE_DATA_RMC = 'update_data_crm';//更新数据
+export const UPDATE_DATA_RMC = 'update_data_rmc';//更新数据
 
 
 
