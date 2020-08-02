@@ -19,6 +19,7 @@ function App() {
             <Provider store={store}  locale={zh_CN}>
 
                 <BrowserRouter>
+                    {/*基于url的pathname段*/}
                     <div>
                         <Router/>
                         <Route path='/table/burnSysOpRe' exact component={BurnSysOpRe}></Route>

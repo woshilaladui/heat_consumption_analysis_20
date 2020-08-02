@@ -5,8 +5,10 @@
   "private": true,
   "dependencies": {
     "antd": "^3.19.0",
+    "axios": "^0.19.2",
     "debug": "^4.1.1",
     "immutable": "^4.0.0-rc.12",
+    "jquery": "^3.5.1",
     "proxy": "^0.2.4",
     "rc-banner-anim": "^2.2.6",
     "react": "^16.8.6",

@@ -76,14 +76,14 @@ export function requestSaveHuaYanShiData(
     {
         date,
         index,
-        department,
-        duty,
+        departmentId,
         tableName,
-        authority,
+        id,
         data,
-        num
+        num,
     }
 ) {
+
     return new Promise((resolve, reject) => {
         RequestCenter({
             url: URL.REQUEST_SAVE_HUAYANSHI_DATA,
@@ -91,10 +91,9 @@ export function requestSaveHuaYanShiData(
                 {
                     date: date,
                     index: index,
-                    department: department,
-                    duty: duty,
+                    departmentId: departmentId,
                     tableName: tableName,
-                    authority: authority,
+                    userId: id,
                     data: data,
                     num: num
                 }

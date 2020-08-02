@@ -46,7 +46,7 @@ class UpperForm extends Component {
     changeStyle = (value) => {
         if (value) {
 
-            if (isNaN(value)) {
+            if (isNaN(value)|| value > 100) {
                 return {
                     borderColor: 'red',
                     color: 'red',
@@ -520,241 +520,248 @@ class UpperForm extends Component {
                     ]
                 },
 
-                {
-                    title: '负压',
-                    dataIndex: 'fy',
-                    children: [
-                        {
-                            title: '烟室',
-                            children: [
-                                {
-                                    title: 'Pa',
-                                    dataIndex: 'yanshi'
-                                }
-                            ]
-                        },
-                        {
-                            title: '窑头',
-                            children: [
-                                {
-                                    title: 'Pa',
-                                    dataIndex: 'yaotou'
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    title: '电机电流',
-                    dataIndex: 'djdl',
-                    children:
-                        [
-                            {
-                                title: '高温风机电流',
-                                children: [
-                                    {
-                                        title: 'A',
-                                        dataIndex: 'gaowenfengjidianliu'
-                                    }
-                                ]
-                            },
-                            {
-                                title: '高温风机转速',
-                                children: [
-                                    {
-                                        title: 'rpm',
-                                        dataIndex: 'gaowenfengjizhuansu'
-                                    }
-                                ]
-                            },
-                            {
-                                title: '提升机',
-                                children: [
-                                    {
-                                        title: 'A',
-                                        dataIndex: 'tishengji'
-                                    }
-                                ]
-                            },
-                            {
-                                title: '排风机',
-                                children: [
-                                    {
-                                        title: 'A',
-                                        dataIndex: 'paifengji'
-                                    }
-                                ]
-                            },
-                            {
-                                title: '排风机转速',
-                                children: [
-                                    {
-                                        title: 'rpm',
-                                        dataIndex: 'paifengji_zhuansu'
-                                    }
-                                ]
-                            },
-                            {
-                                title: '破碎机',
-                                children: [
-                                    {
-                                        title: 'A',
-                                        dataIndex: 'posuiji'
-                                    }
-                                ]
-                            },
-                            {
-                                title: '斜拉链',
-                                children: [
-                                    {
-                                        title: 'A',
-                                        dataIndex: 'xielalian'
-                                    }
-                                ]
-                            },
-                        ]
-                }
-                ,
-                {
-                    title: '冷机',
-                    children:
-                        [
-                            {
-                                title: '一室压力',
-                                dataIndex: 'ysyl',
-                                children: [
-                                    {
-                                        title: 'Pa',
-                                        dataIndex: 'yishiyali'
-                                    }
-                                ]
-                            }
-                        ]
-                }
-                ,
-                {
-                    title: '气体分析仪',
-                    children:
-                        [
-                            {
-                                title: 'O2',
-                                dataIndex: 'O2',
-                                children: [
-                                    {
-                                        title: 'Pa',
-                                        dataIndex: 'o2'
-                                    }
-                                ]
-                            },
-                            {
-                                title: 'CO',
-                                dataIndex: 'CO',
-                                children: [
-                                    {
-                                        title: 'Pa',
-                                        dataIndex: 'co'
-                                    }
-                                ]
-                            },
-                            {
-                                title: 'NOX',
-                                dataIndex: 'NOX',
-                                children: [
-                                    {
-                                        title: 'Pa',
-                                        dataIndex: 'nox'
-                                    }
-                                ]
-                            },
-                        ]
-                }
-                ,
-                {
-                    title: '袋收尘',
-                    children:
-                        [
-                            {
-                                title: '电压',
-                                dataIndex: 'scdy',
-                                children: [
-                                    {
-                                        title: '1#',
-                                        dataIndex: '1_dy',
-                                        children: [
-                                            {
-                                                title: 'KV',
-                                                dataIndex: 'dy_kv_1'
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        title: '2#',
-                                        dataIndex: '2_dy',
-                                        children: [
-                                            {
-                                                title: 'KV',
-                                                dataIndex: 'dy_kv_2'
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        title: '3#',
-                                        dataIndex: '3_dy',
-                                        children: [
-                                            {
-                                                title: 'KV',
-                                                dataIndex: 'dy_kv_3'
-                                            }
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                title: '电流',
-                                dataIndex: 'scdl',
-                                children: [
-                                    {
-                                        title: '1#',
-                                        dataIndex: '1_dl',
-                                        children: [
-                                            {
-                                                title: 'MA',
-                                                dataIndex: 'dl_ma_1'
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        title: '2#',
-                                        dataIndex: '2_dl',
-                                        children: [
-                                            {
-                                                title: 'MA',
-                                                dataIndex: 'dl_ma_2'
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        title: '3#',
-                                        dataIndex: '3_dl',
-                                        children: [
-                                            {
-                                                title: 'MA',
-                                                dataIndex: 'dl_ma_3'
-                                            }
-                                        ]
-                                    }
-                                ]
-                            },
-                        ]
-                }
-                ,
+
 // {
 //     title: '暂存',
 //     dataIndex:'btn_save',
 //     width:'5%',
 // }
-            ]
-        ;
+            ];
+        const columns_tab3 = [
+            {
+                title: '时间',
+                dataIndex: 'time',
+            },
+            {
+                title: '负压',
+                dataIndex: 'fy',
+                children: [
+                    {
+                        title: '烟室',
+                        children: [
+                            {
+                                title: 'Pa',
+                                dataIndex: 'yanshi'
+                            }
+                        ]
+                    },
+                    {
+                        title: '窑头',
+                        children: [
+                            {
+                                title: 'Pa',
+                                dataIndex: 'yaotou'
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                title: '电机电流',
+                dataIndex: 'djdl',
+                children:
+                    [
+                        {
+                            title: '高温风机电流',
+                            children: [
+                                {
+                                    title: 'A',
+                                    dataIndex: 'gaowenfengjidianliu'
+                                }
+                            ]
+                        },
+                        {
+                            title: '高温风机转速',
+                            children: [
+                                {
+                                    title: 'rpm',
+                                    dataIndex: 'gaowenfengjizhuansu'
+                                }
+                            ]
+                        },
+                        {
+                            title: '提升机',
+                            children: [
+                                {
+                                    title: 'A',
+                                    dataIndex: 'tishengji'
+                                }
+                            ]
+                        },
+                        {
+                            title: '排风机',
+                            children: [
+                                {
+                                    title: 'A',
+                                    dataIndex: 'paifengji'
+                                }
+                            ]
+                        },
+                        {
+                            title: '排风机转速',
+                            children: [
+                                {
+                                    title: 'rpm',
+                                    dataIndex: 'paifengji_zhuansu'
+                                }
+                            ]
+                        },
+                        {
+                            title: '破碎机',
+                            children: [
+                                {
+                                    title: 'A',
+                                    dataIndex: 'posuiji'
+                                }
+                            ]
+                        },
+                        {
+                            title: '斜拉链',
+                            children: [
+                                {
+                                    title: 'A',
+                                    dataIndex: 'xielalian'
+                                }
+                            ]
+                        },
+                    ]
+            },
+            {
+                title: '冷机',
+                children:
+                    [
+                        {
+                            title: '一室压力',
+                            dataIndex: 'ysyl',
+                            children: [
+                                {
+                                    title: 'Pa',
+                                    dataIndex: 'yishiyali'
+                                }
+                            ]
+                        }
+                    ]
+            },
+            {
+                title: '气体分析仪',
+                children:
+                    [
+                        {
+                            title: 'O2',
+                            dataIndex: 'O2',
+                            children: [
+                                {
+                                    title: 'Pa',
+                                    dataIndex: 'o2'
+                                }
+                            ]
+                        },
+                        {
+                            title: 'CO',
+                            dataIndex: 'CO',
+                            children: [
+                                {
+                                    title: 'Pa',
+                                    dataIndex: 'co'
+                                }
+                            ]
+                        },
+                        {
+                            title: 'NOX',
+                            dataIndex: 'NOX',
+                            children: [
+                                {
+                                    title: 'Pa',
+                                    dataIndex: 'nox'
+                                }
+                            ]
+                        },
+                    ]
+            },
+            {
+                title: '袋收尘',
+                children:
+                    [
+                        {
+                            title: '电压',
+                            dataIndex: 'scdy',
+                            children: [
+                                {
+                                    title: '1#',
+                                    dataIndex: '1_dy',
+                                    children: [
+                                        {
+                                            title: 'KV',
+                                            dataIndex: 'dy_kv_1'
+                                        }
+                                    ]
+                                },
+                                {
+                                    title: '2#',
+                                    dataIndex: '2_dy',
+                                    children: [
+                                        {
+                                            title: 'KV',
+                                            dataIndex: 'dy_kv_2'
+                                        }
+                                    ]
+                                },
+                                {
+                                    title: '3#',
+                                    dataIndex: '3_dy',
+                                    children: [
+                                        {
+                                            title: 'KV',
+                                            dataIndex: 'dy_kv_3'
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            title: '电流',
+                            dataIndex: 'scdl',
+                            children: [
+                                {
+                                    title: '1#',
+                                    dataIndex: '1_dl',
+                                    children: [
+                                        {
+                                            title: 'MA',
+                                            dataIndex: 'dl_ma_1'
+                                        }
+                                    ]
+                                },
+                                {
+                                    title: '2#',
+                                    dataIndex: '2_dl',
+                                    children: [
+                                        {
+                                            title: 'MA',
+                                            dataIndex: 'dl_ma_2'
+                                        }
+                                    ]
+                                },
+                                {
+                                    title: '3#',
+                                    dataIndex: '3_dl',
+                                    children: [
+                                        {
+                                            title: 'MA',
+                                            dataIndex: 'dl_ma_3'
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                    ]
+            },
+// {
+//     title: '暂存',
+//     dataIndex:'btn_save',
+//     width:'5%',
+// }
+        ];
         /**表头的设计**end**/
 
         /**
@@ -1182,7 +1189,156 @@ class UpperForm extends Component {
                     //btn_save: <Button type='primary' onClick={() => this.postToHome(i)}>暂存</Button>,
                 })
         }
+        const dataSource_tab3 = [];
 
+        for (let i = 0; i < 8; i++) {
+            const index = i + timeChose * 12;
+            const value = Data[index]['data'];
+            //Data[index].data
+            const time = deepCopy(allTime);
+
+
+            dataSource_tab3.push(
+                {
+                    time: time[timeChose][i],
+                    yanshi: <span><Input
+
+                        style={this.changeStyle(value[28 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[28 + 1 + tab]) ? null : value[28 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 28 + 1 + tab)}
+                    /></span>,
+                    yaotou: <span><Input
+
+                        style={this.changeStyle(value[29 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[29 + 1 + tab]) ? null : value[29 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 29 + 1 + tab)}
+                    /></span>,
+                    gaowenfengjidianliu: <span><Input
+
+                        style={this.changeStyle(value[30 + 1 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[30 + 1 + tab]) ? null : value[30 + 1 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 30 + 1 + tab)}
+                    /></span>,
+                    gaowenfengjizhuansu: <span><Input
+
+                        style={this.changeStyle(value[32  + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[32 + tab]) ? null : value[32 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 32 + tab)}
+                    /></span>,
+                    tishengji: <span><Input
+
+                        style={this.changeStyle(value[33 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[33 + tab]) ? null : value[33 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 33 + tab)}
+                    /></span>,
+                    paifengji: <span><Input
+
+                        style={this.changeStyle(value[34 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[34 + tab]) ? null : value[34 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 34 + tab)}
+                    /></span>,
+                    paifengji_zhuansu: <span><Input
+
+                        style={this.changeStyle(value[35 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[35 + tab]) ? null : value[35 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 35 + tab)}
+                    /></span>,
+                    posuiji: <span><Input
+
+                        style={this.changeStyle(value[36 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[36 + tab]) ? null : value[36 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 36 + tab)}
+                    /></span>,
+                    xielalian: <span><Input
+
+                        style={this.changeStyle(value[37 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[37 + tab]) ? null : value[37 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 37 + tab)}
+                    /></span>,
+                    yishiyali: <span><Input
+
+                        style={this.changeStyle(value[38 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[38 + tab]) ? null : value[38 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 38 + tab)}
+                    /></span>,
+                    o2: <span><Input
+
+                        style={this.changeStyle(value[39 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[39 + tab]) ? null : value[39 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 39 + tab)}
+                    /></span>,
+                    co: <span><Input
+
+                        style={this.changeStyle(value[40+ tab])}
+                        defaultValue={''}
+                        value={isNaN(value[40+ tab]) ? null : value[40+ tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 40+ tab)}
+                    /></span>,
+                    nox: <span><Input
+
+                        style={this.changeStyle(value[41 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[41 + tab]) ? null : value[41 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 41 + tab)}
+                    /></span>,
+                    dy_kv_1: <span><Input
+
+                        style={this.changeStyle(value[42 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[42 + tab]) ? null : value[42 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 42 + tab)}
+                    /></span>,
+                    dy_kv_2: <span><Input
+
+                        style={this.changeStyle(value[43 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[43 + tab]) ? null : value[43 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 43 + tab)}
+                    /></span>,
+                    dy_kv_3: <span><Input
+
+                        style={this.changeStyle(value[44 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[44 + tab]) ? null : value[44 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 44 + tab)}
+                    /></span>,
+                    dl_ma_1: <span><Input
+
+                        style={this.changeStyle(value[45 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[45 + tab]) ? null : value[45 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 45 + tab)}
+                    /></span>,
+                    dl_ma_2: <span><Input
+
+                        style={this.changeStyle(value[46 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[46 + tab]) ? null : value[46 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 46 + tab)}
+                    /></span>,
+                    dl_ma_3: <span><Input
+
+                        style={this.changeStyle(value[47 + tab])}
+                        defaultValue={''}
+                        value={isNaN(value[47 + tab]) ? null : value[47 + tab]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, 47 + tab)}
+                    /></span>,
+
+
+                    //btn_save: <Button type='primary' onClick={() => this.postToHome(i)}>暂存</Button>,
+                })
+        }
         /**数据的自动处理显示部分**end**/
         function callback(key) {
             this.setState({
@@ -1203,7 +1359,11 @@ class UpperForm extends Component {
                     </TabPane>
                     <TabPane tab="表2" key="1"><Table
                         className="pper_table2" columns={columns_tab2} bordered
-                        dataSource={dataSource_tab2} scroll={{x: 3000}} pagination={false}/>
+                        dataSource={dataSource_tab2} scroll={{x: 2000}} pagination={false}/>
+                    </TabPane>
+                    <TabPane tab="表3" key="2"><Table
+                        className="pper_table2" columns={columns_tab3} bordered
+                        dataSource={dataSource_tab3}  pagination={false}/>
                     </TabPane>
                 </Tabs>
 

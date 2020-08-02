@@ -4,6 +4,8 @@
  */
 
 /*****************************************中控室类json*****************************************/
+import moment from "moment";
+
 /**
  *
  * @param date
@@ -19,25 +21,23 @@ export function getSaveZhongKongShiDataJson(
     {
         date,
         index,
-        department,
-        duty,
+        departmentId,
         tableName,
-        authority,
-        data,//为化验室该表的集合数据
-        num = 1,//默认提交单行数据
+        userId,
+        data,
+        num
     }
 ) {
 
     let tempData = [{}];
-
+    let newDate =moment().format("YYYY-MM-DD")
     if(num === 1){
         tempData = [{
-            date:date,
+            date:newDate,
             index:index,
-            department:department,
-            duty:duty,
+            departmentId:departmentId,
             tableName:tableName,
-            authority:authority,
+            userId:userId,
             data:data[index]['data'].join(',')
         }];
     }else {
@@ -46,12 +46,11 @@ export function getSaveZhongKongShiDataJson(
         for (let i = 0; i < num; i++) {
             if (data[i]['data'].join(',') !== '') {
                 tempData[j] = {
-                    "date": date,
+                    "date": newDate,
                     "index": i,
-                    "department": department,
-                    "duty": duty,
+                    "departmentId": departmentId,
+                    "userId": userId,
                     "tableName": tableName,
-                    "authority": authority,
                     "data": data[i]['data'].join(','),
                 }
                 j++;
@@ -59,7 +58,6 @@ export function getSaveZhongKongShiDataJson(
         }//end for
 
     }
-    return {
-        "data": tempData
-    };
+    return tempData
+
 }

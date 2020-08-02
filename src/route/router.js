@@ -4,9 +4,11 @@ import Home_app from "../body/home_app/Home_app";
 import user from "../body/user/user";
 import Home from "../homePage/home/Home";
 import Login from "../login/Login";
+import LoginV2 from '../../src/login_v2/Login'
 import Reg from "../reg/reg";
 import Test from "../table/centerControlRoom/burnSysOpRe/component/test"
 import Test2 from "../table/centerControlRoom/burnSysOpRe/component/test2"
+import PermissionHome from '../permission/permission_home'
 import {Radio} from "antd";
 
 export default class AppRouter extends Component {
@@ -22,8 +24,9 @@ export default class AppRouter extends Component {
                     <Route path="/table" component={Home_app}/>
                     <Route path="/user" component={user}/>
                     <Route path="/login" component={Login}/>
+                    <Route path="/loginV2" component={LoginV2}/>
                     <Route path="/reg" component={Reg}/>
-
+                    <Route path="/permission" component={PermissionHome}/>
                     <Route path="/test" component={Test}/>
                     <Route path="/test2" component={Test2}/>
 

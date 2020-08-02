@@ -11,9 +11,16 @@ const RequestMethod = {
 }
 
 const URL={
-
+/*****************************************版本2******************************************/
+    REQUEST_ENABLED_VALUE_V2: Service.ROOT_URL_V2+"/sys/user/lockUser",//锁定用户
+    REQUEST_VERIFICATION_V2: Service.ROOT_URL_V2+"/verification",//获取验证码
+    REQUEST_AUTHENTICATION_V2: Service.ROOT_URL_V2+"/authentication",//登陆检验
+    REQUEST_GET_ALL_USERS_V2: Service.ROOT_URL_V2+"/sys/user/getAllUsers",//获取所有的用户
+    REQUEST_GET_ALL_ROLE_V2: Service.ROOT_URL_V2+"/sys/userRole/getAllRoles",//获取所有的角色
+    REQUEST_GET_CURRENT_USER_ROLE_V2: Service.ROOT_URL_V2+"/sys/userRole/getRolesByUsername",//获取当前用户的角色
     /*********************************用户类请求地址*************************************/
     REQUEST_LOGIN:Service.ROOT_URL + "/user/login",
+
 
     REQUEST_REGISTER:Service.ROOT_URL + "/user/register",
 

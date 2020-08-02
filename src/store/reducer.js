@@ -52,9 +52,12 @@ import { reducer as monthElectricityReducer } from '../table/electricityTable/mo
 import { reducer as threeFiveKwTableReducer } from '../table/electricityTable/threeFiveKwTable/store';
 
 /********************************************日志************************************************************************/
-import { reducer as logReducer } from '../table/log/store'
-	;
-
+import { reducer as logReducer } from '../table/log/store';
+/**********************************************登陆***********************************************************/
+import { reducer as loginReducer } from '../login/store';
+import {reducer as loginV2Reducer} from '../login_v2/store'
+import {reducer as permissionReducer} from '../permission/store'
+import {reducer as userRoleReducer} from '../permission/userRole/store'
 
 
 const reducer = combineReducers({
@@ -111,7 +114,11 @@ const reducer = combineReducers({
 
 	monthElectricity:monthElectricityReducer,  //每月电量表
 	threeFiveKwTable:threeFiveKwTableReducer  ,//35KW表
-	log:logReducer //日志
+	log:logReducer, //日志
+	login: loginReducer,//登陆
+	loginV2:loginV2Reducer,//登陆2版本
+	permission:permissionReducer,//用户权限控制
+	userRole: userRoleReducer,//用户角色控制
 });
 
 export default reducer;

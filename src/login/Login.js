@@ -4,6 +4,9 @@ import {Form, Icon, Input, Button, message, Layout,} from 'antd';
 // import moment from 'moment';
 // import Header from "../homePage/header/Header";
 import './Login.css'
+import { connect } from 'react-redux';
+import * as actionCreators from './store/actionCreators';
+import {deepCopy} from '../Helper/Copy'
 import {requestUserLogin} from "../../src/http/request/RequestUser"
 import {requestGetHuaYanShiDataByTableNameAndDate} from "../../src/http/request/RequestHuaYanShi"
 
@@ -14,15 +17,15 @@ const FormItem = Form.Item;
 //新登陆页面参数
 // const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
 class LoginDemo extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            phone: '',
-            password: '',
-            errorMessage: '',
-        }
-
-    }
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         phone: '',
+    //         password: '',
+    //         errorMessage: '',
+    //     }
+    //
+    // }
 
     handleLogin = (e) => {
         e.preventDefault();
@@ -31,31 +34,32 @@ class LoginDemo extends Component {
 
         // requestUserLogin()
 
-        const {phone, password} = this.state;
+        const {phone, password} = this.props;
+        this.props.setOldData(phone, password);
+        this.props.history.push('/')
 
 
-
-        requestUserLogin(phone,password)
-            .then( (data) =>{
-                const d = new Date();
-
-
-                window.localStorage.token = data.token;
-                window.localStorage.user = data['user'];
-                window.localStorage.id = data['user']['id'];
-                window.localStorage.username = data['user']['username'];
-                window.localStorage.phone = data['user']['phone'];
-                window.localStorage.password = data['user']['password'];
-                window.localStorage.state = data['user']['state'];
-                window.localStorage.department = data['user']['department'];
-                window.localStorage.duty = data['user']['duty'];
-                window.localStorage.authority = data['user']['authority'];
-                window.localStorage.detail = data['user']['detail'];
-
-                window.localStorage.authorization = 'nianshao ' + data.token;
-                window.localStorage.time = d.getTime();
-                this.props.history.push('/')
-            })
+        // requestUserLogin(phone,password)
+        //     .then( (data) =>{
+        //         const d = new Date();
+        //
+        //
+        //         window.localStorage.token = data.token;
+        //         window.localStorage.user = data['user'];
+        //         window.localStorage.id = data['user']['id'];
+        //         window.localStorage.username = data['user']['username'];
+        //         window.localStorage.phone = data['user']['phone'];
+        //         window.localStorage.password = data['user']['password'];
+        //         window.localStorage.state = data['user']['state'];
+        //         window.localStorage.department = data['user']['department'];
+        //         window.localStorage.duty = data['user']['duty'];
+        //         window.localStorage.authority = data['user']['authority'];
+        //         window.localStorage.detail = data['user']['detail'];
+        //
+        //         window.localStorage.authorization = 'nianshao ' + data.token;
+        //         window.localStorage.time = d.getTime();
+        //         this.props.history.push('/')
+        //     })
 
         const jsonData = {
             'phone': phone,
@@ -117,16 +121,21 @@ class LoginDemo extends Component {
 
 
     handleChangePhone = (e) => {
-        this.setState({phone: e.target.value});
+        console.log("e")
+        console.log(e.target.value)
+        console.log("e")
+
+        this.props.changePhoneNum(e.target.value);
     };
 
     handleChangePassword = (e) => {
-        this.setState({password: e.target.value});
+
+        this.props.changePasswordNum(e.target.value);
     };
 
 
     render() {
-        const {phone, password} = this.state;
+        const {phone, password} = this.props;
         const {getFieldDecorator} = this.props.form;
         return (
             <div className="login">
@@ -153,6 +162,14 @@ class LoginDemo extends Component {
                         )}
                     </FormItem>
                     <FormItem>
+                        {getFieldDecorator('VerificationCode', {
+                            rules: [{required: true, message: '请输入验证码!'},],
+                        })(
+                            <Input prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}}/>}
+                                   placeholder="请输入验证码"  />
+                        )}
+                    </FormItem>
+                    <FormItem>
                         <Button type="primary" htmlType="submit" className="login-form-button">
                             登录
                         </Button>
@@ -170,5 +187,28 @@ class LoginDemo extends Component {
 
 const WrappedNormalLoginForm = Form.create()(LoginDemo);
 
-export default WrappedNormalLoginForm;
+const mapStateToProps = (state) => {
+    return {
+        date:state.getIn(['login', 'date']),
+        phone:state.getIn(['login', 'phone']),
+        password:state.getIn(['login', 'password']),
+    }
+};
+
+const mapDispathToProps = (dispatch) => {
+    return {
+        setOldData(phone,password){
+            dispatch(actionCreators.getData(phone,password))
+        },
+        changePhoneNum(phoneNum){
+            dispatch(actionCreators.changePhone(phoneNum))
+        },
+        changePasswordNum(passwordNum){
+            dispatch(actionCreators.changePassword(passwordNum))
+        }
+    }//end return
+};
+
+//export default BurnSysOpRe;
+export default connect(mapStateToProps, mapDispathToProps)(WrappedNormalLoginForm);
 

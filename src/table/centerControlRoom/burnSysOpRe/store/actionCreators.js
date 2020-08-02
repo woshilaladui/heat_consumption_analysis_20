@@ -90,9 +90,9 @@ export function saveData(
         requestSaveZhongKongShiData({
             date: date,
             index: index,
-            duty: window.localStorage.duty,
+            departmentId: window.localStorage.department,
             tableName: tableName,
-            authority: window.localStorage.authority,
+            id: window.localStorage.id,
             data: data,
             num: num
         }).then((response) => {

@@ -1,4 +1,4 @@
-
+import moment from 'moment';
 /**
  * @author zm
  * @function 化验室类json中心
@@ -22,24 +22,29 @@ export function getSaveHuaYanShiDataJson(
     {
         date,
         index,
-        department,
-        duty,
+        departmentId,
         tableName,
-        authority,
+        userId,
         data,//为化验室该表的集合数据
         num = 1,//默认提交单行数据
     }
 ) {
     let tempData = [{}];
-
+    let newDate =moment().format("YYYY-MM-DD")
+    // let NewDateNum = moment( date.toString()).format('x')
+    // let newDate =moment(NewDateNum).format("YYYY-MM-DD")
+    // console.log('1111111')
+    // console.log(date.toString())
+    // console.log(NewDateNum)
+    // console.log(newDate)
+    // console.log('1111111')
     if(num === 1){
         tempData = [{
-            date:date,
+            date:newDate,
             index:index,
-            department:department,
-            duty:duty,
+            departmentId:departmentId,
             tableName:tableName,
-            authority:authority,
+            userId:userId,
             data:data[index]['data'].join(',')
         }];
     }else {
@@ -48,12 +53,11 @@ export function getSaveHuaYanShiDataJson(
         for (let i = 0; i < num; i++) {
             if (data[i]['data'].join(',') !== '') {
                 tempData[j] = {
-                    "date": date,
+                    "date": newDate,
                     "index": i,
-                    "department": department,
-                    "duty": duty,
+                    "departmentId": departmentId,
+                    "userId": userId,
                     "tableName": tableName,
-                    "authority": authority,
                     "data": data[i]['data'].join(','),
                 }
                 j++;
@@ -61,7 +65,6 @@ export function getSaveHuaYanShiDataJson(
         }//end for
 
     }
-    return {
-        "data": tempData
-    };
+    return  tempData
+
 }

@@ -1,14 +1,15 @@
 import React from "react";
-import {Layout} from 'antd';
-import Iheader from '../Iheader/Iheader';
-import MainComponent from '../bodys/MainComponent';
+import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import Permission from './permission';
+import Component from  './component'
+
 import { connect } from 'react-redux';
 import * as actionCreators from './store/actionCreators';
 
 
 const {Header, Content, Footer} = Layout;
 
-class Home_app extends React.Component {
+class PermissionHome extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -28,8 +29,8 @@ class Home_app extends React.Component {
     /**判定权限，分配菜单和其他页面的显示**/
     componentWillMount() {
 
-        const {requestFlag,getUserPermission} = this.props;
-
+        // const {requestFlag,getUserPermission} = this.props;
+        //
         // if(requestFlag){
         //     getUserPermission();
         // }
@@ -38,18 +39,13 @@ class Home_app extends React.Component {
 
     render() {
         return (
-            <div>
-                <Layout>
-                    <Header style={{backgroundColor: 'white'}}>
-                        <Iheader choose={this.state.choose_num} onChange={this.onChangeNum.bind(this)}
-                                 display={this.state.display}
+            <div style={{width:'100%',height:'100%',position:'absolute'}}>
+                <Layout style={{height: '100%'}}>
+                        <Permission choose={this.state.choose_num} onChange={this.onChangeNum.bind(this)}
+                                 // display={this.state.display}
                         />
-                    </Header>
-                </Layout>
-                <Layout>
-                    <Content style={{margin: '1% 1% 0 1%', overflow: 'auto', backgroundColor: 'white'}}>
-                        <MainComponent choose={this.state.choose_num}/>
-                    </Content>
+                        <Component choose={this.state.choose_num}/>
+
                 </Layout>
             </div>
         )
@@ -72,5 +68,4 @@ const mapDispathToProps = (dispatch) => {
     }//end return
 }
 
-//export default BurnSysOpRe;
-export default connect(mapStateToProps, mapDispathToProps)(Home_app);
+export default connect(mapStateToProps, mapDispathToProps)(PermissionHome);

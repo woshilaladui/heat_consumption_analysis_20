@@ -21,7 +21,7 @@ export default class Header extends Component {
             window.localStorage.clear();
             this.setState({
                 needLogin: true,
-                showItem: 'true',
+                showItem: 'none',
             })
         }
         else if (window.localStorage.token) {
@@ -82,7 +82,11 @@ export default class Header extends Component {
                     <Menu.Item className='header_menuItem submenu-title-wrapper' key="0">
                         <Icon type="home"/> 首页
                     </Menu.Item>
-
+                    <Menu.Item className='header_menuItem submenu-title-wrapper' key="permission">
+                        <Link to="/permission">
+                        <Icon type="setting"/> 权限控制
+                        </Link>
+                    </Menu.Item>
                     <Menu.Item className='header_menuItem' key="table" style={{display: this.state.showItem}}>
                         <Link to="/table">
                             <Icon type="table"/>表格相关
@@ -91,7 +95,7 @@ export default class Header extends Component {
                     {
                         this.state.needLogin ?
                             <Menu.Item className='header_menuItem' key="login">
-                                <Icon type="login"/>登录<a href="login" rel="noopener noreferrer"/>
+                                <Icon type="login"/>登录<a href="loginV2" rel="noopener noreferrer"/>
                             </Menu.Item> :
                             <Menu.Item className='header_menuItem' key="logout"
                                        onClick={this.handleLogout}>
@@ -101,7 +105,7 @@ export default class Header extends Component {
 
                     <Menu.Item className='header_menuItem' key="people" style={{display: this.state.showItem}}>
                         <Link to="/user">
-                            <Icon type="user"/>{window.localStorage.name}
+                            <Icon type="user"/>{window.localStorage.username}
                         </Link>
 
                     </Menu.Item>

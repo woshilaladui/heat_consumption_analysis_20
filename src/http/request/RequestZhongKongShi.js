@@ -77,12 +77,11 @@ export function requestSaveZhongKongShiData(
     {
         date,
         index,
-        department = Department.DEPARTMENT_HUAYS,
-        duty,
+        departmentId,
         tableName,
-        authority,
+        id,
         data,
-        num
+        num,
     }) {
     return new Promise((resolve, reject) => {
 
@@ -94,10 +93,9 @@ export function requestSaveZhongKongShiData(
                 {
                     date: date,
                     index: index,
-                    department: department,
-                    duty: duty,
+                    departmentId: departmentId,
                     tableName: tableName,
-                    authority: authority,
+                    userId: id,
                     data: data,
                     num: num
                 }
