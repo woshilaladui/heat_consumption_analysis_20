@@ -4,11 +4,14 @@ import './StaffManagement.css';
 import XLSX from 'xlsx';
 import ButtonConfirmationBox from "./components/ButtonConfirmBox";
 
+import * as actionCreators from "../staffManagement/store/actionCreators";
+import {connect} from "react-redux";
+import {deepCopy} from "../../Helper/Copy";
 
 const Option = Select.Option;
 
 
-export default class UserManage extends Component {
+class UserManage extends Component {
     state = {
         Users: [],//用户信息数数组
         isAdmin: false,//是否是管理员(6),默认否
@@ -20,20 +23,34 @@ export default class UserManage extends Component {
 
     /**Model组件控制**start**/
     showModal = (i) => {
-        const users = this.state.Users[i];
-        this.setState({
-            visible: true,
-            number: i,
-            id: users.id,//当前选择修改的员工信息
-            name: users.name,
-            phone: users.phone,
-            state: users.state,
-            department: users.department,
-            section: users.section,
-            type: users.type,
-            NameStyle: {width: 200},
-            PhoneStyle: {width: 200},
-        });
+
+        const {
+            changeUserInformationVisible,
+            userInformationVisible,
+            setUserInformation,
+            user
+        } = this.props;
+
+        changeUserInformationVisible(userInformationVisible);
+
+        let tempUser = deepCopy(user[i]);
+
+        setUserInformation(tempUser);
+
+        // const users = this.state.Users[i];
+        // this.setState({
+        //     visible: true,
+        //     number: i,
+        //     id: users.id,//当前选择修改的员工信息
+        //     name: users.name,
+        //     phone: users.phone,
+        //     state: users.state,
+        //     department: users.department,
+        //     section: users.section,
+        //     type: users.type,
+        //     NameStyle: {width: 200},
+        //     PhoneStyle: {width: 200},
+        // });
     };
     showUserModal = () => {
         this.setState({
@@ -50,7 +67,7 @@ export default class UserManage extends Component {
             newPhoneStyle: {width: 200},
             newPasswordStyle: {width: 200},
         })
-    }
+    };
 
     handleOk = () => {
         this.setState({
@@ -150,9 +167,12 @@ export default class UserManage extends Component {
     };
 
     handleCancel = () => {
-        this.setState({
-            visible: false,
-        });
+        const {
+            changeUserInformationVisible,
+            userInformationVisible
+        } = this.props;
+
+        changeUserInformationVisible(userInformationVisible);
     };
     userHandleCancel = () => {
         this.setState({
@@ -164,6 +184,12 @@ export default class UserManage extends Component {
 
     //判定是否已登录，是否有权限
     componentWillMount() {
+
+        const {setOldData,initTable} = this.props;
+
+        setOldData();
+        initTable();
+
         if (Date() - window.localStorage.time > 12 * 3600 * 1000) {
             //登录超时,返回首页
         }
@@ -180,30 +206,30 @@ export default class UserManage extends Component {
     //查询用户
     componentDidMount() {
         this.setState({loading: true});
-        fetch("/api/UserManage/queryAllUsers", {//查询所有用户
-            method: 'POST',
-            credentials: "include",
-            // body: JSON.stringify(jsonData),
-            headers: {
-                'Content-Type': 'application/json',
-                'authorization': window.localStorage.authorization,
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                if (data['code'] === 0) {//判定是否成功                   
-                    const users = [];
-                    for (let i = 0; i < data['Users'].length; i++) {
-                        users[i] = data['Users'][i]
-                    }
-                    this.setState({
-                        Users: users,
-                        loading: false,
-                    });
-                }
-            })
-            .catch(error => console.error('Error:', error))
+        // fetch("/api/UserManage/queryAllUsers", {//查询所有用户
+        //     method: 'POST',
+        //     credentials: "include",
+        //     // body: JSON.stringify(jsonData),
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'authorization': window.localStorage.authorization,
+        //     }
+        // })
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         console.log(data)
+        //         if (data['code'] === 0) {//判定是否成功
+        //             const users = [];
+        //             for (let i = 0; i < data['Users'].length; i++) {
+        //                 users[i] = data['Users'][i]
+        //             }
+        //             this.setState({
+        //                 Users: users,
+        //                 loading: false,
+        //             });
+        //         }
+        //     })
+        //     .catch(error => console.error('Error:', error))
     }
 
     /**Excel导入**start**/
@@ -229,29 +255,29 @@ export default class UserManage extends Component {
         const jsonData = {
             data: this.state.Excel_Data
         };
-        fetch("/api/Admin_Import", {
-            method: 'POST',
-            credentials: "include",
-            body: JSON.stringify(jsonData),
-            headers: {
-                'Content-Type': 'application/json',
-                'authorization': window.localStorage.authorization,
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data['code'] === 0) {//判定是否成功
-                    message.info('导入成功！');
-                    const users = [];
-                    for (let i = 0; i < data.Users.length; i++) {
-                        users[i] = data.Users[i]
-                    }
-                    this.setState({
-                        Users: users,
-                        loading: false,
-                    });
-                }
-            }).catch(error => console.error('Error:', error))
+        // fetch("/api/Admin_Import", {
+        //     method: 'POST',
+        //     credentials: "include",
+        //     body: JSON.stringify(jsonData),
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'authorization': window.localStorage.authorization,
+        //     }
+        // })
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         if (data['code'] === 0) {//判定是否成功
+        //             message.info('导入成功！');
+        //             const users = [];
+        //             for (let i = 0; i < data.Users.length; i++) {
+        //                 users[i] = data.Users[i]
+        //             }
+        //             this.setState({
+        //                 Users: users,
+        //                 loading: false,
+        //             });
+        //         }
+        //     }).catch(error => console.error('Error:', error))
 
     };
     /**Excel导入**end**/
@@ -377,6 +403,26 @@ export default class UserManage extends Component {
         })
     };
 
+    initTable(){
+
+        let tableDuty = new Array(100);
+
+        tableDuty[0] = '无';
+        tableDuty[1] = '中控室主任';
+        tableDuty[2] = '总工程师';
+        tableDuty[3] = '化验室主任';
+        tableDuty[50] = '中控室操作员';
+        tableDuty[51] = '实地操作员';
+        tableDuty[61] = '化验室荧光分析员';
+        tableDuty[62] = '化验室荧光控制员';
+        tableDuty[71] = '化验室分析员';
+        tableDuty[72] = '化验室物检员';
+
+        return tableDuty;
+
+
+    }
+
 
     render() {
         const columns = [
@@ -397,9 +443,9 @@ export default class UserManage extends Component {
                 width: '14%',
                 dataIndex: 'department',
             }, {
-                title: '科室',
+                title: '职务',
                 width: '14%',
-                dataIndex: 'section',
+                dataIndex: 'duty',
             }, {
                 title: '类型',
                 width: '14%',
@@ -414,21 +460,29 @@ export default class UserManage extends Component {
         const state_List = ['离职', '在岗'];
         const department_List = ['无部门', '化验室', '中控室', '行政部门'];
         const section_List = ['无', '总部', '荧光', '分析', '物检'];
-        const type_List = ['无权限人员', '操作员', '工程师', '主任', '经理'];
-        // 向表格中填入信息
-        for (let i = 0; i < users.length; i++) {
+        const type_List = ['无', '总经理', '部门经理', '员工'];
+
+
+
+        const {user,dutyList,stateList,departmentList,typeList,userInformationVisible,presentUser} = this.props;
+
+
+
+        let User = deepCopy(user);
+
+        for (let i = 0; i < User.length; i++) {
             let disabled = false;//修改框是否能展开，默认能
-            if (!this.state.isAdmin && users[i].type >= 4) {//不是管理员的人，不能变更经理的权限
-                disabled = true;
-            }
+            // if (!this.state.isAdmin && users[i].type >= 4) {//不是管理员的人，不能变更经理的权限
+            //     disabled = true;
+            // }
             data.push(
                 {
-                    name: users[i].name,
-                    phone: users[i].phone,
-                    state: state_List[users[i].state],
-                    department: department_List[users[i].department],
-                    section: section_List[users[i].section],
-                    type: type_List[users[i].type],
+                    name: User[i].username,
+                    phone: User[i].phone,
+                    state: stateList[User[i].state],
+                    department: departmentList[User[i].department],
+                    duty: dutyList[User[i].duty],
+                    type: typeList[User[i].authority],
                     option: <Button type='primary' /*size={"large"}*/ /*htmlType={"button"}*/
                                     style={this.props.buttonStyle} disabled={disabled}
                                     onClick={() => this.showModal(i)}
@@ -454,25 +508,25 @@ export default class UserManage extends Component {
                 </Table>
                 <Modal
                     title='员工管理'
-                    visible={this.state.visible}
+                    visible={userInformationVisible}
                     onOk={this.handleOk}
                     // width='240px'
                     onCancel={this.handleCancel}
                     destroyOnClose={true}
                 >
-                    <div>姓名：<Input value={this.state.name} style={this.state.NameStyle}
+                    <div>姓名：<Input value={presentUser.username} style={{width:200}}
                                    onChange={(e) => this.handleChangeName(e)}/></div>
-                    <div style={{marginTop: 5}}>电话：<Input value={this.state.phone} style={this.state.PhoneStyle}
+                    <div style={{marginTop: 5}}>电话：<Input value={presentUser.phone} style={{width:400}}
                                                           onChange={(e) => this.handleChangePhone(e)}/>
                     </div>
-                    <div style={{marginTop: 5}}>状态：<Select defaultValue={state_List[this.state.state]}
+                    <div style={{marginTop: 5}}>状态：<Select defaultValue={stateList[presentUser.state]}
                                                            style={{width: 120}}
                                                            onChange={(e) => this.handleChangeState(e)}
                         /*disabled={!this.state.isAccess}*/>
                         <Option value={1}>在岗</Option>
                         <Option value={0}>离职</Option>
                     </Select></div>
-                    <div style={{marginTop: 5}}>部门：<Select defaultValue={department_List[this.state.department]}
+                    <div style={{marginTop: 5}}>部门：<Select defaultValue={departmentList[presentUser.department]}
                                                            style={{width: 120}}
                                                            onChange={(e) => this.handleChangeDepartment(e)}>
                         <Option value={0}>无部门</Option>
@@ -480,7 +534,7 @@ export default class UserManage extends Component {
                         <Option value={2}>中控室</Option>
                         <Option value={3}>行政部门</Option>
                     </Select></div>
-                    <div style={{marginTop: 5}}>科室：<Select defaultValue={section_List[this.state.section]}
+                    <div style={{marginTop: 5}}>职务：<Select defaultValue={dutyList[presentUser.duty]}
                                                            style={{width: 120}}
                                                            onChange={(e) => this.handleChangeSection(e)}>
                         <Option value={0}>无</Option>
@@ -489,7 +543,7 @@ export default class UserManage extends Component {
                         <Option value={3}>分析</Option>
                         <Option value={4}>物检</Option>
                     </Select></div>
-                    <div style={{marginTop: 5}}>岗位：<Select defaultValue={type_List[this.state.type]}
+                    <div style={{marginTop: 5}}>岗位：<Select defaultValue={typeList[presentUser.authority]}
                                                            style={{width: 120}}
                                                            onChange={(e) => this.handleChangeType(e)}>
                         <Option value={0}>无权限人员</Option>
@@ -522,7 +576,7 @@ export default class UserManage extends Component {
                                                               this.setState({newPassword: e.target.value})
                                                           }}/>
                     </div>
-                    <div style={{marginTop: 5}}>状态：<Select defaultValue={state_List[this.state.newState]}
+                    <div style={{marginTop: 5}}>状态：<Select defaultValue={stateList[this.state.newState]}
                                                            style={{width: 120}}
                                                            onChange={(e) => {
                                                                this.setState({newState: e})
@@ -531,7 +585,7 @@ export default class UserManage extends Component {
                         <Option value={1}>在岗</Option>
                         <Option value={0}>离职</Option>
                     </Select></div>
-                    <div style={{marginTop: 5}}>部门：<Select defaultValue={department_List[this.state.newDepartment]}
+                    <div style={{marginTop: 5}}>部门：<Select defaultValue={departmentList[this.state.newDepartment]}
                                                            style={{width: 120}}
                                                            onChange={(e) => {
                                                                this.setState({newDepartment: e})
@@ -586,3 +640,62 @@ export default class UserManage extends Component {
 
     }
 }
+//定义映射
+const mapStateToProps = (state) => {
+    return {
+        date:state.getIn(['staffManagement', 'date']),
+        user:state.getIn(['staffManagement', 'user']),
+        presentUser:state.getIn(['staffManagement', 'presentUser']),
+        requestFlag:state.getIn(['staffManagement', 'requestFlag']),
+        person:state.getIn(['staffManagement', 'person']),
+
+        dutyList:state.getIn(['staffManagement', 'dutyList']),
+        stateList:state.getIn(['staffManagement', 'stateList']),
+        departmentList:state.getIn(['staffManagement', 'departmentList']),
+        typeList:state.getIn(['staffManagement', 'typeList']),
+
+        userInformationVisible:state.getIn(['staffManagement', 'userInformationVisible']),
+        userCreateVisible:state.getIn(['staffManagement', 'userCreateVisible']),
+
+    }
+};
+
+const mapDispathToProps = (dispatch) => {
+    return {
+        setOldData(){
+            dispatch(actionCreators.getData())
+
+            //dispatch(actionCreators.updataDuty())
+        },
+        changeUserInformationVisible(userInformationVisible){
+            dispatch(
+                actionCreators.changeDataUserInformationVisible(
+                    userInformationVisible
+                )
+            );
+        },
+
+        changeUserCreateVisible(userCreateVisible){
+
+            dispatch(
+                actionCreators.changeDataUserCreateVisible(
+                    userCreateVisible
+                )
+            );
+
+        },
+
+        setUserInformation(presentUser){
+            dispatch(
+                actionCreators.doSetUserInformation(presentUser)
+            );
+        },
+
+        initTable(){
+
+            dispatch(actionCreators.initTable());
+        }
+    }//end return
+};
+
+export default connect(mapStateToProps, mapDispathToProps)(UserManage);

@@ -11,7 +11,10 @@ const defaultState = fromJS({
     data:[],//用户数据
     roleData:[],//所有的角色数据
     userRoleData:[],//请求该用户的当前角色信息
+    presentUser:{
+    },//当前用户对象
     visible: false,
+    currentUserRoleArr:[],//当前用户角色的id数组
 });
 export default (state = defaultState, action) => {
 
@@ -28,7 +31,20 @@ export default (state = defaultState, action) => {
         case constants.UPDATE_DATA_CURRENT_USER_ROLE:
             return state.merge({
                 'userRoleData': action.data,
+                'currentUserRoleArr':action.newDataArr,
             });
+        case constants.UPDATE_CURRENT_VISIBLE:
+            return state.merge({
+                'visible': action.data,
+            });
+        case constants.UPDATE_PRESENT_USER:
+            return state.merge({
+                'presentUser': action.data,
+            });
+        // case constants.UPDATE_PRESENT_USER:
+        //     return state.merge({
+        //         'presentUser': action.data,
+        //     });
         default:
             return state;
     }

@@ -1,6 +1,6 @@
 import {RequestCenter, RequestCenter_V2} from "../request/RequestCenter"
 import {RequestMethod, URL} from "../constant/Constant";
-import {getUpdateUserInfJson} from "../model/JsonUserCenter";
+import {getUpdateUserInfJson,getRolesJsonData} from "../model/JsonUserCenter";
 import axios from 'axios';
 /**
  * @author zm
@@ -117,6 +117,46 @@ export function requestGetAllUsers_V2(){
             })
             .catch()
     });
+}
+//
+export  function requestSubmitTempRoles(id,rolesArr) {
+    return new Promise((resolve, reject) => {
+
+        RequestCenter_V2({
+            url:URL.REQUEST_SUBMIT_TEMP_ROLES_V2,
+            jsonData:getRolesJsonData(id,rolesArr),
+            flag:RequestMethod.jsonDta,
+        })
+            .then((response) => {
+
+                //直接回传 不进一步解析
+                //TODO 进一步处理数据 requestGetAllUsers
+                resolve(response)
+            })
+            .catch()
+    })
+}
+
+export  function requestSubmitTempUserInfo(id,username,phone) {
+    return new Promise((resolve, reject) => {
+        const formData = new FormData();
+        const time = new Date();
+        formData.set('id', id);
+        formData.set('username', username)
+        formData.set('phone', phone)
+        formData.set('updatedAt', time)
+        RequestCenter_V2({
+            url:URL.REQUEST_SUBMIT_TEMP_USER_INFO_V2,
+            formData:formData
+        })
+            .then((response) => {
+
+                //直接回传 不进一步解析
+                //TODO 进一步处理数据 requestGetAllUsers
+                resolve(response)
+            })
+            .catch()
+    })
 }
 
 export function requestChangeEnabledValue_V2(username,enabledValue){

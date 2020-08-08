@@ -10,6 +10,10 @@ const {Option} = Select;
 
 
 class UserRole extends Component {
+    state={
+        name:'',
+        phone:'',
+    };
     componentDidMount() {
         /**首先查询当前页面是否有历史纪录并赋值formData**/
         const {data, roleData, setOldData, requestFlag, getAllRole} = this.props;
@@ -21,29 +25,17 @@ class UserRole extends Component {
 
     }
 
-    state = {visible: false};
+
     handleModal = () => {
 
     };
 
 
     showConfirm = (Data, i, children) => {
-        {/*<Modal*/}
-        {/* title="Basic Modal"*/}
-        {/*visible={this.state.visible}*/}
-        {/*    onOk={this.handleOk}*/}
-        {/*  onCancel={this.handleCancel}*/}
-        {/* destroyOnClose='true'*/}
-        {/*>*/}
-        {/*<span>用户名<Input value={Data[i].username} /></span>*/}
-        {/*    手机号<Input value={Data[i].phone} />*/}
-        {/*</Modal>*/}
-        {/*this.setState({*/}
-        {/*    visible:true*/}
-        {/*})*/}
+
         let currentUserRoleArr = [];
         const modal = Modal.confirm();
-        const {getFieldDecorator,getFieldValue} = this.props.form;
+        const {getFieldDecorator, getFieldValue} = this.props.form;
 
         this.props.getCurrentUserRole(Data[i].username);
         this.props.userRoleData.map((item, index) => {
@@ -84,7 +76,7 @@ class UserRole extends Component {
                         placeholder="Please select"
                         defaultValue={currentUserRoleArr}
                         // onChange={handleChange}
-                        >
+                    >
                         {children}
                     </Select>,
                 </div>
@@ -93,7 +85,7 @@ class UserRole extends Component {
                 const userName = getFieldValue('username');
                 const userPhone = getFieldValue('phone');
                 console.log('userName')
-                console.log(userName,userPhone)
+                console.log(userName, userPhone)
                 console.log('userName')
                 //调用点击确定时回调的方法
             },
@@ -104,27 +96,35 @@ class UserRole extends Component {
         })
 
 
-
-
     }
-    showModal = (Data, i) => {
+    showModal = (i) => {
+        let currentUserRoleArr = [];
+        const {handelChangeVisible, visible, data, updatePresentUserData} = this.props;
+        handelChangeVisible(visible);
+        const Data = deepCopy(data);
+        updatePresentUserData(Data[i]);
         this.setState({
-            visible: true,
+            name:Data[i].username,
+            phone:Data[i].phone,
         });
+        this.props.getCurrentUserRole(Data[i].username);
+
     };
 
     handleOk = e => {
-        console.log(e);
-        this.setState({
-            visible: false,
-        });
+        // console.log(e);
+
+        const { submitRolesSelect,presentUser, visible,handelChangeVisible,submitTempInfo,data,setOldData,updatePresentUserData} = this.props;
+        handelChangeVisible(visible)
+        submitTempInfo(presentUser.id,this.state.name,this.state.phone)
+        setOldData(deepCopy(data));
+        submitRolesSelect(presentUser.id,this.state.changeSelectValue)
     };
 
     handleCancel = e => {
-        console.log(e);
-        this.setState({
-            visible: false,
-        });
+        // console.log(e);
+        const {handelChangeVisible, visible} = this.props;
+        handelChangeVisible(visible);
     };
 
     handleChangeEnabled = (e, username) => {
@@ -134,10 +134,26 @@ class UserRole extends Component {
             this.props.changeEnabled(username, 1)
         }
 
+    };
+    handleChangePresentUsername = e => {
+        this.setState({
+            name:e.target.value,
+        })
+    };
+    handleChangePresentPhone = e => {
+        this.setState({
+            phone:e.target.value,
+        })
+    };
+    handleChangeSelect = (e) => {
+        console.log('e')
+        console.log(e)
+        console.log('e')
+        this.setState({
+            changeSelectValue:e,
+        })
     }
-
     render() {
-        const {getFieldDecorator} = this.props.form;
         const columns = [
             {
                 title: 'ID',
@@ -165,11 +181,13 @@ class UserRole extends Component {
             },
         ];
         const dataSource = [];
-        const {data} = this.props;
-        const children = [];
-        this.props.roleData.map((item, index) => {
-            children.push(<Option key={item.roleName}>{item.roleName}</Option>);
-        });
+        const {data, presentUser, visible} = this.props;
+        // const children = [];
+        // const {getFieldDecorator, getFieldValue} = this.props.form;
+        // this.props.roleData.map((item, index) => {
+        //     children.push(<Option key={item.id}>{item.roleName}</Option>);
+        // });
+
         const Data = deepCopy(data);
         for (let i = 0; i < Data.length; i++) {
             dataSource.push({
@@ -181,20 +199,9 @@ class UserRole extends Component {
                     onChange={(e) => this.handleChangeEnabled(e, Data[i].username)}
                 />,
                 role: Data[i].departmentId,
-                operation: <div><Button type="primary" onClick={() => this.showConfirm(Data, i, children)}>
+                operation: <div><Button type="primary" onClick={() => this.showModal(i)}>
                     编辑
                 </Button>
-                    {/*<Modal*/}
-                    {/*    title="Basic Modal"*/}
-                    {/*    visible={this.state.visible}*/}
-                    {/*    onOk={this.handleOk}*/}
-                    {/*    onCancel={this.handleCancel}*/}
-                    {/*    destroyOnClose='true'*/}
-                    {/*>*/}
-                    {/*    <span>用户名<Input value={Data[i].username} /></span>*/}
-                    {/*    手机号<Input value={Data[i].phone} />*/}
-
-                    {/*</Modal>*/}
                 </div>
 
             })
@@ -204,6 +211,54 @@ class UserRole extends Component {
                 <Table
                     columns={columns} bordered dataSource={dataSource} pagination={false}
                 />
+                <Modal
+                    title='用户角色管理'
+                    visible={visible}
+                    onOk={this.handleOk}
+                    // width='240px'
+                    onCancel={this.handleCancel}
+                    destroyOnClose={true}
+                >
+                    <div>
+                        用户名
+                        <Input
+                            prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>}
+                            placeholder="请输入注册用户名"
+                            defaultValue={presentUser.username}
+                            onChange={e=>this.handleChangePresentUsername(e)}
+                        />
+                    </div>
+                    <div>手机号
+                        <Input
+                            placeholder="请输入手机号"
+                            defaultValue={presentUser.phone}
+                            onChange={e=>this.handleChangePresentPhone(e)}
+                        />
+                    </div>
+
+                    <p><Icon type='user'/>用户角色选择：</p>
+                    <Select
+                        mode="multiple"
+                        style={{width: '100%'}}
+                        placeholder="Please select"
+                        defaultValue={this.props.currentUserRoleArr}
+                        loading={true}
+                        onChange={this.handleChangeSelect}
+                    >
+                        <Option value={61} key={61}>化验室荧光分析员</Option>
+                        <Option value={62} key={62}>化验室荧光控制员</Option>
+                        <Option value={1} key={1}>中控室主任</Option>
+                        <Option value={2} key={2}>总工程师</Option>
+                        <Option value={3} key={3}>化验室主任</Option>
+                        <Option value={4} key={4}>超级管理员</Option>
+                        <Option value={50} key={50}>中控室操作员</Option>
+                        <Option value={51} key={51}>实地操作员(仅针对手机web版本)</Option>
+                        <Option value={71} key={71}>化验室分析员</Option>
+                        <Option value={72} key={72}>化验室物检员</Option>
+
+
+                    </Select>,
+                </Modal>
             </div>
         );
 
@@ -217,6 +272,9 @@ const mapStateToProps = (state) => {
         requestFlag: state.getIn(['userRole', 'requestFlag']),
         roleData: state.getIn(['userRole', 'roleData']),
         userRoleData: state.getIn(['userRole', 'userRoleData']),
+        visible: state.getIn(['userRole', 'visible']),
+        presentUser: state.getIn(['userRole', 'presentUser']),
+        currentUserRoleArr: state.getIn(['userRole', 'currentUserRoleArr']),
     }
 };
 
@@ -233,6 +291,21 @@ const mapDispatchToProps = (dispatch) => {
         },
         changeEnabled(username, enabledValue) {
             dispatch(actionCreators.changeEnabledValue(username, enabledValue))
+        },
+        handelChangeVisible(visible) {
+            dispatch(actionCreators.ChangeVisible(visible))
+        },
+        updatePresentUserData(presentUserData) {
+            dispatch(actionCreators.updatePresentUserData(presentUserData))
+        },
+        handleChangePresentUsername(presentUsername){
+            dispatch(actionCreators.ChangePresentUsername(presentUsername))
+        },
+        submitTempInfo(id,username,phone) {
+            dispatch(actionCreators.submitTempInfo(id,username,phone))
+        },
+        submitRolesSelect(id,RolesArr){
+            dispatch(actionCreators.submitRolesSelect(id,RolesArr))
         }
     }//end return
 };

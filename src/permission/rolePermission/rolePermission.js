@@ -1,5 +1,5 @@
 import React,{Component} from "react";
-import { Table, Switch } from 'antd';
+import { Table, Switch,Select } from 'antd';
 
 
 
@@ -108,6 +108,7 @@ export default class Permission extends Component{
             const [checkStrictly, setCheckStrictly] = React.useState(false);
             return (
                 <>
+                    CheckStrictly: <Switch checked={checkStrictly} onChange={setCheckStrictly} />
                     <Table
                         columns={columns}
                         rowSelection={{ ...rowSelection, checkStrictly }}

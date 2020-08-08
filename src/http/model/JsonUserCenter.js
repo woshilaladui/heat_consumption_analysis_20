@@ -31,3 +31,18 @@ export function getUpdateUserInfJson(
     };
 
 }
+//
+export function getRolesJsonData(
+    id,
+    rolesArr
+) {
+
+    let tempRoleData = {
+        userId:id,
+        roleIds:rolesArr
+    }
+
+
+    return tempRoleData
+
+}
