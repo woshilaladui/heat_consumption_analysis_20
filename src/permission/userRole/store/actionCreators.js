@@ -7,26 +7,26 @@ import {
     requestSubmitTempUserInfo,
     requestSubmitTempRoles
 } from "../../../http/request/RequestUser";
-import {deepCopy} from "../../../Helper/Copy";
+import { deepCopy } from "../../../Helper/Copy";
 
 import * as constants from "./constants";
-import {message} from "antd";
+import { message } from "antd";
 
 
-export const updateData = ({data}) => ({
+export const updateData = ({ data }) => ({
     type: constants.UPDATE_DATA_USER,
     data: data
 });//
-export const updateRolesData = ({data}) => ({
+export const updateRolesData = ({ data }) => ({
     type: constants.UPDATE_DATA_ROLES,
     data: data
 });
-export const updateCurrentUserRoleData = ({data, newDataArr}) => ({
+export const updateCurrentUserRoleData = ({ data, newDataArr }) => ({
     type: constants.UPDATE_DATA_CURRENT_USER_ROLE,
     data: data,
     newDataArr: newDataArr
 });
-const updateCurrentVisible = ({data}) => ({
+const updateCurrentVisible = ({ data }) => ({
     type: constants.UPDATE_CURRENT_VISIBLE,
     data: data
 });
@@ -44,9 +44,9 @@ export const ChangeVisible = (visible) => {
     return (dispatch) => {
 
         if (visible) {
-            dispatch(updateCurrentVisible({data: false}))
+            dispatch(updateCurrentVisible({ data: false }))
         } else {
-            dispatch(updateCurrentVisible({data: true}))
+            dispatch(updateCurrentVisible({ data: true }))
         }
     }
 }
@@ -176,3 +176,14 @@ export const getCurrentUserRole = (username) => {
 
     }
 };
+
+
+export const setEditItem = item => ({
+    type: constants.SET_PERMISSION_ROLE_ITEM,
+    item
+})
+
+export const updateRoleList = item => ({
+    type: constants.UPDATE_PERMISSION_ROLE_LIST,
+    item
+})
