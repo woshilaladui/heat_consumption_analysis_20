@@ -32,8 +32,10 @@ class PermissionTable extends Component {
           dataSource={permissionList}
           pagination={false}
           bordered={true}
-          defaultExpandAllRows={true}
+          // defaultExpandAllRows={true}
+          defaultExpandedRowKeys={[1]}
           rowSelection={rowSelection}
+          // expandedRowKeys={[1,10]}
         >
           <Column
             title="菜单名称"

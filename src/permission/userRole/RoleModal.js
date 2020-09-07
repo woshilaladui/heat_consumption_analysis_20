@@ -17,8 +17,12 @@ const { Option } = Select
 
 class EditModal extends Component {
   componentDidMount() {
-    this.props.information('editModal', this)
+    // this.props.information('editModal', this)
   }
+//   _information = (key, single) => {
+//     this.single[key] = single
+//   }
+// }
 
   render() {
     const {
@@ -111,7 +115,7 @@ class EditModal extends Component {
 
   _closeModal = () => {
     this.props.handelChangeVisible(true)
-    this._fromEmpty()
+    this._fromEmpty()//清空表单
   }
 
   _saveData = () => {
@@ -124,7 +128,7 @@ class EditModal extends Component {
     } = this.props
     form.validateFields((err, values) => {
       if (err) return
-      console.log("表单数据：", values)
+      console.log("表单数据：",values)
 
       submitTempInfo(editItem.id, values.username, values.phone)
       submitRolesSelect(editItem.id, values.roles)

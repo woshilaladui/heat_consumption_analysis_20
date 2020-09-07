@@ -20,7 +20,7 @@ export default (state = defaultState, action) => {
   switch (action.type) {
     case constants.UPDATE_DATA_USER:
       return {
-        ...state,
+        ...state,//防止覆盖其他reducers函数返回的state
         data: action.data,
         requestFlag: false//切换页面时候不需要刷新数据了（当页面刷新的时候自动初始化为true）
       }
@@ -34,7 +34,7 @@ export default (state = defaultState, action) => {
         ...state,
         userRoleData: action.data,
         currentUserRoleArr: action.newDataArr,
-        visible: true
+        // visible: true
       }
     case constants.UPDATE_CURRENT_VISIBLE:
       return {
@@ -53,7 +53,7 @@ export default (state = defaultState, action) => {
         visible: true
       }
     case constants.UPDATE_PERMISSION_ROLE_LIST:
-      data = state.data
+      data = state.data;//拿到用户数组
       data.forEach(item => {
         if (item.id === action.item.id) {
           {
@@ -65,6 +65,7 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         data: [...data]
+        // data:data
       }
     // case constants.UPDATE_PRESENT_USER:
     //     return state.merge({

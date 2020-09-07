@@ -92,6 +92,7 @@ export function requestGetStandardDataByTableName(
  * @param startValue
  * @param endValue
  * @param reason
+ * @param person
  * @param createdAt
  * @returns {Promise<any>}
  */
@@ -100,7 +101,8 @@ export function requestSetStandard(
     startValue,
     endValue,
     reason,
-    createdAt
+    createdAt,
+    person
 ){
 
 
@@ -113,7 +115,8 @@ export function requestSetStandard(
                 startValue,
                 endValue,
                 reason,
-                createdAt
+                createdAt,
+                person
             ),
             flag:RequestMethod.jsonDta,
         })

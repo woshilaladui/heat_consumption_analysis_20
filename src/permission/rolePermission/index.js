@@ -8,7 +8,7 @@ import {
 } from 'antd'
 import PermissionTable from './PermissionTable'
 
-const { Option } = Select
+const { Option } = Select;
 
 class RolePermission extends Component {
   constructor(props) {

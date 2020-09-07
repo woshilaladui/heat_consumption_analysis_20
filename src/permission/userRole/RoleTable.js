@@ -7,7 +7,7 @@ import {
   Switch,
 } from 'antd'
 
-const { Column } = Table
+const { Column } = Table;
 
 class RoleTable extends Component {
   componentDidMount() {
@@ -18,6 +18,7 @@ class RoleTable extends Component {
     const { data } = this.props
     return (
       <div>
+
         <Table
           rowKey="id"
           dataSource={data}
@@ -39,12 +40,13 @@ class RoleTable extends Component {
           <Column
             title="用户状态"
             dataIndex="enabled"
-            render={(text, record) => (
+            render={(text, record) =>
+              (
               <Switch
                 checkedChildren="启用"
                 unCheckedChildren="禁用"
-                checked={record.enabled === 0 ? true : false}
-                onChange={e => this.props.changeEnabled(e, record.username)}
+                checked={record.enabled === 1 ? true : false}
+                onChange={e => this.props.changeEnabled(record.username,e )}
               />
             )}
           />
@@ -58,7 +60,7 @@ class RoleTable extends Component {
             render={(text, record) => (
               <Button
                 type="primary"
-                onClick={() => this._editItem(record)}
+                onClick={() => this._editItem(record,text)}
               >
                 编辑
               </Button>
@@ -74,7 +76,8 @@ class RoleTable extends Component {
     this.props.setOldData()
   }
 
-  _editItem = item => {
+  _editItem = (item,test) => {
+
     this.props.setEditItem(item)
     this.props.getCurrentUserRole(item.username)
   }
@@ -107,6 +110,6 @@ const mapDispatch = dispatch => ({
 export default connect(
   mapState,
   mapDispatch,
-  null,
-  { forwardRef: true }
+  // null,
+  // { forwardRef: true }
 )(RoleTable)

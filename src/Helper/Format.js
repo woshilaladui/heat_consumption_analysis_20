@@ -98,22 +98,27 @@ export function StandardFormat(
     responseData,
 ) {
 
-    let arr_startValue = [], arr_endValue = [];
+    if (responseData) {
+        let arr_startValue = [], arr_endValue = [];
+        let str_startValue = responseData["startValue"].split(',');
+        let str_endValue = responseData["endValue"].split(',');
+        let str_reason = responseData["reason"].split(',');
 
-    let str_startValue = responseData["standards"]["startValue"].split(',');
-    let str_endValue = responseData["standards"]["endValue"].split(',');
-    let str_reason = responseData["standards"]["reason"].split(',');
-
-    for (let i = 0; i < str_startValue.length; i++)
-        arr_startValue[i] = parseFloat(str_startValue[i]);
+        for (let i = 0; i < str_startValue.length; i++)
+            arr_startValue[i] = parseFloat(str_startValue[i]);
 
 
-    for (let i = 0; i < str_endValue.length; i++)
-        arr_endValue[i] = parseFloat(str_endValue[i]);
+        for (let i = 0; i < str_endValue.length; i++)
+            arr_endValue[i] = parseFloat(str_endValue[i]);
 
-    let username =  responseData["standards"]["username"]
+        let username = responseData["username"]
+        return [ arr_startValue, arr_endValue,str_reason,username]
+    }
+    else {
+        return [ [], [],[],'']
+    }
 
-    return [ arr_startValue, arr_endValue,str_reason,username]
+
 }
 
 export function updateOperator(

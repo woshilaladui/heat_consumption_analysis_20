@@ -54,7 +54,7 @@ export const ChangeVisible = (visible) => {
 
 export const submitRolesSelect = (id, rolesArr) => {
     return (dispatch) => {
-        requestSubmitTempRoles()
+        requestSubmitTempRoles(id, rolesArr)
             .then((response) => {
                 if (response['code'] === 0) {
                     message.info(response.msg)
@@ -103,7 +103,9 @@ export const getData = (data) => {
 export const changeEnabledValue = (username, enabledValue) => {
 
     return (dispatch) => {
-        requestChangeEnabledValue_V2(username, enabledValue)
+
+        const testEnabledValue =(enabledValue===true?0:1);
+        requestChangeEnabledValue_V2(username, testEnabledValue)
             .then((response) => {
                 if (response['code'] === 0) {
                     requestGetAllUsers_V2()

@@ -11,7 +11,7 @@ class Iheader extends Component {
         super(props);
         this.state = {
             //display: ['none','none','none','none','none','none','none'],
-            display: ['', '', '', '', '', '', '','',''],
+            display: ['', '', '', '', '', '', '',''],
             choose_num: 0,
             CompanyName: '临城中联福石水泥有限公司',
         };
@@ -20,13 +20,28 @@ class Iheader extends Component {
     onChangeKey = (e) => {
         this.props.onChange(e.key);
     };
+    componentDidMount() {
+        switch(window.localStorage.department){
+            case '1':
+                this.setState({
+                    display: ['', 'none', '', '', '', 'none', '','none']
+                });
+                break;
+            case '2':{
+                this.setState({
+                    display: ['', '', 'none', 'none', 'none', 'none', '','none']
+                });
+            }
+        }
+
+    }
 
     componentWillReceiveProps(nextProps){ //接受初始display
 
-        this.setState({
-            display: nextProps.display,
-
-        })
+        // this.setState({
+        //     display: nextProps.display,
+        //
+        // })
     }
     //     fetch('/api/info', {
     //         method: 'post',
@@ -130,6 +145,7 @@ class Iheader extends Component {
 
 
         const {pageDisplay} = this.props;
+        const {display} = this.state;
 
         return (
             <div className='iheader'>
@@ -150,13 +166,13 @@ class Iheader extends Component {
                     <Menu.Item ><a href='/'>返回首页</a>
                     </Menu.Item>
                     <Menu.Item className='header_menuItem submenu-title-wrapper' key="0"
-                               style={{display: pageDisplay[0]}}>
+                               style={{display: display[0]}}>
                         <Icon type="eye"/> 查看表单
                     </Menu.Item>
 
                     <SubMenu
                         key='sub1'
-                        style={{display: pageDisplay[1]}}
+                        style={{display: display[1]}}
                         title={<span className="submenu-title-wrapper"><Icon type="experiment"/>中控室表格</span>}>
                         <Menu.Item className='header_menuItem' key="1">
                             烧成系统运行记录
@@ -189,7 +205,7 @@ class Iheader extends Component {
                     </SubMenu>
                     <SubMenu
                         key='sub2'
-                        style={{display: pageDisplay[2]}}
+                        style={{display: display[2]}}
                         title={<span className="submenu-title-wrapper"><Icon type="database"/>荧光分析表格</span>}>
                         <Menu.Item className='header_menuItem' key="10">
                             石灰石进厂原材料化学分析报告单
@@ -236,7 +252,7 @@ class Iheader extends Component {
                     </SubMenu>
                     <SubMenu
                         key='sub3'
-                        style={{display: pageDisplay[3]}}
+                        style={{display: display[3]}}
                         title={<span className="submenu-title-wrapper"><Icon type="database"/>分析表格</span>}>
                         <Menu.Item className='header_menuItem' key="24">
                             石灰石原材料分析原始记录
@@ -283,7 +299,7 @@ class Iheader extends Component {
                     </SubMenu>
                     <SubMenu
                         key='sub4'
-                        style={{display: pageDisplay[4]}}
+                        style={{display: display[4]}}
                         title={<span className="submenu-title-wrapper"><Icon type="database"/>化验室表格</span>}>
                         <Menu.Item className='header_menuItem' key="38">
                             化验室日报
@@ -300,7 +316,7 @@ class Iheader extends Component {
                     </SubMenu>
                     <SubMenu
                         key='sub5'
-                        style={{display: pageDisplay[7]}}
+                        style={{display: display[5]}}
                         title={<span className="submenu-title-wrapper"><Icon type="database"/>电量表格</span>}
                     >
                         <Menu.Item className="header_menuItem" key="44">
@@ -310,13 +326,13 @@ class Iheader extends Component {
                             35KW表
                         </Menu.Item>
                     </SubMenu>
-                    <Menu.Item className='header_menuItem' key="42" style={{display: pageDisplay[5]}}>
+                    <Menu.Item className='header_menuItem' key="42" style={{display: display[6]}}>
                         <Icon type="setting"/>设置合格标准
                     </Menu.Item>
-                    <Menu.Item className='header_menuItem' key="43" style={{display:pageDisplay[6]}}>
-                        <Icon type="team"/>员工管理
-                    </Menu.Item>
-                    <Menu.Item className='header_menuItem' key="46" style={{display:pageDisplay[8]}}>
+                    {/*<Menu.Item className='header_menuItem' key="43" style={{display:pageDisplay[6]}}>*/}
+                    {/*    <Icon type="team"/>员工管理*/}
+                    {/*</Menu.Item>*/}
+                    <Menu.Item className='header_menuItem' key="46" style={{display:display[7]}}>
                         <Icon type="team"/>日志
                     </Menu.Item>
                 </Menu>

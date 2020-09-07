@@ -15,6 +15,9 @@ export default class Header extends Component {
     }
 
     componentDidMount = () => {
+        console.log('home')
+        console.log((document.cookie).toString())
+        console.log('home')
         const d = new Date();
         const time = parseInt((d.getTime() - window.localStorage.time) / 60000);
         if (time > 720) {
@@ -82,7 +85,7 @@ export default class Header extends Component {
                     <Menu.Item className='header_menuItem submenu-title-wrapper' key="0">
                         <Icon type="home"/> 首页
                     </Menu.Item>
-                    <Menu.Item className='header_menuItem submenu-title-wrapper' key="permission">
+                    <Menu.Item className='header_menuItem submenu-title-wrapper' key="permission" style={{display: this.state.showItem}}>
                         <Link to="/permission">
                         <Icon type="setting"/> 权限控制
                         </Link>
