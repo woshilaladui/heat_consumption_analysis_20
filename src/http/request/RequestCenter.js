@@ -132,9 +132,10 @@ export function RequestCenter_V2(
                 headers: {
                     //"Content-Type": "application/json",
                     'JWTHeaderName':window.localStorage.token,
-                    'authorization': window.localStorage.authorization,//携带token
-                    "Cookie": document.cookie
+                    // 'authorization': window.localStorage.authorization,//携带token
+                    // "Cookie": document.cookie
                     // "Cookie": "SESSION=YzMzNzliZTQtMTU2ZS00NjZkLTkzNzctMThkYzE4NGIyODQ0"
+
                 }
             })
                 .then(res =>{
