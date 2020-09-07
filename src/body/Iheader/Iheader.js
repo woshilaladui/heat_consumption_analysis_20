@@ -15,7 +15,7 @@ class Iheader extends Component {
             choose_num: 0,
             CompanyName: '临城中联福石水泥有限公司',
         };
-    }
+    } 
 
     onChangeKey = (e) => {
         this.props.onChange(e.key);
