@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import '../body/bodys/MainComponent.css';
 import {Layout} from 'antd';
 import UserRole from './userRole/userRole';
-import RolePermission from './rolePermission/rolePermission'
+import RolePermission from './rolePermission'
 
 
 const {Header, Content, Footer} = Layout;

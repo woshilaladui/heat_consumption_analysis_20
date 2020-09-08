@@ -58,6 +58,7 @@ import { reducer as loginReducer } from '../login/store';
 import {reducer as loginV2Reducer} from '../login_v2/store'
 import {reducer as permissionReducer} from '../permission/store'
 import {reducer as userRoleReducer} from '../permission/userRole/store'
+import {reducer as rolePermissionReducer} from '../permission/rolePermission/store'
 
 
 const reducer = combineReducers({
@@ -119,6 +120,7 @@ const reducer = combineReducers({
 	loginV2:loginV2Reducer,//登陆2版本
 	permission:permissionReducer,//用户权限控制
 	userRole: userRoleReducer,//用户角色控制
+	rolePermission: rolePermissionReducer,
 });
 
 export default reducer;

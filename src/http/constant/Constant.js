@@ -13,6 +13,7 @@ const RequestMethod = {
 const URL={
 /*****************************************版本2******************************************/
     REQUEST_SUBMIT_TEMP_ROLES_V2: Service.ROOT_URL_V2+"/sys/userRole/setUserRoles",//更新用户角色
+    REQUEST_SAVE_PERMISSION_V2: Service.ROOT_URL_V2+"/sys/permission/setPermissionByPermissionIds",//保存角色权限
     REQUEST_SUBMIT_TEMP_USER_INFO_V2: Service.ROOT_URL_V2+"/sys/user/updateUser",//更新用户基本信息
     REQUEST_ENABLED_VALUE_V2: Service.ROOT_URL_V2+"/sys/user/lockUser",//锁定用户
     REQUEST_VERIFICATION_V2: Service.ROOT_URL_V2+"/verification",//获取验证码
@@ -74,7 +75,7 @@ const URL={
     REQUEST_GET_STANDARDS_DATA_BY_TABLENAME:Service.ROOT_URL + "/standard/getStandardsDataByTableName",
 
     //通过表名获取当前表下最新的标准
-    REQUEST_GET_STANDARD_DATA_BY_TABLENAME:Service.ROOT_URL + "/standard/getStandardsDataByTableName",
+    REQUEST_GET_STANDARD_DATA_BY_TABLENAME:Service.ROOT_URL + "/standard/getStandardDataByTableName",
 
     //设置标准
     REQUEST_SET_STANDARD:Service.ROOT_URL + "/standard/setStandard",

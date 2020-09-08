@@ -11,7 +11,7 @@ const defaultState = fromJS({
     permission:[//定义该页面的数据模板
         {permission: []},
     ],
-    pageDisplay: ['', '', '', '', '', '', '']//定义页面展现效果
+    pageDisplay: ['', '', '', '', '', '', '','']//定义页面展现效果
 
 });
 export default (state = defaultState, action) => {

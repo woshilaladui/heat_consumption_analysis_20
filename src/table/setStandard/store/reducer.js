@@ -57,6 +57,8 @@ export default (state = defaultState, action) => {
                 oldEndValue: action.oldEndValue,
                 oldReason: action.oldReason,
                 oldUsername:action.oldUsername,
+                newStartValue:action.newStartValue,
+                newEndValue:action.newEndValue,
                 requestFlag: false
             });
         case constants.UPDATE_DATA_NEW_STANDARD:
