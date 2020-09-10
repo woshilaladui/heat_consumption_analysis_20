@@ -73,6 +73,12 @@ class UpperForm extends Component {
 
     /**点击暂存之后上传当前行的数据到后台**end**/
     render() {
+
+        Input.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { } : {opacity:"1",color:"black"},
+        }
+
         /**表头的设计**start**/
             // const columns = [
             //     {
@@ -652,6 +658,7 @@ const mapStateToProps = (state) => {
         tableName: state.getIn(['centralControlDaRe', 'tableName']),
         allTime: state.getIn(['centralControlDaRe', 'allTime']),
         LX: state.getIn(['centralControlDaRe', 'LX']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 }
 

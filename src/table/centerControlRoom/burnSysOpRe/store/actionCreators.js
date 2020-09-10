@@ -56,7 +56,7 @@ export const getData = (date, tableName, data) => {
 
                 //解析处理数据
                 let newData = deepCopy(response['data'])
-
+                
                 let result = ZhongKongShiFormat(
                     data,
                     newData,
@@ -66,6 +66,7 @@ export const getData = (date, tableName, data) => {
                 dispatch(updateData({//将获取到的数据进行转发
                     data: result
                 }));
+            
             }
 
 

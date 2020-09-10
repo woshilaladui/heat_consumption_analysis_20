@@ -42,6 +42,9 @@ import SMIndusAnaOriRe from '../../table/analysisTable/SMIndusAnaOriRe/SMIndusAn
 import MFIndusAnaOriRe from '../../table/analysisTable/MFIndusAnaOriRe/MFIndusAnaOriRe';
 
 
+import { connect } from 'react-redux';
+import * as actionCreators from './store/actionCreators';
+
 const Option = Select.Option;
 const biaoge_list = [
     '烧成系统运行记录', '煤磨系统运行记录', '生料磨系统运行记录', '脱销系统运行记录', '出磨生料荧光分析及配比记录',
@@ -58,23 +61,7 @@ const biaoge_list = [
     '化验室日报', '化验室周报', '化验室月报', '化验室年报',
 ];
 
-export default class SearchTable extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            selectValue: '0',//表格选项
-            date: moment().format("YYYY-MM-DD"),//查表日期
-            timeChose: 0,//班次
-            upperData: [{'t_data': []}, {'t_data': []}, {'t_data': []}, {'t_data': []},
-                {'t_data': []}, {'t_data': []}, {'t_data': []}, {'t_data': []},
-                {'t_data': []}, {'t_data': []}, {'t_data': []}, {'t_data': []},
-                {'t_data': []}, {'t_data': []}, {'t_data': []}, {'t_data': []},
-                {'t_data': []}, {'t_data': []}, {'t_data': []}, {'t_data': []},
-                {'t_data': []}, {'t_data': []}, {'t_data': []}, {'t_data': []},],
-            bottomData: [[[], [], [], [], [],], [[], [], [], [], [],], [[], [], [], [], [],],],//页面下半部分的数据
-            person: '',//传入的值班人员
-            startValue: [null, null, null, null, null, null, null, null, null],//从数据库获取的标准
-            table_Choose: [
+const table_Choose = [
                 //0-8是中控室
                 <BurnSysOpRe/>,
                 <CoalSysOpRe/>,
@@ -112,7 +99,24 @@ export default class SearchTable extends Component {
                 <JCMoCoCoMa/>,//31
                 <SMIndusAnaOriRe/>,//32
                 <MFIndusAnaOriRe/>,//33
-            ],
+];
+
+class SearchTable extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectValue: '0',//表格选项
+            //date: moment().format("YYYY-MM-DD"),//查表日期
+            timeChose: 0,//班次
+            upperData: [{'t_data': []}, {'t_data': []}, {'t_data': []}, {'t_data': []},
+                {'t_data': []}, {'t_data': []}, {'t_data': []}, {'t_data': []},
+                {'t_data': []}, {'t_data': []}, {'t_data': []}, {'t_data': []},
+                {'t_data': []}, {'t_data': []}, {'t_data': []}, {'t_data': []},
+                {'t_data': []}, {'t_data': []}, {'t_data': []}, {'t_data': []},
+                {'t_data': []}, {'t_data': []}, {'t_data': []}, {'t_data': []},],
+            bottomData: [[[], [], [], [], [],], [[], [], [], [], [],], [[], [], [], [], [],],],//页面下半部分的数据
+            person: '',//传入的值班人员
+            startValue: [null, null, null, null, null, null, null, null, null],//从数据库获取的标准
             table_Display: new Array(34).fill('none'),//控制表格的显示，默认全不显示
             t_name_Display: [],//控制表格下拉框中 中控室表格是否显示
             print_dis: 'none',//控制打印按钮是否显示,默认不显示
@@ -149,6 +153,10 @@ export default class SearchTable extends Component {
         //     .catch(error => console.error('Error:', error))
     }
 
+    componentWillUnmount(){
+        this.props.changeSearchFlag(true);
+        this.props.changeSearchTime(moment().format("YYYY-MM-DD"));
+    }
 
     //选择表格类型
     handleChange = (value) => {
@@ -158,15 +166,6 @@ export default class SearchTable extends Component {
         // this.setVisibility(value);
     };
 
-    //选择时间范围
-    handleChangeTime = (e) => {
-        if (!e) {
-            return;
-        }
-        this.setState({
-            date: e.format("YYYY-MM-DD"),
-        })
-    };
     //修改班次
     handleTimeChange = (e) => {
         const x = parseInt(e);
@@ -186,8 +185,8 @@ export default class SearchTable extends Component {
     //提交按钮事件
     handleQuery = () => {
         const {selectValue} = this.state
-        const date = this.state.date;
         this.setVisibility(selectValue);//改变表格显示状态
+        this.props.changeSearchFlag(false);
     };
 
     handlePrint = () => {
@@ -198,7 +197,7 @@ export default class SearchTable extends Component {
     };
 
     render() {
-        const {t_name_Display} = this.state
+        const {t_name_Display} = this.state;
         return (
             <div className='search' style={{padding: '1%'}}>
                 <div className='search_head'>
@@ -250,31 +249,23 @@ export default class SearchTable extends Component {
 
                     <span>请选择日期：</span>
                     <DatePicker
-                        // showTime
-                        defaultValue={moment(this.state.date)}
+                        defaultValue={moment(this.props.date)}
                         format="YYYY-MM-DD"
                         placeholder='选择日期'
-                        onChange={this.handleChangeTime}
+                        /*onChange={this.handleChangeTime}*/
+                        onChange={this.props.handleChangeTime}
                         // onOk={this.handleChangeTime}
                         style={{margin: '10px'}}
                     />
-                    {/*选择班次：<Select defaultValue='0' onChange={this.handleTimeChange} style={{margin: '10px'}}>*/}
-                    {/*<Option value="0">0点班</Option>*/}
-                    {/*<Option value="1">8点班</Option>*/}
-                    {/*<Option value="2">16点班</Option>*/}
-                    {/*</Select>*/}
                     <Button type="primary" style={{margin: '10px'}} onClick={this.handleQuery}>查询</Button>
 
                     <Divider/>
                 </div>
                 <div className='chakan_body'>
-                    {/*<BurnSysOpRe style={{display: 'none'}} date={this.state.date}*/}
-                    {/*timeChose={this.state.timeChose} standard={this.state.standard}*/}
-                    {/*upperData={this.state.upperData} person={this.state.person} title={biaoge_list[0]}/>*/}
                     <section
                         style={{display: this.state.table_Display[this.state.selectValue]}}
                     >
-                        <RawMatCheAnaRe date={this.state.date}/>
+                        {table_Choose[this.state.selectValue]}
                     </section>
                 </div>
             </div>
@@ -283,3 +274,32 @@ export default class SearchTable extends Component {
 
     }
 }
+
+//定义映射
+const mapStateToProps = (state) => {
+    return {
+        date:state.getIn(['serachTable', 'date']),
+    }
+};
+
+const mapDispathToProps = (dispatch) => {
+    return {
+        handleChangeTime(e){
+            if (!e) {
+                return;
+            }
+            dispatch(actionCreators.changeSearchTime(e.format("YYYY-MM-DD")));
+        },
+
+        changeSearchFlag(flag){
+            dispatch(actionCreators.changeSearchFlag(flag));   
+        },
+
+        changeSearchTime(date){
+            dispatch(actionCreators.changeSearchTime(date));
+        }
+    }//end return
+};
+
+//export default SearchTable;
+export default connect(mapStateToProps, mapDispathToProps)(SearchTable);

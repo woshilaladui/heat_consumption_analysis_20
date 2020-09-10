@@ -25,6 +25,12 @@ class Remark extends Component {
         const Data = deepCopy(data);
 
         const index = 6+ timeChose*7;
+
+        TextArea.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { resize: "none" } : {opacity:"1",color:"black",resize: "none"},
+        }
+
         return (
             <div className='remark'>
                 <span><TextArea
@@ -32,9 +38,10 @@ class Remark extends Component {
                     placeholder="记录情况"
                     value={Data[index]['data'][0]}
                     onChange={event => this.handleChangeTextAreaTest(event.target.value, index, 0)}
-                    style={{
+                    /*style={{
                         resize: "none"
-                    }}/>
+                    }}*/
+                    />
                 </span>
             </div>
         )
@@ -52,7 +59,7 @@ const mapStateToProps = (state) => {
         requestFlag:state.getIn(['onlineAutoDetOpRe', 'requestFlag']),
         person:state.getIn(['onlineAutoDetOpRe', 'person']),
         tableName:state.getIn(['onlineAutoDetOpRe', 'tableName']),
-
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
 
     }
 };

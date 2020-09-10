@@ -75,6 +75,12 @@ class UpperForm extends Component {
 
     /**点击暂存之后上传当前行的数据到后台**end**/
     render() {
+
+        Input.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { } : {opacity:"1", color:"black"}, 
+        }
+
         /**表头的设计**start**/
         const columns = [
             {
@@ -776,7 +782,6 @@ class UpperForm extends Component {
         const dataSource = [];
         const {data, timeChose, person, allTime} = this.props;
 
-
         const Data = deepCopy(data)
 
 
@@ -1382,6 +1387,7 @@ const mapStateToProps = (state) => {
         person: state.getIn(['burnSysOpRe', 'person']),
         tableName: state.getIn(['burnSysOpRe', 'tableName']),
         allTime: state.getIn(['burnSysOpRe', 'allTime']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 }
 

@@ -65,6 +65,10 @@ class UpperPartOfTheForm extends Component {
     /**点击暂存之后上传当前行的数据到后台**end**/
 
     render() {
+        Input.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { } : {opacity:"1",color:"black"},
+        }
         /**表头的设计**start**/
         const columns_tab1 = [
             {
@@ -585,6 +589,7 @@ const mapStateToProps = (state) => {
         requestFlag:state.getIn(['coalSysOpRe', 'requestFlag']),
         person:state.getIn(['coalSysOpRe', 'person']),
         tableName:state.getIn(['coalSysOpRe', 'tableName']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 }
 

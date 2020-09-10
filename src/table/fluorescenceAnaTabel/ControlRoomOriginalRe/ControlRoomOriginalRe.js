@@ -98,6 +98,33 @@ class CMRawMatCheAnaRe extends Component {
         // }
     }
 
+    componentWillReceiveProps(nextProps){
+        const oldSearchDate = this.props.searchdate; //旧的props
+        const { tableName, setOldData, searchdate } = nextProps; //新的props
+
+        const modelData = [
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []},//均值 比值 合格率
+            {data: []}, {data: []}, {data: []}, {data: []},//下表数据
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+        ]
+
+        if(oldSearchDate != searchdate){
+            setOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        }
+    }
+
     // componentDidMount() {
     //     /**首先查询当前页面是否有历史纪录并赋值formData**/
     //
@@ -219,11 +246,7 @@ class CMRawMatCheAnaRe extends Component {
                         display: "inline-block"
                     }}
                 >
-                    <ButtonConfirmationBox
-                        // type="primary"
-                        // buttonText="提交"
-                        // action={this.handleSubmit}
-                    />
+                    {this.props.searchFlag ? (<ButtonConfirmationBox />) : null}
                 </div>
             </Fragment>
         );
@@ -240,6 +263,8 @@ const mapStateToProps = (state) => {
         tableName:state.getIn(['ControlRoomOriginalRe', 'tableName']),
         startValue: state.getIn(['ControlRoomOriginalRe', 'startValue']),
         endValue: state.getIn(['ControlRoomOriginalRe', 'endValue']),
+        searchdate:state.getIn(['searchTable', 'date']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 }
 

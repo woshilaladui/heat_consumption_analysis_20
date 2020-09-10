@@ -1,6 +1,6 @@
 {
   "name": "rhfx",
-  "proxy": "http://101.200.149。190:80",
+  "proxy": "http://101.200.149.190:80",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

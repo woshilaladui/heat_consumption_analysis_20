@@ -6,6 +6,9 @@ import Remark from './component/Remark';
 import * as actionCreators from "../ruYSLYGFXJL/store/actionCreators";
 import {connect} from "react-redux";
 import {deepCopy} from "../../../Helper/Copy";
+
+import moment from 'moment';
+
 //入窑生料荧光分析及检测记录
 class RuYSLYGFXJL extends Component{
 

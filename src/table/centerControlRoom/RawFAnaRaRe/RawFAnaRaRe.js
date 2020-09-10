@@ -8,6 +8,8 @@ import * as actionCreators from "../RawFAnaRaRe/store/actionCreators";
 import {connect} from "react-redux";
 import {deepCopy} from "../../../Helper/Copy";
 
+import moment from 'moment';
+
 //出磨生料荧光分析及配比记录
 class RuYaoSLYCLHXFXBGD extends Component {
 
@@ -52,6 +54,17 @@ class RuYaoSLYCLHXFXBGD extends Component {
 
     }
 
+    componentWillReceiveProps(nextProps){
+        const oldSearchDate = this.props.searchdate; //旧的props
+        const { tableName, setOldData, searchdate } = nextProps; //新的props
+
+        /*const modelData = 
+
+        if(oldSearchDate != searchdate){
+            setOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        }*/
+    }
+
     render() {
 
         return (
@@ -79,7 +92,7 @@ class RuYaoSLYCLHXFXBGD extends Component {
                         display: "inline-block"
                     }}
                 >
-                    <ButtonConfirmationBox/>
+                    {this.props.searchFlag ? (<ButtonConfirmationBox />) : null}
                 </div>
             </Fragment>
         );
@@ -100,6 +113,8 @@ const mapStateToProps = (state) => {
         endValue: state.getIn(['RawFAnaRaRe', 'endValue']),
         person:state.getIn(['RawFAnaRaRe', 'person']),
         tableName:state.getIn(['RawFAnaRaRe', 'tableName']),
+        searchdate:state.getIn(['searchTable', 'date']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
 
     }
 };

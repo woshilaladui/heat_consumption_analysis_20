@@ -7,6 +7,9 @@ import "antd/dist/antd.css";
 import * as actionCreators from "../../fluorescenceAnaTabel/RawMatCheAnaRe/store/actionCreators";
 import {connect} from "react-redux";
 import {deepCopy} from "../../../Helper/Copy";
+
+import moment from 'moment';
+
 // 进厂原材料分析化学报告单（石灰石）
 class RuYaoSLYCLHXFXBGD extends Component {
 
@@ -36,9 +39,31 @@ class RuYaoSLYCLHXFXBGD extends Component {
     }
 
     //如果被查询表单调用，修改date
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps){
+        const oldSearchDate = this.props.searchdate; //旧的props
+        const { tableName, setOldData, searchdate } = nextProps; //新的props
 
+        const modelData = [//定义该页面的数据模板 30
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},//0-7小时 0-7行
+            {data: []},//0点班的平均
+            {data: []},//0点班的合格率
 
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},//8-15小时 12-19行
+            {data: []},//8点班的平均
+            {data: []},//8点班的合格率
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},//16-23小时 24-31行
+            {data: []},//16点班的平均
+            {data: []},//16点班的合格率
+
+        ]
+
+        if(oldSearchDate != searchdate){
+            setOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        }
     }
 
 
@@ -89,11 +114,16 @@ class RuYaoSLYCLHXFXBGD extends Component {
                         display: "inline-block"
                     }}
                 >
-                    <ButtonConfirmationBox
-                        type="primary"
-                        buttonText="提交"
-                        action={this.handleSubmit}
-                    />
+                {
+                    this.props.searchFlag ? 
+                    (
+                        <ButtonConfirmationBox 
+                            type="primary"
+                            buttonText="提交"
+                            action={this.handleSubmit}
+                        />
+                    ) : null
+                }
                 </div>
             </Fragment>
         );
@@ -109,6 +139,8 @@ const mapStateToProps = (state) => {
         requestFlag:state.getIn(['RawMatCheAnaRe', 'requestFlag']),
         person:state.getIn(['RawMatCheAnaRe', 'person']),
         tableName:state.getIn(['RawMatCheAnaRe', 'tableName']),
+        searchdate:state.getIn(['searchTable', 'date']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 };
 
