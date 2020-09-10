@@ -177,7 +177,6 @@ class StandardForm extends Component {
         } = this.props;
         const AllItem = deepCopy(allItem);
 
-
         /**表格数据输入**/
         for (let i = 0; i < AllItem[tableChose].length; i++) {
 

@@ -9,6 +9,7 @@ import Reg from "../reg/reg";
 import Test from "../table/centerControlRoom/burnSysOpRe/component/test"
 import Test2 from "../table/centerControlRoom/burnSysOpRe/component/test2"
 import PermissionHome from '../permission/permission_home'
+import Tser from '../../src/permission/rolePermission/ts'
 import {Radio} from "antd";
 
 export default class AppRouter extends Component {
@@ -29,6 +30,7 @@ export default class AppRouter extends Component {
                     <Route path="/permission" component={PermissionHome}/>
                     <Route path="/test" component={Test}/>
                     <Route path="/test2" component={Test2}/>
+                    <Route path='/ts' component={Tser}/>
 
 
                     {/* <Route path="/login" component={Login}/>

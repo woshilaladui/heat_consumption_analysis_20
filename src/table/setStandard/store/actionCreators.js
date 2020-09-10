@@ -42,7 +42,9 @@ export const updateOldData = (oldStartValue,oldEndValue,oldReason,oldUsername) =
     oldStartValue: oldStartValue,
     oldEndValue:oldEndValue,
     oldReason:oldReason,
-    oldUsername:oldUsername
+    oldUsername:oldUsername,
+    newStartValue: oldStartValue,
+    newEndValue:oldEndValue,
 });
 
 export const updateNewStartValue = (newStartValue) => ({
@@ -127,7 +129,8 @@ export function saveData(
             request_startValue,
             request_endValue,
             request_reason,
-            createdAt
+            createdAt,
+            person
         ).then((response)=>{
 
             if(response['code'] === Mark.SUCCESS){

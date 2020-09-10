@@ -58,6 +58,7 @@ import { reducer as loginReducer } from '../login/store';
 import {reducer as loginV2Reducer} from '../login_v2/store'
 import {reducer as permissionReducer} from '../permission/store'
 import {reducer as userRoleReducer} from '../permission/userRole/store'
+import {reducer as rolePermissionReducer} from '../permission/rolePermission/store'
 
 import { reducer as searchTableReducer } from '../table/searchTable/store';
 
@@ -122,6 +123,7 @@ const reducer = combineReducers({
 	userRole: userRoleReducer,//用户角色控制
 
 	searchTable:searchTableReducer,//查看表单
+	rolePermission: rolePermissionReducer,
 });
 
 export default reducer;

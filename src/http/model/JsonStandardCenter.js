@@ -11,7 +11,8 @@ export function getSaveStandardJson(
     startValue,
     endValue,
     reason,
-    createdAt
+    createdAt,
+    person
 ){
     let tempData = [{
         tableName:tableName,
@@ -19,9 +20,9 @@ export function getSaveStandardJson(
         endValue:endValue,
         reason:reason,
         createdAt:createdAt,
+        username:person,
     }]
 
-    return {
-        "data": tempData
-    };
+    return tempData
+
 }

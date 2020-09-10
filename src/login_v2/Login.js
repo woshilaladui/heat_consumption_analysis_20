@@ -10,6 +10,7 @@ import * as actionCreators from './store/actionCreators';
 import {deepCopy} from '../Helper/Copy'
 import {requestUserLogin} from "../../src/http/request/RequestUser"
 import {requestGetHuaYanShiDataByTableNameAndDate} from "../../src/http/request/RequestHuaYanShi"
+import {Service} from "../http/constant/ServiceConstant";
 
 
 const {Header, Content, Footer, Sider} = Layout;
@@ -18,6 +19,31 @@ const FormItem = Form.Item;
 //新登陆页面参数
 // const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
 class LoginDemo extends Component {
+
+componentDidMount() {
+    // fetch(URL.REQUEST_VERIFICATION_V2,{
+    //     method: 'get',
+    //     // credentials:"include",
+    //     headers: {
+    //         //"Content-Type" : "application/json",
+    //         'JWTHeaderName':window.localStorage.token,
+    //         // "Cookie": document.cookie,
+    //         'authorization': window.localStorage.authorization,//携带token
+    //     }
+    // })
+    //   .then(response => {
+    //
+    //       console.log("document.cookie")
+    //       console.log(document.cookie)
+    //       console.log("document.cookie")
+    //   })
+}
+componentWillReceiveProps(nextProps, nextContext) {
+    console.log('componentWillReceiveProps');
+    console.log(document.cookie.valueOf());
+    console.log(window)
+    console.log('componentWillReceiveProps')
+}
 
 
     handleLogin = (e) => {
@@ -49,7 +75,13 @@ class LoginDemo extends Component {
 
         this.props.changePasswordNum(e.target.value);
     };
+    handleClickconsole = ()=> {
+        console.log('document-q')
+        console.log(document.cookie)
+        console.log(document.cookie.valueOf("SESSION"))
 
+        console.log('document-q')
+    }
 
     render() {
         const {phone, password,verificationCode} = this.props;
@@ -99,9 +131,11 @@ class LoginDemo extends Component {
                         {/*<a href="/reg" style={{float: 'right'}}>注册账号</a>*/}
                     </FormItem>
                 </Form>
+                <Button type="primary" onClick={this.handleClickconsole}>点击</Button>
                 <Footer style={{textAlign: 'center'}} className="footer">
                     SmartLab Design ©2018 Powered By 武汉理工大学智能技术实验室
                 </Footer>
+
             </div>
         );
     }
