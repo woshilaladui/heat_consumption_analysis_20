@@ -7,6 +7,7 @@ import BottomForm from './component/BottomForm';
 import { connect } from 'react-redux';
 import * as actionCreators from './store/actionCreators';
 import {deepCopy} from "../../../Helper/Copy";
+import moment from 'moment';
 
 //福石水泥3000t/d中控室烧成系统运行记录
 class BurnSysOpRe extends Component {
@@ -21,16 +22,45 @@ class BurnSysOpRe extends Component {
 
     componentDidMount() {
         /**首先查询当前页面是否有历史纪录并赋值formData**/
-        const {data, date, tableName, setOldData,requestFlag,person} = this.props;
+        const {data, date, tableName, setOldData, requestFlag, person, searchFlag } = this.props;
+       
         if(requestFlag){
-
             setOldData(date,tableName,deepCopy(data));
         }
 
     }
 
-    render() {
+    componentWillReceiveProps(nextProps){
+        const oldSearchDate = this.props.searchdate; //旧的props
+        const { tableName, setOldData, searchdate } = nextProps; //新的props
 
+        const modelData = [//定义该页面的数据模板
+                {data: []}, {data: []}, {data: []}, {data: []},
+                {data: []}, {data: []}, {data: []}, {data: []},//0-7小时 0-7行
+                {data: []}, {data: []}, {data: []}, {data: ['', '', moment().format("YYYY/MM/DD hh:mm:ss").toString()]},//下表的数据 8-11行
+
+                {data: []}, {data: []}, {data: []}, {data: []},
+                {data: []}, {data: []}, {data: []}, {data: []},//8-15小时 12-19行
+                {data: []}, {data: []}, {data: []}, {data: [
+                        '', '', moment().format("YYYY/MM/DD hh:mm:ss").toString()
+                    ]},//下表的数据 20-23行
+
+                {data: []}, {data: []}, {data: []}, {data: []},
+                {data: []}, {data: []}, {data: []}, {data: []},//16-23小时 24-31行
+                {data: []}, {data: []}, {data: []}, {data: [
+                    '', '', moment().format("YYYY/MM/DD hh:mm:ss").toString()
+                ]},//下表的数据 32-35行
+
+        ]
+
+        if(oldSearchDate != searchdate){
+            setOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        }
+    }
+
+    
+
+    render() {
         return (
             <Fragment style={{width: "100%", height: "100%"}}>
                 <div style={{padding: '1%'}} ref={(el) => this.refs = el}>
@@ -58,11 +88,7 @@ class BurnSysOpRe extends Component {
                         display: "inline-block"
                     }}
                 >
-                    <ButtonComfirmBox
-                        // type="primary"
-                        // buttonText="提交"
-                        // action={this.handleSubmit}
-                    />
+                    {this.props.searchFlag ? (<ButtonComfirmBox />) : null}
                 </div>
             </Fragment>
         )
@@ -79,6 +105,8 @@ const mapStateToProps = (state) => {
         requestFlag:state.getIn(['burnSysOpRe', 'requestFlag']),
         person:state.getIn(['burnSysOpRe', 'person']),
         tableName:state.getIn(['burnSysOpRe', 'tableName']),
+        searchdate:state.getIn(['searchTable', 'date']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 };
 

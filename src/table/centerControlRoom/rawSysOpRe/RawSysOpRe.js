@@ -9,6 +9,8 @@ import * as actionCreators from "../rawSysOpRe/store/actionCreators";
 import {connect} from "react-redux";
 import {deepCopy} from "../../../Helper/Copy";
 
+import moment from 'moment';
+
 // 福石水泥3000t/d生产线中控室生料磨系统运行记录
 class RawSysOpRe extends Component {
 
@@ -28,6 +30,25 @@ class RawSysOpRe extends Component {
         }//end if
     }
 
+    componentWillReceiveProps(nextProps){
+        const oldSearchDate = this.props.searchdate; //旧的props
+        const { tableName, getOldData, searchdate } = nextProps; //新的props
+
+        const modelData = [//上表
+            {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//0-7行代表 0-7小时
+            {data: []},//下表
+
+            {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//9-16行代表 8-15小时
+            {data: []},//下表
+
+            {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//18-25行代表 16-23小时
+            {data: []},//下表
+        ]
+
+        if(oldSearchDate != searchdate){
+            getOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        }
+    }
 
     returnBack = () => {
         this.props.history.push("/");
@@ -58,7 +79,7 @@ class RawSysOpRe extends Component {
                         display: "inline-block"
                     }}
                 >
-                    <ButtonConfirmationBox/>
+                    {this.props.searchFlag ? (<ButtonConfirmationBox />) : null}
                 </div>
             </div>
         );
@@ -76,6 +97,8 @@ const mapStateToProps = (state) => {
         requestFlag:state.getIn(['rawSysOpRe', 'requestFlag']),
         person:state.getIn(['rawSysOpRe', 'person']),
         tableName:state.getIn(['rawSysOpRe', 'tableName']),
+        searchdate:state.getIn(['searchTable', 'date']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
 
     }
 }

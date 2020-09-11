@@ -94,6 +94,17 @@ class BottomForm extends Component {
 
 
     render() {
+
+        InputNumber.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { } : {opacity:"1", color:"black"}, 
+        }
+
+        /*TextArea.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { resize: "none" } : {opacity:"1", color:"black", resize: "none"}, 
+        }*/
+
         const columns = [
             {
                 title: '1',
@@ -320,6 +331,12 @@ class BottomForm extends Component {
 
 
         const {TextArea} = Input;
+
+        TextArea.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { resize: "none" } : {opacity:"1", color:"black", resize: "none"}, 
+        }
+        
         const dataSource = [
             {//handleChangeInputNumber  handleChangeTextAreaTest
                 1: '生料磨工',
@@ -327,9 +344,9 @@ class BottomForm extends Component {
                             // value={Data[timeChose * 3]['data'][0]?Data[timeChose * 3]['data'][0]:""}
                              value={Data[11+timeChose * 15]['data'][0]?Data[11+timeChose * 15]['data'][0]:""}
                              onChange={event => this.handleChangeTextAreaTest(event.target.value, 11+timeChose * 15, 0)}
-                             style={{
+                             /*style={{
                                  resize: "none"
-                             }}
+                             }}*/
                 />,
                 4: '磨煤工',
                 5: <TextArea rows={3}
@@ -337,9 +354,9 @@ class BottomForm extends Component {
                              value={Data[11+timeChose * 15]['data'][1]}
                              onChange={event => this.handleChangeTextAreaTest(event.target.value, 11+timeChose * 15, 1)}
                     // onChange={event => this.handleChangeTextAreaTest(event.target.value, timeChose * 3, 1)}
-                             style={{
+                             /*style={{
                                  resize: "none"
-                             }}
+                             }}*/
                 />,
                 6: '项目',
                 7: '水分',
@@ -386,9 +403,9 @@ class BottomForm extends Component {
                        value={Data[11+timeChose * 15]['data'][5]} rows={11}
                   //      value={'备注：'}
                         onChange={event => this.handleChangeTextAreaTest(event.target.value, 11+timeChose * 15, 5)}
-                        style={{
+                        /*style={{
                             resize: "none"
-                        }}
+                        }}*/
                     />
                     </span>
             }, {
@@ -397,18 +414,18 @@ class BottomForm extends Component {
                   //           value={""}
                              value={Data[12+timeChose * 15]['data'][0]}
                              onChange={event => this.handleChangeTextAreaTest(event.target.value, 12+timeChose * 15, 0)}
-                             style={{
+                             /*style={{
                                  resize: "none"
-                             }}
+                             }}*/
                 />,
                 4: '磨煤班长',
                 5: <TextArea rows={3}
                     //         value={""}
                              value={Data[12+timeChose * 15]['data'][1]}
                              onChange={event => this.handleChangeTextAreaTest(event.target.value, 12+timeChose * 15, 1)}
-                             style={{
+                             /*style={{
                                  resize: "none"
-                             }}
+                             }}*/
                 />,
                 6: '硅石',
                 7: <InputNumber
@@ -554,6 +571,7 @@ const mapStateToProps = (state) => {
         startValue: state.getIn(['ControlRoomOriginalRe', 'startValue']),
         endValue: state.getIn(['ControlRoomOriginalRe', 'endValue']),
         tableName: state.getIn(['ControlRoomOriginalRe', 'tableName']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 }
 

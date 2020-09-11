@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 import * as actionCreators from './store/actionCreators';
 import 'antd/dist/antd.css';
 import {deepCopy} from "../../../Helper/Copy";
+import moment from 'moment';
 
 // 福石水泥3000t/d中控室煤磨系统运行记录
 class CoalSysOpRe extends Component {
@@ -35,6 +36,45 @@ class CoalSysOpRe extends Component {
         }//end if
     }
 
+    componentWillReceiveProps(nextProps){
+        const oldSearchDate = this.props.searchdate; //旧的props
+        const { tableName, tableName_CRO, setOldData, getOldData, searchdate } = nextProps; //新的props
+
+        const modelData = [//定义该页面的数据模板
+            {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//0-7行代表 0-7小时
+            {data: []},//下表
+
+            {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//9-16行代表 8-15小时
+            {data: []},//下表
+
+            {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//18-25行代表 16-23小时
+            {data: []},//下表
+
+        ];
+
+        const CRO_modelData = [
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []},//均值 比值 合格率
+            {data: []}, {data: []}, {data: []}, {data: []},//下表数据
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+        ];
+
+        if(oldSearchDate != searchdate){
+            getOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+            setOldData(moment(searchdate).format("YYYY/MM/DD"),tableName_CRO, deepCopy(CRO_modelData));
+        }
+    }
 
     returnBack = () => {
         this.props.history.push("/");
@@ -64,11 +104,8 @@ class CoalSysOpRe extends Component {
                         display: "inline-block"
                     }}
                 >
-                    <ButtonConfirmBox
-                        // type="primary" buttonText="提交"
-                        //
-                        // action={this.handleSubmit}
-                    />
+                {this.props.searchFlag ? (<ButtonConfirmBox />) : null}
+                    
                 </div>
             </div>
         );
@@ -89,6 +126,8 @@ const mapStateToProps = (state) => {
         person:state.getIn(['coalSysOpRe', 'person']),
         tableName:state.getIn(['coalSysOpRe', 'tableName']),
         tableName_CRO:state.getIn(['coalSysOpRe', 'tableName_CRO']),
+        searchdate:state.getIn(['searchTable', 'date']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 }
 

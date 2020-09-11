@@ -78,6 +78,12 @@ class UpperForm extends Component {
 
 
     render() {
+
+        Input.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { } : {opacity:"1",color:"black"},
+        }
+
         /**表头的设计**start**/
         const columns_tab1 = [
             {
@@ -464,6 +470,7 @@ const mapStateToProps = (state) => {
         requestFlag:state.getIn(['TXSysAcRe', 'requestFlag']),
         person:state.getIn(['TXSysAcRe', 'person']),
         tableName:state.getIn(['TXSysAcRe', 'tableName']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
 
     }
 }

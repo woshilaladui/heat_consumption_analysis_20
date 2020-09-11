@@ -11,6 +11,8 @@ import {deepCopy} from "../../../Helper/Copy";
 
 import Remark from "./components/Remark";
 
+import moment from 'moment';
+
 const { TextArea } = Input;
 
 // 熟料荧光分析及检测记录

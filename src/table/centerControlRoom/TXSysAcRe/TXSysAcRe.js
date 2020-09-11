@@ -9,6 +9,8 @@ import {deepCopy} from "../../../Helper/Copy";
 import * as actionCreators from "../TXSysAcRe/store/actionCreators";
 import {connect} from "react-redux";
 
+import moment from 'moment';
+
 // 临城中联福石水泥有限公司脱硝系统行动记录
 class RuYaoSLYCLHXFXBGD extends Component {
 
@@ -30,6 +32,27 @@ class RuYaoSLYCLHXFXBGD extends Component {
             );
         }//end if
     }
+
+    componentWillReceiveProps(nextProps){
+        const oldSearchDate = this.props.searchdate; //旧的props
+        const { tableName, getOldData, searchdate } = nextProps; //新的props
+
+        const modelData = [//定义该页面的数据模板 27
+            {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//0-7行代表 0-7小时
+            {data: []},//下表
+
+            {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//9-16行代表 8-15小时
+            {data: []},//下表
+
+            {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//18-25行代表 16-23小时
+            {data: []},//下表
+        ];
+
+        if(oldSearchDate != searchdate){
+            getOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        }
+    }
+
 
     render() {
 
@@ -58,7 +81,7 @@ class RuYaoSLYCLHXFXBGD extends Component {
                         display: "inline-block"
                     }}
                 >
-                    <ButtonConfirmationBox/>
+                    {this.props.searchFlag ? (<ButtonConfirmationBox />) : null}
                 </div>
             </Fragment>
         );
@@ -74,6 +97,8 @@ const mapStateToProps = (state) => {
         requestFlag:state.getIn(['TXSysAcRe', 'requestFlag']),
         person:state.getIn(['TXSysAcRe', 'person']),
         tableName:state.getIn(['TXSysAcRe', 'tableName']),
+        searchdate:state.getIn(['searchTable', 'date']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
 
     }
 }

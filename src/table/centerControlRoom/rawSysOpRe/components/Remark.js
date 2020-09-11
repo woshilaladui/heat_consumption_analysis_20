@@ -24,6 +24,11 @@ class Remark extends Component {
 
         const index = 8 + timeChose*9;
 
+        Input.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { width: "80px" } : {opacity:"1", color:"black", width: "80px"},
+        }
+
         return (
             <div className='remark' style={{width: "100%", height: 160}}>
                 <div className='title'
@@ -47,7 +52,7 @@ class Remark extends Component {
                                 <label>石灰石称累计:</label>
                                 <Input
                                     type="text"
-                                    style={{width: '80px'}}
+                                    /*style={{width: '80px'}}*/
                                     onChange={event => {this.handleInputChange(event.target.value,index,0)}}
                                     value={Data[index]['data'][0]}
                                 />
@@ -56,7 +61,7 @@ class Remark extends Component {
                                 <label>砂岩称累计:</label>
                                 <Input
                                     type="text"
-                                    style={{width: '80px'}}
+                                    /*style={{width: '80px'}}*/
                                     onChange={event => {this.handleInputChange(event.target.value,index,1)}}
                                     value={Data[index]['data'][1]}
                                 />
@@ -65,7 +70,7 @@ class Remark extends Component {
                                 <label>铁粉称累计:</label>
                                 <Input
                                     type="text"
-                                    style={{width: '80px'}}
+                                    /*style={{width: '80px'}}*/
                                     onChange={event => {this.handleInputChange(event.target.value,index,2)}}
                                     value={Data[index]['data'][2]}
                                 />
@@ -74,7 +79,7 @@ class Remark extends Component {
                                 <label>粉煤灰称累计:</label>
                                 <Input
                                     type="text"
-                                    style={{width: '80px'}}
+                                    /*style={{width: '80px'}}*/
                                     onChange={event => {this.handleInputChange(event.target.value,index,3)}}
                                     value={Data[index]['data'][3]}
                                 />
@@ -87,7 +92,7 @@ class Remark extends Component {
                                 <label>总累计:</label>
                                 <Input
                                     type="text"
-                                    style={{width: '80px'}}
+                                    /*style={{width: '80px'}}*/
                                     onChange={event => {this.handleInputChange(event.target.value,index,4)}}
                                     Value={Data[index]['data'][0]+Data[index]['data'][1]}
                                 />
@@ -96,7 +101,7 @@ class Remark extends Component {
                                 <label>均化库库位:</label>
                                 <Input
                                     type="text"
-                                    style={{width: '80px'}}
+                                    /*style={{width: '80px'}}*/
                                     onChange={event => {this.handleInputChange(event.target.value,index,5)}}
                                     value={Data[index]['data'][5]}
                                 />
@@ -122,6 +127,7 @@ const mapStateToProps = (state) => {
         requestFlag:state.getIn(['rawSysOpRe', 'requestFlag']),
         person:state.getIn(['rawSysOpRe', 'person']),
         tableName:state.getIn(['rawSysOpRe', 'tableName']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
 
     }
 }

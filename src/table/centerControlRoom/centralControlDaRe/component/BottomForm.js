@@ -46,6 +46,11 @@ class BottomForm extends Component {
 
 
     render() {
+        Input.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { } : {opacity:"1",color:"black"},
+        }
+        
         //表头
         const columns = [
             {
@@ -344,6 +349,7 @@ const mapStateToProps = (state) => {
         timeChose: state.getIn(['centralControlDaRe', 'timeChose']),
         data: state.getIn(['centralControlDaRe', 'data']),
         tableName: state.getIn(['centralControlDaRe', 'tableName']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 }
 

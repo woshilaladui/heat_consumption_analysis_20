@@ -10,6 +10,7 @@ import {deepCopy} from "../../../Helper/Copy";
 import {checkAuthority} from "../../../Request/RequsetCenter";
 import {Mark, URL} from "../../../Request/Constant";
 
+import moment from 'moment';
 
 // 在线自动检测运行记录(排放物)
 class OnlineAutoDetOpRe extends Component {
@@ -27,6 +28,26 @@ class OnlineAutoDetOpRe extends Component {
         }
     }
 
+    componentWillReceiveProps(nextProps){
+        const oldSearchDate = this.props.searchdate; //旧的props
+        const { tableName, setOldData, searchdate } = nextProps; //新的props
+
+        const modelData = [//表的前半段 21
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []},
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []},
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}
+        ]
+
+        if(oldSearchDate != searchdate){
+            setOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        }
+    }
 
 
     render() {
@@ -55,7 +76,7 @@ class OnlineAutoDetOpRe extends Component {
                         display: "inline-block"
                     }}
                 >
-                    <ButtonConfirmationBox/>
+                    {this.props.searchFlag ? (<ButtonConfirmationBox />) : null}
                 </div>
             </Fragment>
         );
@@ -71,6 +92,8 @@ const mapStateToProps = (state) => {
         requestFlag:state.getIn(['onlineAutoDetOpRe', 'requestFlag']),
         person:state.getIn(['onlineAutoDetOpRe', 'person']),
         tableName:state.getIn(['onlineAutoDetOpRe', 'tableName']),
+        searchdate:state.getIn(['searchTable', 'date']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
 
     }
 }

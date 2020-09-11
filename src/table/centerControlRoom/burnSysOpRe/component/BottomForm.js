@@ -62,6 +62,22 @@ class BottomForm extends Component {
 
 
     render() {
+
+        Input.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { } : {opacity:"1",color:"black"},
+        }
+
+        InputNumber.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { } : {opacity:"1",color:"black"},
+        }
+
+        TextArea.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { } : {opacity:"1",color:"black"},
+        }
+        
         //表头
         const columns = [
             {
@@ -545,6 +561,7 @@ const mapStateToProps = (state) => {
         timeChose: state.getIn(['burnSysOpRe', 'timeChose']),
         data: state.getIn(['burnSysOpRe', 'data']),
         tableName: state.getIn(['burnSysOpRe', 'tableName']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 }
 

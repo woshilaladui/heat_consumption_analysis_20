@@ -22,6 +22,12 @@ class Remark extends Component{
         const {data,timeChose,person} = this.props;
 
         const Data = deepCopy(data);
+
+        Input.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { width:"80px" } : {opacity:"1", color:"black", width:"80px"},
+        }
+        
         return(
             <div className = 'remark' style ={{width: "100%", height:72}}>
                 <div className = 'title'
@@ -37,25 +43,25 @@ class Remark extends Component{
                                 onChange={event => {this.handleInputChange(event.target.value,8+timeChose*9,0)}}
                                 value={Data[8+timeChose*9]['data'][0]}
                                 type = "text"
-                                style={{width:'80px'}}
+                                /*style={{width:'80px'}}*/
                             /></Col>
                             <Col span={5}><label>原煤仓累计量:</label><Input
                                 onChange={event => {this.handleInputChange(event.target.value,8+timeChose*9,1)}}
                                 value={Data[8+timeChose*9]['data'][1]}
                                 type = "text"
-                                style={{width:'80px'}}
+                                /*style={{width:'80px'}}*/
                             /></Col>
                             <Col span={4}><label>头煤仓重:</label><Input
                                 onChange={event => {this.handleInputChange(event.target.value,8+timeChose*9,2)}}
                                 value={Data[8+timeChose*9]['data'][2]}
                                 type = "text"
-                                style={{width:'80px'}}
+                                /*style={{width:'80px'}}*/
                             /></Col>
                             <Col span={4}><label>尾煤仓重:</label><Input
                                 onChange={event => {this.handleInputChange(event.target.value,8+timeChose*9,3)}}
                                 value={Data[8+timeChose*9]['data'][3]}
                                 type = "text"
-                                style={{width:'80px'}}
+                                /*style={{width:'80px'}}*/
                             /></Col>
                         </Row>
                     </div>,
@@ -77,6 +83,7 @@ const mapStateToProps = (state) => {
         requestFlag:state.getIn(['coalSysOpRe', 'requestFlag']),
         person:state.getIn(['coalSysOpRe', 'person']),
         tableName:state.getIn(['coalSysOpRe', 'tableName']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 }
 
