@@ -65,7 +65,17 @@ export function requestUserLogin_V2(
   });
 
 }
-
+export function requestLogout(){
+  return new Promise((resolve, reject) => {
+    RequestCenter({
+      url: URL.REQUEST_LOGOUT_V2,
+      // formData:null,
+    })
+      .then(response => {
+      resolve(response)
+      })
+  })
+}
 export function requestRegister(
   username,
   phone,
@@ -333,4 +343,22 @@ export function requestSavePermission(data) {
         }
       )
   })
+}
+export function requestGetCurrentRolePermission(roleID) {
+  return new Promise((resolve, reject) => {
+    const formData = new FormData();
+    formData.append('roleId', roleID);
+    RequestCenter_V2({
+      url: URL.REQUEST_GET_CURRENT_ROLE_PERMISSION_V2,
+      method: 'POST',
+      formData: formData
+    })
+      .then((response) => {
+
+        //直接回传 不进一步解析
+        //TODO 进一步处理数据 requestGetAllUsers
+        resolve(response)
+      })
+      .catch()
+  });
 }

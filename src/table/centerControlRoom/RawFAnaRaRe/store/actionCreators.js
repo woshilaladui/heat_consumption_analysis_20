@@ -92,6 +92,9 @@ export const getFrontData = (
                 if (response['code'] === 0) {
 
                     //解析数据
+                  console.log("出磨生料")
+                  console.log(response)
+                  console.log("出磨生料")
                     let newData = deepCopy(response['data']);
                     let result = HuaYanShiFormat(
                         data,
@@ -235,7 +238,7 @@ export function saveData(
             index: index,
             duty: window.localStorage.duty,
             tableName: tableName,
-            authority: window.localStorage.authority,
+            id: window.localStorage.id,
             data: data,
             num: num
         })
@@ -243,7 +246,9 @@ export function saveData(
                 (response) => {
 
 
-
+                console.log("服务器")
+                console.log(response)
+                console.log("服务器")
                     if (response == Mark.SUCCESS && num == 1) {
                         message.info('暂存成功');
                     } else if (response == Mark.SUCCESS && num > 1) {

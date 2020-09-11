@@ -49,7 +49,7 @@ export function RequestCenter(
                 headers: {
                     //"Content-Type": "application/json",
                     'JWTHeaderName':window.localStorage.token,
-                    'authorization': window.localStorage.authorization,//携带token
+                    // 'authorization': window.localStorage.authorization,//携带token
                 }
             })
                 .then(res =>{

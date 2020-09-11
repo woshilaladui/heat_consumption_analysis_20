@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {Menu, Icon} from 'antd';
 import './Header.css';
 import {Link} from "react-router-dom";
+import {URL} from "../../http/constant/Constant";
+import {requestLogout} from "../../http/request/RequestUser";
 
 export default class Header extends Component {
     constructor(props) {
@@ -11,13 +13,18 @@ export default class Header extends Component {
             CompanyName: '临城中联福石水泥有限公司',
             needLogin: true,  //根据登录信息，切换登录与注销按钮
             showItem: 'none',  //是否显示表格相关按钮
+            showPermissionCtr:'none', //是否显示权限管理按钮
         };
     }
 
     componentDidMount = () => {
-        console.log('home')
-        console.log((document.cookie).toString())
-        console.log('home')
+        // console.log("console"+window.localStorage.department)
+
+        if(window.localStorage.department == 4){
+           this.setState({
+               showPermissionCtr: ''
+           })
+       }
         const d = new Date();
         const time = parseInt((d.getTime() - window.localStorage.time) / 60000);
         if (time > 720) {
@@ -30,16 +37,26 @@ export default class Header extends Component {
         else if (window.localStorage.token) {
             this.setState({
                 needLogin: false,
-                showItem: ''
+                showItem: '',
+
             })
         }
     }
     handleLogout = () => {
-        window.localStorage.clear();
+        // window.localStorage.clear();
         this.setState({
             showItem: 'none',
             needLogin: 'true',
+            showPermissionCtr:'none'
+
         });
+        requestLogout()
+          .then(response =>{
+              if (response["code"] == 0){
+                  console.log("token"+response["data"])
+                  window.localStorage.token = response["data"];
+              }
+          })
         // this.onChangekey({"key": 0});
         // const jsonData = {
         //     'token': window.localStorage.token,
@@ -85,7 +102,7 @@ export default class Header extends Component {
                     <Menu.Item className='header_menuItem submenu-title-wrapper' key="0">
                         <Icon type="home"/> 首页
                     </Menu.Item>
-                    <Menu.Item className='header_menuItem submenu-title-wrapper' key="permission" style={{display: this.state.showItem}}>
+                    <Menu.Item className='header_menuItem submenu-title-wrapper' key="permission" style={{display: this.state.showPermissionCtr}}>
                         <Link to="/permission">
                         <Icon type="setting"/> 权限控制
                         </Link>

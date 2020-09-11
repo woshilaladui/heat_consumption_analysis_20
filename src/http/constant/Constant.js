@@ -17,10 +17,12 @@ const URL={
     REQUEST_SUBMIT_TEMP_USER_INFO_V2: Service.ROOT_URL_V2+"/sys/user/updateUser",//更新用户基本信息
     REQUEST_ENABLED_VALUE_V2: Service.ROOT_URL_V2+"/sys/user/lockUser",//锁定用户
     REQUEST_VERIFICATION_V2: Service.ROOT_URL_V2+"/verification",//获取验证码
-    REQUEST_AUTHENTICATION_V2: Service.ROOT_URL_V2+"/authentication",//登陆检验
+    REQUEST_AUTHENTICATION_V2: Service.ROOT_URL_V2+"/authentication",//登陆
     REQUEST_GET_ALL_USERS_V2: Service.ROOT_URL_V2+"/sys/user/getAllUsers",//获取所有的用户
     REQUEST_GET_ALL_ROLE_V2: Service.ROOT_URL_V2+"/sys/userRole/getAllRoles",//获取所有的角色
     REQUEST_GET_CURRENT_USER_ROLE_V2: Service.ROOT_URL_V2+"/sys/userRole/getRolesByUsername",//获取当前用户的角色
+    REQUEST_LOGOUT_V2: Service.ROOT_URL_V2+"/invalidateToken",//注销用户
+    REQUEST_GET_CURRENT_ROLE_PERMISSION_V2: Service.ROOT_URL_V2+"/sys/permission/getRolePermissionByRoleId",//通过用户Id来查询其权限
     /*********************************用户类请求地址*************************************/
     REQUEST_LOGIN:Service.ROOT_URL + "/user/login",
 
@@ -47,10 +49,10 @@ const URL={
     /*********************************化验室请求地址*************************************/
 
     //通过化验室表名和日期来查询该日期下的数据
-    REQUEST_GET_HUAYANSHI_DATA_BY_TABLENAME_AND_DATE:Service.ROOT_URL + "/huayanshi/getHuaYanShiDataByTableNameAndDate",
+    REQUEST_GET_HUAYANSHI_DATA_BY_TABLENAME_AND_DATE:Service.ROOT_URL_V2 + "/huayanshi/getHuaYanShiDataByTableNameAndDate",
 
     //化验室存储(包括暂存，存单行)接口
-    REQUEST_SAVE_HUAYANSHI_DATA:Service.ROOT_URL + "/huayanshi/saveHuaYanShiData",
+    REQUEST_SAVE_HUAYANSHI_DATA:Service.ROOT_URL_V2 + "/huayanshi/saveHuaYanShiData",
 
 
 
@@ -58,10 +60,10 @@ const URL={
     /*********************************中控室接口*************************************/
 
     //通过中控室表名和日期来查询该日期下的数据
-    REQUEST_GET_ZHONGKONGSHI_DATA_BY_TABLENAME_AND_DATE:Service.ROOT_URL + "/zhongkongshi/getZhongKongShiDataByTableNameAndDate",
+    REQUEST_GET_ZHONGKONGSHI_DATA_BY_TABLENAME_AND_DATE:Service.ROOT_URL_V2 + "/zhongkongshi/getZhongKongShiDataByTableNameAndDate",
 
     //中控室存储(包括暂存，存单行)接口
-    REQUEST_SAVE_ZHONGKONG_DATA:Service.ROOT_URL + "/zhongkongshi/saveZhongKongData",
+    REQUEST_SAVE_ZHONGKONG_DATA:Service.ROOT_URL_V2 + "/zhongkongshi/saveZhongKongData",
 
 
 

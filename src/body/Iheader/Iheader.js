@@ -25,6 +25,7 @@ class Iheader extends Component {
             case '1':
                 this.setState({
                     display: ['', 'none', '', '', '', 'none', '','none']
+                    // display: ['', '', 'none', 'none', 'none', 'none', '','none']
                 });
                 break;
             case '2':{

@@ -1,9 +1,12 @@
 import {
   SET_ROLE_PERMISSION_TABLE_SELECTED_ID,
   SET_ROLE_PERMISSION_TABLE_SELECTED_ALL,
+  SET_ROLE_PERMISSION_TABLE_SELECTED_ID_CURRENT
 } from './constant'
 import {requestSavePermission} from "../../../http/request/RequestUser";
 import {message} from "antd";
+import {requestGetCurrentRolePermission} from '../../../http/request/RequestUser'
+import {action} from "./index";
 
 export const setTableSelectedId = (data, status) => ({
   type: SET_ROLE_PERMISSION_TABLE_SELECTED_ID,
@@ -14,6 +17,10 @@ export const setTableSelectedId = (data, status) => ({
 export const setTableSelectAll = status => ({
   type: SET_ROLE_PERMISSION_TABLE_SELECTED_ALL,
   status
+})
+const setCurrentPermission = permissionIds => ({
+  type: SET_ROLE_PERMISSION_TABLE_SELECTED_ID_CURRENT,
+  permissionIds
 })
 
 //保存信息
@@ -27,5 +34,15 @@ export const savePermission = data => {
           }
         }
       )
+  }
+}
+
+export const GetCurrentRolePermission = roleId => {
+  return (dispatch) => {
+    requestGetCurrentRolePermission(roleId)
+      .then(
+        response => {
+        dispatch(setCurrentPermission(response["data"]))
+  })
   }
 }

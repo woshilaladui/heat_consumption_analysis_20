@@ -8,6 +8,7 @@ import {
 } from 'antd'
 import PermissionTable from './PermissionTable'
 
+
 const { Option } = Select;
 
 class RolePermission extends Component {
@@ -65,6 +66,8 @@ class RolePermission extends Component {
     this.setState({
       roleId: value
     })
+
+    this.props.handleRequestGetCurrentRolePermission(value);
   }
 
   _saveData = () => {
@@ -99,6 +102,9 @@ const mapDispatch = dispatch => ({
   },
   savePermission(data) {
     dispatch(action.savePermission(data))
+  },
+  handleRequestGetCurrentRolePermission(roleId){
+    dispatch(action.GetCurrentRolePermission(roleId))
   }
 })
 
