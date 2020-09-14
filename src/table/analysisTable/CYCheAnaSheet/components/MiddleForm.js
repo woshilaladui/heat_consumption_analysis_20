@@ -117,6 +117,8 @@ export default class MiddleForm extends Component {
 
     /**点击暂存之后上传当前行的数据到后台**end**/
     render() {
+        
+        
         /**表头的设计**start**/
         const columns = [
             {

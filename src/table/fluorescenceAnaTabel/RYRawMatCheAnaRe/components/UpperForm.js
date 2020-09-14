@@ -141,7 +141,10 @@ class UpperForm extends Component {
     };
 
     render() {
-
+        InputNumber.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { } : {opacity:"1", color:"black"}, 
+        }
         // 表头
         const columns = [
             {
@@ -401,7 +404,7 @@ const mapStateToProps = (state) => {
         endValue: state.getIn(['RYRawMatCheAnaRe', 'endValue']),
         person: state.getIn(['RYRawMatCheAnaRe', 'person']),
         tableName: state.getIn(['RYRawMatCheAnaRe', 'tableName']),
-
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 };
 

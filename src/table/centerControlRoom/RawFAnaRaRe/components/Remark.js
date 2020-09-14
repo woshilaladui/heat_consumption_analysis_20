@@ -27,6 +27,11 @@ class Remark extends Component {
 
         const index = 8 + timeChose*9;
 
+        TextArea.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { } : {opacity:"1", color:"black", resize: "none"}, 
+        }
+
         return (
 
             <div className='remark'>
@@ -35,9 +40,10 @@ class Remark extends Component {
                     placeholder="备注:"
                     value={Data[index]['data'][0]}
                     onChange={event => this.handleChangeTextAreaTest(event.target.value, index, 0)}
-                    style={{
+                    /*style={{
                         resize: "none"
-                    }}/>
+                    }}*/
+                    />
                 </span>
             </div>
         )
@@ -55,6 +61,7 @@ const mapStateToProps = (state) => {
         requestFlag:state.getIn(['RawFAnaRaRe', 'requestFlag']),
         person:state.getIn(['RawFAnaRaRe', 'person']),
         tableName:state.getIn(['RawFAnaRaRe', 'tableName']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
 
     }
 };

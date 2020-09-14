@@ -180,6 +180,11 @@ class UpperForm extends Component {
         const Data = deepCopy(data);
         const time = deepCopy(allTime);
 
+        InputNumber.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { } : {opacity:"1", color:"black"}, 
+        }
+
         for (let i = 0; i < 8; i++) {
 
             const index = i + timeChose * 10;
@@ -302,7 +307,7 @@ const mapStateToProps = (state) => {
         endValue: state.getIn(['RawMatCheAnaReFMHS', 'endValue']),
         person: state.getIn(['RawMatCheAnaReFMHS', 'person']),
         tableName: state.getIn(['RawMatCheAnaReFMHS', 'tableName']),
-
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 };
 

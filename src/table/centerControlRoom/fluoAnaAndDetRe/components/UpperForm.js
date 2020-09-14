@@ -140,6 +140,7 @@ class UpperForm extends Component {
 
         const dataSource = [];
 
+
         //const LSZ = DataLSZ[2+timeChose]['t_data'][4];
         for (let i = 0; i < 8; i++) {
 

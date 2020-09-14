@@ -7,6 +7,8 @@ import * as actionCreators from "../../analysisTable/CCPhyPerTest/store/actionCr
 import {connect} from "react-redux";
 import {deepCopy} from "../../../Helper/Copy";
 
+import moment from 'moment';
+
 //出厂熟料物理性能检测
 class CCPhyPerTest extends Component{
 
@@ -27,6 +29,30 @@ class CCPhyPerTest extends Component{
         }
     }
 
+    componentWillReceiveProps(nextProps){
+        const oldSearchDate = this.props.searchdate; //旧的props
+        const { tableName, setOldData, searchdate } = nextProps; //新的props
+
+        const modelData = [//13
+            {data: []},
+            {data: []},
+            {data: []},
+            {data: []},
+            {data: []},
+            {data: []},
+            {data: []},
+            {data: []},
+            {data: []},
+            {data: []},
+            {data: []},
+            {data: []},
+            {data: []},
+        ];
+
+        if(oldSearchDate != searchdate){
+            setOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        }
+    }
 
     render(){
 
@@ -57,9 +83,7 @@ class CCPhyPerTest extends Component{
                         display: "inline-block"
                     }}
                 >
-                    <ButtonComfirmBox
-
-                    />
+                    {this.props.searchFlag ? (<ButtonComfirmBox />) : null}
                 </div>
             </Fragment>
         )
@@ -74,6 +98,8 @@ const mapStateToProps = (state) => {
         requestFlag:state.getIn(['CCPhyPerTest', 'requestFlag']),
         person:state.getIn(['CCPhyPerTest', 'person']),
         tableName:state.getIn(['CCPhyPerTest', 'tableName']),
+        searchdate:state.getIn(['searchTable', 'date']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
 
     }
 };

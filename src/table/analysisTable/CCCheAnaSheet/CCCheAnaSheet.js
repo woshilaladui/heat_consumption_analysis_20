@@ -8,7 +8,10 @@ import * as actionCreators from "../../analysisTable/CCCheAnaSheet/store/actionC
 import {connect} from "react-redux";
 import {deepCopy} from "../../../Helper/Copy";
 
+import moment from 'moment';
+
 const { TextArea } = Input;
+
 
 //出厂熟料化学分析单
 class CCCheAnaSheet extends Component{
@@ -29,6 +32,22 @@ class CCCheAnaSheet extends Component{
         }
     }
 
+    componentWillReceiveProps(nextProps){
+        const oldSearchDate = this.props.searchdate; //旧的props
+        const { tableName, setOldData, searchdate } = nextProps; //新的props
+
+        const modelData = [//5
+            {data: []},
+            {data: []},
+            {data: []},
+            {data: []},
+            {data: []},
+        ];
+
+        if(oldSearchDate != searchdate){
+            setOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        }
+    }
 
     render(){
         return(
@@ -60,8 +79,7 @@ class CCCheAnaSheet extends Component{
                         display: "inline-block"
                     }}
                 >
-                    <ButtonComfirmBox
-                    />
+                    {this.props.searchFlag ? (<ButtonComfirmBox />) : null}
                 </div>
             </Fragment>
         )
@@ -76,6 +94,8 @@ const mapStateToProps = (state) => {
         requestFlag:state.getIn(['CCCheAnaSheet', 'requestFlag']),
         person:state.getIn(['CCCheAnaSheet', 'person']),
         tableName:state.getIn(['CCCheAnaSheet', 'tableName']),
+        searchdate:state.getIn(['searchTable', 'date']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 };
 

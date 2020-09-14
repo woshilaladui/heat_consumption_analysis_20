@@ -52,6 +52,58 @@ class FluoAnaAndDetRe extends Component {
         }//end if
     }
 
+    componentWillReceiveProps(nextProps){
+            const oldSearchDate = this.props.searchdate; //旧的props
+            const { tableName, getOldData, getFrontOldData, getLastOldData, searchdate } = nextProps; //新的props
+
+            const model_upperDataFront = [//表的前半段，SiO2~IM(P)  从出窑熟料全分析汇总表
+
+                {data: []}, {data: []}, {data: []}, {data: []},
+                {data: []}, {data: []}, {data: []}, {data: []},
+
+                {data: []}, {data: []}, {data: []}, {data: []},
+                {data: []}, {data: []}, {data: []}, {data: []},
+
+                {data: []}, {data: []}, {data: []}, {data: []},
+                {data: []}, {data: []}, {data: []}, {data: []}
+            ]; //上表的数据
+
+            const model_data = [//从T16 原始记录中的下表中获取 立升重g/l
+                {data: []}, //0点班的备注
+                {data: []}, //8点半的备注
+                {data: []}, //16点班的备注
+
+            ];
+
+            const model_upperDataLast = [//上表 fCao 从荧光的原始记录的上表中获取
+                {data: []}, {data: []}, {data: []}, {data: []},
+                {data: []}, {data: []}, {data: []}, {data: []},
+
+                {data: []}, {data: []}, {data: []}, {data: []},//0点班
+
+
+                {data: []}, {data: []}, {data: []}, {data: []},
+                {data: []}, {data: []}, {data: []}, {data: []},
+
+                {data: []}, {data: []}, {data: []}, {data: []},//8点班
+
+                {data: []}, {data: []}, {data: []}, {data: []},
+                {data: []}, {data: []}, {data: []}, {data: []},
+
+                {data: []}, {data: []}, {data: []}, {data: []},//16点班
+            ];
+
+            if(oldSearchDate != searchdate){
+
+                getOldData(moment(searchdate).format("YYYY/MM/DD"),tableName,deepCopy(model_data));
+
+                getFrontOldData(moment(searchdate).format("YYYY/MM/DD"),"KAS",deepCopy(model_upperDataFront));
+
+                getLastOldData(moment(searchdate).format("YYYY/MM/DD"),"CRO",deepCopy(model_upperDataLast));
+
+            }
+        }
+
     render() {
         return (
             <Fragment style = {{width:"100%",height:"100%"}}>
@@ -80,7 +132,7 @@ class FluoAnaAndDetRe extends Component {
                         display: "inline-block"
                     }}
                 >
-                    <ButtonConfirmationBox/>
+                    {this.props.searchFlag ? (<ButtonConfirmationBox />) : null}
                 </div>
             </Fragment>
         );
@@ -98,7 +150,8 @@ const mapStateToProps = (state) => {
         requestFlag:state.getIn(['fluoAnaAndDetRe', 'requestFlag']),
         person:state.getIn(['fluoAnaAndDetRe', 'person']),
         tableName:state.getIn(['fluoAnaAndDetRe', 'tableName']),
-
+        searchdate:state.getIn(['searchTable', 'date']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
 
     }
 };

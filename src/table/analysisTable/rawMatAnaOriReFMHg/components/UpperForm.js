@@ -70,7 +70,10 @@ class UpperForm extends Component {
 
     /**点击暂存之后上传当前行的数据到后台**end**/
     render() {
-
+        InputNumber.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { } : {opacity:"1", color:"black"}, 
+        }
         const columns = [
             {
                 title: '类型',
@@ -350,7 +353,7 @@ const mapStateToProps = (state) => {
         requestFlag: state.getIn(['rawMatAnaOriReFMHg', 'requestFlag']),
         person: state.getIn(['rawMatAnaOriReFMHg', 'person']),
         tableName: state.getIn(['rawMatAnaOriReFMHg', 'tableName']),
-
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 };
 

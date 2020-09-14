@@ -9,6 +9,7 @@ import * as actionCreators from "../../analysisTable/rawMatAnaOriReSY/store/acti
 import {connect} from "react-redux";
 import {deepCopy} from "../../../Helper/Copy";
 
+import moment from 'moment';
 
 const { TextArea } = Input;
 
@@ -33,6 +34,22 @@ class BurnSysOpReSY extends Component{
         if(requestFlag){
 
             setOldData(date,tableName,deepCopy(data));
+        }
+    }
+
+    componentWillReceiveProps(nextProps){
+        const oldSearchDate = this.props.searchdate; //旧的props
+        const { tableName, setOldData, searchdate } = nextProps; //新的props
+
+        const modelData = [
+            {data: []},
+            {data: []},
+            {data: []},
+            {data: []},
+        ];
+
+        if(oldSearchDate != searchdate){
+            setOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
         }
     }
 
@@ -68,9 +85,7 @@ class BurnSysOpReSY extends Component{
                         display: "inline-block"
                     }}
                 >
-                    <ButtonComfirmBox
-
-                    />
+                    {this.props.searchFlag ? (<ButtonComfirmBox />) : null}
                 </div>
             </Fragment>
         )
@@ -85,6 +100,8 @@ const mapStateToProps = (state) => {
         requestFlag:state.getIn(['rawMatAnaOriReSY', 'requestFlag']),
         person:state.getIn(['rawMatAnaOriReSY', 'person']),
         tableName:state.getIn(['rawMatAnaOriReSY', 'tableName']),
+        searchdate:state.getIn(['searchTable', 'date']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 };
 

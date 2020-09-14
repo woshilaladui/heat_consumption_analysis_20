@@ -93,6 +93,15 @@ class UpperForm extends Component {
         const Data = deepCopy(data);
 
 
+        Input.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { } : {opacity:"1", color:"black"}, 
+        }
+        
+        InputNumber.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { } : {opacity:"1", color:"black"}, 
+        }
 
         dataSource.push(
             {
@@ -189,6 +198,7 @@ const mapStateToProps = (state) => {
         requestFlag: state.getIn(['JCMoCoCoMa', 'requestFlag']),
         person: state.getIn(['JCMoCoCoMa', 'person']),
         tableName: state.getIn(['JCMoCoCoMa', 'tableName']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
 
     }
 };

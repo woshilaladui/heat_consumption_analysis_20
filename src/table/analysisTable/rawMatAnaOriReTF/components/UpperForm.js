@@ -71,6 +71,10 @@ class UpperForm extends Component {
 
 
     render() {
+        InputNumber.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { } : {opacity:"1", color:"black"}, 
+        }
         /**表头的设计**start**/
 
         const columns = [
@@ -340,7 +344,8 @@ class UpperForm extends Component {
         );
     }
 
-}//定义映射
+}
+//定义映射
 const mapStateToProps = (state) => {
     return {
         //LX
@@ -351,6 +356,7 @@ const mapStateToProps = (state) => {
         requestFlag: state.getIn(['rawMatAnaOriReTF', 'requestFlag']),
         person: state.getIn(['rawMatAnaOriReTF', 'person']),
         tableName: state.getIn(['rawMatAnaOriReTF', 'tableName']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
 
     }
 };
