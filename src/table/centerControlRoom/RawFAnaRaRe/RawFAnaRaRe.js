@@ -56,13 +56,60 @@ class RuYaoSLYCLHXFXBGD extends Component {
 
     componentWillReceiveProps(nextProps){
         const oldSearchDate = this.props.searchdate; //旧的props
-        const { tableName, setOldData, searchdate } = nextProps; //新的props
+        const { tableName, getOldData, getFrontOldData, getLastOldData, searchdate } = nextProps; //新的props
 
-        /*const modelData = 
+        const model_upperDataFront = [//表的前半段，SiO2~IM(P)
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []}
+        ];
+
+        const model_data = [//定义该页面的数据模板 27
+            {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//0-7行代表 0-7小时
+            {data: []},//下表
+
+            {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//9-16行代表 8-15小时
+            {data: []},//下表
+
+            {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//18-25行代表 16-23小时
+            {data: []},//下表
+        ];
+
+        const model_upperDataLast = [
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+
+
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+        ];
 
         if(oldSearchDate != searchdate){
-            setOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
-        }*/
+            getOldData(moment(searchdate).format("YYYY/MM/DD"),tableName,deepCopy(model_data));
+
+            //出磨生料荧光分析及配比记录
+            getFrontOldData(moment(searchdate).format("YYYY/MM/DD"),"CRM",deepCopy(model_upperDataFront));
+
+            //控制室原始记录
+            getLastOldData(moment(searchdate).format("YYYY/MM/DD"),"CRO",deepCopy(model_upperDataLast));
+        }
     }
 
     render() {

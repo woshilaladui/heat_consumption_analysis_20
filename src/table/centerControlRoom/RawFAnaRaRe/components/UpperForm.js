@@ -196,6 +196,11 @@ class UpperForm extends Component {
         const DataLast = deepCopy(upperDataLast);
         const time = deepCopy(allTime);
 
+        Input.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { } : {opacity:"1", color:"black"}, 
+        }
+
         //中间八行的数据输入
         const dataSource = [];
         dataSource.push({
@@ -322,6 +327,7 @@ const mapStateToProps = (state) => {
         endValue:state.getIn(['RawFAnaRaRe','endValue']),
         person:state.getIn(['RawFAnaRaRe', 'person']),
         tableName:state.getIn(['RawFAnaRaRe', 'tableName']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
 
     }
 };

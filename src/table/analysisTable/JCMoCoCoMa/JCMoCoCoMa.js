@@ -7,7 +7,9 @@ import UpperForm from './components/UpperForm';
 
 import * as actionCreators from "../../analysisTable/JCMoCoCoMa/store/actionCreators";
 import {connect} from "react-redux";
-import {deepCopy} from "../../../Helper/Copy";;
+import {deepCopy} from "../../../Helper/Copy";
+
+import moment from 'moment';
 
 //进厂原燃材料水分
 class JCMoCoCoMa extends Component{
@@ -29,6 +31,25 @@ class JCMoCoCoMa extends Component{
         if(requestFlag){
 
             setOldData(date,tableName,deepCopy(data));
+        }
+    }
+
+    componentWillReceiveProps(nextProps){
+        const oldSearchDate = this.props.searchdate; //旧的props
+        const { tableName, setOldData, searchdate } = nextProps; //新的props
+
+        const modelData = [//7
+            {data: []},
+            {data: []},
+            {data: []},
+            {data: []},
+            {data: []},
+            {data: []},
+            {data: []},
+        ];
+
+        if(oldSearchDate != searchdate){
+            setOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
         }
     }
 
@@ -59,9 +80,8 @@ class JCMoCoCoMa extends Component{
                         display: "inline-block"
                     }}
                 >
-                    <ButtonComfirmBox
-
-                    />
+                    
+                    {this.props.searchFlag ? (<ButtonComfirmBox />) : null}
                 </div>
             </Fragment>
         )
@@ -76,7 +96,8 @@ const mapStateToProps = (state) => {
         requestFlag:state.getIn(['JCMoCoCoMa', 'requestFlag']),
         person:state.getIn(['JCMoCoCoMa', 'person']),
         tableName:state.getIn(['JCMoCoCoMa', 'tableName']),
-
+        searchdate:state.getIn(['searchTable', 'date']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 };
 

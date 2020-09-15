@@ -41,6 +41,72 @@ class RuYSLYGFXJL extends Component{
         }//end if
     }
 
+    componentWillReceiveProps(nextProps){
+        const oldSearchDate = this.props.searchdate; //旧的props
+        const { tableName, getOldData, getFrontOldData, getLastOldData, searchdate } = nextProps; //新的props
+
+        const model_data = [
+            {data: []},//0点半的备注
+            {data: []},//8点半的备注
+            {data: []},//16点班的备注
+        ];
+
+        const model_upperDataFront = [//表的前半段，SiO2~IM(P)
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []}
+        ];
+
+        const model_upperDataLast = [//上表 细度和水分
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+
+
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+        ];
+
+
+        if(oldSearchDate != searchdate){
+            getOldData(
+                moment(searchdate).format("YYYY/MM/DD"),
+                tableName,
+                deepCopy(model_data)
+            );
+
+            //入窑生料化学分析报告单
+            getFrontOldData(
+                moment(searchdate).format("YYYY/MM/DD"),
+                "RMC",
+                deepCopy(model_upperDataFront)
+            );
+
+            //控制室原始记录
+            getLastOldData(
+                moment(searchdate).format("YYYY/MM/DD"),
+                "CRO",
+                deepCopy(model_upperDataLast)
+            );
+        }
+    }
+
     render(){
         return(
             <Fragment>
@@ -71,7 +137,8 @@ class RuYSLYGFXJL extends Component{
                         display: "inline-block"
                     }}
                 >
-                    <ButtonComfirmBox/>
+                    {this.props.searchFlag ? (<ButtonComfirmBox />) : null}
+
                 </div>
             </Fragment>
         )
@@ -89,7 +156,8 @@ const mapStateToProps = (state) => {
         requestFlag:state.getIn(['ruYSLYGFXJL', 'requestFlag']),
         person:state.getIn(['ruYSLYGFXJL', 'person']),
         tableName:state.getIn(['ruYSLYGFXJL', 'tableName']),
-
+        searchdate:state.getIn(['searchTable', 'date']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
 
     }
 }

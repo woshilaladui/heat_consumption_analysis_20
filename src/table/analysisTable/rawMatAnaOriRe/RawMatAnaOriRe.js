@@ -7,6 +7,8 @@ import * as actionCreators from "../../analysisTable/rawMatAnaOriRe/store/action
 import {connect} from "react-redux";
 import {deepCopy} from "../../../Helper/Copy";
 
+import moment from 'moment';
+
 //原材料分析原始记录 石灰石
 class BurnSysOpRe extends Component{
     returnBack = () => {
@@ -28,6 +30,22 @@ class BurnSysOpRe extends Component{
             setOldData(date,tableName,deepCopy(data));
         }
 
+    }
+
+    componentWillReceiveProps(nextProps){
+        const oldSearchDate = this.props.searchdate; //旧的props
+        const { tableName, setOldData, searchdate } = nextProps; //新的props
+
+        const modelData = [
+            {data: []},
+            {data: []},
+            {data: []},
+            {data: []},
+        ];
+
+        if(oldSearchDate != searchdate){
+            setOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        }
     }
 
 
@@ -63,9 +81,7 @@ class BurnSysOpRe extends Component{
                         display: "inline-block"
                     }}
                 >
-                    <ButtonComfirmBox
-
-                    />
+                    {this.props.searchFlag ? (<ButtonComfirmBox />) : null}
                 </div>
             </Fragment>
         )
@@ -81,6 +97,8 @@ const mapStateToProps = (state) => {
         requestFlag:state.getIn(['rawMatAnaOriRe', 'requestFlag']),
         person:state.getIn(['rawMatAnaOriRe', 'person']),
         tableName:state.getIn(['rawMatAnaOriRe', 'tableName']),
+        searchdate:state.getIn(['searchTable', 'date']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 };
 

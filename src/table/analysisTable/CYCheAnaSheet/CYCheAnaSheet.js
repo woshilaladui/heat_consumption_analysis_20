@@ -8,8 +8,9 @@ import UpperForm from './components/UpperForm';
 
 import {Input} from 'antd';
 
-const { TextArea } = Input;
+import moment from 'moment';
 
+const { TextArea } = Input;
 
 
 //出窑熟料化学分析单
@@ -28,6 +29,23 @@ class CYCheAnaSheet extends Component{
         if(requestFlag){
 
             setOldData(date,tableName,deepCopy(data));
+        }
+    }
+
+    componentWillReceiveProps(nextProps){
+        const oldSearchDate = this.props.searchdate; //旧的props
+        const { tableName, setOldData, searchdate } = nextProps; //新的props
+
+        const modelData = [//5
+            {data: []},
+            {data: []},
+            {data: []},
+            {data: []},
+            {data: []},
+        ];
+
+        if(oldSearchDate != searchdate){
+            setOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
         }
     }
 
@@ -62,9 +80,9 @@ class CYCheAnaSheet extends Component{
                         display: "inline-block"
                     }}
                 >
-                    <ButtonComfirmBox
+                    
+                    {this.props.searchFlag ? (<ButtonComfirmBox />) : null}
 
-                    />
                 </div>
             </Fragment>
         )
@@ -79,6 +97,8 @@ const mapStateToProps = (state) => {
         requestFlag:state.getIn(['CYCheAnaSheet', 'requestFlag']),
         person:state.getIn(['CYCheAnaSheet', 'person']),
         tableName:state.getIn(['CYCheAnaSheet', 'tableName']),
+        searchdate:state.getIn(['searchTable', 'date']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 };
 

@@ -248,6 +248,10 @@ class UpperForm extends Component {
             // }
         ];
 
+        Input.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { } : {opacity:"1", color:"black"}, 
+        }
         /**限制输入数值位数的函数**end**/
 
         /**中间八行的数据输入**start**/
@@ -429,7 +433,7 @@ const mapStateToProps = (state) => {
         requestFlag: state.getIn(['CCCheAnaSheet', 'requestFlag']),
         person: state.getIn(['CCCheAnaSheet', 'person']),
         tableName: state.getIn(['CCCheAnaSheet', 'tableName']),
-
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 };
 

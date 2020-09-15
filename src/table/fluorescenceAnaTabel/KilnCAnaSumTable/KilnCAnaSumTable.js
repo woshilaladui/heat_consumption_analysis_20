@@ -8,6 +8,8 @@ import * as actionCreators from "../../fluorescenceAnaTabel/KilnCAnaSumTable/sto
 import {connect} from "react-redux";
 import {deepCopy} from "../../../Helper/Copy";
 
+import moment from 'moment';
+
 // 出窑熟料全分析汇总表
 class CMRawMatCheAnaRe extends Component {
 
@@ -30,6 +32,56 @@ class CMRawMatCheAnaRe extends Component {
                 date,
                 "CRO",
                 deepCopy(data_CRO)
+            );
+        }
+    }
+
+    componentWillReceiveProps(nextProps){
+        const oldSearchDate = this.props.searchdate; //旧的props
+        const { tableName, setOldData, getCROData, searchdate } = nextProps; //新的props
+
+        const model_data = [//定义该页面的数据模板 30
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},//0-7小时 0-7行
+            {data: []},//0点班的平均
+            {data: []},//0点班的合格率
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},//8-15小时 12-19行
+            {data: []},//8点班的平均
+            {data: []},//8点班的合格率
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},//16-23小时 24-31行
+            {data: []},//16点班的平均
+            {data: []},//16点班的合格率
+
+        ];
+
+        const model_data_CRO = [
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []},//均值 比值 合格率
+            {data: []}, {data: []}, {data: []}, {data: []},//下表数据
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+        ];
+
+        if(oldSearchDate != searchdate){
+            setOldData(moment(searchdate).format("YYYY/MM/DD"),tableName,deepCopy(model_data));
+            getCROData(
+                moment(searchdate).format("YYYY/MM/DD"),
+                "CRO",
+                deepCopy(model_data_CRO)
             );
         }
     }
@@ -64,8 +116,9 @@ class CMRawMatCheAnaRe extends Component {
                         display: "inline-block"
                     }}
                 >
-                    <ButtonConfirmationBox
-                    />
+
+                    {this.props.searchFlag ? (<ButtonConfirmationBox />) : null}
+
                 </div>
             </Fragment>
         );
@@ -81,6 +134,8 @@ const mapStateToProps = (state) => {
         requestFlag:state.getIn(['KilnCAnaSumTable', 'requestFlag']),
         person:state.getIn(['KilnCAnaSumTable', 'person']),
         tableName:state.getIn(['KilnCAnaSumTable', 'tableName']),
+        searchdate:state.getIn(['searchTable', 'date']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 };
 
