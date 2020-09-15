@@ -12,6 +12,7 @@ import {deepCopy} from "../../../Helper/Copy";
 // const { Column, ColumnGroup } = Table;
 
 class UpperForm extends React.Component {
+
     changeTime = (timeData) => {
       console.log("timeData"+timeData)
         const date = new Date(timeData);
@@ -47,7 +48,7 @@ class UpperForm extends React.Component {
                 <hr/>
                 <List
                     pagination={5}
-                    // loading={this.state.loadFlag}
+                    loading={this.props.loadFlag}
                     dataSource={this.props.data.logRecord}
                     renderItem={item => (
                         <List.Item>
@@ -71,6 +72,7 @@ const mapStateToProps = (state) => {
         data: state.getIn(['log', 'data']),
         person: state.getIn(['log', 'person']),
         tableName: state.getIn(['log', 'tableName']),
+        loadFlag: state.getIn(['log','loadFlag'])
     }
 }
 

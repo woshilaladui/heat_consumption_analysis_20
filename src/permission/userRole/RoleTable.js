@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { actionCreators } from './store'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {actionCreators} from './store'
 import {
   Table,
   Button,
   Switch,
 } from 'antd'
 
-const { Column } = Table;
+const {Column} = Table;
 
 class RoleTable extends Component {
   componentDidMount() {
@@ -15,7 +15,7 @@ class RoleTable extends Component {
   }
 
   render() {
-    const { data } = this.props
+    const {data} = this.props
     return (
       <div>
 
@@ -40,19 +40,46 @@ class RoleTable extends Component {
           <Column
             title="用户状态"
             dataIndex="enabled"
-            render={(text, record) =>
-              (
-              <Switch
-                checkedChildren="启用"
-                unCheckedChildren="禁用"
-                checked={record.enabled === 1 ? true : false}
-                onChange={e => this.props.changeEnabled(record.username,e )}
-              />
-            )}
+            render={
+              (text, record) => {
+                // console.log("开始")
+                // console.log("text"+text)
+                // console.log("record"+record)
+                // console.log(record)
+                // console.log("开始")
+
+                return(
+                  <Switch
+                    checkedChildren="启用"
+                    unCheckedChildren="禁用"
+                    checked={record.enabled === 1 ? true : false}
+                    onChange={e => this.props.changeEnabled(record.username, e)}
+                  />
+                )
+              }
+            }
           />
           <Column
-            title="权限ID"
+            title="部门ID"
             dataIndex="departmentId"
+            render={
+              (text, record) => {
+                console.log("开始")
+                console.log("text" + text)
+                console.log("record" + record)
+                console.log(record)
+                console.log("开始")
+                if (record.departmentId === 1) {
+                  return '化验室'
+                } else if (record.departmentId === 2) {
+                  return '中控室'
+                } else if (record.departmentId === 3) {
+                  return '行政部门'
+                } else if (record.departmentId === 4) {
+                  return '总部'
+                }
+              }
+            }
           />
           <Column
             title="操 作"
@@ -60,7 +87,7 @@ class RoleTable extends Component {
             render={(text, record) => (
               <Button
                 type="primary"
-                onClick={() => this._editItem(record,text)}
+                onClick={() => this._editItem(record, text)}
               >
                 编辑
               </Button>
@@ -76,7 +103,7 @@ class RoleTable extends Component {
     this.props.setOldData()
   }
 
-  _editItem = (item,test) => {
+  _editItem = (item, test) => {
 
     this.props.setEditItem(item)
     this.props.getCurrentUserRole(item.username)
@@ -102,7 +129,7 @@ const mapDispatch = dispatch => ({
   changeEnabled(username, enabledValue) {
     dispatch(actionCreators.changeEnabledValue(username, enabledValue))
   },
-  setEditItem(item){
+  setEditItem(item) {
     dispatch(actionCreators.setEditItem(item))
   }
 })

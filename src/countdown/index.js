@@ -12,8 +12,6 @@ const t4 = new Date();//当前时间
 
 const deadline = Date.now() + Math.floor((t2-t4)/1000)*1000 ; // 倒计时一个小时
 // const deadline = Date.now() + 15*1000 ; // 倒计时一个小时
-console.log("t2"+t2)
-console.log("t4"+t4)
 
 class CountDown extends Component{
     onFinish=()=> {
