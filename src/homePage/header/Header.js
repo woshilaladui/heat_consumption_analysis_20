@@ -4,8 +4,11 @@ import './Header.css';
 import {Link} from "react-router-dom";
 import {URL} from "../../http/constant/Constant";
 import {requestLogout} from "../../http/request/RequestUser";
+import CountDown from '../../../src/countdown'
+import * as actionCreators from "../../countdown/store/actionCreators";
+import {connect} from "react-redux";
 
-export default class Header extends Component {
+class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -14,6 +17,7 @@ export default class Header extends Component {
             needLogin: true,  //根据登录信息，切换登录与注销按钮
             showItem: 'none',  //是否显示表格相关按钮
             showPermissionCtr:'none', //是否显示权限管理按钮
+            showLoginTime:'none' //是否展示登陆时长
         };
     }
 
@@ -39,7 +43,22 @@ export default class Header extends Component {
                 needLogin: false,
                 showItem: '',
 
+
             })
+          // console.log(window.localStorage.countDownTimeFlag)
+          // console.log(!window.localStorage.countDownTimeFlag)
+          // console.log(window.localStorage.countDownTimeFlag === 'false')
+          if(window.localStorage.countDownTimeFlag == 'false'){
+
+            this.setState({
+              showLoginTime:''//是否展示登陆时长
+
+
+            })
+          }else {
+            this.handleLogout()
+          }
+
         }
     }
     handleLogout = () => {
@@ -47,13 +66,13 @@ export default class Header extends Component {
         this.setState({
             showItem: 'none',
             needLogin: 'true',
-            showPermissionCtr:'none'
-
+            showPermissionCtr:'none',
+          showLoginTime:'none'
         });
         requestLogout()
           .then(response =>{
               if (response["code"] == 0){
-                  console.log("token"+response["data"])
+                  // console.log("token"+response["data"])
                   window.localStorage.token = response["data"];
               }
           })
@@ -129,9 +148,27 @@ export default class Header extends Component {
                         </Link>
 
                     </Menu.Item>
-
+                  {
+                      <Menu.Item className='header_menuItem' key="" style={{display:this.state.showLoginTime}}>
+                        <CountDown />
+                      </Menu.Item>
+                  }
                 </Menu>
             </div>
         )
     }
 }
+const mapStateToProps = (state) => {
+  return {
+    date:state.getIn(['countDown', 'countDownFlag']),
+  }
+};
+
+const mapDispathToProps = (dispatch) => {
+  return {
+
+  }//end return
+};
+
+//export default BurnSysOpRe;
+export default connect(mapStateToProps, mapDispathToProps)(Header);

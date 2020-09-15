@@ -61,6 +61,8 @@ import {reducer as userRoleReducer} from '../permission/userRole/store'
 import {reducer as rolePermissionReducer} from '../permission/rolePermission/store'
 
 import { reducer as searchTableReducer } from '../table/searchTable/store';
+import {reducer as countDownReducer} from '../countdown/store'
+import {reducer as homePageHeaderReducer} from '../homePage/header/store'
 
 const reducer = combineReducers({
 
@@ -123,7 +125,10 @@ const reducer = combineReducers({
 	userRole: userRoleReducer,//用户角色控制
 
 	searchTable:searchTableReducer,//查看表单
-	rolePermission: rolePermissionReducer,
+	rolePermission: rolePermissionReducer,//权限控制
+	countDown: countDownReducer,//倒计时
+	homePageHeader:homePageHeaderReducer,
+
 });
 
 export default reducer;

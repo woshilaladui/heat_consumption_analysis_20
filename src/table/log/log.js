@@ -32,11 +32,11 @@ import {log_list} from "./style";
         const { RangePicker } = DatePicker;
         const { Search } = Input;
         const submitDateAndUser=(value)=>{
-            console.log('submitDateAndUser')
-            console.log(value)
-            console.log(this.props.startTime)
-            console.log(this.props.endTime)
-            console.log('submitDateAndUser')
+            // console.log('submitDateAndUser')
+            // console.log(value)
+            // console.log(this.props.startTime)
+            // console.log(this.props.endTime)
+            // console.log('submitDateAndUser')
             this.props.changeDataByUser(value,this.props.startTime,this.props.endTime)
         };
         return(

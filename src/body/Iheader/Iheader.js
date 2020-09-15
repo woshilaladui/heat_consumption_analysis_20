@@ -4,6 +4,7 @@ import './Iheader.css';
 import {BrowserRouter as Router, Link} from "react-router-dom";
 import { connect } from 'react-redux';
 import * as actionCreators from '../home_app/store/actionCreators';
+import CountDown from "../../countdown";
 const SubMenu = Menu.SubMenu;
 
 class Iheader extends Component {
@@ -336,6 +337,11 @@ class Iheader extends Component {
                     <Menu.Item className='header_menuItem' key="46" style={{display:display[7]}}>
                         <Icon type="team"/>日志
                     </Menu.Item>
+                    {
+                        <Menu.Item className='header_menuItem' key="" >
+                            <CountDown />
+                        </Menu.Item>
+                    }
                 </Menu>
             </div>
         )

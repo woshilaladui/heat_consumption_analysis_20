@@ -13,6 +13,7 @@ import {deepCopy} from "../../../Helper/Copy";
 
 class UpperForm extends React.Component {
     changeTime = (timeData) => {
+      console.log("timeData"+timeData)
         const date = new Date(timeData);
         return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
     }

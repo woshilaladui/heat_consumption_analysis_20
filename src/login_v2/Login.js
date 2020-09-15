@@ -39,10 +39,10 @@ componentDidMount() {
     //   })
 }
 componentWillReceiveProps(nextProps, nextContext) {
-    console.log('componentWillReceiveProps');
-    console.log(document.cookie.valueOf());
-    console.log(window)
-    console.log('componentWillReceiveProps')
+    // console.log('componentWillReceiveProps');
+    // console.log(document.cookie.valueOf());
+    // console.log(window)
+    // console.log('componentWillReceiveProps')
 }
 
 
@@ -75,13 +75,13 @@ componentWillReceiveProps(nextProps, nextContext) {
 
         this.props.changePasswordNum(e.target.value);
     };
-    handleClickconsole = ()=> {
-        console.log('document-q')
-        console.log(document.cookie)
-        console.log(document.cookie.valueOf("SESSION"))
-
-        console.log('document-q')
-    }
+    // handleClickconsole = ()=> {
+    //     //     console.log('document-q')
+    //     //     console.log(document.cookie)
+    //     //     console.log(document.cookie.valueOf("SESSION"))
+    //     //
+    //     //     console.log('document-q')
+    //     // }
 
     render() {
         const {phone, password,verificationCode} = this.props;
@@ -131,7 +131,7 @@ componentWillReceiveProps(nextProps, nextContext) {
                         {/*<a href="/reg" style={{float: 'right'}}>注册账号</a>*/}
                     </FormItem>
                 </Form>
-                <Button type="primary" onClick={this.handleClickconsole}>点击</Button>
+                {/*<Button type="primary" onClick={this.handleClickconsole}>点击</Button>*/}
                 <Footer style={{textAlign: 'center'}} className="footer">
                     SmartLab Design ©2018 Powered By 武汉理工大学智能技术实验室
                 </Footer>

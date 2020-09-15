@@ -88,6 +88,8 @@ export const getData = (phone,password,verificationCode) => {
                 window.localStorage.detail = data.data['user']['detail'];
                 //
                 window.localStorage.authorization = 'nianshao ' + data.data.token;
+                window.localStorage.expiration = data.data.expiration;
+                window.localStorage.countDownTimeFlag = false;
                 // window.localStorage.time = d.getTime();
                     window.location.href='/'
                     }else {
