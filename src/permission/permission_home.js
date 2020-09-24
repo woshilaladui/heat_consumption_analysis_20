@@ -2,6 +2,7 @@ import React from "react";
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import Permission from './permission';
 import Component from  './component'
+import {message} from 'antd'
 
 import { connect } from 'react-redux';
 import * as actionCreators from './store/actionCreators';
@@ -34,7 +35,12 @@ class PermissionHome extends React.Component {
         // if(requestFlag){
         //     getUserPermission();
         // }
+        let tokenID = window.localStorage.token;
+        if (tokenID === null || tokenID === '' || tokenID === undefined) {
+            window.location.href='/';
+            message.info('token错误，请重新登录')
 
+        }
     }
 
     render() {

@@ -1,5 +1,5 @@
 import React from "react";
-import {Layout} from 'antd';
+import {Layout, message} from 'antd';
 import Iheader from '../Iheader/Iheader';
 import MainComponent from '../bodys/MainComponent';
 import { connect } from 'react-redux';
@@ -33,6 +33,12 @@ class Home_app extends React.Component {
         // if(requestFlag){
         //     getUserPermission();
         // }
+        let tokenID = window.localStorage.token;
+        if (tokenID === null || tokenID === '' || tokenID === undefined) {
+            window.location.href='/';
+            message.info('token错误，请重新登录')
+
+        }
 
     }
 

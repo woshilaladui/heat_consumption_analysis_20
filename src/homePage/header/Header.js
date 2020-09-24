@@ -73,7 +73,8 @@ class Header extends Component {
           .then(response =>{
               if (response["code"] == 0){
                   // console.log("token"+response["data"])
-                  window.localStorage.token = response["data"];
+                  // window.localStorage.token = response["data"];
+                  window.localStorage.clear();
               }
           })
         // this.onChangekey({"key": 0});
