@@ -21,10 +21,9 @@ class BurnSysOpRe extends Component {
     }
 
     componentDidMount() {
-        console.log("Did");
         /**首先查询当前页面是否有历史纪录并赋值formData**/
         const {data, date, tableName, setOldData, requestFlag, person, searchFlag } = this.props;
-        console.log(requestFlag);
+       
         if(requestFlag){
             setOldData(date,tableName,deepCopy(data));
         }
@@ -32,7 +31,6 @@ class BurnSysOpRe extends Component {
     }
 
     componentWillReceiveProps(nextProps){
-        console.log("变了");
         const oldSearchDate = this.props.searchdate; //旧的props
         const { tableName, setOldData, searchdate } = nextProps; //新的props
 
@@ -57,12 +55,7 @@ class BurnSysOpRe extends Component {
 
         if(oldSearchDate != searchdate){
             setOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
-            this.props.updateCRF();
         }
-    }
-
-    componentWillUnmount(){
-        console.log("Un");
     }
 
     
@@ -121,10 +114,7 @@ const mapDispathToProps = (dispatch) => {
     return {
         setOldData(date,tableName,data){
             dispatch(actionCreators.getData(date,tableName,data))
-        },
-        updateCRF() {
-            dispatch(actionCreators.updateCRF())
-        },
+        }
     }//end return
 };
 

@@ -27,7 +27,7 @@ class SetStandard extends Component {
             setOldData(tempTableNameList[tableChose]);
         }
     }
-    
+
     /***返回按钮事件 ***/
     returnBack = () => {
         //this.props.history.push("/index");
@@ -55,7 +55,7 @@ class SetStandard extends Component {
                         display: "inline-block"
                     }}
                 >
-                <ButtonConfirmationBox type="primary" buttonText="提交" action={this.handleSubmit}/>
+                    <ButtonConfirmationBox type="primary" buttonText="提交" action={this.handleSubmit}/>
                 </div>
             </div>
         );
@@ -69,6 +69,7 @@ const mapStateToProps = (state) => {
         requestFlag:state.getIn(['setStandard', 'requestFlag']),
         person:state.getIn(['setStandard', 'person']),
         tableNameList:state.getIn(['setStandard', 'tableNameList']),
+
     }
 };
 
