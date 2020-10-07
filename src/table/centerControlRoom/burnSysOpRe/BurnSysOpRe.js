@@ -31,9 +31,8 @@ class BurnSysOpRe extends Component {
     }
 
     componentWillReceiveProps(nextProps){
-        console.log("变了");
         const oldSearchDate = this.props.searchdate; //旧的props
-        const { tableName, setOldData, searchdate ,updateCRF} = nextProps; //新的props
+        const { tableName, setOldData, searchdate } = nextProps; //新的props
 
         const { updateCRF, modelData } = this.props;
 
