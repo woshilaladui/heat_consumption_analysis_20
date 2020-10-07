@@ -26,6 +26,7 @@ import { reducer as CMRawMatCheAnaReReducer } from '../table/fluorescenceAnaTabe
 import { reducer as RYRawMatCheAnaReReducer } from '../table/fluorescenceAnaTabel/RYRawMatCheAnaRe/store';
 import { reducer as KilnCAnaSumTableReducer } from '../table/fluorescenceAnaTabel/KilnCAnaSumTable/store';
 import { reducer as FactoryCliAnaSumTableReducer } from '../table/fluorescenceAnaTabel/FactoryCliAnaSumTable/store';
+import { reducer as WareHouseRawMatCAReReducer } from '../table/fluorescenceAnaTabel/wareHouseRawMatCARe/store/index';
 
 
 /*******************************************分析表格*******************************************************/
@@ -88,7 +89,7 @@ const reducer = combineReducers({
 	RawMatCheAnaReFMHS:RawMatCheAnaReFMHSReducer,//进厂粉煤灰(湿)原材料分析化学报告单
 	CMRawMatCheAnaRe:CMRawMatCheAnaReReducer,//出磨生料化学分析报告单
 	RYRawMatCheAnaRe:RYRawMatCheAnaReReducer,//入窑生料化学分析报告单
-
+	WareHouseRawMatCARe:WareHouseRawMatCAReReducer,//仓下原材料化学分析报告单
 	KilnCAnaSumTable:KilnCAnaSumTableReducer,//出窑熟料全分析汇总表
 	FactoryCliAnaSumTable:FactoryCliAnaSumTableReducer,//出厂熟料全分析汇总表
 
