@@ -27,6 +27,24 @@ const defaultState = fromJS({
             ]},//下表的数据 32-35行
 
     ],
+    modelData:[//定义该页面的数据模板
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},//0-7小时 0-7行
+        {data: []}, {data: []}, {data: []}, {data: ['', '', moment().format("YYYY/MM/DD hh:mm:ss").toString()]},//下表的数据 8-11行
+
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},//8-15小时 12-19行
+        {data: []}, {data: []}, {data: []}, {data: [
+                '', '', moment().format("YYYY/MM/DD hh:mm:ss").toString()
+            ]},//下表的数据 20-23行
+
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},//16-23小时 24-31行
+        {data: []}, {data: []}, {data: []}, {data: [
+                '', '', moment().format("YYYY/MM/DD hh:mm:ss").toString()
+            ]},//下表的数据 32-35行
+
+    ],
     allTime:[
         ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00'],
         ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00'],
@@ -47,7 +65,10 @@ export default (state = defaultState, action) => {
         case constants.CHANGE_TIME_CHOSE_BSO:
             return state.set('timeChose', action.timeChose);
         case constants.CHANGE_REQUEST_FLAG:
-            return state.set('requestFlag',true);
+            return state.merge({
+                'data': action.data,
+                'requestFlag':true//查询表单的时候需要设置true，不然跳转到填写表单的时候会出Bug
+            });
         default:
             return state;
     }

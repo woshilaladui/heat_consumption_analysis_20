@@ -34,9 +34,10 @@ export const updateData = ({data}) => ({
     data: data
 });
 
-export const updateCRF = () => ({
-    type: constants.CHANGE_REQUEST_FLAG
-})
+export const updateCRF = ({data}) => ({
+    type: constants.CHANGE_REQUEST_FLAG,
+    data: data
+});
 
 
 /**
@@ -59,6 +60,42 @@ export const getData = (date, tableName, data) => {
             if(response['code'] === 0){
 
                 //解析处理数据
+                let newData = deepCopy(response['data']);
+
+                let result = ZhongKongShiFormat(
+                    data,
+                    newData,
+                    tableName
+                );
+                dispatch(updateData({//将获取到的数据进行转发
+                    data: result
+                }));
+            
+            }
+
+
+
+        });//end requestGetHuaYanShiDataByTableNameAndDate
+    }
+};//end getData
+
+/**
+ *
+ * 这个功能专门给日期变化的情况下查询数据用的，主要目的是避免requestFlag变成false
+ */
+export const getData_CRF = (date, tableName, data) => {
+    return (dispatch) => {
+
+        requestGetZhongKongShiDataByTableNameAndDate(
+            date,
+            tableName,
+            data
+        ).then((response) => {
+
+
+            if(response['code'] === 0){
+
+                //解析处理数据
                 let newData = deepCopy(response['data'])
                 
                 let result = ZhongKongShiFormat(
@@ -67,7 +104,7 @@ export const getData = (date, tableName, data) => {
                     tableName
                 );
 
-                dispatch(updateData({//将获取到的数据进行转发
+                dispatch(updateCRF({//将获取到的数据进行转发
                     data: result
                 }));
             

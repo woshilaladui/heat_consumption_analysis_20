@@ -21,7 +21,6 @@ class Home_app extends React.Component {
         this.setState({
             choose_num: e
         });
-        console.log(e);
     }
 
 

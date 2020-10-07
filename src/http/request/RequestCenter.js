@@ -56,9 +56,6 @@ export function RequestCenter(
                     return  res.json()})
 
                 .then(data => {
-                    console.log('dateerrosss')
-                    console.log(data)
-                    console.log('dateroorsss')
 
                     if (data['code'] === Mark.SUCCESS ) {//判定是否成功
 
