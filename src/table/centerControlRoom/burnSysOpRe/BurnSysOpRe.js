@@ -23,9 +23,16 @@ class BurnSysOpRe extends Component {
     componentDidMount() {
         console.log("Did");
         /**首先查询当前页面是否有历史纪录并赋值formData**/
-        const {data, date, tableName, setOldData, requestFlag, person, searchFlag, modelData } = this.props;
-        if(requestFlag){
-            setOldData(date,tableName,deepCopy(modelData));
+        const {data, date, tableName, setOldData, requestFlag, person, searchFlag, modelData, searchdate } = this.props;
+        
+        //判断初始化组件之前是不是从查看表单里的其他组件进来的
+        let realdate = date;
+        if( moment(searchdate).format("YYYY/MM/DD") != date){
+            realdate = moment(searchdate).format("YYYY/MM/DD");
+        };
+
+        if(requestFlag || moment(searchdate).format("YYYY/MM/DD") != date ){
+            setOldData(realdate,tableName,deepCopy(modelData));
         }
 
     }
@@ -34,13 +41,12 @@ class BurnSysOpRe extends Component {
         const oldSearchDate = this.props.searchdate; //旧的props
         const { tableName, setOldData, searchdate } = nextProps; //新的props
 
-        const { updateCRF, modelData } = this.props;
+        const { modelData } = this.props;
 
         if(oldSearchDate != searchdate){
-            updateCRF(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+            setOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
         }
     }
-
 
     render() {
         return (
@@ -97,9 +103,6 @@ const mapDispathToProps = (dispatch) => {
     return {
         setOldData(date,tableName,data){
             dispatch(actionCreators.getData(date,tableName,data))
-        },
-        updateCRF(date,tableName,data) {
-            dispatch(actionCreators.getData_CRF(date,tableName,data))
         },
     }//end return
 };

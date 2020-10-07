@@ -64,11 +64,6 @@ export default (state = defaultState, action) => {
             });
         case constants.CHANGE_TIME_CHOSE_BSO:
             return state.set('timeChose', action.timeChose);
-        case constants.CHANGE_REQUEST_FLAG:
-            return state.merge({
-                'data': action.data,
-                'requestFlag':true//查询表单的时候需要设置true，不然跳转到填写表单的时候会出Bug
-            });
         default:
             return state;
     }
