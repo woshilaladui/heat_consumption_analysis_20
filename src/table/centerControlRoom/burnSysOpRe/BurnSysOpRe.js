@@ -21,9 +21,10 @@ class BurnSysOpRe extends Component {
     }
 
     componentDidMount() {
+        console.log("Did");
         /**首先查询当前页面是否有历史纪录并赋值formData**/
         const {data, date, tableName, setOldData, requestFlag, person, searchFlag } = this.props;
-       
+        console.log(requestFlag);
         if(requestFlag){
             setOldData(date,tableName,deepCopy(data));
         }
@@ -31,8 +32,9 @@ class BurnSysOpRe extends Component {
     }
 
     componentWillReceiveProps(nextProps){
+        console.log("变了");
         const oldSearchDate = this.props.searchdate; //旧的props
-        const { tableName, setOldData, searchdate } = nextProps; //新的props
+        const { tableName, setOldData, searchdate ,updateCRF} = nextProps; //新的props
 
         const modelData = [//定义该页面的数据模板
                 {data: []}, {data: []}, {data: []}, {data: []},
@@ -54,17 +56,19 @@ class BurnSysOpRe extends Component {
         ]
 
         if(oldSearchDate != searchdate){
-            setOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
 
 
-          function getA(){
+
+            function getA(){
 
             console.log("A")
 
             return  new Promise(function(resolve, reject){
-              setTimeout(function(){
-                resolve(2);
-              }, 1000);
+              setOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+
+              // setTimeout(function(){
+              //   resolve(2);
+              // }, 1000);
             });
           }
 
@@ -72,9 +76,7 @@ class BurnSysOpRe extends Component {
             console.log("B")
 
             return  new Promise(function(resolve, reject){
-              setTimeout(function(){
-                resolve(3);
-              }, 1000);
+              updateCRF();
             });
           }
 
@@ -124,7 +126,14 @@ class BurnSysOpRe extends Component {
           }
 
 
+
+
+
         }
+    }
+
+    componentWillUnmount(){
+        console.log("Un");
     }
 
     
@@ -183,7 +192,10 @@ const mapDispathToProps = (dispatch) => {
     return {
         setOldData(date,tableName,data){
             dispatch(actionCreators.getData(date,tableName,data))
-        }
+        },
+        updateCRF() {
+            dispatch(actionCreators.updateCRF())
+        },
     }//end return
 };
 

@@ -96,9 +96,9 @@ class TableJCYCL extends React.Component {
             },
 
         ];
-        // console.log("this.props.RAO_SHS")
-        // console.log(this.props.RAO_SHS[3])
-        // console.log("this.props.RAO_SHS")
+        console.log("this.props.RAO_SHS")
+        console.log(deepCopy(this.props.RAO_SHS))
+        console.log("this.props.RAO_SHS")
 
         /*进厂石灰石数据填充*/
 
@@ -111,28 +111,28 @@ class TableJCYCL extends React.Component {
             Fe2O_lista: this.props.CJSHSjunzhi[4],
             CaO_lista: this.props.CJSHSjunzhi[5],
             MgO_lista: this.props.CJSHSjunzhi[6],
-            S3O_lista: isNaN(this.props.RAO_SHS[3]['t_data'][6]) ? null : this.props.RAO_SHS[3]['t_data'][6],
-            //S3O_lista:this.props.RAO_SHS[3]['t_data'][6]?this.props.RAO_SHS[3]['t_data'][6]:'',
-            Na2O_lista: this.props.RAO_SHS[3]['t_data'][7],
-            K2O_lista: this.props.RAO_SHS[3]['t_data'][8],
-            Cl_lista: this.props.RAO_SHS[3]['t_data'][9],
-            R2O_lista: null
+            // S3O_lista: isNaN(this.props.RAO_SHS[3]['data'][6]) ? null : this.props.RAO_SHS[3]['data'][6],
+            // //S3O_lista:this.props.RAO_SHS[3]['data'][6]?this.props.RAO_SHS[3]['data'][6]:'',
+            // Na2O_lista: this.props.RAO_SHS[3]['data'][7],
+            // K2O_lista: this.props.RAO_SHS[3]['data'][8],
+            // Cl_lista: this.props.RAO_SHS[3]['data'][9],
+            // R2O_lista: null
         })
 
         /*进厂干煤粉灰数据*/
         dataa.push({
             timea: timea[1],
             water_lista: this.props.CJFMHgjunzhi[0],
-            IL_lista: isNaN(this.props.RAO_FMHg[3]['t_data'][0]) ? null : this.props.RAO_FMHg[3]['t_data'][0],
-            SiO2_lista: isNaN(this.props.RAO_FMHg[3]['t_data'][1]) ? null : this.props.RAO_FMHg[3]['t_data'][1],
-            Al2O3_lista: isNaN(this.props.RAO_FMHg[3]['t_data'][2]) ? null : this.props.RAO_FMHg[3]['t_data'][2],
-            Fe2O_lista: isNaN(this.props.RAO_FMHg[3]['t_data'][3]) ? null : this.props.RAO_FMHg[3]['t_data'][3],
-            CaO_lista: isNaN(this.props.RAO_FMHg[3]['t_data'][4]) ? null : this.props.RAO_FMHg[3]['t_data'][4],
-            MgO_lista: isNaN(this.props.RAO_FMHg[3]['t_data'][5]) ? null : this.props.RAO_FMHg[3]['t_data'][5],
-            S3O_lista: isNaN(this.props.RAO_FMHg[3]['t_data'][6]) ? null : this.props.RAO_FMHg[3]['t_data'][6],
-            Na2O_lista: isNaN(this.props.RAO_FMHg[3]['t_data'][7]) ? null : this.props.RAO_FMHg[3]['t_data'][7],
-            K2O_lista: isNaN(this.props.RAO_FMHg[3]['t_data'][8]) ? null : this.props.RAO_FMHg[3]['t_data'][8],
-            Cl_lista: isNaN(this.props.RAO_FMHg[3]['t_data'][9]) ? null : this.props.RAO_FMHg[3]['t_data'][9],
+            IL_lista: isNaN(this.props.RAO_FMHg[3]['data'][0]) ? null : this.props.RAO_FMHg[3]['data'][0],
+            SiO2_lista: isNaN(this.props.RAO_FMHg[3]['data'][1]) ? null : this.props.RAO_FMHg[3]['data'][1],
+            Al2O3_lista: isNaN(this.props.RAO_FMHg[3]['data'][2]) ? null : this.props.RAO_FMHg[3]['data'][2],
+            Fe2O_lista: isNaN(this.props.RAO_FMHg[3]['data'][3]) ? null : this.props.RAO_FMHg[3]['data'][3],
+            CaO_lista: isNaN(this.props.RAO_FMHg[3]['data'][4]) ? null : this.props.RAO_FMHg[3]['data'][4],
+            MgO_lista: isNaN(this.props.RAO_FMHg[3]['data'][5]) ? null : this.props.RAO_FMHg[3]['data'][5],
+            S3O_lista: isNaN(this.props.RAO_FMHg[3]['data'][6]) ? null : this.props.RAO_FMHg[3]['data'][6],
+            Na2O_lista: isNaN(this.props.RAO_FMHg[3]['data'][7]) ? null : this.props.RAO_FMHg[3]['data'][7],
+            K2O_lista: isNaN(this.props.RAO_FMHg[3]['data'][8]) ? null : this.props.RAO_FMHg[3]['data'][8],
+            Cl_lista: isNaN(this.props.RAO_FMHg[3]['data'][9]) ? null : this.props.RAO_FMHg[3]['data'][9],
             R2O_lista: null
 
         })
@@ -141,32 +141,32 @@ class TableJCYCL extends React.Component {
         dataa.push({
             timea: timea[2],
             water_lista: this.props.CJFMHsjunzhi[0],
-            IL_lista: isNaN(this.props.RAO_FMHs[3]['t_data'][0]) ? null : this.props.RAO_FMHs[3]['t_data'][0],
-            SiO2_lista: isNaN(this.props.RAO_FMHs[3]['t_data'][1]) ? null : this.props.RAO_FMHs[3]['t_data'][1],
-            Al2O3_lista: isNaN(this.props.RAO_FMHs[3]['t_data'][2]) ? null : this.props.RAO_FMHs[3]['t_data'][2],
-            Fe2O_lista: isNaN(this.props.RAO_FMHs[3]['t_data'][3]) ? null : this.props.RAO_FMHs[3]['t_data'][3],
-            CaO_lista: isNaN(this.props.RAO_FMHs[3]['t_data'][4]) ? null : this.props.RAO_FMHs[3]['t_data'][4],
-            MgO_lista: isNaN(this.props.RAO_FMHs[3]['t_data'][5]) ? null : this.props.RAO_FMHs[3]['t_data'][5],
-            S3O_lista: isNaN(this.props.RAO_FMHs[3]['t_data'][6]) ? null : this.props.RAO_FMHs[3]['t_data'][6],
-            Na2O_lista: isNaN(this.props.RAO_FMHs[3]['t_data'][7]) ? null : this.props.RAO_FMHs[3]['t_data'][7],
-            K2O_lista: isNaN(this.props.RAO_FMHs[3]['t_data'][8]) ? null : this.props.RAO_FMHs[3]['t_data'][8],
-            Cl_lista: isNaN(this.props.RAO_FMHs[3]['t_data'][9]) ? null : this.props.RAO_FMHs[3]['t_data'][9],
+            IL_lista: isNaN(this.props.RAO_FMHs[3]['data'][0]) ? null : this.props.RAO_FMHs[3]['data'][0],
+            SiO2_lista: isNaN(this.props.RAO_FMHs[3]['data'][1]) ? null : this.props.RAO_FMHs[3]['data'][1],
+            Al2O3_lista: isNaN(this.props.RAO_FMHs[3]['data'][2]) ? null : this.props.RAO_FMHs[3]['data'][2],
+            Fe2O_lista: isNaN(this.props.RAO_FMHs[3]['data'][3]) ? null : this.props.RAO_FMHs[3]['data'][3],
+            CaO_lista: isNaN(this.props.RAO_FMHs[3]['data'][4]) ? null : this.props.RAO_FMHs[3]['data'][4],
+            MgO_lista: isNaN(this.props.RAO_FMHs[3]['data'][5]) ? null : this.props.RAO_FMHs[3]['data'][5],
+            S3O_lista: isNaN(this.props.RAO_FMHs[3]['data'][6]) ? null : this.props.RAO_FMHs[3]['data'][6],
+            Na2O_lista: isNaN(this.props.RAO_FMHs[3]['data'][7]) ? null : this.props.RAO_FMHs[3]['data'][7],
+            K2O_lista: isNaN(this.props.RAO_FMHs[3]['data'][8]) ? null : this.props.RAO_FMHs[3]['data'][8],
+            Cl_lista: isNaN(this.props.RAO_FMHs[3]['data'][9]) ? null : this.props.RAO_FMHs[3]['data'][9],
             R2O_lista: null
         })
 
         dataa.push({
             timea: timea[3],
             water_lista: this.props.CJTFjunzhi[0],
-            IL_lista: isNaN(this.props.RAO_TF[3]['t_data'][0]) ? null : this.props.RAO_TF[3]['t_data'][0],
-            SiO2_lista: isNaN(this.props.RAO_TF[3]['t_data'][1]) ? null : this.props.RAO_TF[3]['t_data'][1],
-            Al2O3_lista: isNaN(this.props.RAO_TF[3]['t_data'][2]) ? null : this.props.RAO_TF[3]['t_data'][2],
-            Fe2O_lista: isNaN(this.props.RAO_TF[3]['t_data'][3]) ? null : this.props.RAO_TF[3]['t_data'][3],
-            CaO_lista: isNaN(this.props.RAO_TF[3]['t_data'][4]) ? null : this.props.RAO_TF[3]['t_data'][4],
-            MgO_lista: isNaN(this.props.RAO_TF[3]['t_data'][5]) ? null : this.props.RAO_TF[3]['t_data'][5],
-            S3O_lista: isNaN(this.props.RAO_TF[3]['t_data'][6]) ? null : this.props.RAO_TF[3]['t_data'][6],
-            Na2O_lista: isNaN(this.props.RAO_TF[3]['t_data'][7]) ? null : this.props.RAO_TF[3]['t_data'][7],
-            K2O_lista: isNaN(this.props.RAO_TF[3]['t_data'][8]) ? null : this.props.RAO_TF[3]['t_data'][8],
-            Cl_lista: isNaN(this.props.RAO_TF[3]['t_data'][9]) ? null : this.props.RAO_TF[3]['t_data'][9],
+            IL_lista: isNaN(this.props.RAO_TF[3]['data'][0]) ? null : this.props.RAO_TF[3]['data'][0],
+            SiO2_lista: isNaN(this.props.RAO_TF[3]['data'][1]) ? null : this.props.RAO_TF[3]['data'][1],
+            Al2O3_lista: isNaN(this.props.RAO_TF[3]['data'][2]) ? null : this.props.RAO_TF[3]['data'][2],
+            Fe2O_lista: isNaN(this.props.RAO_TF[3]['data'][3]) ? null : this.props.RAO_TF[3]['data'][3],
+            CaO_lista: isNaN(this.props.RAO_TF[3]['data'][4]) ? null : this.props.RAO_TF[3]['data'][4],
+            MgO_lista: isNaN(this.props.RAO_TF[3]['data'][5]) ? null : this.props.RAO_TF[3]['data'][5],
+            S3O_lista: isNaN(this.props.RAO_TF[3]['data'][6]) ? null : this.props.RAO_TF[3]['data'][6],
+            Na2O_lista: isNaN(this.props.RAO_TF[3]['data'][7]) ? null : this.props.RAO_TF[3]['data'][7],
+            K2O_lista: isNaN(this.props.RAO_TF[3]['data'][8]) ? null : this.props.RAO_TF[3]['data'][8],
+            Cl_lista: isNaN(this.props.RAO_TF[3]['data'][9]) ? null : this.props.RAO_TF[3]['data'][9],
             R2O_lista: null
         })
 
@@ -180,11 +180,11 @@ class TableJCYCL extends React.Component {
             Fe2O_lista: this.props.CJSYjunzhi[4],
             CaO_lista: this.props.CJSYjunzhi[5],
             MgO_lista: this.props.CJSYjunzhi[6],
-            S3O_lista: isNaN(this.props.RAO_SY[3]['t_data'][6]) ? null : this.props.RAO_SY[3]['t_data'][6],
-            //S3O_lista:this.props.RAO_SY[3]['t_data'][6]?this.props.RAO_SY[3]['t_data'][6]:'',
-            Na2O_lista: isNaN(this.props.RAO_SY[3]['t_data'][7]) ? null : this.props.RAO_SY[3]['t_data'][7],
-            K2O_lista: isNaN(this.props.RAO_SY[3]['t_data'][8]) ? null : this.props.RAO_SY[3]['t_data'][8],
-            Cl_lista: isNaN(this.props.RAO_SY[3]['t_data'][9]) ? null : this.props.RAO_SY[3]['t_data'][9],
+            S3O_lista: isNaN(this.props.RAO_SY[3]['data'][6]) ? null : this.props.RAO_SY[3]['data'][6],
+            //S3O_lista:this.props.RAO_SY[3]['data'][6]?this.props.RAO_SY[3]['data'][6]:'',
+            Na2O_lista: isNaN(this.props.RAO_SY[3]['data'][7]) ? null : this.props.RAO_SY[3]['data'][7],
+            K2O_lista: isNaN(this.props.RAO_SY[3]['data'][8]) ? null : this.props.RAO_SY[3]['data'][8],
+            Cl_lista: isNaN(this.props.RAO_SY[3]['data'][9]) ? null : this.props.RAO_SY[3]['data'][9],
             R2O_lista: null
 
 

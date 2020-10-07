@@ -7,78 +7,78 @@ const defaultState = fromJS({
     requestFlag_HYS_RB:true,
     isGetData:false,
     RMA_SHS: [//进厂石灰石的数据
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
 
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
 
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []}
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []}
     ], //表格数据
     RMA_SY: [//进厂砂岩泥数据
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
 
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
 
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []}
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []}
     ],
     RAO_SHS: [//石灰石原始记录
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []}
+        {data: []}, {data: []}, {data: []}, {data: []}
     ],
     RAO_SY: [//砂岩泥原始记录
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []}
+        {data: []}, {data: []}, {data: []}, {data: []}
     ],
     RMA_FMHg: [//干煤粉灰
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
 
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
 
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []}
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []}
     ], //干煤粉灰
     RMA_TF: [//铁粉
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
 
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
 
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []}
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []}
     ],
     RMA_FMHs: [//湿煤粉灰
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
 
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
 
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []}
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []}
     ],
     RAO_FMHg: [//粉煤灰干原始记录
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []}
+        {data: []}, {data: []}, {data: []}, {data: []}
     ],
     RAO_FMHs: [//粉煤灰湿原始记录
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []}
+        {data: []}, {data: []}, {data: []}, {data: []}
     ],
     RAO_TF: [//铁粉原始记录
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []}
+        {data: []}, {data: []}, {data: []}, {data: []}
     ],
     CX_CaCO3: [
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
 
 
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
 
 
-        {t_data: []}, {t_data: []}, {t_data: []}, {t_data: []}
+        {data: []}, {data: []}, {data: []}, {data: []}
     ],//仓下石灰石
     date_HYS_RB: moment().format("YYYY-MM-DD"),
     ceshi:[1,2,3],
