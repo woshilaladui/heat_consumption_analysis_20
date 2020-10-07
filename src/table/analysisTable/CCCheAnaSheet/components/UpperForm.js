@@ -328,10 +328,10 @@ class UpperForm extends Component {
                     /></span>,
                     Cl: <span><Input
 
-                        style={this.changeStyle(value[AnalysisOrder_UpRipeMaterial.Cl])}
+                        style={this.changeStyle(value[AnalysisOrder_UpRipeMaterial.CL_])}
                         defaultValue={''}
-                        value={isNaN(value[AnalysisOrder_UpRipeMaterial.Cl]) ? null : value[AnalysisOrder_UpRipeMaterial.Cl]}
-                        onChange={event => this.onInputNumberChange2(event.target.value, i, AnalysisOrder_UpRipeMaterial.Cl)}
+                        value={isNaN(value[AnalysisOrder_UpRipeMaterial.CL_]) ? null : value[AnalysisOrder_UpRipeMaterial.CL_]}
+                        onChange={event => this.onInputNumberChange2(event.target.value, i, AnalysisOrder_UpRipeMaterial.CL_)}
                     /></span>,
                     person: Data[hour]['user'],
                     //btn_save: <Button type='primary' onClick={() => this.postToHome(i)}>暂存</Button>,

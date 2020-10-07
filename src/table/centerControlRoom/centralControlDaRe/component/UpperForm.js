@@ -572,7 +572,7 @@ class UpperForm extends Component {
                             defaultValue={''}
                             value={isNaN(value[8]) ? null : value[8]}
 
-                            onChange={event => this.onInputNumberChange2(event.target.value, i, 9)}
+                            onChange={event => this.onInputNumberChange2(event.target.value, i, 8)}
                         /></span>,
                     person: Data[hour]['name'],
                     // btn_save:

@@ -8,7 +8,7 @@ const defaultState = {
   permissionList: [
     {
       id: 1,
-      name: "全部权限",
+      name: "权限",
       order: 1,
       request: "/",
       type: "菜单",

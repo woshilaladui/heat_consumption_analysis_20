@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import {BrowserRouter as Router, Route,Switch} from "react-router-dom";
 import Home_app from "../body/home_app/Home_app";
 import user from "../body/user/user";
 import Home from "../homePage/home/Home";
@@ -10,6 +10,7 @@ import Test from "../table/centerControlRoom/burnSysOpRe/component/test"
 import Test2 from "../table/centerControlRoom/burnSysOpRe/component/test2"
 import PermissionHome from '../permission/permission_home'
 import Tser from '../../src/permission/rolePermission/ts'
+import NotFound from  '../notFound/index'
 import {Radio} from "antd";
 
 export default class AppRouter extends Component {
@@ -18,7 +19,7 @@ export default class AppRouter extends Component {
 
         return (
             <Router>
-                <div>
+                <Switch>
                     {/* <Route path='/' exact render={() => (
                         <Redirect to='/index'/>
                     )}/> */}
@@ -32,7 +33,7 @@ export default class AppRouter extends Component {
                     <Route path="/test" component={Test}/>
                     <Route path="/test2" component={Test2}/>
                     <Route path='/ts' component={Tser}/>
-
+                    <Route component = {NotFound}/>
 
                     {/* <Route path="/login" component={Login}/>
                     <Route path="/RuYaoSLYCLHXFXBGD" component={RuYaoSLYCLHXFXBGD} onEnter={this.isLogin} />
@@ -45,7 +46,7 @@ export default class AppRouter extends Component {
                     <Route path="/BiaoZhun" component={BiaoZhun} onEnter={this.isLogin}/>
                     <Route path="/ChaKan" component={ChaKan} onEnter={this.isLogin}/>
                     <Route path="/reg" component={Registration} onEnter={this.isLogin}/> */}
-                </div>
+                </Switch>
             </Router>
         );
     }

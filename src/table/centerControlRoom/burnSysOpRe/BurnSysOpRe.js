@@ -55,6 +55,75 @@ class BurnSysOpRe extends Component {
 
         if(oldSearchDate != searchdate){
             setOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+
+
+          function getA(){
+
+            console.log("A")
+
+            return  new Promise(function(resolve, reject){
+              setTimeout(function(){
+                resolve(2);
+              }, 1000);
+            });
+          }
+
+          function getB(){
+            console.log("B")
+
+            return  new Promise(function(resolve, reject){
+              setTimeout(function(){
+                resolve(3);
+              }, 1000);
+            });
+          }
+
+          function addAB(a,b){
+            return a+b
+          }
+
+          getResult();
+
+          function getResult(){
+
+            console.log("getResult")
+            var  obj={};
+            Promise.resolve().then(function(){
+              console.log("1")
+              return  getA()
+
+            })
+              .then(function(a){
+                console.log("2")
+                obj.a=a;
+
+              })
+              .then(function(){
+                console.log("3")
+                return getB()
+
+              })
+              .then(function(b){
+                console.log("4")
+                obj.b=b;
+                return obj;
+
+              })
+              .then(function(obj){
+                console.log("5")
+                return  addAB(obj['a'],obj['b'])
+
+              })
+              .then(data=>{
+                console.log("6")
+                console.log(data)
+
+              })
+              .catch(e => console.log(e));
+
+          }
+
+
         }
     }
 

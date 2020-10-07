@@ -6,94 +6,50 @@ import {HuaYSSave} from "../../../../Request/RequsetCenter";
 import {URL} from "../../../../Request/Constant";
 import {getHuaYSJsonSaveData} from "../../../../Request/JsonCenter";
 import {updateOperator} from "../../../../Helper/AutoCalculate";
- 
-export default class UpperForm extends Component {
+import * as actionCreators from "../../RYRawMatCheAnaRe/store/actionCreators";
+import {deepCopy} from "../../../../Helper/Copy";
+import {connect} from "react-redux";
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            Time: [],//第一列的时间变化自动控制
-            Data: [],//原始填写的数据
-        }
-    }
+class UpperForm extends Component {
+
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         Time: [],//第一列的时间变化自动控制
+    //         Data: [],//原始填写的数据
+    //     }
+    // }
 
 
     /**初始化**/
     componentDidMount() {
         //绑定ref
-        this.props.onRef(this);
+        // this.props.onRef(this);
     }
 
     /**
      * 第一列的时间变化
      */
     componentWillMount() {
-        const allTime = [
-            ['石灰石','岩砂','粉煤灰(湿)','铁粉'],
-            ['石灰石','岩砂','粉煤灰(湿)','铁粉'],
-            ['石灰石','岩砂','粉煤灰(湿)','铁粉']
-        ];
-        this.setState({
-            Time: [...allTime[this.props.timeChose]],
-            Data: this.props.upperData,
-        })
+        // const allTime = [
+        //     ['石灰石','岩砂','粉煤灰(湿)','铁粉'],
+        //     ['石灰石','岩砂','粉煤灰(湿)','铁粉'],
+        //     ['石灰石','岩砂','粉煤灰(湿)','铁粉']
+        // ];
+        // this.setState({
+        //     Time: [...allTime[this.props.timeChose]],
+        //     Data: this.props.upperData,
+        // })
     }
 
     /**更新props**/
     componentWillReceiveProps(nextProps) {
-        const allTime = [
-            ['石灰石','岩砂','粉煤灰(湿)','铁粉'],
-            ['石灰石','岩砂','粉煤灰(湿)','铁粉'],
-            ['石灰石','岩砂','粉煤灰(湿)','铁粉']
-        ];
-        this.setState({
-            Time: [...allTime[nextProps.timeChose]],
-            Data: nextProps.upperData,
-        });
+
     }
 
-    //暂存函数
-    postToHome(i) {//i是行数
-        const index = i + this.props.timeChose * 4
-        HuaYSSave(
-            URL.HUAYS_SAVE,
-            getHuaYSJsonSaveData({
-                tableName:this.props.t_name,
-                date:this.props.date,
-                index:index,
-                data:this.state.Data
-            }))
-            .then((response) => {
-                message.info('暂存成功');
-                //获取存放的人
-                updateOperator({Data:this.state.Data,index:index})
-                this.setState({
-                    Data: this.state.Data
-                })
-            })
-            .catch()
-    }
 
-    //提交函数
-    postAllToHome() {
-        HuaYSSave(
-            URL.HUAYS_SAVE,
-            getHuaYSJsonSaveData({
-                tableName:this.props.t_name,
-                date:this.props.date,
-                data:this.state.Data,
-                num:24//24行数据提交
-            }))
-            .then((response) => {
-                message.info('提交成功');
-                //获取存放的人
-                updateOperator({Data:this.state.Data})
-                this.setState({
-                    Data: this.state.Data
-                })
-            })
-            .catch()
-    }
+
+
 
     updataData_Initial(standard) {
         let temp1 = 0;//计算均值和合格率的临时数据
@@ -265,12 +221,12 @@ export default class UpperForm extends Component {
      * 表格输入数据变化的监听，同时所有的数据更新
      **/
     onInputNumberChange2 = (event, indexH, indexL) => {
-        let NewData = this.state.Data;
-        let hour = indexH + this.props.timeChose * 4;
-        NewData[hour]["t_data"][indexL] = event;
-        this.setState({
-            Data: NewData
-        });
+        const {data, updateChange, order, startValue, endValue, width, timeChose,tableWidth,tableName} = this.props;
+
+        let NewData = deepCopy(data);//复制一份出来
+        let hour = indexH + timeChose * 4;
+        NewData[hour]["data"][indexL] = event;
+        updateChange(NewData);
     };
     onInputNumberChange3 = (event, indexH, indexL) => {
         let NewData = this.state.Data;
@@ -415,37 +371,35 @@ export default class UpperForm extends Component {
             // }
         ];
 
-        const data = [];
+        const dataSource = [];
 
 
             //中间八行的数据输入
-        const Data = this.state.Data;
-
+        const {data, timeChose, allTime} = this.props;
+        const Data = deepCopy(data);
+        const time = deepCopy(allTime);
         // console.log("this.props.timeChose")
         // console.log(this.props.timeChose)
         // console.log("this.props.timeChose")
 
         for (let i = 0; i < 4; i++) {
-            let hour = i + this.props.timeChose * 4;
-            const value = Data[hour]['t_data'];
-            console.log("this.props.timeChose")
-            console.log(hour )
-            console.log("this.props.timeChose")
-            data.push(
+            let hour = i + timeChose * 4;
+            const value = Data[hour]['data'];
+            dataSource.push(
                 {
-                    time: this.state.Time[i],
+                    time: time[timeChose][i],
                     FuZhuoShui_list: <span><InputNumber
                         style={this.changeStyle(value[0])}
                         defaultValue={''}
                         value={isNaN(value[0]) ? null : value[0]}
-                        onBlur={() => this.updataData(this.props.standard)}
+                        // onBlur={() => this.updataData(this.props.standard)}
                         onChange={value => this.onInputNumberChange2(value, i, 0)}
                     /></span>,
                     BuRongWu_list: <span><InputNumber
                         style={this.changeStyle(value[1])}
                         defaultValue={''}
                         value={isNaN(value[1]) ? null : value[1]}
-                        onBlur={() => this.updataData(this.props.standard)}
+                        // onBlur={() => this.updataData(this.props.standard)}
                         onChange={value => this.onInputNumberChange2(value, i, 1)}
                     /></span>,
                     LL_list:
@@ -453,7 +407,7 @@ export default class UpperForm extends Component {
                             style={this.changeStyle(value[2])}
                             defaultValue={''}
                             value={isNaN(value[2]) ? null : value[2]}
-                            onBlur={() => this.updataData(this.props.standard)}
+                            // onBlur={() => this.updataData(this.props.standard)}
                             onChange={value => this.onInputNumberChange2(value, i, 2)}
                         /></span>,
                     ErYangHG_list:
@@ -461,7 +415,7 @@ export default class UpperForm extends Component {
                             style={this.changeStyle(value[3])}
                             defaultValue={''}
                             value={isNaN(value[3]) ? null : value[3]}
-                            onBlur={() => this.updataData(this.props.standard)}
+                            // onBlur={() => this.updataData(this.props.standard)}
                             onChange={value => this.onInputNumberChange2(value, i, 3)}
                         /></span>,
                     YangHuaL_list:
@@ -469,7 +423,7 @@ export default class UpperForm extends Component {
                             style={this.changeStyle(value[4])}
                             defaultValue={''}
                             value={isNaN(value[4]) ? null : value[4]}
-                            onBlur={() => this.updataData(this.props.standard)}
+                            // onBlur={() => this.updataData(this.props.standard)}
                             onChange={value => this.onInputNumberChange2(value, i, 4)}
                         /></span>,
                     YangHuaT_list:
@@ -477,7 +431,7 @@ export default class UpperForm extends Component {
                             style={this.changeStyle(value[5])}
                             defaultValue={''}
                             value={isNaN(value[5]) ? null : value[5]}
-                            onBlur={() => this.updataData(this.props.standard)}
+                            // onBlur={() => this.updataData(this.props.standard)}
                             onChange={value => this.onInputNumberChange2(value, i, 5)}
                         /></span>,
                     YangHuaG_list:
@@ -485,7 +439,7 @@ export default class UpperForm extends Component {
                             style={this.changeStyle(value[6])}
                             defaultValue={''}
                             value={isNaN(value[6]) ? null : value[6]}
-                            onBlur={() => this.updataData(this.props.standard)}
+                            // onBlur={() => this.updataData(this.props.standard)}
                             onChange={value => this.onInputNumberChange2(value, i, 6)}
                         /></span>,
                     YangHuaMei_list:
@@ -493,7 +447,7 @@ export default class UpperForm extends Component {
                             style={this.changeStyle(value[7])}
                             defaultValue={''}
                             value={isNaN(value[7]) ? null : value[7]}
-                            onBlur={() => this.updataData(this.props.standard)}
+                            // onBlur={() => this.updataData(this.props.standard)}
                             onChange={value => this.onInputNumberChange2(value, i, 7)}
                         /></span>,
                     YangHuaMeng_list:
@@ -501,7 +455,7 @@ export default class UpperForm extends Component {
                             style={this.changeStyle(value[8])}
                             defaultValue={''}
                             value={isNaN(value[8]) ? null : value[8]}
-                            onBlur={() => this.updataData(this.props.standard)}
+                            // onBlur={() => this.updataData(this.props.standard)}
                             onChange={value => this.onInputNumberChange2(value, i, 8)}
                         /></span>,
                     TO_list:
@@ -509,7 +463,7 @@ export default class UpperForm extends Component {
                             style={this.changeStyle(value[9])}
                             defaultValue={''}
                             value={isNaN(value[9]) ? null : value[9]}
-                            onBlur={() => this.updataData(this.props.standard)}
+                            // onBlur={() => this.updataData(this.props.standard)}
                             onChange={value => this.onInputNumberChange2(value, i, 9)}
                         /></span>,
                     SanYangHL_list:
@@ -517,7 +471,7 @@ export default class UpperForm extends Component {
                             style={this.changeStyle(value[10])}
                             defaultValue={''}
                             value={isNaN(value[10]) ? null : value[10]}
-                            onBlur={() => this.updataData(this.props.standard)}
+                            // onBlur={() => this.updataData(this.props.standard)}
                             onChange={value => this.onInputNumberChange2(value, i, 10)}
                         /></span>,
                     HeJi:
@@ -525,7 +479,7 @@ export default class UpperForm extends Component {
                             style={this.changeStyle(value[11])}
                             defaultValue={''}
                             value={isNaN(value[11]) ? null : value[11]}
-                            onBlur={() => this.updataData(this.props.standard)}
+                            // onBlur={() => this.updataData(this.props.standard)}
                             onChange={value => this.onInputNumberChange2(value, i, 11)}
                         /></span>,
                     KH_list:
@@ -533,15 +487,15 @@ export default class UpperForm extends Component {
                             style={this.changeStyle(value[12])}
                             defaultValue={''}
                             value={isNaN(value[12]) ? null : value[12]}
-                            onBlur={() => this.updataData(this.props.standard)}
-                            onChange={value => this.onInputNumberChange3(value, i, 12)}
+                            // onBlur={() => this.updataData(this.props.standard)}
+                            onChange={value => this.onInputNumberChange2(value, i, 12)}
                         /></span>,
                     n:
                         <span><InputNumber
                             style={this.changeStyle(value[13])}
                             defaultValue={''}
                             value={isNaN(value[13]) ? null : value[13]}
-                            onBlur={() => this.updataData(this.props.standard)}
+                            // onBlur={() => this.updataData(this.props.standard)}
                             onChange={value => this.onInputNumberChange2(value, i, 13)}
                         /></span>,
                     P:
@@ -549,7 +503,7 @@ export default class UpperForm extends Component {
                             style={this.changeStyle(value[14])}
                             defaultValue={''}
                             value={isNaN(value[14]) ? null : value[14]}
-                            onBlur={() => this.updataData(this.props.standard)}
+                            // onBlur={() => this.updataData(this.props.standard)}
                             onChange={value => this.onInputNumberChange2(value, i, 14)}
                         /></span>,
                     person:
@@ -564,8 +518,37 @@ export default class UpperForm extends Component {
         return (
             <div className="upper">
                 {/*表格填写*/}
-                <Table columns={columns} bordered dataSource={data} pagination={false}/>
+                <Table columns={columns} bordered dataSource={dataSource} pagination={false}/>
             </div>
         );
     }
 }
+//定义映射
+const mapStateToProps = (state) => {
+    return {
+        width: state.getIn(['WareHouseRawMatCARe', 'width']),
+        tableWidth: state.getIn(['WareHouseRawMatCARe', 'tableWidth']),
+        allTime: state.getIn(['WareHouseRawMatCARe', 'allTime']),
+        timeChose: state.getIn(['WareHouseRawMatCARe', 'timeChose']),
+        data: state.getIn(['WareHouseRawMatCARe', 'data']),
+        requestFlag: state.getIn(['WareHouseRawMatCARe', 'requestFlag']),
+        startValue: state.getIn(['WareHouseRawMatCARe', 'startValue']),
+        endValue: state.getIn(['WareHouseRawMatCARe', 'endValue']),
+        person: state.getIn(['WareHouseRawMatCARe', 'person']),
+        tableName: state.getIn(['WareHouseRawMatCARe', 'tableName']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
+    }
+};
+
+const mapDispathToProps = (dispatch) => {
+    return {
+        updateChange(NewData) {
+
+            dispatch(actionCreators.updateData({data: deepCopy(NewData)}))
+        },
+
+
+    }//end return
+};
+
+export default connect(mapStateToProps, mapDispathToProps)(UpperForm);
