@@ -15,8 +15,7 @@ class TimeShow extends Component {
 
         const {handleTabChange, person,tableNameList,tableChose} = this.props;
 
-        let tempTableNameList = deepCopy(tableNameList);
-
+        let tempTableNameList = deepCopy(tableNameList)
 
         return (
             <Fragment>

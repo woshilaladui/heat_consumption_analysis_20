@@ -22,7 +22,9 @@ class BurnSysOpRe extends Component {
 
     componentDidMount() {
         /**首先查询当前页面是否有历史纪录并赋值formData**/
+
         const {data, date, tableName, setOldData, requestFlag, person, searchFlag, modelData } = this.props;
+
         if(requestFlag){
             setOldData(date,tableName,deepCopy(modelData));
         }
@@ -36,9 +38,11 @@ class BurnSysOpRe extends Component {
         const { updateCRF, modelData } = this.props;
 
         if(oldSearchDate != searchdate){
+
             updateCRF(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
         }
     }
+
 
     render() {
         return (
@@ -99,6 +103,7 @@ const mapDispathToProps = (dispatch) => {
         updateCRF(date,tableName,data) {
             dispatch(actionCreators.getData_CRF(date,tableName,data))
         },
+
     }//end return
 };
 

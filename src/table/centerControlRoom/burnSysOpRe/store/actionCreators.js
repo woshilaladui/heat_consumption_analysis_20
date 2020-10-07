@@ -34,6 +34,7 @@ export const updateData = ({data}) => ({
     data: data
 });
 
+
 export const updateCRF = ({data}) => ({
     type: constants.CHANGE_REQUEST_FLAG,
     data: data
