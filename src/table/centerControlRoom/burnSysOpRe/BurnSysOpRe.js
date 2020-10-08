@@ -26,13 +26,25 @@ class BurnSysOpRe extends Component {
         const {data, date, tableName, setOldData, requestFlag, person, searchFlag, modelData, searchdate } = this.props;
         
         //判断初始化组件之前是不是从查看表单里的其他组件进来的
-        let realdate = date;
+        /*let realdate = date;
+        
         if( moment(searchdate).format("YYYY/MM/DD") != date){
             realdate = moment(searchdate).format("YYYY/MM/DD");
         };
 
         if(requestFlag || moment(searchdate).format("YYYY/MM/DD") != date ){
             setOldData(realdate,tableName,deepCopy(modelData));
+        }*/
+        let searchdate_f = moment(searchdate).format("YYYY/MM/DD");
+
+        if(searchFlag){
+            if(requestFlag || searchdate_f != date ){
+                setOldData(date,tableName,deepCopy(modelData));
+            }
+        }else{
+            if(requestFlag || searchdate_f != date ){
+                setOldData(searchdate_f,tableName,deepCopy(modelData));
+            }
         }
 
     }
