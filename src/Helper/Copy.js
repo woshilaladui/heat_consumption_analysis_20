@@ -6,5 +6,12 @@
 
 //深拷贝
 export function deepCopy(Object){
-    return JSON.parse(JSON.stringify(Object))
+    if (Object){
+    return JSON.parse(JSON.stringify(Object))}
+    else {
+        console.log("Object")
+        console.log(Object)
+        console.log("Object")
+        return Object
+    }
 }

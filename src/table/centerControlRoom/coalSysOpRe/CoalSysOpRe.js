@@ -17,62 +17,39 @@ class CoalSysOpRe extends Component {
 
     componentDidMount() {
         /**首先查询当前页面是否有历史纪录并赋值formData**/
+        console.log("煤磨")
+        console.log("煤磨")
+        console.log("煤磨")
+        const{data,CRO_data,CRO_data_modelData,date,tableName,searchdate,tableName_CRO,modelData,requestFlag,getOldData,setOldData,requestFlag_CRO} = this.props
 
-        const{data,CRO_data,date,tableName,tableName_CRO,requestFlag,getOldData,setOldData,requestFlag_CRO} = this.props
+        let realdate = date;
+        if( moment(searchdate).format("YYYY/MM/DD") != date){
+            realdate = moment(searchdate).format("YYYY/MM/DD");
+        };
 
-        if(requestFlag){
+        if(requestFlag||moment(searchdate).format("YYYY/MM/DD") != date){
             getOldData(
-                date,
+              realdate,
                 tableName,
-                deepCopy(data)
+                deepCopy(modelData)
             );
         }//end if
-        if(requestFlag_CRO){
+        if(requestFlag_CRO||moment(searchdate).format("YYYY/MM/DD") != date){
             setOldData(
-                date,
+              realdate,
                 tableName_CRO,
-                deepCopy(CRO_data)
+                deepCopy(CRO_data_modelData)
             );
         }//end if
     }
 
     componentWillReceiveProps(nextProps){
         const oldSearchDate = this.props.searchdate; //旧的props
-        const { tableName, tableName_CRO, setOldData, getOldData, searchdate } = nextProps; //新的props
-
-        const modelData = [//定义该页面的数据模板
-            {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//0-7行代表 0-7小时
-            {data: []},//下表
-
-            {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//9-16行代表 8-15小时
-            {data: []},//下表
-
-            {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//18-25行代表 16-23小时
-            {data: []},//下表
-
-        ];
-
-        const CRO_modelData = [
-
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []},//均值 比值 合格率
-            {data: []}, {data: []}, {data: []}, {data: []},//下表数据
-
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},
-
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},
-        ];
+        const { tableName, tableName_CRO, setOldData, getOldData, searchdate,modelData,CRO_data_modelData } = nextProps; //新的props
 
         if(oldSearchDate != searchdate){
             getOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
-            setOldData(moment(searchdate).format("YYYY/MM/DD"),tableName_CRO, deepCopy(CRO_modelData));
+            setOldData(moment(searchdate).format("YYYY/MM/DD"),tableName_CRO, deepCopy(CRO_data_modelData));
         }
     }
 
@@ -126,6 +103,8 @@ const mapStateToProps = (state) => {
         person:state.getIn(['coalSysOpRe', 'person']),
         tableName:state.getIn(['coalSysOpRe', 'tableName']),
         tableName_CRO:state.getIn(['coalSysOpRe', 'tableName_CRO']),
+        modelData:state.getIn(['coalSysOpRe', 'modelData']),
+        CRO_data_modelData:state.getIn(['coalSysOpRe', 'CRO_data_modelData']),
         searchdate:state.getIn(['searchTable', 'date']),
         searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }

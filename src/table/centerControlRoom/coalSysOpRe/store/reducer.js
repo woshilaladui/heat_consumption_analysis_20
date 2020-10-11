@@ -11,6 +11,17 @@ const defaultState = fromJS({
     requestFlag:true,//是否需要更新数据
     requestFlag_CRO:true,//是否需要更新数据
     timeChose: 0,//默认0点班
+    modelData : [//定义该页面的数据模板
+        {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//0-7行代表 0-7小时
+        {data: []},//下表
+
+        {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//9-16行代表 8-15小时
+        {data: []},//下表
+
+        {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//18-25行代表 16-23小时
+        {data: []},//下表
+
+    ],
     data:[//定义该页面的数据模板 27
         {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//0-7行代表 0-7小时
         {data: []},//下表
@@ -22,6 +33,23 @@ const defaultState = fromJS({
         {data: []},//下表
     ],
     CRO_data: [
+
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []},//均值 比值 合格率
+        {data: []}, {data: []}, {data: []}, {data: []},//下表数据
+
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+    ], //控制室原始记录的数据
+    CRO_data_modelData: [
 
         {data: []}, {data: []}, {data: []}, {data: []},
         {data: []}, {data: []}, {data: []}, {data: []},

@@ -324,7 +324,7 @@ class UpperForm extends Component {
                             onChange={event => this.onInputNumberChange2(event, index, HuaYSOrder_CMRYSL.MgO)}
                         /></span>,
                     HJ:
-                        <span>{isNaN(value[HuaYSOrder_CMRYSL.HJ]) ? null : value[HuaYSOrder_CMRYSL.HJ]}</span>,
+                        <span>{isNaN(value[HuaYSOrder_CMRYSL.HJ]) ? null : value[HuaYSOrder_CMRYSL.HJ].toFixed(2)}</span>,
                     K2O:
                         <span><InputNumber
                             style={this.changeStyle(value[HuaYSOrder_CMRYSL.K2O])}

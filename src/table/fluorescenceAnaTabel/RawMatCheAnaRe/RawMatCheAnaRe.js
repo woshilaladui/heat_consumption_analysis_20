@@ -88,7 +88,7 @@ class RuYaoSLYCLHXFXBGD extends Component {
 
     render() {
         return (
-            <Fragment style={{width: "100%", height: "100%"}}>
+            <Fragment >
                 <div style={{padding: '1%'}} ref={(el) => this.refs = el}>
                     <h1 align="center">进厂石灰石原材料分析化学报告单</h1>
 

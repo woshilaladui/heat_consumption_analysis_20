@@ -154,6 +154,7 @@ class SearchTable extends Component {
     }
 
     componentWillUnmount(){
+      //页面销毁时触发
         console.log("解除");
         this.props.changeSearchFlag(true);
         this.props.changeSearchTime(moment().format("YYYY-MM-DD"));

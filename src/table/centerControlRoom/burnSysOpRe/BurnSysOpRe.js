@@ -27,10 +27,16 @@ class BurnSysOpRe extends Component {
         
         //判断初始化组件之前是不是从查看表单里的其他组件进来的
         let realdate = date;
+        console.log("searchdate")
+        console.log(searchdate)
+        console.log("searchdate")
         if( moment(searchdate).format("YYYY/MM/DD") != date){
             realdate = moment(searchdate).format("YYYY/MM/DD");
-        };
 
+        };
+    console.log("realdate")
+    console.log(realdate)
+    console.log("realdate")
         if(requestFlag || moment(searchdate).format("YYYY/MM/DD") != date ){
             setOldData(realdate,tableName,deepCopy(modelData));
         }
@@ -38,7 +44,11 @@ class BurnSysOpRe extends Component {
     }
 
     componentWillReceiveProps(nextProps){
+        console.log('componentWillReceiveProps')
+        console.log('will')
+        console.log('componentWillReceiveProps')
         const oldSearchDate = this.props.searchdate; //旧的props
+        console.log(oldSearchDate);
         const { tableName, setOldData, searchdate } = nextProps; //新的props
 
         const { modelData } = this.props;
@@ -47,6 +57,9 @@ class BurnSysOpRe extends Component {
             setOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
         }
     }
+componentWillUnmount() {
+        console.log("销毁了")
+}
 
     render() {
         return (
