@@ -125,6 +125,7 @@ class SearchTable extends Component {
 
     //判定是否已登录，是否有权限
     componentWillMount() {
+        this.props.changeSearchFlag(false);
         // if (window.localStorage.type < 1 || window.localStorage.state < 1) {
         //     this.props.history.push('/');
         // } else {
@@ -157,7 +158,7 @@ class SearchTable extends Component {
       //页面销毁时触发
         console.log("解除");
         this.props.changeSearchFlag(true);
-        this.props.changeSearchTime(moment().format("YYYY-MM-DD"));
+        //this.props.changeSearchTime(moment().format("YYYY-MM-DD"));
     }
 
     //选择表格类型
@@ -188,7 +189,7 @@ class SearchTable extends Component {
     handleQuery = () => {
         const {selectValue} = this.state
         this.setVisibility(selectValue);//改变表格显示状态
-        this.props.changeSearchFlag(false);
+        //this.props.changeSearchFlag(false);
     };
 
     handlePrint = () => {
