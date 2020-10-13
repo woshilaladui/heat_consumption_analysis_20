@@ -83,7 +83,7 @@ const defaultState = fromJS({
     date_HYS_RB: moment().format("YYYY-MM-DD"),
     ceshi:[1,2,3],
     CJSHSjunzhi:[],
-    CJSYNjunzhi:[],
+    CJSYjunzhi:[],
     CJTFjunzhi:[],
     CJFMHsjunzhi:[],
     CJFMHgjunzhi:[],

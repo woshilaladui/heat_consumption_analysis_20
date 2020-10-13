@@ -55,7 +55,7 @@ class CentralControlDaRe extends Component {
 
     render() {
         return (
-            <Fragment style = {{width:"100%",height:"100%"}}>
+          <Fragment/* style={{width: "100%", height: "100%"}}*/>
                 <div  style={{padding: '1%'}} ref = {(el) => this.refs = el}>
                     <h1 align="center">中控室日报表</h1>
                     {/*表单最上的时间及人员显示*/}

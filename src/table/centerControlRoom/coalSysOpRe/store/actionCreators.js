@@ -41,6 +41,9 @@ export function doChangeTimeChose(timeChose) {
 }
 //拿到T16控制室原始记录表的数据
 export const get_CRO_Data = (date, tableName, data) => {
+  // console.log("CRO")
+  // console.log("CRO")
+  // console.log("CRO")
     return (dispatch) => {
         requestGetHuaYanShiDataByTableNameAndDate(
             date,

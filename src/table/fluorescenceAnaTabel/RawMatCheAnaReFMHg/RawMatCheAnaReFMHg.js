@@ -62,7 +62,7 @@ class RuYaoSLYCLHXFXBGDFMHg extends Component {
     render() {
         return (
 
-            <Fragment style={{width: "100%", height: "100%"}}>
+          <Fragment /*style={{width: "100%", height: "100%"}}*/>
                 <div style={{padding: '1%'}} ref={(el) => this.refs = el}>
                     <h1 align="center">进厂粉煤灰(干)原材料分析化学报告单</h1>
 
