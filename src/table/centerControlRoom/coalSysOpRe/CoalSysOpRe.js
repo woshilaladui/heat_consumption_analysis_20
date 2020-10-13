@@ -37,8 +37,7 @@ class CoalSysOpRe extends Component {
     }
 
     componentWillReceiveProps(nextProps){
-        const oldSearchDate = this.props.searchdate; //旧的props
-        const { tableName, tableName_CRO, setOldData, getOldData, searchdate } = nextProps; //新的props
+        const { tableName, tableName_CRO, setOldData, getOldData, date } = nextProps; //新的props
 
         const modelData = [//定义该页面的数据模板
             {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//0-7行代表 0-7小时
@@ -70,9 +69,9 @@ class CoalSysOpRe extends Component {
             {data: []}, {data: []}, {data: []}, {data: []},
         ];
 
-        if(oldSearchDate != searchdate){
-            getOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
-            setOldData(moment(searchdate).format("YYYY/MM/DD"),tableName_CRO, deepCopy(CRO_modelData));
+        if(this.props.date != date){
+            getOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+            setOldData(moment(date).format("YYYY/MM/DD"),tableName_CRO, deepCopy(CRO_modelData));
         }
     }
 
@@ -117,7 +116,7 @@ class CoalSysOpRe extends Component {
 const mapStateToProps = (state) => {
     return {
 
-        date:state.getIn(['coalSysOpRe', 'date']),
+        //date:state.getIn(['coalSysOpRe', 'date']),
         timeChose:state.getIn(['coalSysOpRe', 'timeChose']),
         data:state.getIn(['coalSysOpRe', 'data']),
         CRO_data:state.getIn(['coalSysOpRe', 'CRO_data']),
@@ -126,7 +125,7 @@ const mapStateToProps = (state) => {
         person:state.getIn(['coalSysOpRe', 'person']),
         tableName:state.getIn(['coalSysOpRe', 'tableName']),
         tableName_CRO:state.getIn(['coalSysOpRe', 'tableName_CRO']),
-        searchdate:state.getIn(['searchTable', 'date']),
+        date:state.getIn(['searchTable', 'date']),
         searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 }

@@ -56,14 +56,14 @@ import { reducer as threeFiveKwTableReducer } from '../table/electricityTable/th
 import { reducer as logReducer } from '../table/log/store';
 /**********************************************登陆***********************************************************/
 import { reducer as loginReducer } from '../login/store';
-import {reducer as loginV2Reducer} from '../login_v2/store'
-import {reducer as permissionReducer} from '../permission/store'
-import {reducer as userRoleReducer} from '../permission/userRole/store'
-import {reducer as rolePermissionReducer} from '../permission/rolePermission/store'
+import {reducer as loginV2Reducer} from '../login_v2/store';
+import {reducer as permissionReducer} from '../permission/store';
+import {reducer as userRoleReducer} from '../permission/userRole/store';
+import {reducer as rolePermissionReducer} from '../permission/rolePermission/store';
 
 import { reducer as searchTableReducer } from '../table/searchTable/store';
-import {reducer as countDownReducer} from '../countdown/store'
-import {reducer as homePageHeaderReducer} from '../homePage/header/store'
+import {reducer as countDownReducer} from '../countdown/store';
+import {reducer as homePageHeaderReducer} from '../homePage/header/store';
 
 const reducer = combineReducers({
 
@@ -126,6 +126,7 @@ const reducer = combineReducers({
 	userRole: userRoleReducer,//用户角色控制
 
 	searchTable:searchTableReducer,//查看表单
+	
 	rolePermission: rolePermissionReducer,//权限控制
 	countDown: countDownReducer,//倒计时
 	homePageHeader:homePageHeaderReducer,
