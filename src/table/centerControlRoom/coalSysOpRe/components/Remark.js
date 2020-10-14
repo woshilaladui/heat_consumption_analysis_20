@@ -76,7 +76,7 @@ class Remark extends Component{
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date:state.getIn(['coalSysOpRe', 'date']),
+        //date:state.getIn(['coalSysOpRe', 'date']),
         allTime:state.getIn(['coalSysOpRe', 'allTime']),
         timeChose:state.getIn(['coalSysOpRe', 'timeChose']),
         data:state.getIn(['coalSysOpRe', 'data']),
@@ -84,6 +84,7 @@ const mapStateToProps = (state) => {
         person:state.getIn(['coalSysOpRe', 'person']),
         tableName:state.getIn(['coalSysOpRe', 'tableName']),
         searchFlag:state.getIn(['searchTable', 'searchFlag']),
+        date:state.getIn(['searchTable', 'date']),
     }
 }
 

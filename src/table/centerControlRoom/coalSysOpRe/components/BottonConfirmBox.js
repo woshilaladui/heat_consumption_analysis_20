@@ -39,13 +39,14 @@ class ButtonConfirmBox extends Component {
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date:state.getIn(['coalSysOpRe', 'date']),
+        //date:state.getIn(['coalSysOpRe', 'date']),
         allTime:state.getIn(['coalSysOpRe', 'allTime']),
         timeChose:state.getIn(['coalSysOpRe', 'timeChose']),
         data:state.getIn(['coalSysOpRe', 'data']),
         requestFlag:state.getIn(['coalSysOpRe', 'requestFlag']),
         person:state.getIn(['coalSysOpRe', 'person']),
         tableName:state.getIn(['coalSysOpRe', 'tableName']),
+        date:state.getIn(['searchTable', 'date']),
 
     }
 }

@@ -44,12 +44,41 @@ class CoalSysOpRe extends Component {
     }
 
     componentWillReceiveProps(nextProps){
-        const oldSearchDate = this.props.searchdate; //旧的props
-        const { tableName, tableName_CRO, setOldData, getOldData, searchdate,modelData,CRO_data_modelData } = nextProps; //新的props
+        const { tableName, tableName_CRO, setOldData, getOldData, date } = nextProps; //新的props
 
-        if(oldSearchDate != searchdate){
-            getOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
-            setOldData(moment(searchdate).format("YYYY/MM/DD"),tableName_CRO, deepCopy(CRO_data_modelData));
+        const modelData = [//定义该页面的数据模板
+            {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//0-7行代表 0-7小时
+            {data: []},//下表
+
+            {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//9-16行代表 8-15小时
+            {data: []},//下表
+
+            {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//18-25行代表 16-23小时
+            {data: []},//下表
+
+        ];
+
+        const CRO_modelData = [
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []},//均值 比值 合格率
+            {data: []}, {data: []}, {data: []}, {data: []},//下表数据
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []},
+            {data: []}, {data: []}, {data: []}, {data: []},
+        ];
+
+        if(this.props.date != date){
+            getOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+            setOldData(moment(date).format("YYYY/MM/DD"),tableName_CRO, deepCopy(CRO_modelData));
         }
     }
 
@@ -94,7 +123,7 @@ class CoalSysOpRe extends Component {
 const mapStateToProps = (state) => {
     return {
 
-        date:state.getIn(['coalSysOpRe', 'date']),
+        //date:state.getIn(['coalSysOpRe', 'date']),
         timeChose:state.getIn(['coalSysOpRe', 'timeChose']),
         data:state.getIn(['coalSysOpRe', 'data']),
         CRO_data:state.getIn(['coalSysOpRe', 'CRO_data']),
@@ -103,9 +132,7 @@ const mapStateToProps = (state) => {
         person:state.getIn(['coalSysOpRe', 'person']),
         tableName:state.getIn(['coalSysOpRe', 'tableName']),
         tableName_CRO:state.getIn(['coalSysOpRe', 'tableName_CRO']),
-        modelData:state.getIn(['coalSysOpRe', 'modelData']),
-        CRO_data_modelData:state.getIn(['coalSysOpRe', 'CRO_data_modelData']),
-        searchdate:state.getIn(['searchTable', 'date']),
+        date:state.getIn(['searchTable', 'date']),
         searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 }

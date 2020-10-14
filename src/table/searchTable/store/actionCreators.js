@@ -15,3 +15,4 @@ export const changeSearchFlag = (searchFlag) => ({
     type: constants.UPDATE_SEARCH_FLAG,
     searchFlag: searchFlag
 });
+

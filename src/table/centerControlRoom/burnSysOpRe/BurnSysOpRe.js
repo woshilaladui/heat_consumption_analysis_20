@@ -21,55 +21,26 @@ class BurnSysOpRe extends Component {
     }
 
     componentDidMount() {
-        console.log("Did");
         /**首先查询当前页面是否有历史纪录并赋值formData**/
-        const {data, date, tableName, setOldData, requestFlag, person, searchFlag, modelData, searchdate } = this.props;
+        const {data, date, tableName, setOldData, requestFlag, person, searchFlag, modelData } = this.props;
         
-        //判断初始化组件之前是不是从查看表单里的其他组件进来的
-        let realdate = date;
-        /*let realdate = date;
-
-        if( moment(searchdate).format("YYYY/MM/DD") != date){
-            realdate = moment(searchdate).format("YYYY/MM/DD");
-
-        };
-    console.log("realdate")
-    console.log(realdate)
-    console.log("realdate")
-        if(requestFlag || moment(searchdate).format("YYYY/MM/DD") != date ){
-            setOldData(realdate,tableName,deepCopy(modelData));
-        }*/
-        let searchdate_f = moment(searchdate).format("YYYY/MM/DD");
-
-        if(searchFlag){
-            if(requestFlag || searchdate_f != date ){
-                setOldData(date,tableName,deepCopy(modelData));
-            }
-        }else{
-            if(requestFlag || searchdate_f != date ){
-                setOldData(searchdate_f,tableName,deepCopy(modelData));
-            }
-        }
+        setOldData(date,tableName,deepCopy(modelData));
 
     }
 
     componentWillReceiveProps(nextProps){
-        console.log('componentWillReceiveProps')
-        console.log('will')
-        console.log('componentWillReceiveProps')
-        const oldSearchDate = this.props.searchdate; //旧的props
-        console.log(oldSearchDate);
-        const { tableName, setOldData, searchdate } = nextProps; //新的props
+        const { tableName, setOldData, date, searchFlag } = nextProps; //新的props
 
         const { modelData } = this.props;
 
-        if(oldSearchDate != searchdate){
-            setOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        if(this.props.date != date){
+            setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
         }
+
+        /*if(this.props.searchFlag != searchFlag){
+            setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        }*/
     }
-componentWillUnmount() {
-        console.log("销毁了")
-}
 
     render() {
         return (
@@ -110,14 +81,14 @@ componentWillUnmount() {
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date:state.getIn(['burnSysOpRe', 'date']),
+        //date:state.getIn(['burnSysOpRe', 'date']),
         timeChose:state.getIn(['burnSysOpRe', 'timeChose']),
         data:state.getIn(['burnSysOpRe', 'data']),
         modelData:state.getIn(['burnSysOpRe', 'modelData']),
         requestFlag:state.getIn(['burnSysOpRe', 'requestFlag']),
         person:state.getIn(['burnSysOpRe', 'person']),
         tableName:state.getIn(['burnSysOpRe', 'tableName']),
-        searchdate:state.getIn(['searchTable', 'date']),
+        date:state.getIn(['searchTable', 'date']),
         searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 };

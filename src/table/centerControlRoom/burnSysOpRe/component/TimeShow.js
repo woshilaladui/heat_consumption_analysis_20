@@ -11,13 +11,13 @@ class TimeShow extends Component {
 
     render() {
         const day = (['天', '一', '二', '三', '四', '五', '六']);
-        const {handleTimeChange, person, searchdate, searchFlag} = this.props;
+        const {handleTimeChange, person, date, searchFlag} = this.props;
         
         let NowDate = null;
-        if(searchFlag){
+        if(date){
             NowDate = moment();
         }else{
-            NowDate = searchdate;
+            NowDate = date;
         }
 
         return (
@@ -42,10 +42,10 @@ class TimeShow extends Component {
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date: state.getIn(['burnSysOpRe', 'date']),
+        //date: state.getIn(['burnSysOpRe', 'date']),
         timeChose: state.getIn(['burnSysOpRe', 'timeChose']),
         person: state.getIn(['burnSysOpRe', 'person']),
-        searchdate:state.getIn(['searchTable', 'date']),
+        date:state.getIn(['searchTable', 'date']),
         searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 }

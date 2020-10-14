@@ -5,8 +5,7 @@ import {
 } from './constant'
 import {requestSavePermission} from "../../../http/request/RequestUser";
 import {message} from "antd";
-import {requestGetCurrentRolePermission} from '../../../http/request/RequestUser'
-import {action} from "./index";
+import {requestGetCurrentRolePermission} from '../../../http/request/RequestUser';
 
 export const setTableSelectedId = (data, status) => ({
   type: SET_ROLE_PERMISSION_TABLE_SELECTED_ID,
