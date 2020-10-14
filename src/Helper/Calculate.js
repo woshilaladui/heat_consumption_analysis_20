@@ -317,7 +317,7 @@ export function calculate_pass_rate_cmsl(
       if (!isNaN(parseFloat(data[index]['data'][HJ])) && (parseFloat(data[index]['data'][HJ]) != null)) {
 
           SumAverageCount[timeChose]++;
-          // console.log("heji"+parseFloat(data[index]['data'][HJ]))
+          console.log("heji"+parseFloat(data[index]['data'][HJ]))
           sum_HJ+=parseFloat(data[index]['data'][HJ]);
 
       }//end if
@@ -367,7 +367,7 @@ export function calculate_pass_rate_cmsl(
       data[9 + timeChose * 10]['data'][i+KH] = Number(temp * 100).toFixed(1);
   }
     data[8 + timeChose * 10]['data'][HJ] = (sum_HJ/SumAverageCount[timeChose]).toFixed(2)
-    data[8 + timeChose * 10]['data'][KH] = (sum_KH/inputCount[timeChose][0]).toFixed(2)
+    data[8 + timeChose * 10]['data'][KH] = (sum_KH/inputCount[timeChose][0]).toFixed()
     data[8 + timeChose * 10]['data'][N] = (sum_N/inputCount[timeChose][1]).toFixed(2)
     data[8 + timeChose * 10]['data'][P] = (sum_P/inputCount[timeChose][2]).toFixed(2)
 }

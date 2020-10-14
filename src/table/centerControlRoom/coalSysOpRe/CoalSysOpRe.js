@@ -132,6 +132,8 @@ const mapStateToProps = (state) => {
         person:state.getIn(['coalSysOpRe', 'person']),
         tableName:state.getIn(['coalSysOpRe', 'tableName']),
         tableName_CRO:state.getIn(['coalSysOpRe', 'tableName_CRO']),
+        CRO_data_modelData:state.getIn(['coalSysOpRe', 'CRO_data_modelData']),
+        modelData:state.getIn(['coalSysOpRe', 'modelData']),
         date:state.getIn(['searchTable', 'date']),
         searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }

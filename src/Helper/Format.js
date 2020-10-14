@@ -160,7 +160,7 @@ function isHaveStandard(tableName) {
         case TableName.Analysis_SMA:
         case TableName.Analysis_MFA:
         case TableName.Limestone_CaCO3://荧光分析表格
-        case TableName.Limestone_CRO:
+
         case TableName.Eletri_ME://电量表格
         case TableName.Eletri_TFKT:
 
@@ -177,6 +177,7 @@ function isHaveStandard(tableName) {
         case TableName.Limestone_RMC:
         case TableName.Limestone_KAS:
         case TableName.Limestone_FAS:
+        case TableName.Limestone_CRO:
             return true;
         default:
             return false;
