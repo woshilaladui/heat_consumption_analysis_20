@@ -14,4 +14,9 @@ export function deepCopy(Object){
         console.log("Object")
         return Object
     }
+
+
+
+        // return JSON.parse(JSON.stringify(Object))
+
 }

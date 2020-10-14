@@ -16,7 +16,7 @@ import {
     calculate_pass_rate,
     autoCalculate_KH,
     autoCalculate_N,
-    autoCalculate_P
+    autoCalculate_P, calculate_pass_rate_cmsl
 } from "../../../../Helper/Calculate";
 
 class UpperForm extends Component {
@@ -120,10 +120,13 @@ class UpperForm extends Component {
         const position = order.indexOf(indexL);//判断此列是否需要计算合格率
 
         //判断是否需要计算
-        if (position >= 0) {
-            //计算合格率
-            calculate_pass_rate(NewData, startValue, endValue, order, width, timeChose, indexL);
-        }
+
+            //计算合格率和KH N P 合计平均值
+        console.log("NewData")
+        console.log(NewData)
+        console.log("NewData")
+            calculate_pass_rate_cmsl(NewData, startValue, endValue, order, width, timeChose, indexL);
+
 
         //计算平均值
         autoCalculate_average(NewData, timeChose, indexL,tableWidth);
@@ -379,18 +382,18 @@ class UpperForm extends Component {
             },
             {
                 time: '合格率',
-                SF: '',
-                IL: '',
-                SiO2: '',
-                Al2O3: '',
-                Fe2O3: '',
-                CaO: '',
-                MgO: '',
-                HJ: '',
-                K2O: '',
-                KH:  Data[9 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.KH],
-                N:  Data[9 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.N],
-                P:  Data[9 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.P],
+                SF: '~',
+                IL: '~',
+                SiO2: '~',
+                Al2O3: '~',
+                Fe2O3: '~',
+                CaO: '~',
+                MgO: '~',
+                HJ: '~',
+                K2O: '~',
+                KH:  isNaN(Data[9 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.KH])?null:Data[9 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.KH]+'%',
+                N:  isNaN(Data[9 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.N])?null:Data[9 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.N]+'%',
+                P:  isNaN(Data[9 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.P])?null:Data[9 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.P]+'%',
             }
         );
 

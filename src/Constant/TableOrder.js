@@ -20,6 +20,18 @@ const HuaYSOrder_CX ={//仓下原材料顺序
     FuZhuoShui:0,
     BuRongWu:1,
     LL:2,
+    SiO2:3,
+    Al2O3:4,
+    Fe2O3:5,
+    CaO:6,
+    MgO:7,
+    MnO:8,
+    TO:9,
+    SO3:10,
+    HeJi:11,
+    KH:12,
+    N:13,
+    P:14,
 
 };
 

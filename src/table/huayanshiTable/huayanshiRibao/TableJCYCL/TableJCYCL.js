@@ -110,13 +110,6 @@ class TableJCYCL extends React.Component {
         const RAO_TF_DATA = deepCopy(this.props.RAO_TF);
 
 
-        console.log("RAO_SHS_DATA")
-        console.log(CJSYjunzhi_DATA)
-        console.log("end")
-        console.log(CJSYjunzhi_DATA[0])
-        console.log(isNaN(CJSYjunzhi_DATA[0]))
-        // console
-        console.log("RAO_SHS_DATA_end")
         /*进厂石灰石数据填充*/
 
         dataa.push({
