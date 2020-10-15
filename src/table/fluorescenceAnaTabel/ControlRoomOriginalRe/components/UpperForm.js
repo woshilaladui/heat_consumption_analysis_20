@@ -268,15 +268,15 @@ class UpperForm extends Component {
         const dataSource = [];
 
         const {data, timeChose, allTime} = this.props;
-        console.log('upper')
-        console.log(data)
-        console.log('upper')
+        // console.log('upper')
+        // console.log(data)
+        // console.log('upper')
         const Data = deepCopy(data);
         const time = deepCopy(allTime);
-
-        console.log('upper')
-        console.log(Data)
-        console.log('upper')
+        //
+        // console.log('upper')
+        // console.log(Data)
+        // console.log('upper')
         for (let i = 0; i < 8; i++) {
             const index = i + timeChose * 15;
 

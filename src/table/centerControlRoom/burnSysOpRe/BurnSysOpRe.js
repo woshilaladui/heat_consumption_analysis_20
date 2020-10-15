@@ -23,12 +23,13 @@ class BurnSysOpRe extends Component {
     componentDidMount() {
         /**首先查询当前页面是否有历史纪录并赋值formData**/
         const {data, date, tableName, setOldData, requestFlag, person, searchFlag, modelData } = this.props;
-        
+
         setOldData(date,tableName,deepCopy(modelData));
 
     }
 
     componentWillReceiveProps(nextProps){
+        console.log("烧成componentWillReceiveProps")
         const { tableName, setOldData, date, searchFlag } = nextProps; //新的props
 
         const { modelData } = this.props;
@@ -43,6 +44,7 @@ class BurnSysOpRe extends Component {
     }
 
     render() {
+        console.log("烧成render")
         return (
             <Fragment/* style={{width: "100%", height: "100%"}}*/>
                 <div style={{padding: '1%'}} ref={(el) => this.refs = el}>

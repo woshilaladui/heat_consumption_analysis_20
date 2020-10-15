@@ -13,72 +13,49 @@ import moment from 'moment';
 class CoalSysOpRe extends Component {
 
     componentWillMount() {
+        console.log('煤磨WillMount')
     }
 
     componentDidMount() {
         /**首先查询当前页面是否有历史纪录并赋值formData**/
-        console.log("煤磨")
-        console.log("煤磨")
-        console.log("煤磨")
-        const{data,CRO_data,CRO_data_modelData,date,tableName,searchdate,tableName_CRO,modelData,requestFlag,getOldData,setOldData,requestFlag_CRO} = this.props
+        const{CRO_data,CRO_data_modelData,date,tableName,searchdate,tableName_CRO,modelData,requestFlag,getOldData,setOldData,requestFlag_CRO} = this.props
 
-        let realdate = date;
-        if( moment(searchdate).format("YYYY/MM/DD") != date){
-            realdate = moment(searchdate).format("YYYY/MM/DD");
-        };
-
-        if(requestFlag||moment(searchdate).format("YYYY/MM/DD") != date){
+        // let realdate = date;
+        // if( moment(searchdate).format("YYYY/MM/DD") != date){
+        //     realdate = moment(searchdate).format("YYYY/MM/DD");
+        // };
+        getOldData(
+          date,
+          tableName,
+          deepCopy(modelData)
+        );
+        setOldData(
+          date,
+          tableName_CRO,
+          deepCopy(CRO_data_modelData)
+        );
+       /* if(requestFlag){
             getOldData(
-              realdate,
+              date,
                 tableName,
                 deepCopy(modelData)
             );
         }//end if
-        if(requestFlag_CRO||moment(searchdate).format("YYYY/MM/DD") != date){
+        if(requestFlag_CRO){
             setOldData(
-              realdate,
+              date,
                 tableName_CRO,
                 deepCopy(CRO_data_modelData)
             );
-        }//end if
+        }//end if*/
     }
 
     componentWillReceiveProps(nextProps){
-        const { tableName, tableName_CRO, setOldData, getOldData, date } = nextProps; //新的props
-
-        const modelData = [//定义该页面的数据模板
-            {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//0-7行代表 0-7小时
-            {data: []},//下表
-
-            {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//9-16行代表 8-15小时
-            {data: []},//下表
-
-            {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//18-25行代表 16-23小时
-            {data: []},//下表
-
-        ];
-
-        const CRO_modelData = [
-
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []},//均值 比值 合格率
-            {data: []}, {data: []}, {data: []}, {data: []},//下表数据
-
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},
-
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},
-        ];
+        const { tableName, tableName_CRO, setOldData, getOldData, date,modelData, CRO_data_modelData} = nextProps; //新的props
 
         if(this.props.date != date){
             getOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
-            setOldData(moment(date).format("YYYY/MM/DD"),tableName_CRO, deepCopy(CRO_modelData));
+            setOldData(moment(date).format("YYYY/MM/DD"),tableName_CRO, deepCopy(CRO_data_modelData));
         }
     }
 

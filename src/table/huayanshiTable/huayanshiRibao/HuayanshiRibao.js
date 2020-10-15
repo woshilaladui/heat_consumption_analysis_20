@@ -32,7 +32,7 @@ export default class HuayanshiRibao extends React.Component {
     render() {
                 return (
                     <div>
-                        <br></br>
+                        <br/>
                         <h1 className="huayanshi">化验室日报</h1>
                         <div id="containerhuayanshi" className="biaozhun">
                             <div className="JCYCL">

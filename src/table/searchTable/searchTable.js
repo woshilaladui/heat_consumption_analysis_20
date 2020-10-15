@@ -114,13 +114,15 @@ class SearchTable extends Component {
         }
     }
 
-    //判定是否已登录，是否有权限
+
     componentWillMount() {
+      console.log("查看componentWillMount")
         this.props.changeSearchFlag(false);
         this.props.handleChangeTime(moment().format("YYYY/MM/DD"));
     }
 
     componentWillUnmount(){
+      console.log("销毁了")
         this.props.changeSearchFlag(true);
         this.props.handleChangeTime(moment().format("YYYY/MM/DD"));
     }
@@ -155,6 +157,7 @@ class SearchTable extends Component {
     };
 
     render() {
+      console.log("查看render")
         const {t_name_Display} = this.state;
         return (
             <div className='search' style={{padding: '1%'}}>
