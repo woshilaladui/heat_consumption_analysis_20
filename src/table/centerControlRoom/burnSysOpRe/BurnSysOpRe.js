@@ -18,17 +18,21 @@ class BurnSysOpRe extends Component {
 
     //判定是否已登录，是否有权限
     componentWillMount() {
+        console.log("烧成will");
     }
 
     componentDidMount() {
+        console.log("烧成did");
         /**首先查询当前页面是否有历史纪录并赋值formData**/
         const {data, date, tableName, setOldData, requestFlag, person, searchFlag, modelData } = this.props;
-        
+        /*if(requestFlag){
+            setOldData(date,tableName,deepCopy(modelData));
+        }*/
         setOldData(date,tableName,deepCopy(modelData));
-
     }
 
     componentWillReceiveProps(nextProps){
+        console.log("烧成re");
         const { tableName, setOldData, date, searchFlag } = nextProps; //新的props
 
         const { modelData } = this.props;
@@ -36,13 +40,19 @@ class BurnSysOpRe extends Component {
         if(this.props.date != date){
             setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
         }
-
-        /*if(this.props.searchFlag != searchFlag){
+        
+        if(this.props.searchFlag != searchFlag){
             setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
-        }*/
+        }
     }
 
+    componentWillUnmount(){
+        console.log("烧成un");
+    }
+
+
     render() {
+        console.log("烧成render:searchFlag"+this.props.searchFlag);
         return (
             <Fragment/* style={{width: "100%", height: "100%"}}*/>
                 <div style={{padding: '1%'}} ref={(el) => this.refs = el}>

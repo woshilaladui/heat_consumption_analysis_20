@@ -12,7 +12,6 @@ export default (state = defaultState, action) => {
 
     switch (action.type) {
         case constants.UPDATE_SEARCH_DATE:
-            console.log("1")
             return state.set('date', action.date);
         case constants.UPDATE_SEARCH_FLAG:
             return state.set('searchFlag', action.searchFlag);

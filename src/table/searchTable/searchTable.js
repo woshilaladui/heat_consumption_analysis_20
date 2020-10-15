@@ -116,11 +116,19 @@ class SearchTable extends Component {
 
     //判定是否已登录，是否有权限
     componentWillMount() {
+        console.log("查看will");
+        //this.props.changeSearchFlag(false);
+        //this.props.handleChangeTime(moment().format("YYYY/MM/DD"));
+    }
+
+    componentDidMount() {
+        console.log("查看did");
         this.props.changeSearchFlag(false);
         this.props.handleChangeTime(moment().format("YYYY/MM/DD"));
     }
 
     componentWillUnmount(){
+        console.log("查看un");
         this.props.changeSearchFlag(true);
         this.props.handleChangeTime(moment().format("YYYY/MM/DD"));
     }
