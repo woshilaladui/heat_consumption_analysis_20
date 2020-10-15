@@ -268,15 +268,15 @@ class UpperForm extends Component {
         const dataSource = [];
 
         const {data, timeChose, allTime} = this.props;
-        console.log('upper')
-        console.log(data)
-        console.log('upper')
+        // console.log('upper')
+        // console.log(data)
+        // console.log('upper')
         const Data = deepCopy(data);
         const time = deepCopy(allTime);
-
-        console.log('upper')
-        console.log(Data)
-        console.log('upper')
+        //
+        // console.log('upper')
+        // console.log(Data)
+        // console.log('upper')
         for (let i = 0; i < 8; i++) {
             const index = i + timeChose * 15;
 
@@ -408,15 +408,15 @@ class UpperForm extends Component {
                 CoalWater: Data[9 + timeChose * 15]['data'][ZhongKSOrder_CRO.MF_SF]
             }, {
                 time: '合格率',
-                FCaO:Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.fcao]+" %" ,
-                ChuFineness: Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.CMSL_XD]+" %" ,
-                Chu900:Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.CMSL_900K]+" %"  ,
-                ChuWater:Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.CMSL_SF]+" %"  ,
-                RuFineness: Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.RMSL_XD]+" %" ,
-                Ru900: Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.RMSL_900K]+" %" ,
-                RuWater: Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.RMSL_SF]+" %" ,
-                CoalFineness: Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.MF_XD]+" %" ,
-                CoalWater: Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.MF_SF]+" %"
+                FCaO:isNaN(Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.fcao])?null:Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.fcao]+" %" ,
+                ChuFineness: isNaN(Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.CMSL_XD])?null:Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.CMSL_XD]+" %" ,
+                Chu900:isNaN(Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.CMSL_900K])?null:Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.CMSL_900K]+" %"  ,
+                ChuWater:isNaN(Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.CMSL_SF])?null:Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.CMSL_SF]+" %"  ,
+                RuFineness: isNaN(Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.RMSL_XD])?null:Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.RMSL_XD]+" %" ,
+                Ru900: isNaN(Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.RMSL_900K])?null:Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.RMSL_900K]+" %" ,
+                RuWater: isNaN(Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.RMSL_SF])?null:Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.RMSL_SF]+" %" ,
+                CoalFineness: isNaN(Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.MF_XD])?null:Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.MF_XD]+" %" ,
+                CoalWater: isNaN(Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.MF_SF])?null:Data[10 + timeChose * 15]['data'][ZhongKSOrder_CRO.MF_SF]+" %"
             }
         );
         /**数据的自动处理显示部分**end**/

@@ -9,6 +9,8 @@ import {updateOperator} from "../../../../Helper/AutoCalculate";
 import * as actionCreators from "../../RYRawMatCheAnaRe/store/actionCreators";
 import {deepCopy} from "../../../../Helper/Copy";
 import {connect} from "react-redux";
+import {autoCalculateHJ} from "../../../../Helper/Calculate";
+import {HuaYSOrder_CX} from "../../../../Constant/TableOrder";
 
 class UpperForm extends Component {
 
@@ -226,18 +228,11 @@ class UpperForm extends Component {
         let NewData = deepCopy(data);//复制一份出来
         let hour = indexH + timeChose * 4;
         NewData[hour]["data"][indexL] = event;
+        let sum = autoCalculateHJ(NewData[indexH]['data'], width);
+        NewData[indexH]['data'][HuaYSOrder_CX.HeJi] = sum;
         updateChange(NewData);
     };
-    onInputNumberChange3 = (event, indexH, indexL) => {
-        let NewData = this.state.Data;
-        let hour = indexH + this.props.timeChose * 8;
-        // const rep = /^(\-)*(\d+)\.(\d{3}).*$/;
-        // event = event.replace(rep, '$1$2.$3');
-        NewData[hour]["t_data"][indexL] = event;
-        this.setState({
-            Data: NewData
-        });
-    };
+
 
     //控制输入框的样式
     changeStyle = (value) => {
@@ -373,7 +368,10 @@ class UpperForm extends Component {
 
         const dataSource = [];
 
-
+        InputNumber.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { } : {opacity:"1", color:"black"},
+        }
             //中间八行的数据输入
         const {data, timeChose, allTime} = this.props;
         const Data = deepCopy(data);

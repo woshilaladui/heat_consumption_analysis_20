@@ -2,6 +2,7 @@ import * as constants from './constants';
 import {fromJS} from 'immutable';
 import moment from 'moment';
 import {TableName} from "../../../../Constant/TableNameConstant"
+import {deepCopy} from "../../../../Helper/Copy";
 
 const defaultState = fromJS({
 
@@ -44,6 +45,10 @@ export default (state = defaultState, action) => {
 
     switch (action.type) {
         case constants.UPDATE_DATA_RMA_SHS:
+            console.log("执行了Raw")
+            console.log(deepCopy(action.data))
+            console.log(action.data)
+            console.log("执行了Raw石灰石")
             return state.merge({
                 'data': action.data,
                 'requestFlag': false//切换页面时候不需要刷新数据了（当页面刷新的时候自动初始化为true）

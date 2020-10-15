@@ -25,6 +25,7 @@ class BurnSysOpRe extends Component {
         console.log("烧成did");
         /**首先查询当前页面是否有历史纪录并赋值formData**/
         const {data, date, tableName, setOldData, requestFlag, person, searchFlag, modelData } = this.props;
+
         /*if(requestFlag){
             setOldData(date,tableName,deepCopy(modelData));
         }*/

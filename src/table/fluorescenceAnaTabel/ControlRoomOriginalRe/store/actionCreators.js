@@ -69,6 +69,7 @@ export const getData = (date, tableName, data) => {
             data
         ).then((response) => {
             if(response['code'] === 0){
+
                 //解析处理数据
                 let newData = deepCopy(response['data'])
                 let result = HuaYanShiFormat(
@@ -79,6 +80,8 @@ export const getData = (date, tableName, data) => {
                 dispatch(updateData({//将获取到的数据进行转发
                     data: result[0]
                 }));
+
+                dispatch(updateStandard(result[1], result[2]));
             }
         });//end requestGetHuaYanShiDataByTableNameAndDate
     }

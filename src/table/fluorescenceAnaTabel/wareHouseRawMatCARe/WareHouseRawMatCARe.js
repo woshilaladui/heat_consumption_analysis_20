@@ -4,7 +4,7 @@ import TimeShow from "./components/ShowTime";
 import UpperForm from "./components/UpperForm";
 import "antd/dist/antd.css";
 import moment from "moment";
-import * as actionCreators from "../RYRawMatCheAnaRe/store/actionCreators";
+import * as actionCreators from "./store/actionCreators";
 import {connect} from "react-redux";
 import {deepCopy} from "../../../Helper/Copy";
 import {HYSFormat, ZBFormat, ZKSFormat} from "../../../package/Format"
@@ -69,10 +69,10 @@ class WareHouseRawMatCARe extends Component {
     // }
 
     componentDidMount() {
+        const {data, date, tableName, setOldData,requestFlag} = this.props;
         /**首先查询当前页面是否有历史纪录并赋值formData**/
         //获取请求参数
-        this.props.setOldData();
-
+        setOldData(date,tableName,deepCopy(data));
     }
 
     // setOldData() {

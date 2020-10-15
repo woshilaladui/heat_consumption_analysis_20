@@ -322,9 +322,9 @@ class BottomForm extends Component {
         /**限制输入数值位数的函数**end**/
 
         const {data, timeChose} = this.props;
-        console.log('bottom')
-        console.log(data)
-        console.log('bottom')
+        // console.log('bottom')
+        // console.log(data)
+        // console.log('bottom')
         const Data = deepCopy(data);
 
 

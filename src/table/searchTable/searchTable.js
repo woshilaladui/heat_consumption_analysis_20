@@ -114,7 +114,7 @@ class SearchTable extends Component {
         }
     }
 
-    //判定是否已登录，是否有权限
+
     componentWillMount() {
         console.log("查看will");
         //this.props.changeSearchFlag(false);
@@ -163,6 +163,7 @@ class SearchTable extends Component {
     };
 
     render() {
+      console.log("查看render")
         const {t_name_Display} = this.state;
         return (
             <div className='search' style={{padding: '1%'}}>
