@@ -62,6 +62,12 @@ class UpperForm extends Component {
         const {data, person, date} = this.props;
         const Data = deepCopy(data);
         const value = Data['0']['data'];
+
+        Input.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { } : {opacity:"1", color:"black"}, 
+        }
+
         dataSource.push({
             key:1,
             KV: <span>
@@ -189,10 +195,12 @@ class UpperForm extends Component {
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date: state.getIn(['threeFiveKwTable', 'date']),
+        //date: state.getIn(['threeFiveKwTable', 'date']),
         data: state.getIn(['threeFiveKwTable', 'data']),
         person: state.getIn(['threeFiveKwTable', 'person']),
         tableName: state.getIn(['threeFiveKwTable', 'tableName']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
+        date: state.getIn(['searchTable', 'date']),
     }
 }
 

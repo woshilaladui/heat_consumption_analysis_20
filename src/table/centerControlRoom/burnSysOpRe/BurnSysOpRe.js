@@ -22,7 +22,7 @@ class BurnSysOpRe extends Component {
     }
 
     componentDidMount() {
-        console.log("烧成did");
+        console.log("烧成did"+this.props.searchFlag);
         /**首先查询当前页面是否有历史纪录并赋值formData**/
         const {data, date, tableName, setOldData, requestFlag, person, searchFlag, modelData } = this.props;
 
