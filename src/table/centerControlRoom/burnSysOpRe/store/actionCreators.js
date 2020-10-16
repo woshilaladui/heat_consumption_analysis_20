@@ -46,7 +46,7 @@ export const updateCRF = () => ({
  * @param data 传过来的是这个界面的模板
  * @returns {Function}
  */
-export const getData = (date, tableName, data) => {
+export const getData = (date, tableName, data,flag) => {
     return (dispatch) => {
 
         requestGetZhongKongShiDataByTableNameAndDate(
@@ -72,7 +72,6 @@ export const getData = (date, tableName, data) => {
                 }));
             
             }
-
 
 
         });//end requestGetHuaYanShiDataByTableNameAndDate

@@ -35,7 +35,7 @@ class BurnSysOpRe extends Component {
         console.log("变了");
         const oldSearchDate = this.props.searchdate; //旧的props
         const { tableName, setOldData, searchdate } = nextProps; //新的props
-
+        const {updateCRF} =this.props;
         const modelData = [//定义该页面的数据模板
                 {data: []}, {data: []}, {data: []}, {data: []},
                 {data: []}, {data: []}, {data: []}, {data: []},//0-7小时 0-7行
@@ -53,12 +53,23 @@ class BurnSysOpRe extends Component {
                     '', '', moment().format("YYYY/MM/DD hh:mm:ss").toString()
                 ]},//下表的数据 32-35行
 
-        ]
+        ];
 
-        if(oldSearchDate != searchdate){
+
+
+
+        if(oldSearchDate != searchdate) {
+
+
             setOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
-            this.props.updateCRF();
+
+            updateCRF();
+
+
         }
+
+
+
     }
 
     componentWillUnmount(){

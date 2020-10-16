@@ -39,15 +39,18 @@ const defaultState = fromJS({
 export default (state = defaultState, action) => {
 
     switch (action.type) {
+
+        case constants.CHANGE_TIME_CHOSE_BSO:
+            return state.set('timeChose', action.timeChose);
+        case constants.CHANGE_REQUEST_FLAG:
+            console.log("requestFlag true")
+            return state.set('requestFlag',true);
         case constants.UPDATE_DATA_BSO:
+            console.log("requestFlag false")
             return state.merge({
                 'data': action.data,
                 'requestFlag':false//切换页面时候不需要刷新数据了（当页面刷新的时候自动初始化为true）
             });
-        case constants.CHANGE_TIME_CHOSE_BSO:
-            return state.set('timeChose', action.timeChose);
-        case constants.CHANGE_REQUEST_FLAG:
-            return state.set('requestFlag',true);
         default:
             return state;
     }
