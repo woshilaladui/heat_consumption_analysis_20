@@ -1,7 +1,7 @@
 import { Layout, Menu, Breadcrumb, Icon ,Button} from 'antd';
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
  class Permission extends React.Component {

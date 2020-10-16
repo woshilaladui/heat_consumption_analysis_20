@@ -96,43 +96,53 @@ class TableJCYCL extends React.Component {
             },
 
         ];
-        // console.log("this.props.RAO_SHS")
-        // console.log(this.props.RAO_SHS[3])
-        // console.log("this.props.RAO_SHS")
+
+        const CJSHSjunzhi_DATA = deepCopy(this.props.CJSHSjunzhi);
+        const CJSYjunzhi_DATA = deepCopy(this.props.CJSYjunzhi);
+        const CJFMHgjunzhi_DATA = deepCopy(this.props.CJFMHgjunzhi);
+        const CJFMHsjunzhi_DATA = deepCopy(this.props.CJFMHsjunzhi);
+        const CJTFjunzhi_DATA = deepCopy(this.props.CJTFjunzhi);
+
+        const RAO_SHS_DATA = deepCopy(this.props.RAO_SHS);
+        const RAO_SY_DATA = deepCopy(this.props.RAO_SY);
+        const RAO_FMHg_DATA = deepCopy(this.props.RAO_FMHg);
+        const RAO_FMHs_DATA = deepCopy(this.props.RAO_FMHs);
+        const RAO_TF_DATA = deepCopy(this.props.RAO_TF);
+
 
         /*进厂石灰石数据填充*/
 
         dataa.push({
             timea: timea[0],
-            water_lista: this.props.CJSHSjunzhi[0],
-            IL_lista: this.props.CJSHSjunzhi[1],
-            SiO2_lista: this.props.CJSHSjunzhi[2],
-            Al2O3_lista: this.props.CJSHSjunzhi[3],
-            Fe2O_lista: this.props.CJSHSjunzhi[4],
-            CaO_lista: this.props.CJSHSjunzhi[5],
-            MgO_lista: this.props.CJSHSjunzhi[6],
-            S3O_lista: isNaN(this.props.RAO_SHS[3]['t_data'][6]) ? null : this.props.RAO_SHS[3]['t_data'][6],
-            //S3O_lista:this.props.RAO_SHS[3]['t_data'][6]?this.props.RAO_SHS[3]['t_data'][6]:'',
-            Na2O_lista: this.props.RAO_SHS[3]['t_data'][7],
-            K2O_lista: this.props.RAO_SHS[3]['t_data'][8],
-            Cl_lista: this.props.RAO_SHS[3]['t_data'][9],
+            water_lista: isNaN(CJSHSjunzhi_DATA[0])?null:CJSHSjunzhi_DATA[0],
+            IL_lista: isNaN(CJSHSjunzhi_DATA[1])?null:CJSHSjunzhi_DATA[1],
+            SiO2_lista: isNaN(CJSHSjunzhi_DATA[2])?null:CJSHSjunzhi_DATA[2],
+            Al2O3_lista: isNaN(CJSHSjunzhi_DATA[3])?null:CJSHSjunzhi_DATA[3],
+            Fe2O_lista: isNaN(CJSHSjunzhi_DATA[4])?null:CJSHSjunzhi_DATA[4],
+            CaO_lista: isNaN(CJSHSjunzhi_DATA[5])?null:CJSHSjunzhi_DATA[5],
+            MgO_lista: isNaN(CJSHSjunzhi_DATA[6])?null:CJSHSjunzhi_DATA[6],
+            S3O_lista: isNaN(RAO_SHS_DATA[3]['data'][6]) ? null : RAO_SHS_DATA[3]['data'][6],
+            //S3O_lista:RAO_SHS_DATA[3]['data'][6]?RAO_SHS_DATA[3]['data'][6]:'',
+            Na2O_lista: isNaN(RAO_SHS_DATA[3]['data'][7]) ? null : RAO_SHS_DATA[3]['data'][7],
+            K2O_lista: isNaN(RAO_SHS_DATA[3]['data'][8]) ? null : RAO_SHS_DATA[3]['data'][8],
+            Cl_lista: isNaN(RAO_SHS_DATA[3]['data'][9]) ? null : RAO_SHS_DATA[3]['data'][9],
             R2O_lista: null
         })
 
         /*进厂干煤粉灰数据*/
         dataa.push({
             timea: timea[1],
-            water_lista: this.props.CJFMHgjunzhi[0],
-            IL_lista: isNaN(this.props.RAO_FMHg[3]['t_data'][0]) ? null : this.props.RAO_FMHg[3]['t_data'][0],
-            SiO2_lista: isNaN(this.props.RAO_FMHg[3]['t_data'][1]) ? null : this.props.RAO_FMHg[3]['t_data'][1],
-            Al2O3_lista: isNaN(this.props.RAO_FMHg[3]['t_data'][2]) ? null : this.props.RAO_FMHg[3]['t_data'][2],
-            Fe2O_lista: isNaN(this.props.RAO_FMHg[3]['t_data'][3]) ? null : this.props.RAO_FMHg[3]['t_data'][3],
-            CaO_lista: isNaN(this.props.RAO_FMHg[3]['t_data'][4]) ? null : this.props.RAO_FMHg[3]['t_data'][4],
-            MgO_lista: isNaN(this.props.RAO_FMHg[3]['t_data'][5]) ? null : this.props.RAO_FMHg[3]['t_data'][5],
-            S3O_lista: isNaN(this.props.RAO_FMHg[3]['t_data'][6]) ? null : this.props.RAO_FMHg[3]['t_data'][6],
-            Na2O_lista: isNaN(this.props.RAO_FMHg[3]['t_data'][7]) ? null : this.props.RAO_FMHg[3]['t_data'][7],
-            K2O_lista: isNaN(this.props.RAO_FMHg[3]['t_data'][8]) ? null : this.props.RAO_FMHg[3]['t_data'][8],
-            Cl_lista: isNaN(this.props.RAO_FMHg[3]['t_data'][9]) ? null : this.props.RAO_FMHg[3]['t_data'][9],
+            water_lista: isNaN(CJFMHgjunzhi_DATA[0])?null:CJFMHgjunzhi_DATA[0],
+            IL_lista: isNaN(RAO_FMHg_DATA[3]['data'][0]) ? null : RAO_FMHg_DATA[3]['data'][0],
+            SiO2_lista: isNaN(RAO_FMHg_DATA[3]['data'][1]) ? null : RAO_FMHg_DATA[3]['data'][1],
+            Al2O3_lista: isNaN(RAO_FMHg_DATA[3]['data'][2]) ? null : RAO_FMHg_DATA[3]['data'][2],
+            Fe2O_lista: isNaN(RAO_FMHg_DATA[3]['data'][3]) ? null : RAO_FMHg_DATA[3]['data'][3],
+            CaO_lista: isNaN(RAO_FMHg_DATA[3]['data'][4]) ? null : RAO_FMHg_DATA[3]['data'][4],
+            MgO_lista: isNaN(RAO_FMHg_DATA[3]['data'][5]) ? null : RAO_FMHg_DATA[3]['data'][5],
+            S3O_lista: isNaN(RAO_FMHg_DATA[3]['data'][6]) ? null : RAO_FMHg_DATA[3]['data'][6],
+            Na2O_lista: isNaN(RAO_FMHg_DATA[3]['data'][7]) ? null : RAO_FMHg_DATA[3]['data'][7],
+            K2O_lista: isNaN(RAO_FMHg_DATA[3]['data'][8]) ? null : RAO_FMHg_DATA[3]['data'][8],
+            Cl_lista: isNaN(RAO_FMHg_DATA[3]['data'][9]) ? null : RAO_FMHg_DATA[3]['data'][9],
             R2O_lista: null
 
         })
@@ -140,51 +150,51 @@ class TableJCYCL extends React.Component {
 /****************进厂粉煤灰湿***************/
         dataa.push({
             timea: timea[2],
-            water_lista: this.props.CJFMHsjunzhi[0],
-            IL_lista: isNaN(this.props.RAO_FMHs[3]['t_data'][0]) ? null : this.props.RAO_FMHs[3]['t_data'][0],
-            SiO2_lista: isNaN(this.props.RAO_FMHs[3]['t_data'][1]) ? null : this.props.RAO_FMHs[3]['t_data'][1],
-            Al2O3_lista: isNaN(this.props.RAO_FMHs[3]['t_data'][2]) ? null : this.props.RAO_FMHs[3]['t_data'][2],
-            Fe2O_lista: isNaN(this.props.RAO_FMHs[3]['t_data'][3]) ? null : this.props.RAO_FMHs[3]['t_data'][3],
-            CaO_lista: isNaN(this.props.RAO_FMHs[3]['t_data'][4]) ? null : this.props.RAO_FMHs[3]['t_data'][4],
-            MgO_lista: isNaN(this.props.RAO_FMHs[3]['t_data'][5]) ? null : this.props.RAO_FMHs[3]['t_data'][5],
-            S3O_lista: isNaN(this.props.RAO_FMHs[3]['t_data'][6]) ? null : this.props.RAO_FMHs[3]['t_data'][6],
-            Na2O_lista: isNaN(this.props.RAO_FMHs[3]['t_data'][7]) ? null : this.props.RAO_FMHs[3]['t_data'][7],
-            K2O_lista: isNaN(this.props.RAO_FMHs[3]['t_data'][8]) ? null : this.props.RAO_FMHs[3]['t_data'][8],
-            Cl_lista: isNaN(this.props.RAO_FMHs[3]['t_data'][9]) ? null : this.props.RAO_FMHs[3]['t_data'][9],
+            water_lista: isNaN(CJFMHsjunzhi_DATA[0])?null:CJFMHsjunzhi_DATA[0],
+            IL_lista: isNaN(RAO_FMHs_DATA[3]['data'][0]) ? null : RAO_FMHs_DATA[3]['data'][0],
+            SiO2_lista: isNaN(RAO_FMHs_DATA[3]['data'][1]) ? null : RAO_FMHs_DATA[3]['data'][1],
+            Al2O3_lista: isNaN(RAO_FMHs_DATA[3]['data'][2]) ? null : RAO_FMHs_DATA[3]['data'][2],
+            Fe2O_lista: isNaN(RAO_FMHs_DATA[3]['data'][3]) ? null : RAO_FMHs_DATA[3]['data'][3],
+            CaO_lista: isNaN(RAO_FMHs_DATA[3]['data'][4]) ? null : RAO_FMHs_DATA[3]['data'][4],
+            MgO_lista: isNaN(RAO_FMHs_DATA[3]['data'][5]) ? null : RAO_FMHs_DATA[3]['data'][5],
+            S3O_lista: isNaN(RAO_FMHs_DATA[3]['data'][6]) ? null : RAO_FMHs_DATA[3]['data'][6],
+            Na2O_lista: isNaN(RAO_FMHs_DATA[3]['data'][7]) ? null : RAO_FMHs_DATA[3]['data'][7],
+            K2O_lista: isNaN(RAO_FMHs_DATA[3]['data'][8]) ? null : RAO_FMHs_DATA[3]['data'][8],
+            Cl_lista: isNaN(RAO_FMHs_DATA[3]['data'][9]) ? null : RAO_FMHs_DATA[3]['data'][9],
             R2O_lista: null
         })
 
         dataa.push({
             timea: timea[3],
-            water_lista: this.props.CJTFjunzhi[0],
-            IL_lista: isNaN(this.props.RAO_TF[3]['t_data'][0]) ? null : this.props.RAO_TF[3]['t_data'][0],
-            SiO2_lista: isNaN(this.props.RAO_TF[3]['t_data'][1]) ? null : this.props.RAO_TF[3]['t_data'][1],
-            Al2O3_lista: isNaN(this.props.RAO_TF[3]['t_data'][2]) ? null : this.props.RAO_TF[3]['t_data'][2],
-            Fe2O_lista: isNaN(this.props.RAO_TF[3]['t_data'][3]) ? null : this.props.RAO_TF[3]['t_data'][3],
-            CaO_lista: isNaN(this.props.RAO_TF[3]['t_data'][4]) ? null : this.props.RAO_TF[3]['t_data'][4],
-            MgO_lista: isNaN(this.props.RAO_TF[3]['t_data'][5]) ? null : this.props.RAO_TF[3]['t_data'][5],
-            S3O_lista: isNaN(this.props.RAO_TF[3]['t_data'][6]) ? null : this.props.RAO_TF[3]['t_data'][6],
-            Na2O_lista: isNaN(this.props.RAO_TF[3]['t_data'][7]) ? null : this.props.RAO_TF[3]['t_data'][7],
-            K2O_lista: isNaN(this.props.RAO_TF[3]['t_data'][8]) ? null : this.props.RAO_TF[3]['t_data'][8],
-            Cl_lista: isNaN(this.props.RAO_TF[3]['t_data'][9]) ? null : this.props.RAO_TF[3]['t_data'][9],
+            water_lista: isNaN(CJTFjunzhi_DATA[0])?null:CJTFjunzhi_DATA[0],
+            IL_lista: isNaN(RAO_TF_DATA[3]['data'][0]) ? null : RAO_TF_DATA[3]['data'][0],
+            SiO2_lista: isNaN(RAO_TF_DATA[3]['data'][1]) ? null : RAO_TF_DATA[3]['data'][1],
+            Al2O3_lista: isNaN(RAO_TF_DATA[3]['data'][2]) ? null : RAO_TF_DATA[3]['data'][2],
+            Fe2O_lista: isNaN(RAO_TF_DATA[3]['data'][3]) ? null : RAO_TF_DATA[3]['data'][3],
+            CaO_lista: isNaN(RAO_TF_DATA[3]['data'][4]) ? null : RAO_TF_DATA[3]['data'][4],
+            MgO_lista: isNaN(RAO_TF_DATA[3]['data'][5]) ? null : RAO_TF_DATA[3]['data'][5],
+            S3O_lista: isNaN(RAO_TF_DATA[3]['data'][6]) ? null : RAO_TF_DATA[3]['data'][6],
+            Na2O_lista: isNaN(RAO_TF_DATA[3]['data'][7]) ? null : RAO_TF_DATA[3]['data'][7],
+            K2O_lista: isNaN(RAO_TF_DATA[3]['data'][8]) ? null : RAO_TF_DATA[3]['data'][8],
+            Cl_lista: isNaN(RAO_TF_DATA[3]['data'][9]) ? null : RAO_TF_DATA[3]['data'][9],
             R2O_lista: null
         })
 
         /*进厂砂岩泥数据填充*/
         dataa.push({
             timea: timea[4],
-            water_lista: this.props.CJSYjunzhi[0],
-            IL_lista: this.props.CJSYjunzhi[1],
-            SiO2_lista: this.props.CJSYjunzhi[2],
-            Al2O3_lista: this.props.CJSYjunzhi[3],
-            Fe2O_lista: this.props.CJSYjunzhi[4],
-            CaO_lista: this.props.CJSYjunzhi[5],
-            MgO_lista: this.props.CJSYjunzhi[6],
-            S3O_lista: isNaN(this.props.RAO_SY[3]['t_data'][6]) ? null : this.props.RAO_SY[3]['t_data'][6],
-            //S3O_lista:this.props.RAO_SY[3]['t_data'][6]?this.props.RAO_SY[3]['t_data'][6]:'',
-            Na2O_lista: isNaN(this.props.RAO_SY[3]['t_data'][7]) ? null : this.props.RAO_SY[3]['t_data'][7],
-            K2O_lista: isNaN(this.props.RAO_SY[3]['t_data'][8]) ? null : this.props.RAO_SY[3]['t_data'][8],
-            Cl_lista: isNaN(this.props.RAO_SY[3]['t_data'][9]) ? null : this.props.RAO_SY[3]['t_data'][9],
+            water_lista: isNaN(CJSYjunzhi_DATA[0])?null:CJSYjunzhi_DATA[0],
+            IL_lista:    isNaN(CJSYjunzhi_DATA[1])?null:CJSYjunzhi_DATA[1],
+            SiO2_lista:  isNaN(CJSYjunzhi_DATA[2])?null:CJSYjunzhi_DATA[2],
+            Al2O3_lista: isNaN(CJSYjunzhi_DATA[3])?null:CJSYjunzhi_DATA[3],
+            Fe2O_lista:  isNaN(CJSYjunzhi_DATA[4])?null:CJSYjunzhi_DATA[4],
+            CaO_lista:   isNaN(CJSYjunzhi_DATA[5])?null:CJSYjunzhi_DATA[5],
+            MgO_lista:   isNaN(CJSYjunzhi_DATA[6])?null:CJSYjunzhi_DATA[6],
+            S3O_lista: isNaN(RAO_SY_DATA[3]['data'][6]) ? null : RAO_SY_DATA[3]['data'][6],
+            //S3O_lista:RAO_SY_DATA[3]['data'][6]?RAO_SY_DATA[3]['data'][6]:'',
+            Na2O_lista: isNaN(RAO_SY_DATA[3]['data'][7]) ? null : RAO_SY_DATA[3]['data'][7],
+            K2O_lista: isNaN(RAO_SY_DATA[3]['data'][8]) ? null : RAO_SY_DATA[3]['data'][8],
+            Cl_lista: isNaN(RAO_SY_DATA[3]['data'][9]) ? null : RAO_SY_DATA[3]['data'][9],
             R2O_lista: null
 
 

@@ -34,10 +34,6 @@ export const updateData = ({data}) => ({
     data: data
 });
 
-export const updateCRF = () => ({
-    type: constants.CHANGE_REQUEST_FLAG
-})
-
 
 /**
  *
@@ -59,14 +55,13 @@ export const getData = (date, tableName, data,flag) => {
             if(response['code'] === 0){
 
                 //解析处理数据
-                let newData = deepCopy(response['data'])
-                
+                let newData = deepCopy(response['data']);
+
                 let result = ZhongKongShiFormat(
                     data,
                     newData,
                     tableName
                 );
-
                 dispatch(updateData({//将获取到的数据进行转发
                     data: result
                 }));
@@ -77,7 +72,6 @@ export const getData = (date, tableName, data,flag) => {
         });//end requestGetHuaYanShiDataByTableNameAndDate
     }
 };//end getData
-
 
 export function saveData(
     {

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import * as actionCreators from './store/actionCreators';
 
 
-const {Header, Content, Footer} = Layout;
+const {Header, Content} = Layout;
 
 class Home_app extends React.Component {
     constructor(props) {
@@ -21,14 +21,13 @@ class Home_app extends React.Component {
         this.setState({
             choose_num: e
         });
-        console.log(e);
     }
 
 
     /**判定权限，分配菜单和其他页面的显示**/
     componentWillMount() {
 
-        const {requestFlag,getUserPermission} = this.props;
+        //const {requestFlag,getUserPermission} = this.props;
 
         // if(requestFlag){
         //     getUserPermission();
@@ -66,15 +65,15 @@ class Home_app extends React.Component {
 const mapStateToProps = (state) => {
     return {
         permission:state.getIn(['home_app', 'permission']),
-        requestFlag:state.getIn(['home_app', 'requestFlag']),
+        //requestFlag:state.getIn(['home_app', 'requestFlag']),
     }
 };
 
 const mapDispathToProps = (dispatch) => {
     return {
-        getUserPermission(){
+        /*getUserPermission(){
             dispatch(actionCreators.getUserPermission({}))
-        }
+        }*/
     }//end return
 }
 

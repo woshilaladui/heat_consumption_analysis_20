@@ -15,7 +15,7 @@ import {
     autoCalculate_KH,
     autoCalculate_N,
     autoCalculate_P, autoCalculateHJ,
-    calculate_pass_rate
+    calculate_pass_rate, calculate_pass_rate_cmsl
 } from "../../../../Helper/Calculate";
 
  
@@ -101,10 +101,8 @@ class UpperForm extends Component {
         const position = order.indexOf(indexL);//判断此列是否需要计算合格率
 
         //判断是否需要计算
-        if (position >= 0) {
             //计算合格率
-            calculate_pass_rate(NewData, startValue, endValue, order, width, timeChose, indexL);
-        }
+            calculate_pass_rate_cmsl(NewData, startValue, endValue, order, width, timeChose, indexL);
 
         //计算平均值
         autoCalculate_average(NewData, timeChose, indexL,tableWidth);
@@ -345,39 +343,37 @@ class UpperForm extends Component {
 
 
         dataSource.push(
-            {
-                time: '平均',
-                SF:     Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.SF],
-                IL:     Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.IL],
-                SiO2:   Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.SiO2],
-                Al2O3:  Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.Al2O3],
-                Fe2O3:  Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.Fe2O3],
-                CaO:    Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.CaO],
-                MgO:    Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.MgO],
-                HJ:     Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.HJ],
-                K2O:    Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.K2O],
-                KH:     Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.KH],
-                N:      Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.N],
-                P:      Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.P],
-                // Remarks_list:'--',
+          {
+              time: '平均',
+              SF:      isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.SF])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.SF],
+              IL:      isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.IL])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.IL],
+              SiO2:    isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.SiO2])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.SiO2],
+              Al2O3:   isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.Al2O3])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.Al2O3],
+              Fe2O3:   isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.Fe2O3])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.Al2O3],
+              CaO:     isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.CaO])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.CaO],
+              MgO:     isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.MgO])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.MgO],
+              HJ:      isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.HJ])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.HJ],
+              K2O:     isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.K2O])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.K2O],
+              KH:      isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.KH])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.KH],
+              N:       isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.N])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.N],
+              P:       isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.P])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.P],
 
-            },
-            {
-                time: '合格率',
-                SF: '',
-                IL: '',
-                SiO2: '',
-                Al2O3: '',
-                Fe2O3: '',
-                CaO: '',
-                MgO: '',
-                HJ: '',
-                K2O: '',
-                Na2O: '',
-                KH: Data[9 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.KH],
-                N: Data[9 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.N],
-                P: Data[9 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.P],
-            }
+          },
+          {
+              time: '合格率',
+              SF: '~',
+              IL: '~',
+              SiO2: '~',
+              Al2O3: '~',
+              Fe2O3: '~',
+              CaO: '~',
+              MgO: '~',
+              HJ: '~',
+              K2O: '~',
+              KH:  isNaN(Data[9 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.KH])?null:Data[9 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.KH]+'%',
+              N:  isNaN(Data[9 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.N])?null:Data[9 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.N]+'%',
+              P:  isNaN(Data[9 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.P])?null:Data[9 + timeChose * 10]['data'][HuaYSOrder_CMRYSL.P]+'%',
+          }
         );
 
 

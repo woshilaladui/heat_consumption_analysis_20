@@ -69,6 +69,7 @@ export const getData = (date, tableName, data) => {
         ).then((response) => {
 
             if(response['code'] === 0){
+
                 //解析处理数据
                 //解析数据
                 let newData = deepCopy(response['data']);

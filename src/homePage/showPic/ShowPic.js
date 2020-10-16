@@ -21,7 +21,7 @@ export default class IShowPic extends React.Component {
     return (
         <BannerAnim prefixCls="banner-user"
         id="hero"
-        autoPlaySpeed='5000' autoPlay
+        autoPlaySpeed={5000} autoPlay
         dragPlay={false}
             >
             <Element

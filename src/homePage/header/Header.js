@@ -31,14 +31,15 @@ class Header extends Component {
        }
         const d = new Date();
         const time = parseInt((d.getTime() - window.localStorage.time) / 60000);
-        if (time > 720) {
-            window.localStorage.clear();
-            this.setState({
-                needLogin: true,
-                showItem: 'none',
-            })
-        }
-        else if (window.localStorage.token) {
+        // if (time > 720) {
+        //     window.localStorage.clear();
+        //     this.setState({
+        //         needLogin: true,
+        //         showItem: 'none',
+        //     })
+        // }
+        // else
+          if (window.localStorage.token) {
             this.setState({
                 needLogin: false,
                 showItem: '',

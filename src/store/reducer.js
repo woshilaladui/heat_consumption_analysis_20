@@ -26,6 +26,7 @@ import { reducer as CMRawMatCheAnaReReducer } from '../table/fluorescenceAnaTabe
 import { reducer as RYRawMatCheAnaReReducer } from '../table/fluorescenceAnaTabel/RYRawMatCheAnaRe/store';
 import { reducer as KilnCAnaSumTableReducer } from '../table/fluorescenceAnaTabel/KilnCAnaSumTable/store';
 import { reducer as FactoryCliAnaSumTableReducer } from '../table/fluorescenceAnaTabel/FactoryCliAnaSumTable/store';
+import { reducer as WareHouseRawMatCAReReducer } from '../table/fluorescenceAnaTabel/wareHouseRawMatCARe/store/index';
 
 
 /*******************************************分析表格*******************************************************/
@@ -55,14 +56,14 @@ import { reducer as threeFiveKwTableReducer } from '../table/electricityTable/th
 import { reducer as logReducer } from '../table/log/store';
 /**********************************************登陆***********************************************************/
 import { reducer as loginReducer } from '../login/store';
-import {reducer as loginV2Reducer} from '../login_v2/store'
-import {reducer as permissionReducer} from '../permission/store'
-import {reducer as userRoleReducer} from '../permission/userRole/store'
-import {reducer as rolePermissionReducer} from '../permission/rolePermission/store'
+import {reducer as loginV2Reducer} from '../login_v2/store';
+import {reducer as permissionReducer} from '../permission/store';
+import {reducer as userRoleReducer} from '../permission/userRole/store';
+import {reducer as rolePermissionReducer} from '../permission/rolePermission/store';
 
 import { reducer as searchTableReducer } from '../table/searchTable/store';
-import {reducer as countDownReducer} from '../countdown/store'
-import {reducer as homePageHeaderReducer} from '../homePage/header/store'
+import {reducer as countDownReducer} from '../countdown/store';
+import {reducer as homePageHeaderReducer} from '../homePage/header/store';
 
 const reducer = combineReducers({
 
@@ -88,7 +89,7 @@ const reducer = combineReducers({
 	RawMatCheAnaReFMHS:RawMatCheAnaReFMHSReducer,//进厂粉煤灰(湿)原材料分析化学报告单
 	CMRawMatCheAnaRe:CMRawMatCheAnaReReducer,//出磨生料化学分析报告单
 	RYRawMatCheAnaRe:RYRawMatCheAnaReReducer,//入窑生料化学分析报告单
-
+	WareHouseRawMatCARe:WareHouseRawMatCAReReducer,//仓下原材料化学分析报告单
 	KilnCAnaSumTable:KilnCAnaSumTableReducer,//出窑熟料全分析汇总表
 	FactoryCliAnaSumTable:FactoryCliAnaSumTableReducer,//出厂熟料全分析汇总表
 
@@ -125,6 +126,7 @@ const reducer = combineReducers({
 	userRole: userRoleReducer,//用户角色控制
 
 	searchTable:searchTableReducer,//查看表单
+	
 	rolePermission: rolePermissionReducer,//权限控制
 	countDown: countDownReducer,//倒计时
 	homePageHeader:homePageHeaderReducer,

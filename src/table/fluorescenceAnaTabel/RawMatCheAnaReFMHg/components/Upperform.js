@@ -243,10 +243,10 @@ class UpperForm extends Component {
             },
             {
                 time: '合格率',
-                SF: Data[9 + timeChose * 10]['data'][HuaYSOrder_JC.SF]+" %",
-                IL:  Data[9 + timeChose * 10]['data'][HuaYSOrder_JC.IL]+" %",
+                SF: isNaN(Data[9 + timeChose * 10]['data'][HuaYSOrder_JC.SF])?null:Data[9 + timeChose * 10]['data'][HuaYSOrder_JC.SF]+" %",
+                IL:  isNaN(Data[9 + timeChose * 10]['data'][HuaYSOrder_JC.IL])?null:Data[9 + timeChose * 10]['data'][HuaYSOrder_JC.IL]+" %",
                 SiO2: '',
-                Al2O3: Data[9 + timeChose * 10]['data'][HuaYSOrder_JC.Al2O3]+" %",
+                Al2O3: isNaN(Data[9 + timeChose * 10]['data'][HuaYSOrder_JC.Al2O3])?null:Data[9 + timeChose * 10]['data'][HuaYSOrder_JC.Al2O3]+" %",
                 Fe2O3: '',
                 CaO: '',
                 MgO: '',

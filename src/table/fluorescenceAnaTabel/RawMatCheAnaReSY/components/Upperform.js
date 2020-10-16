@@ -225,7 +225,7 @@ class UpperForm extends Component {
 
                             onChange={event => this.onInputNumberChange2(event, index, HuaYSOrder_JC.MgO)}
                         /></span>,
-                    HJ: <span>{isNaN(value[HuaYSOrder_JC.HJ]) ? null : value[HuaYSOrder_JC.HJ]}</span>,
+                    HJ: <span>{isNaN(value[HuaYSOrder_JC.HJ]) ? null : value[HuaYSOrder_JC.HJ].toFixed(2)}</span>,
                     person:
                         Data[index]['user'],
 

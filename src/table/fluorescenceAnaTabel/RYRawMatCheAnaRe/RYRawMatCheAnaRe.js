@@ -65,7 +65,7 @@ class CMRawMatCheAnaRe extends Component {
 
     render() {
         return (
-            <Fragment style={{width: "100%", height: "100%"}}>
+            <Fragment >
                 <div style={{padding: '1%'}} ref={(el) => this.refs = el}>
                     <h1 align="center">入窑生料化学分析报告单</h1>
                     {/*表单最上的时间及人员显示*/}

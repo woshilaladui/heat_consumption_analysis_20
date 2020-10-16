@@ -152,12 +152,12 @@ class Iheader extends Component {
         return (
             <div className='iheader'>
                 {/**图片盒子*/}
-                <Link to="/">
+                 {/*<Link to="/">*/}
                     <a className="head_icon col-md-8 col-sm-8" href="">
                         <img src={require("../../img/logo.png")} alt=""/>
                     </a>
                     {/* <a className="head_companyName col-md-8 col-sm-8">{this.state.CompanyName}</a> */}
-                </Link>
+                 {/*</Link>*/}
                 <Menu
                     mode="horizontal"
                     className="icon"

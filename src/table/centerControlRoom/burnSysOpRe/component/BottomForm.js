@@ -557,11 +557,12 @@ class BottomForm extends Component {
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date: state.getIn(['burnSysOpRe', 'date']),
+        //date: state.getIn(['burnSysOpRe', 'date']),
         timeChose: state.getIn(['burnSysOpRe', 'timeChose']),
         data: state.getIn(['burnSysOpRe', 'data']),
         tableName: state.getIn(['burnSysOpRe', 'tableName']),
         searchFlag:state.getIn(['searchTable', 'searchFlag']),
+        date: state.getIn(['searchTable', 'date']),
     }
 }
 

@@ -225,7 +225,7 @@ class UpperForm extends Component {
 
                             onChange={event => this.onInputNumberChange2(event, index, HuaYSOrder_JC.MgO)}
                         /></span>,
-                    HJ: <span>{isNaN(value[HuaYSOrder_JC.HJ]) ? null : value[HuaYSOrder_JC.HJ]}</span>,
+                    HJ: <span>{isNaN(value[HuaYSOrder_JC.HJ]) ? null : value[HuaYSOrder_JC.HJ].toFixed(2)}</span>,
                     person:
                         Data[index]['user'],
                 }
@@ -254,8 +254,8 @@ class UpperForm extends Component {
                 SiO2: isNaN(Data[9 + timeChose * 10]['data'][HuaYSOrder_JC.SiO2])?null:Data[9 + timeChose * 10]['data'][HuaYSOrder_JC.SiO2]+" %",
                 Al2O3: "~~",
                 Fe2O3: '~~',
-                CaO: Data[9 + timeChose * 10]['data'][HuaYSOrder_JC.CaO]+" %",
-                MgO: Data[9 + timeChose * 10]['data'][HuaYSOrder_JC.MgO]+" %",
+                CaO: isNaN(Data[9 + timeChose * 10]['data'][HuaYSOrder_JC.CaO])?null:Data[9 + timeChose * 10]['data'][HuaYSOrder_JC.CaO]+" %",
+                MgO: isNaN(Data[9 + timeChose * 10]['data'][HuaYSOrder_JC.MgO])?null:Data[9 + timeChose * 10]['data'][HuaYSOrder_JC.MgO]+" %",
                 HJ: '~~',
                 // Remarks_list:'--',
             }

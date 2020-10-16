@@ -1,19 +1,22 @@
 import * as constants from './constants';
-import {getHuaYSOldData, getStandard, HuaYSSave} from "../../../../Request/RequsetCenter";
-
-import {getHuaYSJsonData, getHuaYSJsonSaveData} from "../../../../Request/JsonCenter";
 import {message} from "antd";
-import {updateOperator} from "../../../../Helper/AutoCalculate";
-import {URL} from "../../../../Request/Constant";
-import moment from 'moment';
-import {requestGetZhongKongShiDataByTableNameAndDate} from "../../../../http/request/RequestZhongKongShi";
-import {deepCopy} from "../../../../Helper/Copy";
-import {HuaYanShiFormat, ZhongKongShiFormat} from "../../../../Helper/Format";
+
+//导入中控室的请求方法
 import {
     requestGetHuaYanShiDataByTableNameAndDate,
-    requestSaveHuaYanShiData
-} from "../../../../http/request/RequestHuaYanShi";
-import {Mark, Table} from "../../../../http/constant/Constant";
+    requestSaveHuaYanShiData,
+} from "../../../../http/request/RequestHuaYanShi"
+import {
+    Mark,
+    Table
+} from "../../../../http/constant/Constant"
+import {
+    HuaYanShiFormat,
+    updateOperator,
+} from "../../../../Helper/Format"
+
+
+import {deepCopy} from "../../../../Helper/Copy";
 
 
 /**
@@ -22,108 +25,74 @@ import {Mark, Table} from "../../../../http/constant/Constant";
  * @returns {{timeChose: *, type: string}}
  */
 export const changeTimeChose = (timeChose) => ({
-    type: constants.CHANGE_TIME_CHOSE_CRO,
+    type: constants.CHANGE_TIME_CHOSE_RMC,
     timeChose: timeChose
-})
+});
 
-/**
- * 内部方法不对外公开，用于将获取的数据进行存储更新
- * @param upperData
- * @param data
- * @returns {{upperData: *[], bottomData: *[], type: string}}
- */
+//时间更新员工
+export function doChangeTimeChose(timeChose) {
+
+    return (dispatch) => {
+        dispatch(changeTimeChose(timeChose));
+    }
+
+}
+
+
 export const updateData = ({data}) => ({
-    type: constants.UPDATE_DATA_CRO,
+    type: constants.UPDATE_DATA_RMC,
     data: data
 });
 
-export const updateUpperData = (data) => ({//更新上表的数据
-    type: constants.UPDATE_UPPER_DATA_CRO,
-    data: data,
-});
-
-export const updateBottomData = (bottomData) => ({//更新下表的数据
-    type: constants.UPDATE_BOTTOM_DATA_CRO,
-    bottomData: bottomData,
-});
-
 //更新标准
-export const updateStandard = (startValue,endValue)=>({
-    type:constants.UPDATE_STANDARD_CRO,
-    startValue:startValue,
-    endValue:endValue
-})
+export const updateStandard = (startValue, endValue) => ({
+    type: constants.UPDATE_STANDARD_RMC,
+    startValue: startValue,
+    endValue: endValue
+});
+
 
 /**
  *
- * @param tableName
  * @param date
- * @param data 参数为提供数据模型
+ * @param tableName
+ * @param data 传过来的是这个界面的模板
  * @returns {Function}
  */
 export const getData = (date, tableName, data) => {
     return (dispatch) => {
+
         requestGetHuaYanShiDataByTableNameAndDate(
             date,
             tableName,
             data
         ).then((response) => {
-            if(response['code'] === 0){
 
+            if(response['code'] === 0){
                 //解析处理数据
-                let newData = deepCopy(response['data'])
+                //解析数据
+                let newData = deepCopy(response['data']);
                 let result = HuaYanShiFormat(
                     data,
                     newData,
                     tableName
                 );
+
                 dispatch(updateData({//将获取到的数据进行转发
                     data: result[0]
                 }));
 
+                //更新标准
                 dispatch(updateStandard(result[1], result[2]));
             }
+
+
+
         });//end requestGetHuaYanShiDataByTableNameAndDate
     }
 };//end getData
 
-/**
- * 获取该表的标准 从出模生料表中获取
- * @param t_name
- * @param startValue
- * @param endValue
- * @returns {Function}
- */
-export const getOldStandard = (t_name, startValue, endValue) => {
-    return (dispatch) => {
-        getStandard(
-            URL.HUAYS_STANDARD,
-            {t_name: t_name},
-            t_name,
-            startValue,
-            endValue
-        )
-            .then((response) => {
-                dispatch(updateStandard(
-                    response.startValue,
-                    response.endValue
-                ))
-            })
-            .catch()
-    }
-}
 
-
-/**
- *
- * @param index 默认值为0  传入非默认值的时候代表存某一行数据，否则表示存全部数据
- * @param tableType
- * @param tableName
- * @param date
- * @param data
- * @param num 在存全部数据时侯生效，num表示总共要提交的数据量
- * @returns {Function}
- */
 export function saveData(
     {
         tableType = 1,//上表
@@ -167,7 +136,7 @@ export function saveData(
                 else//为总体提交的时候则当该行数据不为空的时候提交数据
                     updateOperator({
                         data: data,
-                        num: num
+                        num: 30
                     });//该表有30行数据
 
                 dispatch(updateData({data:data}))//最后转发给updateData来更新数据

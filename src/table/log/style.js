@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
 
-export const log_list =styled.div`
+export const Log_list =styled.div`
 position: relative;
-    background: red;
     height:100%;
 `;
 export const ListInfoPDF =styled.span`

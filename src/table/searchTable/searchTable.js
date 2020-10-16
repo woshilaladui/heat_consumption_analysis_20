@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {Button, Divider, Select, DatePicker, Form,} from 'antd';
+
 import moment from 'moment';
 import './searchTable.css';
 import ReactToPrint from 'react-to-print';
@@ -44,6 +45,7 @@ import MFIndusAnaOriRe from '../../table/analysisTable/MFIndusAnaOriRe/MFIndusAn
 
 import { connect } from 'react-redux';
 import * as actionCreators from './store/actionCreators';
+
 
 const Option = Select.Option;
 const biaoge_list = [
@@ -106,57 +108,29 @@ class SearchTable extends Component {
         super(props);
         this.state = {
             selectValue: '0',//表格选项
-            //date: moment().format("YYYY-MM-DD"),//查表日期
-            timeChose: 0,//班次
-            upperData: [{'t_data': []}, {'t_data': []}, {'t_data': []}, {'t_data': []},
-                {'t_data': []}, {'t_data': []}, {'t_data': []}, {'t_data': []},
-                {'t_data': []}, {'t_data': []}, {'t_data': []}, {'t_data': []},
-                {'t_data': []}, {'t_data': []}, {'t_data': []}, {'t_data': []},
-                {'t_data': []}, {'t_data': []}, {'t_data': []}, {'t_data': []},
-                {'t_data': []}, {'t_data': []}, {'t_data': []}, {'t_data': []},],
-            bottomData: [[[], [], [], [], [],], [[], [], [], [], [],], [[], [], [], [], [],],],//页面下半部分的数据
-            person: '',//传入的值班人员
-            startValue: [null, null, null, null, null, null, null, null, null],//从数据库获取的标准
             table_Display: new Array(34).fill('none'),//控制表格的显示，默认全不显示
             t_name_Display: [],//控制表格下拉框中 中控室表格是否显示
             print_dis: 'none',//控制打印按钮是否显示,默认不显示
         }
     }
 
-    //判定是否已登录，是否有权限
+
     componentWillMount() {
-        // if (window.localStorage.type < 1 || window.localStorage.state < 1) {
-        //     this.props.history.push('/');
-        // } else {
-        //     if (window.localStorage.type >= 2) {//部门是化验室之外的可以看中控表
-        //         this.setState({
-        //             t_name_dispaly: true,
-        //         })
-        //     }
-        // }
-        // fetch('/api/Judgetype', {
-        //     method: 'post',
-        //     credentials: 'include',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'authorization': window.localStorage.authorization,
-        //     }
-        // })
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         if (data['code'] === 0) {
-        //         }
-        //         else {
-        //             this.props.history.push('/index');
-        //         }
-        //     })
-        //     .catch(error => console.error('Error:', error))
+        console.log("查看will");
+        //this.props.changeSearchFlag(false);
+        //this.props.handleChangeTime(moment().format("YYYY/MM/DD"));
+    }
+
+    componentDidMount() {
+        console.log("查看did");
+        this.props.changeSearchFlag(false);
+        this.props.handleChangeTime(moment().format("YYYY/MM/DD"));
     }
 
     componentWillUnmount(){
-        console.log("解除");
+        console.log("查看un");
         this.props.changeSearchFlag(true);
-        this.props.changeSearchTime(moment().format("YYYY-MM-DD"));
+        this.props.handleChangeTime(moment().format("YYYY/MM/DD"));
     }
 
     //选择表格类型
@@ -164,16 +138,8 @@ class SearchTable extends Component {
         this.setState({
             selectValue: value,
         });
-        // this.setVisibility(value);
     };
 
-    //修改班次
-    handleTimeChange = (e) => {
-        const x = parseInt(e);
-        this.setState({
-            timeChose: x,
-        });
-    };
     //控制表格显示
     setVisibility = (table) => {
         const table_Display = new Array(38).fill('none')
@@ -187,7 +153,6 @@ class SearchTable extends Component {
     handleQuery = () => {
         const {selectValue} = this.state
         this.setVisibility(selectValue);//改变表格显示状态
-        this.props.changeSearchFlag(false);
     };
 
     handlePrint = () => {
@@ -198,6 +163,7 @@ class SearchTable extends Component {
     };
 
     render() {
+      console.log("查看render")
         const {t_name_Display} = this.state;
         return (
             <div className='search' style={{padding: '1%'}}>
@@ -241,21 +207,13 @@ class SearchTable extends Component {
                         <Option value="31" disabled={t_name_Display[31]}>{biaoge_list[31]}</Option>
                         <Option value="32" disabled={t_name_Display[32]}>{biaoge_list[32]}</Option>
                         <Option value="33" disabled={t_name_Display[33]}>{biaoge_list[33]}</Option>
-
-                        {/*<Option value="34" disabled={t_name_Display[34]}>{biaoge_list[34]}</Option>*/}
-                        {/*<Option value="35" disabled={t_name_Display[35]}>{biaoge_list[35]}</Option>*/}
-                        {/*<Option value="36" disabled={t_name_Display[36]}>{biaoge_list[36]}</Option>*/}
-                        {/*<Option value="37" disabled={t_name_Display[37]}>{biaoge_list[37]}</Option>*/}
                     </Select>
-
                     <span>请选择日期：</span>
                     <DatePicker
-                        defaultValue={moment(this.props.date)}
+                        defaultValue={moment()}
                         format="YYYY-MM-DD"
                         placeholder='选择日期'
-                        /*onChange={this.handleChangeTime}*/
                         onChange={this.props.handleChangeTime}
-                        // onOk={this.handleChangeTime}
                         style={{margin: '10px'}}
                     />
                     <Button type="primary" style={{margin: '10px'}} onClick={this.handleQuery}>查询</Button>
@@ -279,7 +237,8 @@ class SearchTable extends Component {
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date:state.getIn(['serachTable', 'date']),
+        date:state.getIn(['searchTable', 'date']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 };
 
@@ -289,11 +248,11 @@ const mapDispathToProps = (dispatch) => {
             if (!e) {
                 return;
             }
-            dispatch(actionCreators.changeSearchTime(e.format("YYYY-MM-DD")));
+            dispatch(actionCreators.changeSearchTime(moment(e).format("YYYY/MM/DD")));
         },
 
         changeSearchFlag(flag){
-            dispatch(actionCreators.changeSearchFlag(flag));   
+            dispatch(actionCreators.changeSearchFlag(flag));
         },
 
         changeSearchTime(date){

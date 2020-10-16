@@ -75,8 +75,6 @@ export function ZhongKongShiFormat(resultData, responseData, tableName) {
         let str_arr = responseData["zhongKongShis"][i]['data'].split(',');//取出data中的数据
 
 
-
-
         //相当于替换了原来字符串数组，将其变成Number数组
         responseData["zhongKongShis"][i]['data'] = str_arr;
 
@@ -162,7 +160,7 @@ function isHaveStandard(tableName) {
         case TableName.Analysis_SMA:
         case TableName.Analysis_MFA:
         case TableName.Limestone_CaCO3://荧光分析表格
-        case TableName.Limestone_CRO:
+
         case TableName.Eletri_ME://电量表格
         case TableName.Eletri_TFKT:
 
@@ -179,6 +177,7 @@ function isHaveStandard(tableName) {
         case TableName.Limestone_RMC:
         case TableName.Limestone_KAS:
         case TableName.Limestone_FAS:
+        case TableName.Limestone_CRO:
             return true;
         default:
             return false;

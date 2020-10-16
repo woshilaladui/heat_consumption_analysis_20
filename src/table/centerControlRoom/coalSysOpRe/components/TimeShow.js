@@ -9,13 +9,13 @@ class TimeShow extends Component{
 
     render() {
         const day=(['天','一','二','三','四','五','六']);
-        const {handleTimeChange, person, searchdate, searchFlag} = this.props;
+        const {handleTimeChange, person, date, searchFlag} = this.props;
 
         let NowDate = null;
         if(searchFlag){
             NowDate = moment();
         }else{
-            NowDate = searchdate;
+            NowDate = date;
         }
 
         return(
@@ -41,10 +41,10 @@ const mapStateToProps = (state) => {
 
 
     return {
-        date: state.getIn(['coalSysOpRe', 'date']),
+        //date: state.getIn(['coalSysOpRe', 'date']),
         timeChose: state.getIn(['coalSysOpRe', 'timeChose']),
         person: state.getIn(['coalSysOpRe', 'person']),
-        searchdate:state.getIn(['searchTable', 'date']),
+        date:state.getIn(['searchTable', 'date']),
         searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 }

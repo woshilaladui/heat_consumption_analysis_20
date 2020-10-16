@@ -44,10 +44,10 @@ class ButtonConfirmationBox extends Component{
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date: state.getIn(['monthElectricity', 'date']),
+        //date: state.getIn(['monthElectricity', 'date']),
         data: state.getIn(['monthElectricity', 'data']),
         tableName: state.getIn(['monthElectricity', 'tableName']),
-
+        date: state.getIn(['searchTable', 'date']),
     }
 }
 
@@ -55,6 +55,7 @@ const mapDispathToProps = (dispatch) => {
     return {
 
         saveAllToHome(date,tableName, data){
+            console.log(data);
             dispatch(actionCreators.saveData({
                 tableType:Table.UPPER_TABLE,
                 date:date,

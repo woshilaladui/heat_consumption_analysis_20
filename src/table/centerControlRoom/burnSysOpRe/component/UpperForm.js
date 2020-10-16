@@ -1381,13 +1381,14 @@ class UpperForm extends Component {
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date: state.getIn(['burnSysOpRe', 'date']),
+        //date: state.getIn(['burnSysOpRe', 'date']),
         timeChose: state.getIn(['burnSysOpRe', 'timeChose']),
         data: state.getIn(['burnSysOpRe', 'data']),
         person: state.getIn(['burnSysOpRe', 'person']),
         tableName: state.getIn(['burnSysOpRe', 'tableName']),
         allTime: state.getIn(['burnSysOpRe', 'allTime']),
         searchFlag:state.getIn(['searchTable', 'searchFlag']),
+        date: state.getIn(['searchTable', 'date']),
     }
 }
 
