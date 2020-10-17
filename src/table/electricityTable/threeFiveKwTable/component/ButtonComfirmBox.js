@@ -44,10 +44,10 @@ class ButtonConfirmationBox extends Component{
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date: state.getIn(['threeFiveKwTable', 'date']),
+        //date: state.getIn(['threeFiveKwTable', 'date']),
         data: state.getIn(['threeFiveKwTable', 'data']),
         tableName: state.getIn(['threeFiveKwTable', 'tableName']),
-
+        date: state.getIn(['searchTable', 'date']),
     }
 }
 

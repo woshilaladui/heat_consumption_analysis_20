@@ -48,7 +48,7 @@ class ThreeFiveKwTable extends Component {
 	                        display: "inline-block"
 	                    }}
 	                >
-                    	<ButtonComfirmBox/>
+                        {this.props.searchFlag ? (<ButtonComfirmBox />) : null}
                		</div>
 				</div>
 			</Fragment>
@@ -59,11 +59,13 @@ class ThreeFiveKwTable extends Component {
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date:state.getIn(['threeFiveKwTable', 'date']),
+        //date:state.getIn(['threeFiveKwTable', 'date']),
         data:state.getIn(['threeFiveKwTable', 'data']),
         requestFlag:state.getIn(['threeFiveKwTable', 'requestFlag']),
         person:state.getIn(['threeFiveKwTable', 'person']),
         tableName:state.getIn(['threeFiveKwTable', 'tableName']),
+        date:state.getIn(['searchTable', 'date']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 }
 

@@ -48,7 +48,7 @@ class MonthElectricity extends Component {
 	                        display: "inline-block"
 	                    }}
 	                >
-                    	<ButtonComfirmBox/>
+                        {this.props.searchFlag ? (<ButtonComfirmBox />) : null}
                		</div>
 				</div>
 			</Fragment>
@@ -59,11 +59,13 @@ class MonthElectricity extends Component {
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date:state.getIn(['monthElectricity', 'date']),
+        //date:state.getIn(['monthElectricity', 'date']),
         data:state.getIn(['monthElectricity', 'data']),
         requestFlag:state.getIn(['monthElectricity', 'requestFlag']),
         person:state.getIn(['monthElectricity', 'person']),
         tableName:state.getIn(['monthElectricity', 'tableName']),
+        date:state.getIn(['searchTable', 'date']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 }
 
