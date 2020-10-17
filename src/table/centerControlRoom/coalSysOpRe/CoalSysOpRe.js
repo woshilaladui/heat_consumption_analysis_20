@@ -34,26 +34,18 @@ class CoalSysOpRe extends Component {
           tableName_CRO,
           deepCopy(CRO_data_modelData)
         );
-       /* if(requestFlag){
-            getOldData(
-              date,
-                tableName,
-                deepCopy(modelData)
-            );
-        }//end if
-        if(requestFlag_CRO){
-            setOldData(
-              date,
-                tableName_CRO,
-                deepCopy(CRO_data_modelData)
-            );
-        }//end if*/
+
     }
 
     componentWillReceiveProps(nextProps){
-        const { tableName, tableName_CRO, setOldData, getOldData, date,modelData, CRO_data_modelData} = nextProps; //新的props
+        const {searchFlag ,tableName, tableName_CRO, setOldData, getOldData, date,modelData, CRO_data_modelData} = nextProps; //新的props
 
         if(this.props.date != date){
+            getOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+            setOldData(moment(date).format("YYYY/MM/DD"),tableName_CRO, deepCopy(CRO_data_modelData));
+        }
+
+        if(this.props.searchFlag != searchFlag){
             getOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
             setOldData(moment(date).format("YYYY/MM/DD"),tableName_CRO, deepCopy(CRO_data_modelData));
         }

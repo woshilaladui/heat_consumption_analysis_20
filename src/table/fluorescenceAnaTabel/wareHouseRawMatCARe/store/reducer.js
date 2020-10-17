@@ -21,11 +21,22 @@ const defaultState = fromJS({
 
 
     ],
+    modelData: [//定义该页面的数据模板
+        {data: []}, {data: []}, {data: []}, {data: []},
+
+
+        {data: []}, {data: []}, {data: []}, {data: []},
+
+
+        {data: []}, {data: []}, {data: []}, {data: []},
+
+
+    ],
     order: [10,11,12],//当前表格需要计算合格率的列数顺序
     startValue: [], //从数据库获取的标准
     endValue: [],
     person: window.localStorage.username, //传入的值班人员
-    width:7,
+    width:11,
     tableWidth:13,//表格总长度
     tableName: TableName.Limestone_CaCO3,//仓下石灰石
     allTime : [

@@ -22,35 +22,30 @@ class RuYaoSLYCLHXFXBGD extends Component {
     }
 
     componentDidMount() {
-        const{data,date,tableName,requestFlag,getOldData} = this.props
+        const{data,date,tableName,requestFlag,getOldData,modelData} = this.props
 
-        if(requestFlag){
+
             getOldData(
                 date,
                 tableName,
-                deepCopy(data)
+                deepCopy(modelData)
             );
-        }//end if
     }
 
     componentWillReceiveProps(nextProps){
-        const oldSearchDate = this.props.searchdate; //旧的props
-        const { tableName, getOldData, searchdate } = nextProps; //新的props
+        const { tableName, getOldData, date, searchFlag, } = nextProps; //新的props
 
-        const modelData = [//定义该页面的数据模板 27
-            {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//0-7行代表 0-7小时
-            {data: []},//下表
+        const { modelData,data } = this.props;
 
-            {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//9-16行代表 8-15小时
-            {data: []},//下表
-
-            {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//18-25行代表 16-23小时
-            {data: []},//下表
-        ];
-
-        if(oldSearchDate != searchdate){
-            getOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        if(this.props.date != date){
+            // console.log("执行了date")
+            getOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
         }
+
+        if(this.props.searchFlag != searchFlag){
+            getOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        }
+
     }
 
 
@@ -91,13 +86,14 @@ class RuYaoSLYCLHXFXBGD extends Component {
 const mapStateToProps = (state) => {
     return {
 
-        date:state.getIn(['TXSysAcRe', 'date']),
+        //date:state.getIn(['TXSysAcRe', 'date']),
         timeChose:state.getIn(['TXSysAcRe', 'timeChose']),
+        modelData:state.getIn(['TXSysAcRe', 'modelData']),
         data:state.getIn(['TXSysAcRe', 'data']),
         requestFlag:state.getIn(['TXSysAcRe', 'requestFlag']),
         person:state.getIn(['TXSysAcRe', 'person']),
         tableName:state.getIn(['TXSysAcRe', 'tableName']),
-        searchdate:state.getIn(['searchTable', 'date']),
+        date:state.getIn(['searchTable', 'date']),
         searchFlag:state.getIn(['searchTable', 'searchFlag']),
 
     }

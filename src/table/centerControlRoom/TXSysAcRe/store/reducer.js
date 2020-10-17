@@ -19,6 +19,16 @@ const defaultState = fromJS({
         {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//18-25行代表 16-23小时
         {data: []},//下表
     ],
+    modelData : [//定义该页面的数据模板 27
+        {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//0-7行代表 0-7小时
+        {data: []},//下表
+
+        {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//9-16行代表 8-15小时
+        {data: []},//下表
+
+        {data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},{data: []},//18-25行代表 16-23小时
+        {data: []},//下表
+    ],
     person: window.localStorage.username, //传入的值班人员
     tableName:TableName.ZHONG_KONG_SHI_TXXT_YXJL,//临城中联福石水泥有限公司脱硝系统行动记录
     allTime:[

@@ -18,11 +18,11 @@ class BurnSysOpRe extends Component {
 
     //判定是否已登录，是否有权限
     componentWillMount() {
-        console.log("烧成will");
+        // console.log("烧成will");
     }
 
     componentDidMount() {
-        console.log("烧成did");
+        // console.log("烧成did");
         /**首先查询当前页面是否有历史纪录并赋值formData**/
         const {data, date, tableName, setOldData, requestFlag, person, searchFlag, modelData } = this.props;
 
@@ -33,12 +33,13 @@ class BurnSysOpRe extends Component {
     }
 
     componentWillReceiveProps(nextProps){
-        console.log("烧成re");
-        const { tableName, setOldData, date, searchFlag } = nextProps; //新的props
+        // console.log("烧成re");
+        const { tableName, setOldData, date, searchFlag, } = nextProps; //新的props
 
-        const { modelData } = this.props;
+        const { modelData,data } = this.props;
 
         if(this.props.date != date){
+            // console.log("执行了date")
             setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
         }
         

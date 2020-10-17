@@ -23,65 +23,38 @@ class CMRawMatCheAnaRe extends Component {
     }
 
     componentDidMount() {
-        const {data, date, tableName, setOldData,requestFlag,getCROData,data_CRO} = this.props;
+        const {data, date, tableName, setOldData,requestFlag,getCROData,model_data,model_data_CRO} = this.props;
 
-        if(requestFlag){
 
-            setOldData(date,tableName,deepCopy(data));
+
+            setOldData(date,tableName,deepCopy(model_data));
             getCROData(
                 date,
                 "CRO",
-                deepCopy(data_CRO)
+                deepCopy(model_data_CRO)
             );
-        }
+
     }
 
     componentWillReceiveProps(nextProps){
         const oldSearchDate = this.props.searchdate; //旧的props
-        const { tableName, setOldData, getCROData, searchdate } = nextProps; //新的props
+        const { tableName, setOldData, getCROData, date,searchFlag } = nextProps; //新的props
+        const {model_data,model_data_CRO} = this.props;
 
-        const model_data = [//定义该页面的数据模板 30
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},//0-7小时 0-7行
-            {data: []},//0点班的平均
-            {data: []},//0点班的合格率
-
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},//8-15小时 12-19行
-            {data: []},//8点班的平均
-            {data: []},//8点班的合格率
-
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},//16-23小时 24-31行
-            {data: []},//16点班的平均
-            {data: []},//16点班的合格率
-
-        ];
-
-        const model_data_CRO = [
-
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []},//均值 比值 合格率
-            {data: []}, {data: []}, {data: []}, {data: []},//下表数据
-
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},
-
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},
-        ];
-
-        if(oldSearchDate != searchdate){
-            setOldData(moment(searchdate).format("YYYY/MM/DD"),tableName,deepCopy(model_data));
+        if(this.props.date!= date){
+            setOldData(moment(date).format("YYYY/MM/DD"),tableName,deepCopy(model_data));
             getCROData(
-                moment(searchdate).format("YYYY/MM/DD"),
+                moment(date).format("YYYY/MM/DD"),
                 "CRO",
                 deepCopy(model_data_CRO)
+            );
+        }
+        if(this.props.searchFlag != searchFlag){
+            setOldData(moment(date).format("YYYY/MM/DD"),tableName,deepCopy(model_data));
+            getCROData(
+              moment(date).format("YYYY/MM/DD"),
+              "CRO",
+              deepCopy(model_data_CRO)
             );
         }
     }
@@ -124,17 +97,19 @@ class CMRawMatCheAnaRe extends Component {
         );
     }
 }
-//定义映射
+//定义映射model_data,model_data_CRO
 const mapStateToProps = (state) => {
     return {
-        date:state.getIn(['KilnCAnaSumTable', 'date']),
+        //date:state.getIn(['KilnCAnaSumTable', 'date']),
         timeChose:state.getIn(['KilnCAnaSumTable', 'timeChose']),
         data:state.getIn(['KilnCAnaSumTable', 'data']),
+        model_data:state.getIn(['KilnCAnaSumTable', 'model_data']),
+        model_data_CRO:state.getIn(['KilnCAnaSumTable', 'model_data_CRO']),
         data_CRO:state.getIn(['KilnCAnaSumTable', 'data_CRO']),
         requestFlag:state.getIn(['KilnCAnaSumTable', 'requestFlag']),
         person:state.getIn(['KilnCAnaSumTable', 'person']),
         tableName:state.getIn(['KilnCAnaSumTable', 'tableName']),
-        searchdate:state.getIn(['searchTable', 'date']),
+        date:state.getIn(['searchTable', 'date']),
         searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 };

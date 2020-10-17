@@ -25,6 +25,22 @@ const defaultState = fromJS({
         {data: []}, {data: []}, {data: []},
         {data: []},{data: []},
     ],
+     modelData : [//定义该页面的数据模板
+        {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []},
+        {data: []},{data: []},
+
+        {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []},{data: []},
+        {data: []},{data: []},
+
+        {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []},
+        {data: []},{data: []},
+    ],
     LX: ['立磨','','','煤磨','','','旋窑','',''] ,//表头类型,
     allTime :[
         ['0点班','','','0点班','','','0点班','',''],

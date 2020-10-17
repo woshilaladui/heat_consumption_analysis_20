@@ -223,6 +223,7 @@ class UpperForm extends Component {
      * 表格输入数据变化的监听，同时所有的数据更新
      **/
     onInputNumberChange2 = (event, indexH, indexL) => {
+
         const {data, updateChange, order, startValue, endValue, width, timeChose,tableWidth,tableName} = this.props;
 
         let NewData = deepCopy(data);//复制一份出来
@@ -230,6 +231,11 @@ class UpperForm extends Component {
         NewData[hour]["data"][indexL] = event;
         let sum = autoCalculateHJ(NewData[indexH]['data'], width);
         NewData[indexH]['data'][HuaYSOrder_CX.HeJi] = sum;
+        // console.log("onInputNumberChange2")
+        // console.log(event)
+        // console.log(width)
+        // console.log(NewData)
+        // console.log("onInputNumberChange2")
         updateChange(NewData);
     };
 

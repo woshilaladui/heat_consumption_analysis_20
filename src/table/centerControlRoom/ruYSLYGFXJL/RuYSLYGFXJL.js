@@ -14,97 +14,81 @@ class RuYSLYGFXJL extends Component{
 
     componentDidMount() {
 
-        const{data,date,tableName,requestFlag,getOldData,upperDataFront,upperDataLast,getFrontOldData,getLastOldData} = this.props
+        const{date,tableName,requestFlag,getOldData,getFrontOldData,getLastOldData,model_data,model_upperDataFront,model_upperDataLast} = this.props
 
-        if(requestFlag){
             getOldData(
                 date,
-                tableName,
-                deepCopy(data)
-            );
-
-            //入窑生料化学分析报告单
-            getFrontOldData(
-                date,
-                "RMC",
-                deepCopy(upperDataFront)
-            );
-
-            //控制室原始记录
-            getLastOldData(
-                date,
-                "CRO",
-                deepCopy(upperDataLast)
-            );
-
-
-        }//end if
-    }
-
-    componentWillReceiveProps(nextProps){
-        const oldSearchDate = this.props.searchdate; //旧的props
-        const { tableName, getOldData, getFrontOldData, getLastOldData, searchdate } = nextProps; //新的props
-
-        const model_data = [
-            {data: []},//0点半的备注
-            {data: []},//8点半的备注
-            {data: []},//16点班的备注
-        ];
-
-        const model_upperDataFront = [//表的前半段，SiO2~IM(P)
-
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},
-
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},
-
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []}
-        ];
-
-        const model_upperDataLast = [//上表 细度和水分
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},
-
-            {data: []}, {data: []}, {data: []}, {data: []},
-
-
-
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},
-
-            {data: []}, {data: []}, {data: []}, {data: []},
-
-
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},
-
-            {data: []}, {data: []}, {data: []}, {data: []},
-        ];
-
-
-        if(oldSearchDate != searchdate){
-            getOldData(
-                moment(searchdate).format("YYYY/MM/DD"),
                 tableName,
                 deepCopy(model_data)
             );
 
             //入窑生料化学分析报告单
             getFrontOldData(
-                moment(searchdate).format("YYYY/MM/DD"),
+                date,
                 "RMC",
                 deepCopy(model_upperDataFront)
             );
 
             //控制室原始记录
             getLastOldData(
-                moment(searchdate).format("YYYY/MM/DD"),
+                date,
                 "CRO",
                 deepCopy(model_upperDataLast)
             );
+
+    }
+
+    componentWillReceiveProps(nextProps){
+        const { tableName, getOldData, getFrontOldData, getLastOldData, date, searchFlag, } = nextProps; //新的props
+
+        const { model_data,model_upperDataFront,model_upperDataLast,data } = this.props;
+
+        if(this.props.date != date){
+            // console.log("执行了date")
+            getOldData(
+              moment(date).format("YYYY/MM/DD"),
+              tableName,
+              deepCopy(model_data)
+            );
+
+            //入窑生料化学分析报告单
+            getFrontOldData(
+              moment(date).format("YYYY/MM/DD"),
+              "RMC",
+              deepCopy(model_upperDataFront)
+            );
+
+            //控制室原始记录
+            getLastOldData(
+              moment(date).format("YYYY/MM/DD"),
+              "CRO",
+              deepCopy(model_upperDataLast)
+            );
         }
+
+        if(this.props.searchFlag != searchFlag){
+            getOldData(
+              moment(date).format("YYYY/MM/DD"),
+              tableName,
+              deepCopy(model_data)
+            );
+
+            //入窑生料化学分析报告单
+            getFrontOldData(
+              moment(date).format("YYYY/MM/DD"),
+              "RMC",
+              deepCopy(model_upperDataFront)
+            );
+
+            //控制室原始记录
+            getLastOldData(
+              moment(date).format("YYYY/MM/DD"),
+              "CRO",
+              deepCopy(model_upperDataLast)
+            );          }
+
+        //新的props
+
     }
 
     render(){
@@ -148,15 +132,18 @@ class RuYSLYGFXJL extends Component{
 const mapStateToProps = (state) => {
     return {
 
-        date:state.getIn(['ruYSLYGFXJL', 'date']),
+       // date:state.getIn(['ruYSLYGFXJL', 'date']),
         timeChose:state.getIn(['ruYSLYGFXJL', 'timeChose']),
         data:state.getIn(['ruYSLYGFXJL', 'data']),
         upperDataFront: state.getIn(['ruYSLYGFXJL', 'upperDataFront']),
+        model_data: state.getIn(['ruYSLYGFXJL', 'model_data']),
+        model_upperDataFront: state.getIn(['ruYSLYGFXJL', 'model_upperDataFront']),
+        model_upperDataLast: state.getIn(['ruYSLYGFXJL', 'model_upperDataLast']),
         upperDataLast: state.getIn(['ruYSLYGFXJL', 'upperDataLast']),
         requestFlag:state.getIn(['ruYSLYGFXJL', 'requestFlag']),
         person:state.getIn(['ruYSLYGFXJL', 'person']),
         tableName:state.getIn(['ruYSLYGFXJL', 'tableName']),
-        searchdate:state.getIn(['searchTable', 'date']),
+        date:state.getIn(['searchTable', 'date']),
         searchFlag:state.getIn(['searchTable', 'searchFlag']),
 
     }
