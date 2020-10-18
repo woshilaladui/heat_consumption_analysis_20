@@ -15,7 +15,7 @@ export function autoCalculateHJ(data, width) {//data为数组
   for (let i = 0; i < width; i++) {//排除合计
     //遍历所有数值均不为空且不为NaN
 
-    if (_data[i] != null) {
+    if (_data[i] != null&&!isNaN(_data[i])&&typeof(_data[i])=="number") {
       num += data[i];
     }
 

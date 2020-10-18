@@ -28,6 +28,15 @@ const defaultState = fromJS({
         {data: []},
         {data: []},
     ],
+    modelData : [//7
+        {data: []},
+        {data: []},
+        {data: []},
+        {data: []},
+        {data: []},
+        {data: []},
+        {data: []},
+    ],
     Placeholder:['合格/不合格','*min','*min','',''],
     person: window.localStorage.username, //传入的值班人员
     tableName:TableName.Analysis_JCM,//出磨生料荧光分析及配比记录

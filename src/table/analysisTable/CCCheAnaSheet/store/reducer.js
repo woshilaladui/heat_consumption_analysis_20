@@ -18,6 +18,13 @@ const defaultState = fromJS({
         {data: []},
         {data: []},
     ],
+    modelData : [
+        {data: []},
+        {data: []},
+        {data: []},
+        {data: []},
+        {data: []},
+    ],
     person: window.localStorage.username, //传入的值班人员
     tableName:TableName.Analysis_CCA,//出磨生料荧光分析及配比记录
     // allTime:[

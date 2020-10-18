@@ -21,36 +21,21 @@ class CCPhyPerTest extends Component{
     }
 
     componentDidMount() {
-        const {data, date, tableName, setOldData,requestFlag} = this.props;
+        const {data, date, tableName, setOldData,modelData} = this.props;
 
-        if(requestFlag){
-
-            setOldData(date,tableName,deepCopy(data));
-        }
+        setOldData(date,tableName,deepCopy(modelData));
     }
 
     componentWillReceiveProps(nextProps){
-        const oldSearchDate = this.props.searchdate; //旧的props
-        const { tableName, setOldData, searchdate } = nextProps; //新的props
+        const { tableName, setOldData, date,searchFlag } = nextProps; //新的props
+        const {modelData} = this.props;
 
-        const modelData = [//13
-            {data: []},
-            {data: []},
-            {data: []},
-            {data: []},
-            {data: []},
-            {data: []},
-            {data: []},
-            {data: []},
-            {data: []},
-            {data: []},
-            {data: []},
-            {data: []},
-            {data: []},
-        ];
 
-        if(oldSearchDate != searchdate){
-            setOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        if(this.props.date != date){
+            setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        }
+        if(this.props.searchFlag != searchFlag){
+            setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
         }
     }
 
@@ -92,13 +77,14 @@ class CCPhyPerTest extends Component{
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date:state.getIn(['CCPhyPerTest', 'date']),
+        //date:state.getIn(['CCPhyPerTest', 'date']),
         timeChose:state.getIn(['CCPhyPerTest', 'timeChose']),
         data:state.getIn(['CCPhyPerTest', 'data']),
+        modelData:state.getIn(['CCPhyPerTest', 'modelData']),
         requestFlag:state.getIn(['CCPhyPerTest', 'requestFlag']),
         person:state.getIn(['CCPhyPerTest', 'person']),
         tableName:state.getIn(['CCPhyPerTest', 'tableName']),
-        searchdate:state.getIn(['searchTable', 'date']),
+        date:state.getIn(['searchTable', 'date']),
         searchFlag:state.getIn(['searchTable', 'searchFlag']),
 
     }

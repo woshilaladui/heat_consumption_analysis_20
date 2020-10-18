@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import * as actionCreators from './store/actionCreators';
 import {requestCheckPermission} from "../../../http/request/RequestUser"
 import {deepCopy} from "../../../Helper/Copy";
+import moment from 'moment';
 
 //煤粉工业分析原始记录
 class MFIndusAnaOriRe extends Component {
@@ -19,12 +20,24 @@ class MFIndusAnaOriRe extends Component {
 
     componentDidMount() {
         /**首先查询当前页面是否有历史纪录并赋值formData**/
-        const {data, date, tableName, setOldData,requestFlag} = this.props;
-        if(requestFlag){
-            setOldData(date,tableName,deepCopy(data));
-        }
+        const {data, date, tableName, setOldData,modelData} = this.props;
+
+        setOldData(date,tableName,deepCopy(modelData));
 
     }
+    componentWillReceiveProps(nextProps, nextContext) {
+        const { tableName, setOldData, date,searchFlag } = nextProps; //新的props
+        const {modelData} = this.props;
+
+
+        if(this.props.date != date){
+            setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        }
+        if(this.props.searchFlag != searchFlag){
+            setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        }
+    }
+
     render(){
         return(
             <Fragment>
@@ -58,11 +71,14 @@ class MFIndusAnaOriRe extends Component {
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date:state.getIn(['mfIndusAnaOriRe', 'date']),
+        //date:state.getIn(['mfIndusAnaOriRe', 'date']),
         data:state.getIn(['mfIndusAnaOriRe', 'data']),
+        modelData:state.getIn(['mfIndusAnaOriRe', 'modelData']),
         requestFlag:state.getIn(['mfIndusAnaOriRe', 'requestFlag']),
         person:state.getIn(['mfIndusAnaOriRe', 'person']),
         tableName:state.getIn(['mfIndusAnaOriRe', 'tableName']),
+        date: state.getIn(['searchTable', 'date']),
+        searchFlag: state.getIn(['searchTable', 'searchFlag']),
     }
 }
 
