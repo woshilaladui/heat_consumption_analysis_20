@@ -60,9 +60,9 @@ export default (state = defaultState, action) => {
 
         case constants.CHANGE_TIME_CHOSE_BSO:
             return state.set('timeChose', action.timeChose);
-        case constants.CHANGE_REQUEST_FLAG:
-            console.log("requestFlag true")
-            return state.set('requestFlag',true);
+        // case constants.CHANGE_REQUEST_FLAG:
+        //     console.log("requestFlag true")
+        //     return state.set('requestFlag',true);
         case constants.UPDATE_DATA_BSO:
             console.log("requestFlag false")
             return state.merge({
