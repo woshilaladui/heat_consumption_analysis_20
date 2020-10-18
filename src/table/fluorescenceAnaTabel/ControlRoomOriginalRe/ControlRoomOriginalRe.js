@@ -61,11 +61,10 @@ class CMRawMatCheAnaRe extends Component {
 
     componentDidMount() {
         /**首先查询当前页面是否有历史纪录并赋值formData**/
-        const {data, date, tableName, setOldData,requestFlag,person} = this.props;
-        if(requestFlag){
+        const {data, date, tableName, setOldData,modelData} = this.props;
 
-            setOldData(date,tableName,deepCopy(data));
-        }
+        setOldData(date,tableName,deepCopy(modelData));
+
 
     }
     //判定是否已登录，是否有权限
@@ -99,29 +98,15 @@ class CMRawMatCheAnaRe extends Component {
     }
 
     componentWillReceiveProps(nextProps){
-        const oldSearchDate = this.props.searchdate; //旧的props
-        const { tableName, setOldData, searchdate } = nextProps; //新的props
+        const { tableName, setOldData, date,searchFlag } = nextProps; //新的props
+        const {modelData} = this.props;
 
-        const modelData = [
 
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []},//均值 比值 合格率
-            {data: []}, {data: []}, {data: []}, {data: []},//下表数据
-
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},
-
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},
-        ]
-
-        if(oldSearchDate != searchdate){
-            setOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        if(this.props.date != date){
+            setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        }
+        if(this.props.searchFlag != searchFlag){
+            setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
         }
     }
 
@@ -255,15 +240,16 @@ class CMRawMatCheAnaRe extends Component {
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date:state.getIn(['ControlRoomOriginalRe', 'date']),
+        //date:state.getIn(['ControlRoomOriginalRe', 'date']),
         timeChose:state.getIn(['ControlRoomOriginalRe', 'timeChose']),
         data:state.getIn(['ControlRoomOriginalRe', 'data']),
+        modelData:state.getIn(['ControlRoomOriginalRe', 'modelData']),
         requestFlag:state.getIn(['ControlRoomOriginalRe', 'requestFlag']),
         person:state.getIn(['ControlRoomOriginalRe', 'person']),
         tableName:state.getIn(['ControlRoomOriginalRe', 'tableName']),
         startValue: state.getIn(['ControlRoomOriginalRe', 'startValue']),
         endValue: state.getIn(['ControlRoomOriginalRe', 'endValue']),
-        searchdate:state.getIn(['searchTable', 'date']),
+        date:state.getIn(['searchTable', 'date']),
         searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 }

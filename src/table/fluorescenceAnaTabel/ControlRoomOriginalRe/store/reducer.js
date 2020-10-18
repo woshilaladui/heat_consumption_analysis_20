@@ -29,6 +29,23 @@ const defaultState = fromJS({
         {data: []}, {data: []}, {data: []},
         {data: []}, {data: []}, {data: []}, {data: []},
     ], //上表的数据
+    modelData : [
+
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []},//均值 比值 合格率
+        {data: []}, {data: []}, {data: []}, {data: []},//下表数据
+
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+    ],
      allTime : [
         ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'],
         ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00'],

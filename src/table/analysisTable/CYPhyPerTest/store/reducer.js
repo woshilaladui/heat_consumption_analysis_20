@@ -18,6 +18,13 @@ const defaultState = fromJS({
         {data: []},
         {data: []},
     ],
+    modelData : [
+        {data: []},
+        {data: []},
+        {data: []},
+        {data: []},
+        {data: []},
+    ],
     Placeholder:['合格/不合格','*min','*min','',''],
     person: window.localStorage.username, //传入的值班人员
     tableName:TableName.Analysis_CYT,//出磨生料荧光分析及配比记录

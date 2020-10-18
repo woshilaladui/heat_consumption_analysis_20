@@ -19,6 +19,16 @@ const defaultState = fromJS({
         {data: []}, {data: []}, {data: []}, {data: []}
 
     ],
+    modelData:[//定义该页面的数据模板
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []}
+
+    ],
     person: window.localStorage.username, //传入的值班人员
     tableName:TableName.Analysis_MFA//煤粉工业分析原始记录
 

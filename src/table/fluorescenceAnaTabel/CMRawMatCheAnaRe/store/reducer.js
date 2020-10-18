@@ -9,6 +9,23 @@ const defaultState = fromJS({
     date: moment().format("YYYY/MM/DD"),//moment().format("YYYY-MM-DD"),
     requestFlag: true,//是否需要更新数据
     timeChose: 0,//默认0点班
+    modelData : [//定义该页面的数据模板 30
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},//0-7小时 0-7行
+        {data: []},//0点班的平均
+        {data: []},//0点班的合格率
+
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},//8-15小时 12-19行
+        {data: []},//8点班的平均
+        {data: []},//8点班的合格率
+
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}, {data: []},//16-23小时 24-31行
+        {data: []},//16点班的平均
+        {data: []},//16点班的合格率
+
+    ],
     data: [//定义该页面的数据模板 30
         {data: []}, {data: []}, {data: []}, {data: []},
         {data: []}, {data: []}, {data: []}, {data: []},//0-7小时 0-7行

@@ -67,12 +67,23 @@ class WareHouseRawMatCARe extends Component {
     //         })
     //         .catch()
     // }
+    componentWillReceiveProps(nextProps, nextContext) {
+        const { tableName, setOldData, date,searchFlag } = nextProps; //新的props
+        const {modelData} = this.props;
+
+
+        if(this.props.date != date){
+            setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        }
+        if(this.props.searchFlag != searchFlag){
+            setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        }
+    }
 
     componentDidMount() {
-        const {data, date, tableName, setOldData,requestFlag} = this.props;
-        /**首先查询当前页面是否有历史纪录并赋值formData**/
-        //获取请求参数
-        setOldData(date,tableName,deepCopy(data));
+        const {data, date, tableName, setOldData,modelData} = this.props;
+
+        setOldData(date,tableName,deepCopy(modelData));
     }
 
     // setOldData() {
@@ -142,13 +153,14 @@ class WareHouseRawMatCARe extends Component {
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date:state.getIn(['WareHouseRawMatCARe', 'date']),
+        //date:state.getIn(['WareHouseRawMatCARe', 'date']),
         timeChose:state.getIn(['WareHouseRawMatCARe', 'timeChose']),
         data:state.getIn(['WareHouseRawMatCARe', 'data']),
+        modelData:state.getIn(['WareHouseRawMatCARe', 'modelData']),
         requestFlag:state.getIn(['WareHouseRawMatCARe', 'requestFlag']),
         person:state.getIn(['WareHouseRawMatCARe', 'person']),
         tableName:state.getIn(['WareHouseRawMatCARe', 'tableName']),
-        searchdate:state.getIn(['searchTable', 'date']),
+        date:state.getIn(['searchTable', 'date']),
         searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 };

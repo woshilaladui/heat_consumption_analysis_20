@@ -20,6 +20,17 @@ const defaultState = fromJS({
         {data: []}, {data: []}, {data: []}, {data: []},
         {data: []}, {data: []}, {data: []}
     ], //上表的数据
+     modelData : [//表的前半段 21
+
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []},
+
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []},
+
+        {data: []}, {data: []}, {data: []}, {data: []},
+        {data: []}, {data: []}, {data: []}
+    ],
     person: window.localStorage.username, //传入的值班人员
     tableName:TableName.ZHONG_KONG_SHI_ZD_JCJL,//中控室烧成系统运行记录
     allTime:[

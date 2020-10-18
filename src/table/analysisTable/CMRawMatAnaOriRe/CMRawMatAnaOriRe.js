@@ -29,28 +29,21 @@ class BurnSysOpRe extends Component{
 
     componentDidMount() {
 
-        const {data, date, tableName, setOldData,requestFlag} = this.props;
+        const {data, date, tableName, setOldData,modelData} = this.props;
 
-        if(requestFlag){
-
-            setOldData(date,tableName,deepCopy(data));
-        }
+        setOldData(date,tableName,deepCopy(modelData));
     }
 
     componentWillReceiveProps(nextProps){
-        const oldSearchDate = this.props.searchdate; //旧的props
-        const { tableName, setOldData, searchdate } = nextProps; //新的props
+        const { tableName, setOldData, date,searchFlag } = nextProps; //新的props
+        const {modelData} = this.props;
 
-        const modelData = [//5
-            {data: []},
-            {data: []},
-            {data: []},
-            {data: []},
-            {data: []},
-        ]
 
-        if(oldSearchDate != searchdate){
-            setOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        if(this.props.date != date){
+            setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        }
+        if(this.props.searchFlag != searchFlag){
+            setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
         }
     }
 
@@ -94,13 +87,14 @@ class BurnSysOpRe extends Component{
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date:state.getIn(['CMRawMatAnaOriRe', 'date']),
+        //date:state.getIn(['CMRawMatAnaOriRe', 'date']),
         timeChose:state.getIn(['CMRawMatAnaOriRe', 'timeChose']),
         data:state.getIn(['CMRawMatAnaOriRe', 'data']),
+        modelData:state.getIn(['CMRawMatAnaOriRe', 'modelData']),
         requestFlag:state.getIn(['CMRawMatAnaOriRe', 'requestFlag']),
         person:state.getIn(['CMRawMatAnaOriRe', 'person']),
         tableName:state.getIn(['CMRawMatAnaOriRe', 'tableName']),
-        searchdate:state.getIn(['searchTable', 'date']),
+        date:state.getIn(['searchTable', 'date']),
         searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 };

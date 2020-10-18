@@ -23,6 +23,9 @@ class Remark extends Component {
         const {data,timeChose} = this.props;
 
         const Data = deepCopy(data);
+        console.log('Data')
+        console.log(Data)
+        console.log('Data')
 
         const index =  8 + timeChose*9;
 

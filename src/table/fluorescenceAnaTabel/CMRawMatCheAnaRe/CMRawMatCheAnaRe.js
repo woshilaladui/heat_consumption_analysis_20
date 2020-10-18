@@ -20,39 +20,22 @@ class CMRawMatCheAnaRe extends Component {
     }
 
     componentDidMount() {
-        const {data, date, tableName, setOldData,requestFlag} = this.props;
+        const {data, date, tableName, setOldData,modelData} = this.props;
 
-        if(requestFlag){
-
-            setOldData(date,tableName,deepCopy(data));
-        }
+        setOldData(date,tableName,deepCopy(modelData));
 
     }
 
     componentWillReceiveProps(nextProps){
-        const oldSearchDate = this.props.searchdate; //旧的props
-        const { tableName, setOldData, searchdate } = nextProps; //新的props
+        const { tableName, setOldData, date,searchFlag } = nextProps; //新的props
+        const {modelData} = this.props;
 
-        const modelData = [//定义该页面的数据模板 30
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},//0-7小时 0-7行
-            {data: []},//0点班的平均
-            {data: []},//0点班的合格率
 
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},//8-15小时 12-19行
-            {data: []},//8点班的平均
-            {data: []},//8点班的合格率
-
-            {data: []}, {data: []}, {data: []}, {data: []},
-            {data: []}, {data: []}, {data: []}, {data: []},//16-23小时 24-31行
-            {data: []},//16点班的平均
-            {data: []},//16点班的合格率
-
-        ];
-
-        if(oldSearchDate != searchdate){
-            setOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        if(this.props.date != date){
+            setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        }
+        if(this.props.searchFlag != searchFlag){
+            setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
         }
     }
 
@@ -97,13 +80,14 @@ class CMRawMatCheAnaRe extends Component {
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        date:state.getIn(['CMRawMatCheAnaRe', 'date']),
+        //date:state.getIn(['CMRawMatCheAnaRe', 'date']),
         timeChose:state.getIn(['CMRawMatCheAnaRe', 'timeChose']),
         data:state.getIn(['CMRawMatCheAnaRe', 'data']),
+        modelData:state.getIn(['CMRawMatCheAnaRe', 'modelData']),
         requestFlag:state.getIn(['CMRawMatCheAnaRe', 'requestFlag']),
         person:state.getIn(['CMRawMatCheAnaRe', 'person']),
         tableName:state.getIn(['CMRawMatCheAnaRe', 'tableName']),
-        searchdate:state.getIn(['searchTable', 'date']),
+        date:state.getIn(['searchTable', 'date']),
         searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 };

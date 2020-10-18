@@ -28,27 +28,21 @@ class BurnSysOpReFMHg extends Component{
     }
 
     componentDidMount() {
-        const {data, date, tableName, setOldData,requestFlag} = this.props;
+        const {data, date, tableName, setOldData,modelData} = this.props;
 
-        if(requestFlag){
-
-            setOldData(date,tableName,deepCopy(data));
-        }
+        setOldData(date,tableName,deepCopy(modelData));
     }
 
     componentWillReceiveProps(nextProps){
-        const oldSearchDate = this.props.searchdate; //旧的props
-        const { tableName, setOldData, searchdate } = nextProps; //新的props
+        const { tableName, setOldData, date,searchFlag } = nextProps; //新的props
+        const {modelData} = this.props;
 
-        const modelData = [
-            {data: []},
-            {data: []},
-            {data: []},
-            {data: []},
-        ];
 
-        if(oldSearchDate != searchdate){
-            setOldData(moment(searchdate).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        if(this.props.date != date){
+            setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        }
+        if(this.props.searchFlag != searchFlag){
+            setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
         }
     }
 
@@ -94,13 +88,14 @@ class BurnSysOpReFMHg extends Component{
 
 const mapStateToProps = (state) => {
     return {
-        date:state.getIn(['rawMatAnaOriReFMHg', 'date']),
+        //date:state.getIn(['rawMatAnaOriReFMHg', 'date']),
         timeChose:state.getIn(['rawMatAnaOriReFMHg', 'timeChose']),
         data:state.getIn(['rawMatAnaOriReFMHg', 'data']),
+        modelData:state.getIn(['rawMatAnaOriReFMHg', 'modelData']),
         requestFlag:state.getIn(['rawMatAnaOriReFMHg', 'requestFlag']),
         person:state.getIn(['rawMatAnaOriReFMHg', 'person']),
         tableName:state.getIn(['rawMatAnaOriReFMHg', 'tableName']),
-        searchdate:state.getIn(['searchTable', 'date']),
+        date:state.getIn(['searchTable', 'date']),
         searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 };
