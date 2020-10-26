@@ -5,6 +5,7 @@ import {message} from "antd";
 import {
     requestGetHuaYanShiDataByTableNameAndDate,
     requestSaveHuaYanShiData,
+    getHuaYanShiDataDifferenceValueBytableNameAndDate,
 } from "../../../../http/request/RequestHuaYanShi"
 import {
     Mark,
@@ -131,4 +132,43 @@ export function saveData(
         });//end requestSaveHuaYanShiData
     }
 
-}
+};
+
+
+export const queryData = (date, tableName, data) => {
+    return (dispatch) => {
+
+        getHuaYanShiDataDifferenceValueBytableNameAndDate(
+            date,
+            tableName,
+            data
+        ).then((response) => {
+
+            if(response['code'] === 0){
+                //解析处理数据
+                //解析数据
+                let newData = deepCopy(response['data']);
+            
+                if(newData == null){
+                    message.info('暂无数据');
+                    dispatch(updateData({//将获取到的数据进行转发
+                        data: data
+                    }));
+                }else{
+                    let result = HuaYanShiFormat(
+                        data,
+                        newData,
+                        tableName
+                    );
+                    dispatch(updateData({//将获取到的数据进行转发
+                        data: result[0]
+                    }));
+                }
+
+                //更新标准
+                //dispatch(updateStandard(result[1], result[2]));
+            }
+
+        });//end requestGetHuaYanShiDataByTableNameAndDate
+    }
+};//end getData

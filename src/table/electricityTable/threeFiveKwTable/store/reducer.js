@@ -13,6 +13,9 @@ const defaultState = fromJS({
         {data: []}
 
     ],
+    modelData:[//定义该页面的数据模板
+        {data: []}
+    ],
     person: window.localStorage.username, //传入的值班人员
     tableName:TableName.Eletri_TFKT//35KW表
 
