@@ -39,7 +39,7 @@ class BurnSysOpRe extends Component {
 
 
         const { modelData,data } = this.props;
-
+        
         if(this.props.date != date){
             // console.log("执行了date")
             setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));

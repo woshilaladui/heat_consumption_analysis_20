@@ -41,7 +41,8 @@ import CCPhyPerTest from '../../table/analysisTable/CCPhyPerTest/CCPhyPerTest';
 import JCMoCoCoMa from '../../table/analysisTable/JCMoCoCoMa/JCMoCoCoMa';
 import SMIndusAnaOriRe from '../../table/analysisTable/SMIndusAnaOriRe/SMIndusAnaOriRe';
 import MFIndusAnaOriRe from '../../table/analysisTable/MFIndusAnaOriRe/MFIndusAnaOriRe';
-
+import MonthElectricity from "../../table/electricityTable/monthElectricity/MonthElectricity";
+import ThreeFiveKwTable from "../../table/electricityTable/threeFiveKwTable/ThreeFiveKwTable";
 
 import { connect } from 'react-redux';
 import * as actionCreators from './store/actionCreators';
@@ -59,6 +60,8 @@ const biaoge_list = [
     '石灰石原材料分析原始记录', '砂岩原材料分析原始记录', '铁粉原材料分析原始记录', '粉煤灰(干)原材料分析原始记录',
     '粉煤灰(湿)原材料分析原始记录', '出磨生料分析原始记录', '入窑生料分析原始记录', '出窑熟料化学分析单', '出厂熟料化学分析单',
     '出窑熟料物理性能检测', '出厂熟料物理性能检测', '进厂原燃材料水分', '神木工业分析原始记录', '煤粉工业分析原始记录',
+
+    '每月电量表','35KW表',
 
     '化验室日报', '化验室周报', '化验室月报', '化验室年报',
 ];
@@ -101,6 +104,9 @@ const table_Choose = [
                 <JCMoCoCoMa/>,//31
                 <SMIndusAnaOriRe/>,//32
                 <MFIndusAnaOriRe/>,//33
+                //34-35是电量表格
+                <MonthElectricity />,//34
+                <ThreeFiveKwTable />,//35
 ];
 
 class SearchTable extends Component {
@@ -108,7 +114,7 @@ class SearchTable extends Component {
         super(props);
         this.state = {
             selectValue: '0',//表格选项
-            table_Display: new Array(34).fill('none'),//控制表格的显示，默认全不显示
+            table_Display: new Array(36).fill('none'),//控制表格的显示，默认全不显示
             t_name_Display: [],//控制表格下拉框中 中控室表格是否显示
             print_dis: 'none',//控制打印按钮是否显示,默认不显示
         }
@@ -207,6 +213,9 @@ class SearchTable extends Component {
                         <Option value="31" disabled={t_name_Display[31]}>{biaoge_list[31]}</Option>
                         <Option value="32" disabled={t_name_Display[32]}>{biaoge_list[32]}</Option>
                         <Option value="33" disabled={t_name_Display[33]}>{biaoge_list[33]}</Option>
+
+                        <Option value="34" disabled={t_name_Display[34]}>{biaoge_list[34]}</Option>
+                        <Option value="35" disabled={t_name_Display[35]}>{biaoge_list[35]}</Option>
                     </Select>
                     <span>请选择日期：</span>
                     <DatePicker

@@ -7,6 +7,8 @@ import * as actionCreators from './store/actionCreators';
 import {requestCheckPermission} from "../../../http/request/RequestUser"
 import {deepCopy} from "../../../Helper/Copy";
 
+import moment from 'moment';
+
 //35KW表
 class ThreeFiveKwTable extends Component {
     returnBack = () => {
@@ -23,6 +25,41 @@ class ThreeFiveKwTable extends Component {
         if(requestFlag){
             setOldData(date,tableName,deepCopy(data));
         }
+
+    }
+
+
+    componentWillReceiveProps(nextProps){
+
+        const { tableName, setOldData, date, searchFlag, /*queryData*/ } = nextProps; //新的props
+
+
+        const { modelData,data } = this.props;
+
+        if(this.props.date != date){
+                setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+            }
+            if(this.props.searchFlag != searchFlag){
+                setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+            } 
+
+        /*if(searchFlag){  //表单填写
+            if(this.props.date != date){
+                setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+            }
+            if(this.props.searchFlag != searchFlag){
+                setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+            }   
+        }else{   //表单查看
+            if(this.props.date != date){
+                queryData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+            }
+            if(this.props.searchFlag != searchFlag){
+                queryData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+            }  
+        }*/
+
+
 
     }
 

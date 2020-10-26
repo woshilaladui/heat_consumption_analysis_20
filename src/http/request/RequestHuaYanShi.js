@@ -5,6 +5,8 @@ import {HuaYanShiFormat} from "../../../src/Helper/Format"
 import {Mark} from "../constant/Constant"
 import {deepCopy} from "../../Helper/Copy"
 
+import moment from 'moment';
+
 /**
  * @author zm
  * @function 化验室方法请求中心
@@ -71,6 +73,33 @@ export function requestGetHuaYanShiDataByTableNameAndDate(
     });
 
 }
+
+export function getHuaYanShiDataDifferenceValueBytableNameAndDate(
+    date,
+    tableName,
+    data
+) {
+
+    return new Promise((resolve, reject) => {
+
+        //拼接请求体
+        const formData = new FormData();
+        formData.append('today', date);
+        formData.append('yesterday', moment(date).subtract(1,"days").format("YYYY/MM/DD"));
+        formData.append('tableName', tableName);
+
+        RequestCenter({
+            url: URL.REQUEST_GET_HUAYANSHI_ELEC_DATA,
+            formData: formData
+        })
+            .then((response) => {
+                resolve(response)
+            })
+            .catch()
+    });
+
+}
+
 
 export function requestSaveHuaYanShiData(
     {

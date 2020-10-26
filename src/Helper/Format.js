@@ -6,7 +6,6 @@ export function HuaYanShiFormat(resultData, responseData, tableName) {
     //校验tableName
     //  if (responseData.tableName === tableName) {
 
-
     //解析数据data
     for (let i = 0; i < responseData["huaYanShis"].length; i++) {
 

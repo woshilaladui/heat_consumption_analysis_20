@@ -7,6 +7,8 @@ import * as actionCreators from './store/actionCreators';
 import {requestCheckPermission} from "../../../http/request/RequestUser"
 import {deepCopy} from "../../../Helper/Copy";
 
+import moment from 'moment';
+
 //每月电量表
 class MonthElectricity extends Component {
     returnBack = () => {
@@ -19,11 +21,38 @@ class MonthElectricity extends Component {
 
     componentDidMount() {
         /**首先查询当前页面是否有历史纪录并赋值formData**/
-        const {data, date, tableName, setOldData,requestFlag} = this.props;
-        if(requestFlag){
-            setOldData(date,tableName,deepCopy(data));
+        const {data, date, tableName, setOldData, requestFlag, searchFlag, modelData, queryData} = this.props;
+        if(searchFlag){
+            setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        }else{
+            queryData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
         }
 
+    }
+
+    componentWillReceiveProps(nextProps){
+
+        const { tableName, setOldData, date, searchFlag, queryData } = nextProps; //新的props
+
+
+        const { modelData,data } = this.props;
+
+        if(this.props.date != date){
+            if(searchFlag){
+                setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+            }else{
+                queryData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+            }
+        }
+
+        if(this.props.searchFlag != searchFlag){
+            console.log("1");
+            if(searchFlag){
+                setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+            }else{
+                queryData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+            }
+        }
     }
 
 	render(){
@@ -66,6 +95,7 @@ const mapStateToProps = (state) => {
         tableName:state.getIn(['monthElectricity', 'tableName']),
         date:state.getIn(['searchTable', 'date']),
         searchFlag:state.getIn(['searchTable', 'searchFlag']),
+        modelData:state.getIn(['monthElectricity', 'modelData']),
     }
 }
 
@@ -73,7 +103,10 @@ const mapDispathToProps = (dispatch) => {
     return {
         setOldData(date,tableName,data){
             dispatch(actionCreators.getData(date,tableName,data))
-        }
+        },
+        queryData(date,tableName,data){
+            dispatch(actionCreators.queryData(date,tableName,data))
+        },
     }//end return
 }
 

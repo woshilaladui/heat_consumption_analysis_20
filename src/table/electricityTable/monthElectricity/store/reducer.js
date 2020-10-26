@@ -12,6 +12,9 @@ const defaultState = fromJS({
     data:[//定义该页面的数据模板
         {data: []}
     ],
+    modelData:[//定义该页面的数据模板
+        {data: []}
+    ],
     person: window.localStorage.username, //传入的值班人员
     tableName:TableName.Eletri_ME//每月电量表
 

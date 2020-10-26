@@ -54,7 +54,8 @@ const URL={
     //化验室存储(包括暂存，存单行)接口
     REQUEST_SAVE_HUAYANSHI_DATA:Service.ROOT_URL_V2 + "/huayanshi/saveHuaYanShiData",
 
-
+    //查看表单中查看电量表格数据
+    REQUEST_GET_HUAYANSHI_ELEC_DATA:Service.ROOT_URL_V2 + "/huayanshi/getHuaYanShiDataDifferenceValueBytableNameAndDate",
 
 
     /*********************************中控室接口*************************************/
