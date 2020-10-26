@@ -56,10 +56,10 @@ export default (state = defaultState, action) => {
       data = state.data;//拿到用户数组
       data.forEach(item => {
         if (item.id === action.item.id) {
-          {
+          
             item.phone = action.item.phone
             item.username = action.item.username
-          }
+          
         }
       })
       return {

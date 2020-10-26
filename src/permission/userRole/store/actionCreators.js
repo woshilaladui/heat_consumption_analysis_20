@@ -166,7 +166,7 @@ export const getCurrentUserRole = (username) => {
                     let newData = deepCopy(response['data'])
                     let newCurrentUserIdArr = [];//填充当前用户角色数组
                     newData.map((item, index) => {
-                        newCurrentUserIdArr.push(item.id)
+                        return newCurrentUserIdArr.push(item.id)
                     });
                     dispatch(updateCurrentUserRoleData({//将获取到的数据进行转发
                         data: newData,

@@ -77,6 +77,8 @@ export function ZKSFormat_NEW({upperData = null, middleData = null, bottomData =
                     break;
                 case 3:
                     break;//中表
+                default:
+                    break;
             }
         }
     }

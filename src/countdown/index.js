@@ -1,9 +1,7 @@
-import { Statistic, Row, Col } from 'antd';
-import React, {Component} from 'react';
-import moment from 'moment';
+import { Statistic } from 'antd';
+import React, { Component } from 'react';
 import * as actionCreators from "./store/actionCreators";
-import {connect} from "react-redux";
-import {handleChangeFlag} from "./store/actionCreators";
+import { connect } from "react-redux";
 const { Countdown } = Statistic;
 
 

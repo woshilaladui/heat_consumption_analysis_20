@@ -32,7 +32,19 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "rules": {
+      "no-unused-vars":"off",
+      "eqeqeq":"off",
+      "no-useless-escape": "off",
+      "no-eval":"off",
+      "no-array-constructor":"off",
+      "no-redeclare":"off",
+      "no-empty-pattern":"off",
+      "no-fallthrough":"off",
+      "jsx-a11y/anchor-is-valid":"off",
+      "jsx-a11y/anchor-has-content":"off"
+    }
   },
   "browserslist": {
     "production": [

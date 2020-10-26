@@ -1,7 +1,7 @@
 import {
   ListInfoPDF,
   ListInfoPDFButton,
-  Log_list
+  LogList
 } from '../style';
 import {List, DatePicker, Input} from "antd";
 import React from "react";
@@ -36,7 +36,7 @@ class UpperForm extends React.Component {
       }
     ];
     return (
-      <Log_list>
+      <LogList>
         <List
           dataSource={column}
           renderItem={item => (
@@ -61,7 +61,7 @@ class UpperForm extends React.Component {
             </List.Item>
           )}
         />
-      </Log_list>
+      </LogList>
 
     )
   }

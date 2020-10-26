@@ -29,11 +29,13 @@ class Iheader extends Component {
                     // display: ['', '', 'none', 'none', 'none', 'none', '','none']
                 });
                 break;
-            case '2':{
+            case '2':
                 this.setState({
                     display: ['', '', 'none', 'none', 'none', 'none', '','none']
                 });
-            }
+                break;
+            default:
+                break;
         }
 
     }

@@ -96,7 +96,7 @@ export function saveData(
         }).then((response) => {
 
             //处理是否提交成功
-            if (response == Mark.SUCCESS && num == 1) {
+            if (response == Mark.SUCCESS && num == 1) { //eslint-disable-line
                 message.info('暂存成功');
             } else if (response == Mark.SUCCESS && num > 1) {
                 message.info('提交成功');

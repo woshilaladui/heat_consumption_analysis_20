@@ -9,7 +9,6 @@ import UpperForm from './component/UpperForm';
 import { connect } from 'react-redux';
 import * as actionCreators from './store/actionCreators';
 import {deepCopy} from "../../Helper/Copy";
-import {log_list} from "./style";
 // import {URL} from "../../constant/Constant";
 
 

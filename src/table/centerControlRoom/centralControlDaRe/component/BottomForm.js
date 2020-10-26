@@ -134,7 +134,7 @@ class BottomForm extends Component {
             }
         ];
         /**限制输入数值位数的函数**start**/
-        const limitDecimals = (value: string | number): string => {
+        /*const limitDecimals = (value: string | number): string => {
             const reg = /^(\-)*(\d+)\.(\d\d).*$/;
             if (typeof value === 'string') {
                 return !isNaN(Number(value)) ? value.replace(reg, '$1$2.$3') : ''
@@ -143,7 +143,7 @@ class BottomForm extends Component {
             } else {
                 return ''
             }
-        };
+        };*/
         /**限制输入数值位数的函数**end**/
 
         const {data, timeChose,date} = this.props;

@@ -116,6 +116,8 @@ export const getUserPermission = ({})=>{
                                 dispatch(updateDisplay({pageDisplay: ['none', 'none', 'none', 'none', 'none', 'none', '']}));
 
                                 break;
+                            default:
+                                break;
                         }
                     }
 

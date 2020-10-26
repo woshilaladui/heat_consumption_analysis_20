@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 
-export const Log_list =styled.div`
+export const LogList =styled.div`
 position: relative;
     height:100%;
 `;
