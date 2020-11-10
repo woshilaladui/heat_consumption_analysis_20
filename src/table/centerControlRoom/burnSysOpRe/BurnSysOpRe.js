@@ -8,6 +8,8 @@ import { connect } from 'react-redux';
 import * as actionCreators from './store/actionCreators';
 import {deepCopy} from "../../../Helper/Copy";
 import moment from 'moment';
+import ReactToPrint from 'react-to-print';
+import {Button} from "antd";
 
 //福石水泥3000t/d中控室烧成系统运行记录
 class BurnSysOpRe extends Component {
@@ -62,7 +64,7 @@ class BurnSysOpRe extends Component {
     render() {
         console.log("烧成render:searchFlag"+this.props.searchFlag);
         return (
-            <Fragment/* style={{width: "100%", height: "100%"}}*/>
+            <Fragment/* style={{width: "100%", height: "100%"}}*/ >
                 <div style={{padding: '1%'}} ref={(el) => this.refs = el}>
                     <h1 align="center">福石水泥3000t/d中控室烧成系统运行记录</h1>
                     {/*表单最上的时间及人员显示*/}
@@ -81,6 +83,14 @@ class BurnSysOpRe extends Component {
                         <BottomForm/>
                     </div>
                 </div>
+              <ReactToPrint
+                trigger={
+                  () => <a href="#">
+                    <Button type='primary' style={{marginTop: 10}}>打印</Button>
+                  </a>
+                }
+                content={() => this.refs}
+              />
                 <div
                     style={{
                         float: "right",

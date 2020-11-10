@@ -16,6 +16,10 @@ const defaultState = fromJS({
 export default (state = defaultState, action) => {
 
     switch (action.type) {
+        case constants.CHANGE_FLOAT_WINDOW_FLAG:
+            return state.merge({
+                'floatWindowFlag': action.data,
+            });
         default:
             return state;
     }

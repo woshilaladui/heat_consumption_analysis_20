@@ -178,6 +178,7 @@ class Iheader extends Component {
                         key='sub1'
                         style={{display: display[1]}}
                         title={<span className="submenu-title-wrapper"><Icon type="experiment"/>中控室表格</span>}>
+                        <Menu.ItemGroup title="水泥流程记录">
                         <Menu.Item className='header_menuItem' key="1">
                             烧成系统运行记录
                         </Menu.Item>
@@ -190,27 +191,37 @@ class Iheader extends Component {
                         <Menu.Item className='header_menuItem' key="4">
                             脱销系统运行记录
                         </Menu.Item>
+                        </Menu.ItemGroup>
+                        <Menu.ItemGroup title="生料">
                         <Menu.Item className='header_menuItem' key="5">
                             出磨生料荧光分析及配比记录
                         </Menu.Item>
                         <Menu.Item className='header_menuItem' key="6">
                             入窑生料荧光分析及检测记录
                         </Menu.Item>
+                        </Menu.ItemGroup>
+                        <Menu.ItemGroup title="熟料">
                         <Menu.Item className='header_menuItem' key="7">
                             熟料荧光分析及检测记录
                         </Menu.Item>
+                        </Menu.ItemGroup>
+                        <Menu.ItemGroup title="测试">
                         <Menu.Item className='header_menuItem' key="8">
                             在线自动检测运行记录（排放物）
                         </Menu.Item>
+                        </Menu.ItemGroup>
+                        <Menu.ItemGroup title="日报表">
                         <Menu.Item className='header_menuItem' key="9">
                             中控室日报
                         </Menu.Item>
+                        </Menu.ItemGroup>
 
                     </SubMenu>
                     <SubMenu
                         key='sub2'
                         style={{display: display[2]}}
-                        title={<span className="submenu-title-wrapper"><Icon type="database"/>荧光分析表格</span>}>
+                        title={<span className="submenu-title-wrapper"><Icon type="database"/>荧光分析</span>}>
+                        <Menu.ItemGroup title="原材料">
                         <Menu.Item className='header_menuItem' key="10">
                             石灰石进厂原材料化学分析报告单
                         </Menu.Item>
@@ -229,6 +240,7 @@ class Iheader extends Component {
                         <Menu.Item className='header_menuItem' key="15">
                             仓下原材料化学分析报告单
                         </Menu.Item>
+                        </Menu.ItemGroup>
                         {/*<Menu.Item className='header_menuItem' key="16">*/}
                         {/*    仓下砂岩原材料化学分析报告单*/}
                         {/*</Menu.Item>*/}
@@ -238,18 +250,22 @@ class Iheader extends Component {
                         {/*<Menu.Item className='header_menuItem' key="18">*/}
                         {/*    仓下铁粉原材料化学分析报告单*/}
                         {/*</Menu.Item>*/}
+                        <Menu.ItemGroup title="生料">
                         <Menu.Item className='header_menuItem' key="19">
                             出磨生料化学分析报告单
                         </Menu.Item>
                         <Menu.Item className='header_menuItem' key="20">
                             入窑生料化学分析报告单
                         </Menu.Item>
+                        </Menu.ItemGroup>
+                        <Menu.ItemGroup title="熟料">
                         <Menu.Item className='header_menuItem' key="21">
                             出窑熟料全分析汇总表
                         </Menu.Item>
                         <Menu.Item className='header_menuItem' key="22">
                             出厂熟料全分析汇总表
                         </Menu.Item>
+                        </Menu.ItemGroup>
                         <Menu.Item className='header_menuItem' key="23">
                             控制室原始记录
                         </Menu.Item>
@@ -258,6 +274,7 @@ class Iheader extends Component {
                         key='sub3'
                         style={{display: display[3]}}
                         title={<span className="submenu-title-wrapper"><Icon type="database"/>分析表格</span>}>
+                        <Menu.ItemGroup title="原材料">
                         <Menu.Item className='header_menuItem' key="24">
                             石灰石原材料分析原始记录
                         </Menu.Item>
@@ -273,12 +290,16 @@ class Iheader extends Component {
                         <Menu.Item className='header_menuItem' key="28">
                             粉煤灰(湿)原材料分析原始记录
                         </Menu.Item>
+                        </Menu.ItemGroup>
+                        <Menu.ItemGroup title="生料">
                         <Menu.Item className='header_menuItem' key="29">
                             出磨生料分析原始记录
                         </Menu.Item>
                         <Menu.Item className='header_menuItem' key="30">
                             入窑生料分析原始记录
                         </Menu.Item>
+                        </Menu.ItemGroup>
+                        <Menu.ItemGroup title="熟料">
                         <Menu.Item className='header_menuItem' key="31">
                             出窑熟料化学分析单
                         </Menu.Item>
@@ -291,6 +312,8 @@ class Iheader extends Component {
                         <Menu.Item className='header_menuItem' key="34">
                             出厂熟料物理性能检测
                         </Menu.Item>
+                        </Menu.ItemGroup>
+                        <Menu.ItemGroup title="燃料/煤">
                         <Menu.Item className='header_menuItem' key="35">
                             进厂原燃材料水分
                         </Menu.Item>
@@ -300,11 +323,12 @@ class Iheader extends Component {
                         <Menu.Item className='header_menuItem' key="37">
                             煤粉工业分析原始记录
                         </Menu.Item>
+                        </Menu.ItemGroup>
                     </SubMenu>
                     <SubMenu
                         key='sub4'
                         style={{display: display[4]}}
-                        title={<span className="submenu-title-wrapper"><Icon type="database"/>化验室表格</span>}>
+                        title={<span className="submenu-title-wrapper"><Icon type="database"/>化验室报表</span>}>
                         <Menu.Item className='header_menuItem' key="38">
                             化验室日报
                         </Menu.Item>

@@ -70,14 +70,14 @@ export default class AppIndex extends Component {
         this.state = {
             // choose_num: this.props.choose,
             choose_arr: [
-                <SearchTable />,
+                <SearchTable />,//0
                 <BurnSysOpRe />,
                 <CoalSysOpRe />,
-                <RawSysOpRe />,
+                <RawSysOpRe />,//3
                 <TXSysAcRe />,
                 <RawFAnaRaRe />,
                 <RuYSLYGFXJL />,
-                <FluoAnaAndDetRe />,
+                <FluoAnaAndDetRe />,//7
                 <OnlineAutoDetOpRe />,
                 <CentralControlDaRe />,
                 <RawMatCheAnaRe />,//10

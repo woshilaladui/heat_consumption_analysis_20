@@ -50,7 +50,7 @@ class LoginDemo extends Component {
     e.preventDefault();
 
     const {phone, password,verificationCode} = this.props;
-    console.log(phone, password,verificationCode)
+    // console.log(phone, password,verificationCode)
     this.props.setOldData(phone, password,verificationCode);
 
 

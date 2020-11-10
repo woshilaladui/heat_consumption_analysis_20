@@ -1,0 +1,29 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#box {
+
+    left: 0;
+    top: 100px;
+    float: left;
+    /*border: 1px solid #eee;*/
+    /*box-shadow: 0 0 5px #ccc;*/
+    position: absolute;
+    /*background: red;*/
+    z-index: 1;
+}
+#showPic{
+    position: relative;
+}
+#box h2 {
+    padding:8px 4px ;
+    font-size: 16px;
+    color: #666666;
+}
+#box p{
+    padding:8px 4px ;
+    font-size:12px;
+    color: #a9a9a9;
+    line-height: 20px;
+}

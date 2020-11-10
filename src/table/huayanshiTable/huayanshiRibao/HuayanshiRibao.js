@@ -12,6 +12,7 @@ import TableRaw from "./TableRaw/TableRaw";
 import TableCTR from "./TableCTR";
 import moment from "moment";
 import {HYSFormat, ZKSFormat} from "../../../package/Format";
+import ReactToPrint from "react-to-print";
 
 
 
@@ -31,7 +32,7 @@ export default class HuayanshiRibao extends React.Component {
 
     render() {
                 return (
-                    <div>
+                    <div ref={(el) => this.refs = el}>
                         <br/>
                         <h1 className="huayanshi">化验室日报</h1>
                         <div id="containerhuayanshi" className="biaozhun">
@@ -61,15 +62,15 @@ export default class HuayanshiRibao extends React.Component {
                                 display: "inline-block"
                             }}
                         >
-                            <Popconfirm title={"是否打印"}
-                                        okText="是"
-                                        cancelText="否">
-                                <Button type={this.props.type} size={"large"} htmlType={"button"}
-                                        style={{
-                                            margin: '20px 5px 0px 5px'
-                                        }}
-                                >打印</Button>
-                            </Popconfirm>
+                          <ReactToPrint
+                            trigger={
+                              () => <a href="#">
+                                <Button type='primary' style={{marginTop: 10}}>打印</Button>
+                              </a>
+                            }
+                            content={() => this.refs}
+                          />
+
                         </div>
 
                     </div>

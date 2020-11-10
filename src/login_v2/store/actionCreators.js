@@ -90,6 +90,9 @@ export const getData = (phone,password,verificationCode) => {
                 window.localStorage.authorization = 'nianshao ' + data.data.token;
                 window.localStorage.expiration = data.data.expiration;
                 window.localStorage.countDownTimeFlag = false;
+                window.localStorage.LastLoginDate= data.data.userLoginLog.LastLoginDate;
+                window.localStorage.todoList= data.data.userLoginLog.todoList;
+
                 // window.localStorage.time = d.getTime();
                     window.location.href='/'
                     }else {

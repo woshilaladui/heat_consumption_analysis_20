@@ -9,6 +9,8 @@ import {connect} from "react-redux";
 import {deepCopy} from "../../../Helper/Copy";
 
 import moment from 'moment';
+import {Button} from "antd";
+import ReactToPrint from "react-to-print";
 
 // 进厂原材料分析化学报告单（石灰石）
 class RuYaoSLYCLHXFXBGD extends Component {
@@ -93,6 +95,14 @@ class RuYaoSLYCLHXFXBGD extends Component {
                         />
                     </div>
                 </div>
+                <ReactToPrint
+                  trigger={
+                      () => <a href="#">
+                          <Button type='primary' style={{marginTop: 10}}>打印</Button>
+                      </a>
+                  }
+                  content={() => this.refs}
+                />
                 <div
                     style={{
                         float: "right",

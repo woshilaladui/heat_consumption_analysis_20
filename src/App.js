@@ -8,12 +8,12 @@ import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 import store from './store';
-
-// import {persistor} from '../src/store';
+// import {persistStore } from 'redux-persist';
+//
 // import {PersistGate} from 'redux-persist/lib/integration/react';
 
 moment.locale('zh-cn');
-
+// const persistor = persistStore(store);
 function App() {
   return (
     <div className="App">

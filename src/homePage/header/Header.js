@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import {URL} from "../../http/constant/Constant";
 import {requestLogout} from "../../http/request/RequestUser";
 import CountDown from '../../../src/countdown'
-import * as actionCreators from "../../countdown/store/actionCreators";
+import * as actionCreators from "./store/actionCreators";
 import {connect} from "react-redux";
 
 class Header extends Component {
@@ -18,6 +18,7 @@ class Header extends Component {
             showItem: 'none',  //是否显示表格相关按钮
             showPermissionCtr:'none', //是否显示权限管理按钮
             showLoginTime:'none' //是否展示登陆时长
+
         };
     }
 
@@ -62,6 +63,10 @@ class Header extends Component {
 
         }
     }
+  handleLogin = () => {
+    this.props.setFloatWindow(true)
+    // window.location.href = '/loginV2'
+  };
     handleLogout = () => {
         // window.localStorage.clear();
         this.setState({
@@ -70,6 +75,11 @@ class Header extends Component {
             showPermissionCtr:'none',
           showLoginTime:'none'
         });
+        this.props.onChange(false)
+
+      console.log("this.props.floatWindowFlag")
+      console.log(this.props.floatWindowFlag)
+      console.log("this.props.floatWindowFlag")
         requestLogout()
           .then(response =>{
               if (response["code"] == 0){
@@ -135,8 +145,11 @@ class Header extends Component {
                     </Menu.Item>
                     {
                         this.state.needLogin ?
-                            <Menu.Item className='header_menuItem' key="login">
-                                <Icon type="login"/>登录<a href="loginV2" rel="noopener noreferrer"/>
+                            <Menu.Item className='header_menuItem' key="login"
+                            // onClick={this.handleLogin}
+                            >
+                                <Icon type="login"/>登录
+                              <a href="loginV2" rel="noopener noreferrer"/>
                             </Menu.Item> :
                             <Menu.Item className='header_menuItem' key="logout"
                                        onClick={this.handleLogout}>
@@ -162,7 +175,8 @@ class Header extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    date:state.getIn(['countDown', 'countDownFlag']),
+    // date:state.getIn(['countDown', 'countDownFlag']),
+    floatWindowFlag:state.getIn(['homePageHeader','floatWindowFlag'])
   }
 };
 
