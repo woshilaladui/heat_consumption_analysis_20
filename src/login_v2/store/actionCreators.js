@@ -92,7 +92,7 @@ export const getData = (phone,password,verificationCode) => {
                 window.localStorage.countDownTimeFlag = false;
                 window.localStorage.LastLoginDate= data.data.userLoginLog.LastLoginDate;
                 window.localStorage.todoList= data.data.userLoginLog.todoList;
-
+                window.localStorage.roles = data.data['roles'];
                 // window.localStorage.time = d.getTime();
                     window.location.href='/'
                     }else {

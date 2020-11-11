@@ -3,6 +3,9 @@
 html{
     background: white;
 }
+div{
+    height: 100%;
+}
 .ant-input-number{
     width: auto;
 }

@@ -38,7 +38,6 @@ export function RequestCenter(
         flag = RequestMethod.formData,//默认为参数请求
         method = "POST"//默认为post
     }) {
-
     if(flag === RequestMethod.formData){//formData 请求 参数请求
 
         return new Promise(function (resolve, reject) {
@@ -68,9 +67,6 @@ export function RequestCenter(
 
                     }
                     else if(data['code'] === Mark.ERROR){
-                        // console.log('dateerrosss')
-                        // console.log(data)
-                        // console.log('dateroorsss')
                         resolve(deepCopy(data));
                     }
                 })
@@ -84,7 +80,7 @@ export function RequestCenter(
         return new Promise(function (resolve, reject) {
             fetch(url, {
                 method: method,
-                body: JSON.stringify(jsonData), // data can be `string` or {object}!
+                body: JSON.stringify(jsonData), 
                 headers: {
                     "Content-Type": "application/json",
                     'JWTHeaderName':window.localStorage.token,
@@ -124,7 +120,7 @@ export function RequestCenter_V2(
 
             fetch(url, {
                 method: method,
-                body: formData, // data can be `string` or {object}!
+                body: formData, 
                 credentials:"include",
                 headers: {
                     //"Content-Type" : "application/json",
@@ -136,9 +132,6 @@ export function RequestCenter_V2(
                     return  res.json()})
 
                 .then(data => {
-                    console.log('dateerrosss')
-                    console.log(data)
-                    console.log('dateroorsss')
 
                     if (data['code'] === Mark.SUCCESS ) {//判定是否成功
 
@@ -151,9 +144,6 @@ export function RequestCenter_V2(
 
                     }
                     else if(data['code'] === Mark.ERROR){
-                        // console.log('dateerrosss')
-                        // console.log(data)
-                        // console.log('dateroorsss')
                         resolve(deepCopy(data));
                     }
                 })
@@ -167,7 +157,7 @@ export function RequestCenter_V2(
         return new Promise(function (resolve, reject) {
             fetch(url, {
                 method: method,
-                body: JSON.stringify(jsonData), // data can be `string` or {object}!
+                body: JSON.stringify(jsonData), 
                 headers: {
                   'JWTHeaderName':window.localStorage.token,
                     "Content-Type": "application/json",
@@ -206,7 +196,7 @@ export function RequestCenter_V2_Test(
 
             fetch(url, {
                 method: method,
-                body: formData, // data can be `string` or {object}!
+                body: formData,
                 credentials:"include",
                 headers: {
                     //"Content-Type" : "application/json",
@@ -222,9 +212,6 @@ export function RequestCenter_V2_Test(
                     return  res.json()})
 
                 .then(data => {
-                    console.log('dateerrosss')
-                    console.log(data)
-                    console.log('dateroorsss')
 
                     if (data['code'] === Mark.SUCCESS ) {//判定是否成功
 

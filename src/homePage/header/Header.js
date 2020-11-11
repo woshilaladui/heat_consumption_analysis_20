@@ -143,6 +143,11 @@ class Header extends Component {
                             <Icon type="table"/>表格相关
                         </Link>
                     </Menu.Item>
+                    <Menu.Item className='header_menuItem' key="feedback" style={{display: this.state.showItem}}>
+                        <Link to="/feedback">
+                            <Icon type="mail"/>系统反馈
+                        </Link>
+                    </Menu.Item>
                     {
                         this.state.needLogin ?
                             <Menu.Item className='header_menuItem' key="login"

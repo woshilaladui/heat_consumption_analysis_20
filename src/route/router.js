@@ -10,6 +10,7 @@ import Test from "../table/centerControlRoom/burnSysOpRe/component/test"
 import Test2 from "../table/centerControlRoom/burnSysOpRe/component/test2"
 import PermissionHome from '../permission/permission_home'
 import Tser from '../../src/permission/rolePermission/ts'
+import feedback from "../feedback/feedBack.js"
 import NotFound from  '../notFound/index'
 import {Radio} from "antd";
 
@@ -33,6 +34,7 @@ export default class AppRouter extends Component {
                     <Route path="/test" component={Test}/>
                     <Route path="/test2" component={Test2}/>
                     <Route path='/ts' component={Tser}/>
+                    <Route path='/feedback' component={feedback}/>
                     <Route component = {NotFound}/>
 
                     {/* <Route path="/login" component={Login}/>

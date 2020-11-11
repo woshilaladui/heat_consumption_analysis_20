@@ -37,6 +37,7 @@
     "extends": "react-app",
     "rules": {
       "no-unused-vars": "off",
+      "no-useless-constructor": "off",
       "eqeqeq": "off",
       "no-useless-escape": "off",
       "no-eval": "off",
