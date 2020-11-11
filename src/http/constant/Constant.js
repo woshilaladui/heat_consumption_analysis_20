@@ -109,7 +109,7 @@ const URL={
     //TODO 获取封面的背景图
     REQUEST_GET_BACKGROUND_PHOTOS:Service.ROOT_URL + "",
 
-
+    REQUEST_SAVE_FEEDBACK_DATA:Service.ROOT_URL_V2+"/feedback/saveFeedBack",
 
 }
 

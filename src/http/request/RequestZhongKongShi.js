@@ -114,3 +114,32 @@ export function requestSaveZhongKongShiData(
     });
 
 }
+
+export function requestSaveFeedBackData(
+        username,
+        classification,
+        title,
+        content,
+    ) {
+    return new Promise((resolve, reject) => {
+        const formData = new FormData();
+        formData.append('username', username);
+        formData.append('classification', classification);
+        formData.append('title', title);
+        formData.append('content', content);
+        RequestCenter({
+            url: URL.REQUEST_SAVE_FEEDBACK_DATA,
+            formData:formData,
+        })
+            .then((response) => {
+                //直接回传 不进一步解析
+                //TODO 进一步处理数据 requestSaveHuaYanShiData
+
+
+                resolve(response['code'])//取出code用于标识成功还是失败
+            })
+            .catch(
+            )
+    });
+
+}
