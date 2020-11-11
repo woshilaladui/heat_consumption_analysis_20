@@ -1,6 +1,7 @@
 import { Layout, Menu, Breadcrumb, Icon ,Button} from 'antd';
 import React, {Component} from 'react';
 import {connect} from "react-redux";
+import CountDown from "../countdown";
 const { Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
@@ -26,12 +27,16 @@ const { SubMenu } = Menu;
     render() {
         return (
 
-                <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
+              <div>
                     <div className="logo" />
-
-                    <Menu theme="light" defaultSelectedKeys={['0']} mode="inline"
+                <a className="head_icon col-md-8 col-sm-8" href="">
+                  <img src={require("../../src/img/logo.png")} alt=""/>
+                </a>
+                    <Menu theme="light" defaultSelectedKeys={['0']} mode="horizontal"
                           style={{lineHeight: '60px', float: 'right'}}
                           onSelect={this.onChangeKey}>
+                      <Menu.Item ><a href='/'>返回首页</a>
+                      </Menu.Item>
                         <Menu.Item key="0">
                             <Icon type="pie-chart" />
                             <span>用户角色管理</span>
@@ -40,13 +45,12 @@ const { SubMenu } = Menu;
                             <Icon type="desktop" />
                             <span>角色权限管理</span>
                         </Menu.Item>
-                        <Menu.Item key="2" style={{textAlign: 'center',}}>
-                            <Icon type="logout" />
-                            <span ><a href="/" >退  出</a></span>
-                        </Menu.Item>
-                    </Menu>
+                      <Menu.Item key="countDown">
 
-                </Sider>
+                        <CountDown/>
+                      </Menu.Item>
+                    </Menu>
+              </div>
         );
     }
 }

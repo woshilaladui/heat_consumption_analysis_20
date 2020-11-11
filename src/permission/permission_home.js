@@ -46,12 +46,17 @@ class PermissionHome extends React.Component {
     render() {
         return (
             <div style={{width:'100%',height:'100%',position:'absolute'}}>
-                <Layout style={{height: '100%'}}>
+                <Layout >
+                    <Header style={{backgroundColor: 'white'}}>
                         <Permission choose={this.state.choose_num} onChange={this.onChangeNum.bind(this)}
                                  // display={this.state.display}
                         />
+                    </Header>
+                </Layout>
+                <Layout>
+                    <Content style={{margin: '1% 1% 0 1%', overflow: 'auto', backgroundColor: 'white'}}>
                         <Component choose={this.state.choose_num}/>
-
+                    </Content>
                 </Layout>
             </div>
         )

@@ -12,6 +12,8 @@
     "jquery": "^3.5.1",
     "proxy": "^0.2.4",
     "rc-banner-anim": "^2.2.6",
+    "rc-queue-anim": "^1.8.5",
+    "rc-scroll-anim": "^2.7.5",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.0",

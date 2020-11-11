@@ -81,6 +81,18 @@ class EditModal extends Component {
                 )}
               </FromItem>
             </Col>
+            {/*<Col span={8}>*/}
+            {/*  <FromItem label="密码">*/}
+            {/*    {getFieldDecorator('password', {*/}
+            {/*      initialValue: editItem.phone,*/}
+            {/*      rules: [*/}
+            {/*        { required: true, message: '请输入密码' },*/}
+            {/*      ]*/}
+            {/*    })(*/}
+            {/*      <InputNumber placeholder="请输入密码" />*/}
+            {/*    )}*/}
+            {/*  </FromItem>*/}
+            {/*</Col>*/}
             <Col span={24}>
               <FromItem label="用户角色选择">
                 {getFieldDecorator('roles', {

@@ -27,7 +27,7 @@ let imgArray = [
       if (this.props.floatWindowFlag){
         return (
           <div id="box">
-            <Card hoverable title="上次离开时间及代办事项"
+            <Card hoverable title="上次离开时间及待办事项"
                   extra={<a onClick={()=>this.exit()}><Icon type="close-circle" theme="twoTone"/></a>} style={{width: 300}}>
 
               <p>{window.localStorage.LastLoginDate}</p>
@@ -174,7 +174,7 @@ let imgArray = [
         {/*  </div> : <div></div>*/}
         {/*}*/}
         {
-          this.renderUserMessage()
+          // this.renderUserMessage()
         }
         {/*{*/}
         {/*  <div id="buttonFlag">*/}

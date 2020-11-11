@@ -104,6 +104,10 @@ class RoleTable extends Component {
   }
 
   _editItem = (item, test) => {
+    console.log("item")
+    console.log(item)
+    console.log(test)
+    console.log("item")
 
     this.props.setEditItem(item)
     this.props.getCurrentUserRole(item.username)

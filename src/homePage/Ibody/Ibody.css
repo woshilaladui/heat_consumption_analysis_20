@@ -1,0 +1,109 @@
+/*整体布局*/
+#share {
+    background-color: #eff3f6;
+    height: 100%;
+    position: relative;
+    /*整体边框*/
+    padding: 20px 8% 50px;
+}
+
+/*标题css*/
+#share .headtxt {
+    min-width: 1200px;
+    text-align: center;
+    padding: 0px 0px 30px;
+}
+
+#share .headtxt .txt1 {
+    font-size: 30px;
+}
+
+#share .headtxt .txt2 {
+    display: block;
+    font-size: 16px;
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*二级div布局*/
+#share .content {
+    min-width: 1200px;
+    min-height: 660px;
+    padding: 30px 5%;
+    border-radius: 20px;
+    background-color: white;
+}
+
+/*新闻框整体布局*/
+.share .content .row {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/*单项新闻框大布局*/
+#share .content .row .row-1, .row-2, .row-3, .row-4, .row-5, .row-6, .row-7, .row-8 {
+    float: left;
+    /*background-color: white;*/
+    height: 150px;
+    width: 50%;
+    margin: 0;
+    padding: 10px 10px;
+}
+
+/*单项新闻框变色框布局*/
+#share .content .row .box {
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 10px 10px;
+    margin: 0;
+}
+
+/*fa图标的div的整体布局*/
+#share .content .row .icon {
+    float: left;
+    /*flex-direction: row;*/
+    /*align-items: center;*/
+    font-size: 40px;
+}
+
+#share .content .row .icon img {
+    margin-right: 5px;
+    height: 100px;
+}
+
+/*div名为context的布局,给出50px用来放icon(fa图标)*/
+#share .content .row .box .context {
+    /*padding-left: 50px;*/
+    height: 100px;
+}
+
+/*各个小组字体整体设置*/
+#share .content .row .box .context .news_title {
+    font-size: 20px;
+    line-height: 30px;
+    height: 30px;
+    margin: 0;
+    overflow: hidden; /*内容超出后隐藏*/
+    text-overflow: ellipsis; /* 超出内容显示为省略号*/
+    /*white-space: nowrap;!*文本不进行换行*!*/
+}
+
+#share .content .row .box .context .news_content {
+    font-size: 12px;
+    margin: 0;
+    overflow: hidden; /*内容超出后隐藏*/
+    text-overflow: ellipsis; /* 超出内容显示为省略号*/
+    /*white-space: nowrap;!*文本不进行换行*!*/
+    line-height: 20px;
+    height: 60px;
+}
+#share .content .row .box .context hr {
+    /*height: 2px;*/
+    margin: 4px;
+}
+
+#share .content .row .box .context a {
+
+}
