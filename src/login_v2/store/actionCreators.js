@@ -79,7 +79,7 @@ export const getData = (phone,password,verificationCode) => {
                 window.localStorage.user = data.data['user'];
                 window.localStorage.id = data.data['user']['id'];
                 window.localStorage.username = data.data['user']['username'];
-                // window.localStorage.phone = data['user']['phone'];
+                window.localStorage.phone = data.data['user']['phone'];
                 // window.localStorage.password = data['user']['password'];
                 // window.localStorage.state = data['user']['state'];
                 window.localStorage.department = data.data['user']['departmentId'];

@@ -15,6 +15,7 @@ const URL={
     REQUEST_SUBMIT_TEMP_ROLES_V2: Service.ROOT_URL_V2+"/sys/userRole/setUserRoles",//更新用户角色
     REQUEST_SAVE_PERMISSION_V2: Service.ROOT_URL_V2+"/sys/permission/setPermissionByPermissionIds",//保存角色权限
     REQUEST_SUBMIT_TEMP_USER_INFO_V2: Service.ROOT_URL_V2+"/sys/user/updateUser",//更新用户基本信息
+    REQUEST_UPDATE_PASSWORD: Service.ROOT_URL_V2+"/sys/user/updateUserPassword",//更新用户密码
     REQUEST_ENABLED_VALUE_V2: Service.ROOT_URL_V2+"/sys/user/lockUser",//锁定用户
     REQUEST_VERIFICATION_V2: Service.ROOT_URL_V2+"/verification",//获取验证码
     REQUEST_AUTHENTICATION_V2: Service.ROOT_URL_V2+"/authentication",//登陆

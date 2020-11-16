@@ -35,6 +35,8 @@ export function requestUserLogin(
 
 }
 
+
+
 export function requestUserLogin_V2(
   phone,
   password,
@@ -292,6 +294,64 @@ export function requestGetVerificationPhoto() {
       .catch()
   });
 
+}
+
+export function requestChangePassword(id,oldPassword,newPassword) {
+  return new Promise((resolve, reject) => {
+    const formData = new FormData();
+    formData.append('id', id);
+    formData.append('oldPassword', oldPassword);
+    formData.append('password', newPassword);
+    RequestCenter_V2({
+      url: URL.REQUEST_UPDATE_PASSWORD,
+      formData
+    })
+      .then((response) => {
+
+        //直接回传 不进一步解析
+        //TODO 进一步处理数据 requestGetAllUsers
+        resolve(response)
+      })
+      .catch()
+  });
+}
+
+export function requestChangePhoneNum(id,phoneNum) {
+  return new Promise((resolve, reject) => {
+    const formData = new FormData();
+    formData.append('id', id);
+    formData.append('phone', phoneNum);
+    RequestCenter_V2({
+      url: URL.REQUEST_SUBMIT_TEMP_USER_INFO_V2,
+      formData
+    })
+      .then((response) => {
+
+        //直接回传 不进一步解析
+        //TODO 进一步处理数据 requestGetAllUsers
+        resolve(response)
+      })
+      .catch()
+  });
+}
+
+export function requestResetPassword(id) {
+  return new Promise((resolve, reject) => {
+    const formData = new FormData();
+    formData.append('id', id);
+    formData.append('password', "123456");
+    RequestCenter_V2({
+      url: URL.REQUEST_SUBMIT_TEMP_USER_INFO_V2,
+      formData
+    })
+      .then((response) => {
+
+        //直接回传 不进一步解析
+        //TODO 进一步处理数据 requestGetAllUsers
+        resolve(response)
+      })
+      .catch()
+  });
 }
 
 export function requestGetAllRoles_V2() {

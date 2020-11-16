@@ -11,6 +11,7 @@ const defaultState = {
   presentUser: {
   },//当前用户对象
   visible: false,
+  visiblePassword:false,
   editItem: {},
   currentUserRoleArr: [],//当前用户角色的id数组
 }

@@ -85,12 +85,23 @@ class RoleTable extends Component {
             title="操 作"
             width="20%"
             render={(text, record) => (
-              <Button
+              <div>
+                <Button
                 type="primary"
                 onClick={() => this._editItem(record, text)}
+                style={{margin:"0 10px 0 10px"}}
               >
                 编辑
               </Button>
+                <Button
+                  type="primary"
+                  onClick={() => this._editPassword(record, text)}
+                >
+                  重置密码
+                </Button>
+              </div>
+
+
             )}
           />
         </Table>
@@ -111,6 +122,11 @@ class RoleTable extends Component {
 
     this.props.setEditItem(item)
     this.props.getCurrentUserRole(item.username)
+  }
+  _editPassword = (item, test) => {
+
+
+    this.props.resetPassword(item.id)
   }
 }
 
@@ -135,6 +151,9 @@ const mapDispatch = dispatch => ({
   },
   setEditItem(item) {
     dispatch(actionCreators.setEditItem(item))
+  },
+  resetPassword(id) {
+    dispatch(actionCreators.resetPassword(id))
   }
 })
 

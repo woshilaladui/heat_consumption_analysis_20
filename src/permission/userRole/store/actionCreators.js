@@ -2,10 +2,11 @@ import {
     requestGetAllUsers_V2,
     requestChangeEnabledValue_V2,
     requestUserLogin_V2,
+    requestResetPassword,
     requestGetAllRoles_V2,
     requestGetCurrentUserRole_V2,
     requestSubmitTempUserInfo,
-    requestSubmitTempRoles
+    requestSubmitTempRoles,
 } from "../../../http/request/RequestUser";
 import { deepCopy } from "../../../Helper/Copy";
 
@@ -178,7 +179,28 @@ export const getCurrentUserRole = (username) => {
 
     }
 };
+export const resetPassword = (id) =>{
+    return(dispatch) => {
+        requestResetPassword(id)
+          .then((res) =>{
+                console.log(res)
+                console.log(res)
+                console.log(res)
+              if (res.code == 0){
+                  message.info("密码重置为123456")
+              }else {
+                  message.info(res.msg)
+              }
+            }
+          )
 
+    }
+}
+
+// export const resetPassword = id => ({
+//     type: constants.RESET_PASSWORD,
+//     id
+// })
 
 export const setEditItem = item => ({
     type: constants.SET_PERMISSION_ROLE_ITEM,
