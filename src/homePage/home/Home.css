@@ -2,17 +2,22 @@
     margin: 0;
     padding: 0;
 }
+
 #box {
 
     left: 0;
     top: 100px;
     float: left;
-    /*border: 1px solid #eee;*/
-    /*box-shadow: 0 0 5px #ccc;*/
+    margin-left: 30px;
     position: fixed;
-    /*background: red;*/
     z-index: 999;
 }
+
+#box .ant-card-bordered {
+    border-radius:30px !important;
+    box-shadow: 5px 5px 3px #7e7c80 !important;
+}
+
 #showPic{
     position: relative;
 }
