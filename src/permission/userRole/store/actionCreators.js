@@ -183,9 +183,9 @@ export const resetPassword = (id) =>{
     return(dispatch) => {
         requestResetPassword(id)
           .then((res) =>{
-                console.log(res)
-                console.log(res)
-                console.log(res)
+                // console.log(res)
+                // console.log(res)
+                // console.log(res)
               if (res.code == 0){
                   message.info("密码重置为123456")
               }else {
