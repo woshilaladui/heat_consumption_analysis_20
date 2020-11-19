@@ -18,7 +18,10 @@ class RolePermission extends Component {
       roleId: undefined
     }
   }
-  
+  componentDidMount() {
+    this.props.getPermissionList();
+  }
+
   render() {
     const {
       roleId
@@ -105,6 +108,9 @@ const mapDispatch = dispatch => ({
   },
   handleRequestGetCurrentRolePermission(roleId){
     dispatch(action.GetCurrentRolePermission(roleId))
+  },
+  getPermissionList(){
+    dispatch(action.getPermissionList())
   }
 })
 
