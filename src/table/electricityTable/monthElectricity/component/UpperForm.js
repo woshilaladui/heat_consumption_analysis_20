@@ -32,22 +32,6 @@ class UpperForm extends Component {
         }
     }
 
-    //上传当前数据后台
-    /**点击暂存之后上传当前行的数据到后台**start**/
-    postToHome(i) {//i是行数
-        const {data, date, tableName, saveToHome} = this.props;
-        const Data = deepCopy(data)
-        //计算具体下标位置
-        const index = i;
-        saveToHome(
-            date,
-            index,
-            tableName,
-            Data
-        )
-
-    }
-
     /**点击暂存之后上传当前行的数据到后台**end**/
     render() {
         /**
@@ -63,13 +47,20 @@ class UpperForm extends Component {
         const Data = deepCopy(data);
         const value = Data['0']['data'];
 
+        let bgl = null;
+        if(this.props.searchFlag){
+            bgl = value[17]
+        }else{
+            bgl = value[17] * 80;
+        }
+
         Input.defaultProps = {
             disabled:!this.props.searchFlag,
             style:this.props.searchFlag ? { } : {opacity:"1", color:"black"}, 
         }
 
         dataSource.push({
-            key:1,
+            // key:1,
             YT: <span>
                     <Input
                         style={this.changeStyle(value[0])}
@@ -210,19 +201,20 @@ class UpperForm extends Component {
                     <Input
                         style={this.changeStyle(value[17])}
                         defaultValue={''}
-                        value={isNaN(value[17]) ? null : value[17]}
+                        value={isNaN(bgl) ? null : bgl}
                         onChange={event => this.onInputNumberChange2(event.target.value, 0, 17)}
                     />
-                </span>,
-            constant_save:<Button type='primary' onClick={() => this.postToHome(0)}>暂存</Button>
+                </span>
         })
 
         /**中间八行的数据输入**end**/
 
         return (
             <Table bordered pagination={false} dataSource={dataSource}>
-                <ColumnGroup title="烧成车间">
+                <ColumnGroup title="">
                     <Column title="窑头进线柜" dataIndex="YT" key="YT" />
+                </ColumnGroup>
+                <ColumnGroup title="烧成车间">
                     <Column title="窑头变压器" dataIndex="YTBY" key="YTBY" />
                     <Column title="窑头软起动变压器" dataIndex="YTQD" key="YTQD" />
                     <Column title="窑头变频器变压器" dataIndex="YTBP" key="YTBP" />
@@ -230,8 +222,10 @@ class UpperForm extends Component {
                     <Column title="煤风机" dataIndex="YTFJ" key="YTFJ" />
                     <Column title="窑头尾排风机" dataIndex="YTWP" key="YTWP" />
                 </ColumnGroup>
-                <ColumnGroup title="生料车间">
+                <ColumnGroup title="">
                     <Column title="窑尾进线柜" dataIndex="YW" key="YW" />
+                </ColumnGroup>
+                <ColumnGroup title="生料车间">
                     <Column title="生料变压器" dataIndex="YWSL" key="YWSL" />
                     <Column title="窑尾变压器" dataIndex="YWBY" key="YWBY" />
                     <Column title="窑主机" dataIndex="YWZ" key="YWZ" />
@@ -242,10 +236,13 @@ class UpperForm extends Component {
                 </ColumnGroup>
                 <ColumnGroup title="原料车间">
                     <Column title="原料变压器" dataIndex="YL" key="YL" />
+                </ColumnGroup>
+                <ColumnGroup title="">
                     <Column title="水泵房" dataIndex="SBF" key="SBF" />
+                </ColumnGroup>
+                <ColumnGroup title="">
                     <Column title="办公楼" dataIndex="BGL" key="BGL" />
                 </ColumnGroup>
-                <Column title="暂存" dataIndex="constant_save" key="constant_save" />
             </Table>
         );
     }

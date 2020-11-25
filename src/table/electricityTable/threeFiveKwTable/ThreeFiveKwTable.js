@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react';
 import ButtonComfirmBox from './component/ButtonComfirmBox';
 import TimeShow from './component/TimeShow';
 import UpperForm from './component/UpperForm';
+import BottomForm from './component/BottomForm';
 import { connect } from 'react-redux';
 import * as actionCreators from './store/actionCreators';
 import {requestCheckPermission} from "../../../http/request/RequestUser"
@@ -74,6 +75,7 @@ class ThreeFiveKwTable extends Component {
                         }}
                     >
                        <UpperForm/>
+                       {this.props.searchFlag ? null : (<BottomForm />)}
                     </div>
 					<div
 	                    style={{

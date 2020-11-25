@@ -2,9 +2,9 @@ import React, {Component, Fragment} from 'react';
 import ButtonComfirmBox from './component/ButtonComfirmBox';
 import TimeShow from './component/TimeShow';
 import UpperForm from './component/UpperForm';
+import BottomForm from './component/BottomForm';
 import { connect } from 'react-redux';
 import * as actionCreators from './store/actionCreators';
-import {requestCheckPermission} from "../../../http/request/RequestUser"
 import {deepCopy} from "../../../Helper/Copy";
 
 import moment from 'moment';
@@ -69,6 +69,7 @@ class MonthElectricity extends Component {
                         }}
                     >
                        <UpperForm/>
+                       {this.props.searchFlag ? null : (<BottomForm />)}
                     </div>
 					<div
 	                    style={{
@@ -88,7 +89,6 @@ class MonthElectricity extends Component {
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        //date:state.getIn(['monthElectricity', 'date']),
         data:state.getIn(['monthElectricity', 'data']),
         requestFlag:state.getIn(['monthElectricity', 'requestFlag']),
         person:state.getIn(['monthElectricity', 'person']),
