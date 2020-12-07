@@ -93,6 +93,8 @@ export const getData = (phone,password,verificationCode) => {
                 window.localStorage.LastLoginDate= data.data.userLoginLog.LastLoginDate;
                 window.localStorage.todoList= data.data.userLoginLog.todoList;
                 window.localStorage.roles = data.data['roles'];
+                // message.info(typeof(window.localStorage.roles))
+                // message.info(typeof(data.data['roles']))
                 // window.localStorage.time = d.getTime();
                     window.location.href='/'
                     }else {

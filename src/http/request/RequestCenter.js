@@ -171,6 +171,7 @@ export function RequestCenter_V2(
                     if (data['code'] === Mark.SUCCESS) {//判定是否成功
                         resolve(deepCopy(data));
                     } else {
+                      resolve(deepCopy(data));
                         //TODO 错误
                     }
                 })

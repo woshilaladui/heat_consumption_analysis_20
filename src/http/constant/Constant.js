@@ -25,6 +25,7 @@ const URL={
     REQUEST_LOGOUT_V2: Service.ROOT_URL_V2+"/invalidateToken",//注销用户
     REQUEST_GET_CURRENT_ROLE_PERMISSION_V2: Service.ROOT_URL_V2+"/sys/permission/getRolePermissionByRoleId",//通过用户Id来查询其权限
     REQUEST_GET_CURRENT_PERMISSION_LIST_V2: Service.ROOT_URL_V2+"/sys/permission/getPermissionByUsername",//通过用户Id来查询其权限
+    REQUEST_SUBMIT_NEW_USER_V2: Service.ROOT_URL_V2+"/sys/user/addUser",//通过用户Id来查询其权限
 
     /*********************************用户类请求地址*************************************/
     REQUEST_LOGIN:Service.ROOT_URL + "/user/login",

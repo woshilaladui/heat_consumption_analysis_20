@@ -79,7 +79,7 @@ class changePassword extends Component{
     return(
       <div >
         <Form {...formItemLayout} onSubmit={this.handleSubmit}  style={{marginTop:'100px'}}>
-          <Form.Item  label="oldPassword" hasFeedback>
+          <Form.Item  label="旧密码" hasFeedback>
             {getFieldDecorator('oldPassword', {
               rules: [
                 {
@@ -92,7 +92,7 @@ class changePassword extends Component{
               ],
             })(<Input.Password />)}
           </Form.Item>
-          <Form.Item label="newPassword" hasFeedback>
+          <Form.Item label="新密码" hasFeedback>
             {getFieldDecorator('newPassword', {
               rules: [
                 {
@@ -105,7 +105,7 @@ class changePassword extends Component{
               ],
             })(<Input.Password />)}
           </Form.Item>
-          <Form.Item label="Confirm Password" hasFeedback>
+          <Form.Item label="确认密码" hasFeedback>
             {getFieldDecorator('confirm', {
               rules: [
                 {

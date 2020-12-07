@@ -16,16 +16,19 @@ class RoleTable extends Component {
 
   render() {
     const {data} = this.props
+    // const dataReverse = data.reverse();
     return (
-      <div>
+      <div style={{height:'100%'}}>
 
         <Table
           rowKey="id"
           dataSource={data}
-          pagination={false}
+          pagination={true}
           bordered={true}
+          // sortDirections=
         >
           <Column
+            defaultSortOrder="ascend"
             title="用户ID"
             dataIndex="id"
           />
@@ -64,11 +67,7 @@ class RoleTable extends Component {
             dataIndex="departmentId"
             render={
               (text, record) => {
-                console.log("开始")
-                console.log("text" + text)
-                console.log("record" + record)
-                console.log(record)
-                console.log("开始")
+                //record拿到这一行的数据
                 if (record.departmentId === 1) {
                   return '化验室'
                 } else if (record.departmentId === 2) {
@@ -105,6 +104,15 @@ class RoleTable extends Component {
             )}
           />
         </Table>
+        <Button
+          onClick={() => this.props.changeNewUserModal(false)}
+          style={{
+          float: "right",
+          margin: "20px 50px 20px 0px",
+          display: "inline-block"
+        }}
+          // onClick={}
+        >新增用户</Button>
       </div>
     )
   }
@@ -115,10 +123,10 @@ class RoleTable extends Component {
   }
 
   _editItem = (item, test) => {
-    console.log("item")
-    console.log(item)
-    console.log(test)
-    console.log("item")
+    // console.log("item")
+    // console.log(item)
+    // console.log(test)
+    // console.log("item")
 
     this.props.setEditItem(item)
     this.props.getCurrentUserRole(item.username)
@@ -151,6 +159,9 @@ const mapDispatch = dispatch => ({
   },
   setEditItem(item) {
     dispatch(actionCreators.setEditItem(item))
+  },
+  changeNewUserModal(item){
+    dispatch(actionCreators.ChangeNewUserVisible(item))
   },
   resetPassword(id) {
     dispatch(actionCreators.resetPassword(id))
