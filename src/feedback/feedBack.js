@@ -5,6 +5,8 @@ import WrappedRegistrationForm from './detail/Detail';
 
 const {Header, Content} = Layout;
 
+//test
+
 class feedBack extends Component{
     render(){
         return (
