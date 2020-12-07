@@ -79,7 +79,7 @@ export const getData = (phone,password,verificationCode) => {
                 window.localStorage.user = data.data['user'];
                 window.localStorage.id = data.data['user']['id'];
                 window.localStorage.username = data.data['user']['username'];
-                // window.localStorage.phone = data['user']['phone'];
+                window.localStorage.phone = data.data['user']['phone'];
                 // window.localStorage.password = data['user']['password'];
                 // window.localStorage.state = data['user']['state'];
                 window.localStorage.department = data.data['user']['departmentId'];
@@ -93,6 +93,8 @@ export const getData = (phone,password,verificationCode) => {
                 window.localStorage.LastLoginDate= data.data.userLoginLog.LastLoginDate;
                 window.localStorage.todoList= data.data.userLoginLog.todoList;
                 window.localStorage.roles = data.data['roles'];
+                // message.info(typeof(window.localStorage.roles))
+                // message.info(typeof(data.data['roles']))
                 // window.localStorage.time = d.getTime();
                     window.location.href='/'
                     }else {

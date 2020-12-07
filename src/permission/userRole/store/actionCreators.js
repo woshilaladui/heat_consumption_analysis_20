@@ -2,10 +2,12 @@ import {
     requestGetAllUsers_V2,
     requestChangeEnabledValue_V2,
     requestUserLogin_V2,
+    requestResetPassword,
     requestGetAllRoles_V2,
     requestGetCurrentUserRole_V2,
     requestSubmitTempUserInfo,
-    requestSubmitTempRoles
+    requestSubmitTempRoles,
+    requestSubmitNewUserInfo
 } from "../../../http/request/RequestUser";
 import { deepCopy } from "../../../Helper/Copy";
 
@@ -31,6 +33,11 @@ const updateCurrentVisible = ({ data }) => ({
     data: data
 });
 
+const updateNewUserCurrentVisible = ({ data }) => ({
+    type: constants.UPDATE_NEW_USER_CURRENT_VISIBLE,
+    data: data
+});
+
 export const updatePresentUserData = (presentUserData) => ({
     type: constants.UPDATE_PRESENT_USER,
     data: presentUserData
@@ -50,12 +57,28 @@ export const ChangeVisible = (visible) => {
         }
     }
 }
+
+export const ChangeNewUserVisible = (visible) => {
+
+    return (dispatch) => {
+
+        if (visible) {
+            dispatch(updateNewUserCurrentVisible({ data: false }))
+        } else {
+            dispatch(updateNewUserCurrentVisible({ data: true }))
+        }
+    }
+}
 //submitTempInfo submitRolesSelect
 
 export const submitRolesSelect = (id, rolesArr) => {
     return (dispatch) => {
+        console.log("执行了submitRolesSelect")
         requestSubmitTempRoles(id, rolesArr)
             .then((response) => {
+                console.log("response")
+                console.log(response)
+                console.log("response")
                 if (response['code'] === 0) {
                     message.info(response.msg)
                 } else {
@@ -64,6 +87,18 @@ export const submitRolesSelect = (id, rolesArr) => {
             })
     }
 };
+
+export const submitNewUser = (username,phone,department,detail) => {
+    return (dispatch) => {
+        requestSubmitNewUserInfo(username,phone,department,detail)
+          .then((res) => {
+              message.info(res.msg)
+          })
+          .then(() => {
+              window.location.reload();
+          })
+    }
+}
 
 export const submitTempInfo = (id, username, phone) => {
     return (dispatch) => {
@@ -178,7 +213,28 @@ export const getCurrentUserRole = (username) => {
 
     }
 };
+export const resetPassword = (id) =>{
+    return(dispatch) => {
+        requestResetPassword(id)
+          .then((res) =>{
+                // console.log(res)
+                // console.log(res)
+                // console.log(res)
+              if (res.code == 0){
+                  message.info("密码重置为123456")
+              }else {
+                  message.info(res.msg)
+              }
+            }
+          )
 
+    }
+}
+
+// export const resetPassword = id => ({
+//     type: constants.RESET_PASSWORD,
+//     id
+// })
 
 export const setEditItem = item => ({
     type: constants.SET_PERMISSION_ROLE_ITEM,
@@ -189,3 +245,5 @@ export const updateRoleList = item => ({
     type: constants.UPDATE_PERMISSION_ROLE_LIST,
     item
 })
+
+

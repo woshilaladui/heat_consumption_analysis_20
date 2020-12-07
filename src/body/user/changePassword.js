@@ -1,7 +1,33 @@
 import React,{Component} from "react";
 import {Form, Input, Button, message} from "antd";
+import {requestChangePassword} from "../../http/request/RequestUser";
 
- class changePassword extends Component{
+class changePassword extends Component{
+   state = {
+     confirmDirty: false,
+     autoCompleteResult: [],
+     email: null,
+     name: null,//姓名
+     password: null,//密码
+     errorMessage: null,
+     tel: null,
+     messageInfo: [],
+   };
+   /**确认密码框失去焦点时触发**/
+   handleConfirmBlur = e => {
+     const value = e.target.value;
+     this.setState({confirmDirty: this.state.confirmDirty || !!value});
+     if (value !== this.state.password) {
+       this.setState({
+         errorMessage: '两次输入的密码不同'
+       })
+
+     } else {
+       this.setState({
+         errorMessage: null
+       })
+     }
+   };
    handleSubmit = e => {
      e.preventDefault();
      this.props.form.validateFieldsAndScroll((err, values) => {
@@ -11,30 +37,12 @@ import {Form, Input, Button, message} from "antd";
            message.error('两次密码不一样,请重新输入')
            return
          }
-         const jsonData = {
-           oldPassword: values.confirm,
-           newPassword: values.newPassword,
-         }
-         fetch("/api/UserManage/changePassword", {
-           method: 'POST',
-           credentials: "include",
-           body: JSON.stringify(jsonData),
-           headers: {
-             'Content-Type': 'application/json',
-             'authorization': window.localStorage.authorization,
-           }
-         })
-           .then(res => res.json())
-           .then(data => {
-             console.log(data)
-             if (data['code'] === 0) //判定是否成功
-               message.info('修改成功！')
-             else if (data['code'] === 1)
-               message.error('密码错误，修改失败！')
-             else
-               message.error('修改失败！')
+         requestChangePassword(window.localStorage.id,values.oldPassword,values.newPassword)
+           .then((res)=>{
+             console.log(res)
+             message.info(res.msg)
            })
-           .catch(error => console.error('Error:', error))
+
        }
      });
    };
@@ -43,10 +51,12 @@ import {Form, Input, Button, message} from "antd";
       labelCol: {
         xs: { span: 24 },
         sm: { span: 8 },
+        md: { span: 9 }
       },
       wrapperCol: {
         xs: { span: 24 },
         sm: { span: 16 },
+        md: { span: 5 }
       },
     };
     const tailFormItemLayout = {
@@ -59,13 +69,17 @@ import {Form, Input, Button, message} from "antd";
           span: 16,
           offset: 8,
         },
+        md: {
+          span:10,
+          offset:9,
+        }
       },
     };
     const { getFieldDecorator } = this.props.form;
     return(
       <div >
-        <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-          <Form.Item  label="oldPassword" hasFeedback>
+        <Form {...formItemLayout} onSubmit={this.handleSubmit}  style={{marginTop:'100px'}}>
+          <Form.Item  label="旧密码" hasFeedback>
             {getFieldDecorator('oldPassword', {
               rules: [
                 {
@@ -78,7 +92,7 @@ import {Form, Input, Button, message} from "antd";
               ],
             })(<Input.Password />)}
           </Form.Item>
-          <Form.Item label="newPassword" hasFeedback>
+          <Form.Item label="新密码" hasFeedback>
             {getFieldDecorator('newPassword', {
               rules: [
                 {
@@ -91,7 +105,7 @@ import {Form, Input, Button, message} from "antd";
               ],
             })(<Input.Password />)}
           </Form.Item>
-          <Form.Item label="Confirm Password" hasFeedback>
+          <Form.Item label="确认密码" hasFeedback>
             {getFieldDecorator('confirm', {
               rules: [
                 {

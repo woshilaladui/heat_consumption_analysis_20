@@ -41,10 +41,10 @@ class PermissionTable extends Component {
             title="菜单名称"
             dataIndex="name"
           />
-          <Column
-            title="排序"
-            dataIndex="order"
-          />
+          {/*<Column*/}
+          {/*  title="排序"*/}
+          {/*  dataIndex="order"*/}
+          {/*/> */}
           <Column
             title="菜单名称"
             dataIndex="request"

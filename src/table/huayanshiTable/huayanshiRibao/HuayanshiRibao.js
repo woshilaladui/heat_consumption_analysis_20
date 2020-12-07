@@ -32,6 +32,7 @@ export default class HuayanshiRibao extends React.Component {
 
     render() {
                 return (
+                  <div>
                     <div ref={(el) => this.refs = el}>
                         <br/>
                         <h1 className="huayanshi">化验室日报</h1>
@@ -62,19 +63,18 @@ export default class HuayanshiRibao extends React.Component {
                                 display: "inline-block"
                             }}
                         >
-                          <ReactToPrint
-                            trigger={
-                              () => <a href="#">
-                                <Button type='primary' style={{marginTop: 10}}>打印</Button>
-                              </a>
-                            }
-                            content={() => this.refs}
-                          />
-
                         </div>
 
                     </div>
-
+                    <ReactToPrint
+                      trigger={
+                        () => <a href="#">
+                          <Button type='primary' style={{marginTop: 10,float:'right'}}>打印</Button>
+                        </a>
+                      }
+                      content={() => this.refs}
+                    />
+                  </div>
                 );
             }
         }

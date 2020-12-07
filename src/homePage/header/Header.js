@@ -25,7 +25,7 @@ class Header extends Component {
     componentDidMount = () => {
         // console.log("console"+window.localStorage.department)
 
-        if(window.localStorage.department == 4){
+        if(window.localStorage.id == 1){
            this.setState({
                showPermissionCtr: ''
            })

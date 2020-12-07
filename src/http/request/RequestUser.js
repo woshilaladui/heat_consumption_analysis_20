@@ -35,6 +35,7 @@ export function requestUserLogin(
 
 }
 
+
 export function requestUserLogin_V2(
   phone,
   password,
@@ -65,17 +66,19 @@ export function requestUserLogin_V2(
   });
 
 }
-export function requestLogout(){
+
+export function requestLogout() {
   return new Promise((resolve, reject) => {
     RequestCenter({
       url: URL.REQUEST_LOGOUT_V2,
       // formData:null,
     })
       .then(response => {
-      resolve(response)
+        resolve(response)
       })
   })
 }
+
 export function requestRegister(
   username,
   phone,
@@ -136,13 +139,19 @@ export function requestGetAllUsers_V2() {
 //
 export function requestSubmitTempRoles(id, rolesArr) {
   return new Promise((resolve, reject) => {
-
+    console.log("执行了requestSubmitTempRoles")
+    console.log(rolesArr)
+    console.log(getRolesJsonData(id, rolesArr))
     RequestCenter_V2({
       url: URL.REQUEST_SUBMIT_TEMP_ROLES_V2,
       jsonData: getRolesJsonData(id, rolesArr),
       flag: RequestMethod.jsonDta,
     })
       .then((response) => {
+        console.log(response)
+        console.log(response)
+        console.log(response)
+        console.log(response)
 
         //直接回传 不进一步解析
         //TODO 进一步处理数据 requestGetAllUsers
@@ -294,6 +303,64 @@ export function requestGetVerificationPhoto() {
 
 }
 
+export function requestChangePassword(id, oldPassword, newPassword) {
+  return new Promise((resolve, reject) => {
+    const formData = new FormData();
+    formData.append('id', id);
+    formData.append('oldPassword', oldPassword);
+    formData.append('password', newPassword);
+    RequestCenter_V2({
+      url: URL.REQUEST_UPDATE_PASSWORD,
+      formData
+    })
+      .then((response) => {
+
+        //直接回传 不进一步解析
+        //TODO 进一步处理数据 requestGetAllUsers
+        resolve(response)
+      })
+      .catch()
+  });
+}
+
+export function requestChangePhoneNum(id, phoneNum) {
+  return new Promise((resolve, reject) => {
+    const formData = new FormData();
+    formData.append('id', id);
+    formData.append('phone', phoneNum);
+    RequestCenter_V2({
+      url: URL.REQUEST_SUBMIT_TEMP_USER_INFO_V2,
+      formData
+    })
+      .then((response) => {
+
+        //直接回传 不进一步解析
+        //TODO 进一步处理数据 requestGetAllUsers
+        resolve(response)
+      })
+      .catch()
+  });
+}
+
+export function requestResetPassword(id) {
+  return new Promise((resolve, reject) => {
+    const formData = new FormData();
+    formData.append('id', id);
+    formData.append('password', 123456);
+    RequestCenter_V2({
+      url: URL.REQUEST_SUBMIT_TEMP_USER_INFO_V2,
+      formData
+    })
+      .then((response) => {
+
+        //直接回传 不进一步解析
+        //TODO 进一步处理数据 requestGetAllUsers
+        resolve(response)
+      })
+      .catch()
+  });
+}
+
 export function requestGetAllRoles_V2() {
   return new Promise((resolve, reject) => {
 
@@ -338,12 +405,58 @@ export function requestSavePermission(data) {
       jsonData: data,
       flag: RequestMethod.jsonDta
     })
-      .then(response =>{
+      .then(response => {
           resolve(response)
         }
       )
   })
 }
+
+export function requestSubmitNewUserInfo(username,phone,department,detail) {
+  return new Promise((resolve, reject) => {
+
+    const formData = new FormData();
+    // const departmentID
+    formData.append("username", username)
+    formData.append("phone", phone)
+    formData.append("password", 123456)
+    formData.append("departmentId", department)
+    formData.append("detail", detail)
+    RequestCenter_V2({
+      url: URL.REQUEST_SUBMIT_NEW_USER_V2,
+      method: 'POST',
+      formData: formData
+    })
+      .then((response) => {
+
+        //直接回传 不进一步解析
+        //TODO 进一步处理数据 requestGetAllUsers
+        resolve(response)
+      })
+      .catch()
+  })
+}
+
+export function requestGetPermissionList() {
+  return new Promise((resolve, reject) => {
+    const formData = new FormData();
+    formData.append("username", "admin")
+    RequestCenter_V2({
+      url: URL.REQUEST_GET_CURRENT_PERMISSION_LIST_V2,
+      method: 'POST',
+      formData: formData
+    })
+      .then((response) => {
+
+        //直接回传 不进一步解析
+        //TODO 进一步处理数据 requestGetAllUsers
+        resolve(response)
+      })
+      .catch()
+  })
+}
+
+
 export function requestGetCurrentRolePermission(roleID) {
   return new Promise((resolve, reject) => {
     const formData = new FormData();

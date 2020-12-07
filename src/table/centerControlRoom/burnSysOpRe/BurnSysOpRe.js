@@ -60,12 +60,17 @@ class BurnSysOpRe extends Component {
         console.log("烧成un");
     }
 
-
+  // 打印
+  print(){
+    window.document.body.innerHTML = window.document.getElementById('billDetails').innerHTML;
+    window.print();
+    window.location.reload();
+  }
     render() {
         console.log("烧成render:searchFlag"+this.props.searchFlag);
         return (
             <Fragment/* style={{width: "100%", height: "100%"}}*/ >
-                <div style={{padding: '1%'}} ref={(el) => this.refs = el}>
+                <div style={{padding: '1%'}} ref={(el) => this.refs = el} id={'billDetails'}>
                     <h1 align="center">福石水泥3000t/d中控室烧成系统运行记录</h1>
                     {/*表单最上的时间及人员显示*/}
                     <TimeShow
@@ -83,6 +88,7 @@ class BurnSysOpRe extends Component {
                         <BottomForm/>
                     </div>
                 </div>
+              <Button onClick={this.print.bind(this)} style={{marginRight: '5px'}}>打印</Button>
               <ReactToPrint
                 trigger={
                   () => <a href="#">

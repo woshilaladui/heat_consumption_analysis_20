@@ -38,19 +38,17 @@ export default class AppIndex extends Component {
     // }
     render() {
         return (
-            <Layout>
 
-                <Content style={{margin: '1%', overflow: 'auto'}}>
+
+
                     <div style={{padding: 24, background: '#fff', height: '100%'}}>
                         <div className="choose">
                             {this.state.choose_arr[this.props.choose]}
                         </div>
                     </div>
-                </Content>
-                <Footer style={{textAlign: 'center', color: 'white', backgroundColor: 'black'}}>
-                    SmartLab Design ©2018 Powered By 武汉理工大学智能技术实验室
-                </Footer>
-            </Layout>
+
+
+
         )
     }
 }

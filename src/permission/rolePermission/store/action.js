@@ -1,9 +1,10 @@
 import {
   SET_ROLE_PERMISSION_TABLE_SELECTED_ID,
   SET_ROLE_PERMISSION_TABLE_SELECTED_ALL,
-  SET_ROLE_PERMISSION_TABLE_SELECTED_ID_CURRENT
+  SET_ROLE_PERMISSION_TABLE_SELECTED_ID_CURRENT,
+  SET_PERMISSION_LIST_CURRENT
 } from './constant'
-import {requestSavePermission} from "../../../http/request/RequestUser";
+import {requestSavePermission,requestGetPermissionList} from "../../../http/request/RequestUser";
 import {message} from "antd";
 import {requestGetCurrentRolePermission} from '../../../http/request/RequestUser';
 
@@ -21,6 +22,20 @@ const setCurrentPermission = permissionIds => ({
   type: SET_ROLE_PERMISSION_TABLE_SELECTED_ID_CURRENT,
   permissionIds
 })
+const setCurrentPermissionList = permissionList => ({
+  type: SET_PERMISSION_LIST_CURRENT,
+  permissionList
+})
+
+export const getPermissionList = () => {
+  return (dispatch) => {
+    requestGetPermissionList()
+      .then((response) => {
+        dispatch(setCurrentPermissionList([response.data]))
+
+    })
+  }
+}
 
 //保存信息
 export const savePermission = data => {

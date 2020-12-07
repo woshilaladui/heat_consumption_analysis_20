@@ -152,7 +152,7 @@ export default class Ibody_share extends Component {
           </div>
           <div className="content ">
             {/*滚动到指定位置显示*/}
-            <OverPack playScale={[0.2, 0.5]}>
+            {/*<OverPack playScale={[0.2, 0.5]}>*/}
               {/*动画展示效果*/}
               <QueueAnim className="row"
                          key="queue" delay={100} leaveReverse={true}
@@ -185,7 +185,7 @@ export default class Ibody_share extends Component {
                   }
                 </div>
               </QueueAnim>
-            </OverPack>
+            {/*</OverPack>*/}
           </div>
         </div>
         <Drawer

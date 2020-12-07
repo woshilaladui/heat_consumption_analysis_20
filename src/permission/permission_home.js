@@ -52,8 +52,6 @@ class PermissionHome extends React.Component {
                                  // display={this.state.display}
                         />
                     </Header>
-                </Layout>
-                <Layout>
                     <Content style={{margin: '1% 1% 0 1%', overflow: 'auto', backgroundColor: 'white'}}>
                         <Component choose={this.state.choose_num}/>
                     </Content>

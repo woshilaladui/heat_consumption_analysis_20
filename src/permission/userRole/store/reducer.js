@@ -11,6 +11,8 @@ const defaultState = {
   presentUser: {
   },//当前用户对象
   visible: false,
+  visiblePassword:false,
+  visibleNewUser:false,
   editItem: {},
   currentUserRoleArr: [],//当前用户角色的id数组
 }
@@ -40,6 +42,11 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         visible: action.data
+      }
+    case constants.UPDATE_NEW_USER_CURRENT_VISIBLE:
+      return {
+        ...state,
+        visibleNewUser: action.data
       }
     case constants.UPDATE_PRESENT_USER:
       return {
