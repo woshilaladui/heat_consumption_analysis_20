@@ -7,11 +7,12 @@
 export function roleJudge(roleString){
     //先转成数组
     let rolesArr = roleString.split(',');
+    console.log(rolesArr);
     if(
-        rolesArr.includes(1) || 
-        rolesArr.includes(2) || 
-        rolesArr.includes(3) || 
-        rolesArr.includes(4)
+        rolesArr.includes("1") || 
+        rolesArr.includes("2") || 
+        rolesArr.includes("3") || 
+        rolesArr.includes("4")
     ){
         //非普通员工
         return false;

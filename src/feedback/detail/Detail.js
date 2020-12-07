@@ -30,8 +30,10 @@ class Detail extends Component{
         let resDisplay = null;
         let residences = [];
         
-        let flag = roleJudge(window.localStorage.roles);
+        console.log(window.localStorage.roles);
 
+        let flag = roleJudge(window.localStorage.roles);
+        console.log(flag);
         if(!flag){
             resDisplay = '';
             residences = [
