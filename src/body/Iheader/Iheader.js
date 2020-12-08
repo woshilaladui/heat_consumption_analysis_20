@@ -35,7 +35,7 @@ class Iheader extends Component {
     if (rolesArr.indexOf('1') != -1) {//中控室主任
       displayArr[0] = '';
       displayArr[1] = '';
-      displayArr[6] = '';
+      // displayArr[6] = ''; //设置合格标准
     }
     if (rolesArr.indexOf('2') != -1) {//总工程师
       displayArr[0] = '';
@@ -66,12 +66,6 @@ class Iheader extends Component {
     if (rolesArr.indexOf('50') != -1) {//中控室操作员
       displayArr[0] = '';
       displayArr[1] = '';
-      displayArr[2] = '';
-      displayArr[3] = '';
-      displayArr[4] = '';
-      displayArr[5] = '';
-      displayArr[6] = '';
-      displayArr[7] = '';
     }
     if (rolesArr.indexOf('51') != -1) {//实地操作员
       displayArr[0] = '';
