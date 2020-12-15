@@ -3,7 +3,7 @@ import {deepCopy} from "./Copy";
 import {HuaYSOrder_CMRYSL, HuaYSOrder_RMC, AnalysisOrder_YS, AnalysisOrder_RawMaterial} from "../Constant/TableOrder";
 
 import {TableName} from "../Constant/TableNameConstant";
-
+import {HuaYSOrder_JC} from '../Constant/TableOrder'
 /*******************************************荧光分析表格*****************************************************/
 
 //计算进厂石灰石原材料分析化学报告单 的合计
@@ -382,6 +382,7 @@ export function calculate_pass_rate_cmsl(
  */
 export function autoCalculate_average(data, timeChoose, indexL, tableWidth) {
 
+
   //i = 8 18 28
   let sum = Array(3);
 
@@ -401,7 +402,22 @@ export function autoCalculate_average(data, timeChoose, indexL, tableWidth) {
   for (let i = 0; i < tableWidth; i++) {
     inputCount[i] = Array(tableWidth).fill(0);
   }
+//计算IL的平均值
+  for (let i = 0; i < 8; i++) {
+    let index = i + timeChoose * 10;
+    if (!isNaN(parseFloat(data[index]['data'][HuaYSOrder_JC.IL]))
+      &&
+      (parseFloat(data[index]['data'][HuaYSOrder_JC.IL]) != null)
+      &&
+      data[index]['data'][HuaYSOrder_JC.IL] != ''
+    ) {
+      inputCount[timeChoose][HuaYSOrder_JC.IL]++;
 
+      sum[timeChoose][HuaYSOrder_JC.IL] += data[index]['data'][HuaYSOrder_JC.IL];
+    }
+
+
+  }//end for
   for (let i = 0; i < 8; i++) {
 
     let index = i + timeChoose * 10;
@@ -422,6 +438,7 @@ export function autoCalculate_average(data, timeChoose, indexL, tableWidth) {
 
   //计算平均值
   data[8 + timeChoose * 10]['data'][indexL] = ((sum[timeChoose][indexL] * 1.0) / inputCount[timeChoose][indexL]).toFixed(3);
+  data[8 + timeChoose * 10]['data'][HuaYSOrder_JC.IL] = ((sum[timeChoose][HuaYSOrder_JC.IL] * 1.0) / inputCount[timeChoose][HuaYSOrder_JC.IL]).toFixed(3);
 
 
 }

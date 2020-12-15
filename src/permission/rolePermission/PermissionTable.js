@@ -38,6 +38,7 @@ class PermissionTable extends Component {
           // expandedRowKeys={[1,10]}
         >
           <Column
+            align ="left"
             title="菜单名称"
             dataIndex="name"
           />
@@ -46,10 +47,12 @@ class PermissionTable extends Component {
           {/*  dataIndex="order"*/}
           {/*/> */}
           <Column
+            align ="left"
             title="菜单名称"
             dataIndex="request"
           />
           <Column
+            align ="left"
             title="类型"
             dataIndex="type"
           />
