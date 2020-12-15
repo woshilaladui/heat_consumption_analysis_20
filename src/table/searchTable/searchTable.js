@@ -126,7 +126,7 @@ class SearchTable extends Component {
         //this.props.changeSearchFlag(false);
         //this.props.handleChangeTime(moment().format("YYYY/MM/DD"));
     }
-
+  
     componentDidMount() {
 
         this.props.changeSearchFlag(false);
