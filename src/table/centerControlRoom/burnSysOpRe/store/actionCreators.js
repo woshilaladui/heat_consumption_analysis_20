@@ -62,9 +62,12 @@ export const getData = (date, tableName, data,flag) => {
                     newData,
                     tableName
                 );
-                dispatch(updateData({//将获取到的数据进行转发
-                    data: result
-                }));
+                
+                if(result != 0){
+                    dispatch(updateData({//将获取到的数据进行转发
+                        data: result
+                    }));    
+                }
             
             }
 

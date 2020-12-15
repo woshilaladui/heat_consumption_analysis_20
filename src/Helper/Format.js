@@ -1,61 +1,41 @@
 import {TableName} from "../Constant/TableNameConstant";
 
 export function HuaYanShiFormat(resultData, responseData, tableName) {
-
-
-    //校验tableName
-    //  if (responseData.tableName === tableName) {
-
-    //解析数据data
-    for (let i = 0; i < responseData["huaYanShis"].length; i++) {
-
-        let str = responseData["huaYanShis"][i]['data'].split(',');//取出data中的数据
-
-
-        let arr = [];//临时的number数据数组
-
-        for (let j = 0; j < str.length; j++) {
-
-            if (isNaN(str[i])) {//非数字
-                arr[j] = str[j];
-            }else {
-                arr[j] = parseFloat(str[j]);
+    if(responseData["huaYanShis"].length != 0){
+        //校验tableName
+        //  if (responseData.tableName === tableName) {
+        //解析数据data
+        for (let i = 0; i < responseData["huaYanShis"].length; i++) {
+            let str = responseData["huaYanShis"][i]['data'].split(',');//取出data中的数据
+            let arr = [];//临时的number数据数组
+            for (let j = 0; j < str.length; j++) {
+                if (isNaN(str[i])) {//非数字
+                    arr[j] = str[j];
+                }else {
+                    arr[j] = parseFloat(str[j]);
+                }
             }
-
-
+            //相当于替换了原来字符串数组，将其变成Number数组
+            responseData["huaYanShis"][i]['data'] = arr;
+            let data_index = responseData["huaYanShis"][i]['index'];//取出所在下标
+            //将结果赋值到对应位置
+            resultData[data_index] = responseData["huaYanShis"][i];
         }
-
-        //相当于替换了原来字符串数组，将其变成Number数组
-        responseData["huaYanShis"][i]['data'] = arr;
-
-        let data_index = responseData["huaYanShis"][i]['index'];//取出所在下标
-
-
-        //将结果赋值到对应位置
-        resultData[data_index] = responseData["huaYanShis"][i];
-
-
-    }
-
-    if(isHaveStandard(tableName)){
-        //解析标准standard
-        let arr_startValue = [], arr_endValue = [];
-
-        let str_startValue = responseData["standard"]["startValue"].split(',');
-        let str_endValue = responseData["standard"]["endValue"].split(',');
-
-
-        for (let i = 0; i < str_startValue.length; i++)
-            arr_startValue[i] = parseFloat(str_startValue[i]);
-
-
-        for (let i = 0; i < str_endValue.length; i++)
-            arr_endValue[i] = parseFloat(str_endValue[i]);
-
-
-        return [resultData, arr_startValue, arr_endValue]
-    }else {
-        return [resultData];
+        if(isHaveStandard(tableName)){
+            //解析标准standard
+            let arr_startValue = [], arr_endValue = [];
+            let str_startValue = responseData["standard"]["startValue"].split(',');
+            let str_endValue = responseData["standard"]["endValue"].split(',');
+            for (let i = 0; i < str_startValue.length; i++)
+                arr_startValue[i] = parseFloat(str_startValue[i]);
+            for (let i = 0; i < str_endValue.length; i++)
+                arr_endValue[i] = parseFloat(str_endValue[i]);
+            return [resultData, arr_startValue, arr_endValue]
+        }else {
+            return [resultData];
+        }
+    }else{
+        return 0;
     }
 
 
@@ -67,28 +47,29 @@ export function HuaYanShiFormat(resultData, responseData, tableName) {
 }
 
 export function ZhongKongShiFormat(resultData, responseData, tableName) {
+    if(responseData["zhongKongShis"].length != 0){
+        //解析数据data
+        for (let i = 0; i < responseData["zhongKongShis"].length; i++) {
 
-    //解析数据data
-    for (let i = 0; i < responseData["zhongKongShis"].length; i++) {
+            let str_arr = responseData["zhongKongShis"][i]['data'].split(',');//取出data中的数据
 
-        let str_arr = responseData["zhongKongShis"][i]['data'].split(',');//取出data中的数据
+            //相当于替换了原来字符串数组，将其变成Number数组
+            responseData["zhongKongShis"][i]['data'] = str_arr;
 
-
-        //相当于替换了原来字符串数组，将其变成Number数组
-        responseData["zhongKongShis"][i]['data'] = str_arr;
-
-        let data_index = responseData["zhongKongShis"][i]['index'];//取出所在下标
-
-
-        //将结果赋值到对应位置
-        resultData[data_index] = responseData["zhongKongShis"][i];
+            let data_index = responseData["zhongKongShis"][i]['index'];//取出所在下标
 
 
+            //将结果赋值到对应位置
+            resultData[data_index] = responseData["zhongKongShis"][i];
+        }
+
+        return resultData;
+
+    }else{
+
+        return 0;
 
     }
-
-    return resultData
-
 }
 
 export function StandardFormat(
