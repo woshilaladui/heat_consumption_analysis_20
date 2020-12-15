@@ -92,9 +92,9 @@ export const getFrontData = (
                 if (response['code'] === 0) {
 
                     //解析数据
-                  console.log("出磨生料")
-                  console.log(response)
-                  console.log("出磨生料")
+                  // console.log("出磨生料")
+                  // console.log(response)
+                  // console.log("出磨生料")
                     let newData = deepCopy(response['data']);
                     let result = HuaYanShiFormat(
                         data,

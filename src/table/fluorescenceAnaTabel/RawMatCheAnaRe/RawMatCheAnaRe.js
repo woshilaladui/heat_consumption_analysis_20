@@ -95,14 +95,14 @@ class RuYaoSLYCLHXFXBGD extends Component {
                         />
                     </div>
                 </div>
-                <ReactToPrint
-                  trigger={
-                      () => <a href="#">
-                          <Button type='primary' style={{marginTop: 10}}>打印</Button>
-                      </a>
-                  }
-                  content={() => this.refs}
-                />
+                {/*<ReactToPrint*/}
+                {/*  trigger={*/}
+                {/*      () => <a href="#">*/}
+                {/*          <Button type='primary' style={{marginTop: 10}}>打印</Button>*/}
+                {/*      </a>*/}
+                {/*  }*/}
+                {/*  content={() => this.refs}*/}
+                {/*/>*/}
                 <div
                     style={{
                         float: "right",

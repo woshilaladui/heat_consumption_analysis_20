@@ -497,8 +497,8 @@ class UpperPartOfTheForm extends Component {
                 /></span>,
                     DJRZWD: <span><Input
                     style={this.changeStyle(value[9+tab])}
-                    value={isNaN(value[tab+9]) ? null : value[tab+9]}
                     defaultValue={''}
+                    value={isNaN(value[tab+9]) ? null : value[tab+9]}
                     onChange={event => this.onInputNumberChange2(event.target.value, index, 9+tab)}
                 /></span>,
                     TMCZ: <span><Input

@@ -1,7 +1,7 @@
 import React,{Component} from "react";
-import {Form, Input, Button, message} from "antd";
-import {requestChangePhoneNum} from "../../http/request/RequestUser";
-
+import {Form, Input, Button, message, InputNumber} from "antd";
+import {requestChangePhoneNum} from "../../../http/request/RequestUser";
+import { connect } from 'react-redux';
 class changePhone extends Component{
 
 
@@ -21,6 +21,17 @@ class changePhone extends Component{
     });
   };
   render() {
+    Input.defaultProps = {
+      disabled:!this.props.searchFlag,
+      style:this.props.searchFlag ? { } : {opacity:"1",color:"black"},
+    }
+
+    InputNumber.defaultProps = {
+      disabled:!this.props.searchFlag,
+      style:this.props.searchFlag ? { } : {opacity:"1",color:"black"},
+    }
+
+
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
@@ -86,5 +97,21 @@ class changePhone extends Component{
   }
 }
 
-const WrappedNormaPasswordForm = Form.create()(changePhone);
-export default WrappedNormaPasswordForm
+//定义映射
+const mapStateToProps = (state) => {
+  return {
+
+    searchFlag:state.getIn(['searchTable', 'searchFlag']),
+
+  }
+};
+
+const mapDispathToProps = (dispatch) => {
+  return {
+
+  }//end return
+};
+
+//export default ThreeFiveKwTable;
+export default connect(mapStateToProps, mapDispathToProps)(Form.create()(changePhone));
+

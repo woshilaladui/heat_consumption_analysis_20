@@ -122,11 +122,13 @@ class SearchTable extends Component {
 
 
     componentWillMount() {
+
         //this.props.changeSearchFlag(false);
         //this.props.handleChangeTime(moment().format("YYYY/MM/DD"));
     }
-
+//注释
     componentDidMount() {
+
         this.props.changeSearchFlag(false);
         this.props.handleChangeTime(moment().format("YYYY/MM/DD"));
     }
@@ -166,6 +168,7 @@ class SearchTable extends Component {
     };
 
     render() {
+
         const {t_name_Display} = this.state;
         return (
             <div className='search' style={{padding: '1%'}}>

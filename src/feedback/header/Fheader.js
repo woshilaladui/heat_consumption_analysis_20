@@ -32,8 +32,7 @@ class Fheader extends Component {
                     defaultSelectedKeys={['0']}
                     onSelect={this.onChangeKey}
                 >
-                    <Menu.Item >
-                        <a href='/'>返回首页</a>
+                    <Menu.Item ><Link to="/index" >返回首页</Link>
                     </Menu.Item>
 
                     <Menu.Item className='header_menuItem' key="" >

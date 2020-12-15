@@ -2,6 +2,8 @@ import { Layout, Menu, Breadcrumb, Icon ,Button} from 'antd';
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import CountDown from "../countdown";
+import {Link} from "react-router-dom";
+
 const { Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
@@ -35,7 +37,7 @@ const { SubMenu } = Menu;
                     <Menu theme="light" defaultSelectedKeys={['0']} mode="horizontal"
                           style={{lineHeight: '60px', float: 'right'}}
                           onSelect={this.onChangeKey}>
-                      <Menu.Item ><a href='/'>返回首页</a>
+                      <Menu.Item ><Link to="/index" >返回首页</Link>
                       </Menu.Item>
                         <Menu.Item key="0">
                             <Icon type="pie-chart" />

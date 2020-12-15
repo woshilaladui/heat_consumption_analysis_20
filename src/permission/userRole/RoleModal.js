@@ -32,10 +32,6 @@ class EditModal extends Component {
       mapState,
       mapDispatch
     )(Form.create()(props => {
-      console.log("kanknaProps")
-      console.log(props)
-      console.log(this.props)
-      console.log("kanknaProps")
       const {dispatch, form,visibleNewUser,submitNewUser} = props;
 
       const {getFieldDecorator} = form;
@@ -43,7 +39,7 @@ class EditModal extends Component {
       const handleNewUser = () => {
         const {dispatch} = this.props;
         form.validateFields((err, fieldValue) => {
-          console.log("表单数据newModal：", fieldValue)
+          // console.log("表单数据newModal：", fieldValue)
           submitNewUser(fieldValue.usernameNewUser,fieldValue.phoneNewUser,fieldValue.departmentNewUser,fieldValue.detailNewUser)
         })
 
@@ -153,6 +149,20 @@ class EditModal extends Component {
   }
 
   render() {
+    Input.defaultProps = {
+      disabled:!this.props.searchFlag,
+      style:this.props.searchFlag ? { } : {opacity:"1",color:"black"},
+    }
+
+    InputNumber.defaultProps = {
+      disabled:!this.props.searchFlag,
+      style:this.props.searchFlag ? { } : {opacity:"1",color:"black"},
+    }
+
+    TextArea.defaultProps = {
+      disabled:!this.props.searchFlag,
+      style:this.props.searchFlag ? { } : {opacity:"1",color:"black"},
+    }
     const {
       visible,
       editItem,
@@ -160,9 +170,6 @@ class EditModal extends Component {
       form,
       visibleNewUser,
     } = this.props
-    console.log("render")
-    console.log(this.props)
-    console.log("render")
     const {getFieldDecorator} = form
 
     return (
@@ -281,8 +288,8 @@ class EditModal extends Component {
     } = this.props
     form.validateFields((err, values) => {
       if (err) return
-      console.log("表单数据：", values)
-      console.log("表单数据：", editItem.id)
+      // console.log("表单数据：", values)
+      // console.log("表单数据：", editItem.id)
 
       submitTempInfo(editItem.id, values.username, values.phone)
       submitRolesSelect(editItem.id, values.roles)
@@ -306,6 +313,7 @@ const mapState = (state) => ({
   visibleNewUser: state.getIn(['userRole', 'visibleNewUser']),
   editItem: state.getIn(['userRole', 'editItem']),
   currentUserRoleArr: state.getIn(['userRole', 'currentUserRoleArr']),
+  searchFlag:state.getIn(['searchTable', 'searchFlag']),
 })
 
 const mapDispatch = (dispatch) => ({

@@ -110,9 +110,9 @@ class Iheader extends Component {
   }
 
   componentDidMount() {
-      console.log('Iheader')
+      // console.log('Iheader')
     const roles = this.permissionControl();
-      console.log(roles)
+      // console.log(roles)
     this.setState({
       display: roles
     })
@@ -247,7 +247,7 @@ class Iheader extends Component {
           defaultSelectedKeys={['0']}
           onSelect={this.onChangeKey}
         >
-          <Menu.Item><a href='/'>返回首页</a>
+          <Menu.Item ><Link to="/index" >返回首页</Link>
           </Menu.Item>
           <Menu.Item className='header_menuItem submenu-title-wrapper' key="0"
                      style={{display: display[0]}}>

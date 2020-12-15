@@ -23,7 +23,7 @@ class PermissionHome extends React.Component {
         this.setState({
             choose_num: e
         });
-        console.log(e);
+        // console.log(e);
     }
 
 

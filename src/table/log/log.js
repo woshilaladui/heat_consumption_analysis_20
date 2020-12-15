@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import { Input } from 'antd';
+import {Input, InputNumber} from 'antd';
 
 import moment from 'moment';
 // import axios from 'axios';
@@ -30,6 +30,21 @@ import {deepCopy} from "../../Helper/Copy";
     render(){
         const { RangePicker } = DatePicker;
         const { Search } = Input;
+        const { TextArea } = Input;
+        Input.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { } : {opacity:"1",color:"black"},
+        }
+
+        InputNumber.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { } : {opacity:"1",color:"black"},
+        }
+
+        TextArea.defaultProps = {
+            disabled:!this.props.searchFlag,
+            style:this.props.searchFlag ? { } : {opacity:"1",color:"black"},
+        }
         const submitDateAndUser=(value)=>{
             // console.log('submitDateAndUser')
             // console.log(value)
@@ -93,6 +108,7 @@ const mapStateToProps = (state) => {
         startTime:state.getIn(['log', 'startTime']),
         tableName:state.getIn(['log', 'tableName']),
         endTime:state.getIn(['log', 'endTime']),
+        searchFlag:state.getIn(['searchTable', 'searchFlag']),
 
     }
 };

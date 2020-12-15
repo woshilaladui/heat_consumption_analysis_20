@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {Form, Icon, Input, Button, message, Layout,} from 'antd';
+import {Form, Icon, Input, Button, message, Layout, InputNumber,} from 'antd';
 import { URL} from "../http/constant/Constant";
+import {Link} from "react-router-dom";
 // import Login from 'ant-design-pro/lib/Login';
 // import moment from 'moment';
 // import Header from "../homePage/header/Header";
@@ -51,7 +52,8 @@ class LoginDemo extends Component {
 
     const {phone, password,verificationCode} = this.props;
     // console.log(phone, password,verificationCode)
-    this.props.setOldData(phone, password,verificationCode);
+    this.props.setOldData(phone, password,verificationCode,this.props);
+// window.location.reload();
 
 
   };
@@ -81,6 +83,18 @@ class LoginDemo extends Component {
   //     // }
 
   render() {
+
+    Input.defaultProps = {
+      disabled:!this.props.searchFlag,
+      style:this.props.searchFlag ? { } : {opacity:"1",color:"black"},
+    }
+
+    InputNumber.defaultProps = {
+      disabled:!this.props.searchFlag,
+      style:this.props.searchFlag ? { } : {opacity:"1",color:"black"},
+    }
+
+
     const {phone, password,verificationCode} = this.props;
     const {getFieldDecorator} = this.props.form;
     return (
@@ -124,7 +138,7 @@ class LoginDemo extends Component {
             <Button type="primary" htmlType="submit" className="login-form-button">
               登录
             </Button>
-            <a href="/" >返回首页</a>
+            <Link to='index'>返回首页</Link>
             {/*<a href="/reg" style={{float: 'right'}}>注册账号</a>*/}
           </FormItem>
         </Form>
@@ -147,13 +161,14 @@ const mapStateToProps = (state) => {
     password:state.getIn(['loginV2', 'password']),
     verificationCode:state.getIn(['loginV2', 'verificationCode']),
     verificationPhoto:state.getIn(['loginV2', 'verificationPhoto']),
+    searchFlag:state.getIn(['searchTable', 'searchFlag']),
   }
 };
 
 const mapDispathToProps = (dispatch) => {
   return {
-    setOldData(phone,password,verificationCode){
-      dispatch(actionCreators.getData(phone,password,verificationCode))
+    setOldData(phone,password,verificationCode,props){
+      dispatch(actionCreators.getData(phone,password,verificationCode,props))
     },
     changePhoneNum(phoneNum){
       dispatch(actionCreators.changePhone(phoneNum))

@@ -48,16 +48,14 @@ export function requestUserLogin_V2(
     formData.append('username', phone);
     formData.append('password', password);
     formData.append('captchaCode', verificationCode);
-    console.log(formData.get("captchaCode"));
+
     RequestCenter_V2_Test({
       url: URL.REQUEST_AUTHENTICATION_V2,
       formData: formData
     })
       .then((response) => {
         //直接回传
-        console.log("response1");
-        console.log(response);
-        console.log("response1");
+
 
         //TODO 进一步处理数据 requestUserLogin
         resolve(response)
@@ -139,19 +137,13 @@ export function requestGetAllUsers_V2() {
 //
 export function requestSubmitTempRoles(id, rolesArr) {
   return new Promise((resolve, reject) => {
-    console.log("执行了requestSubmitTempRoles")
-    console.log(rolesArr)
-    console.log(getRolesJsonData(id, rolesArr))
+
     RequestCenter_V2({
       url: URL.REQUEST_SUBMIT_TEMP_ROLES_V2,
       jsonData: getRolesJsonData(id, rolesArr),
       flag: RequestMethod.jsonDta,
     })
       .then((response) => {
-        console.log(response)
-        console.log(response)
-        console.log(response)
-        console.log(response)
 
         //直接回传 不进一步解析
         //TODO 进一步处理数据 requestGetAllUsers
