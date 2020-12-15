@@ -122,19 +122,19 @@ class SearchTable extends Component {
 
 
     componentWillMount() {
-        console.log("查看will");
+        // console.log("查看will");
         //this.props.changeSearchFlag(false);
         //this.props.handleChangeTime(moment().format("YYYY/MM/DD"));
     }
 
     componentDidMount() {
-        console.log("查看did");
+        // console.log("查看did");
         this.props.changeSearchFlag(false);
         this.props.handleChangeTime(moment().format("YYYY/MM/DD"));
     }
 
     componentWillUnmount(){
-        console.log("查看un");
+        // console.log("查看un");
         this.props.changeSearchFlag(true);
         this.props.handleChangeTime(moment().format("YYYY/MM/DD"));
     }
@@ -169,7 +169,7 @@ class SearchTable extends Component {
     };
 
     render() {
-      console.log("查看render")
+      // console.log("查看render")
         const {t_name_Display} = this.state;
         return (
             <div className='search' style={{padding: '1%'}}>

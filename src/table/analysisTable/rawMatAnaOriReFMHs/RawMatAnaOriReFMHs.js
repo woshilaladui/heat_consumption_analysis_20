@@ -51,7 +51,7 @@ class BurnSysOpReFMHs extends Component{
     render(){
 
         return(
-            <Fragment style = {{width:"100%",height:"100%"}}>
+            <Fragment >
                 <div  style={{padding: '1%'}} ref = {(el) => this.refs = el}>
                     <h1 align="center">粉煤灰(湿)原材料分析原始记录</h1>
                     {/*表单最上的时间及人员显示*/}

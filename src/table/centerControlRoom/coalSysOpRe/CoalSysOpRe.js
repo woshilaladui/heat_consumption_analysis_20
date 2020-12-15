@@ -13,7 +13,7 @@ import moment from 'moment';
 class CoalSysOpRe extends Component {
 
     componentWillMount() {
-        console.log('煤磨WillMount')
+        // console.log('煤磨WillMount')
     }
 
     componentDidMount() {

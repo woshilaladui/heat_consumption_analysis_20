@@ -7,7 +7,7 @@
 export function roleJudge(roleString){
     //先转成数组
     let rolesArr = roleString.split(',');
-    console.log(rolesArr);
+
     if(
         rolesArr.includes("1") || 
         rolesArr.includes("2") || 

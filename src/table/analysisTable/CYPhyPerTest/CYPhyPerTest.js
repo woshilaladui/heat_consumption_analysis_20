@@ -46,7 +46,7 @@ class CYPhyPerTest extends Component {
     render() {
 
         return (
-            <Fragment style={{width: "100%", height: "100%"}}>
+            <Fragment >
                 <div style={{padding: '1%'}} ref={(el) => this.refs = el}>
                     <h1 align="center">出窑熟料物理性能检测</h1>
                     {/*表单最上的时间及人员显示*/}

@@ -15,7 +15,13 @@ class RoleTable extends Component {
   }
 
   render() {
-    const {data} = this.props
+    const {data} = this.props;
+    for (let i = 0; i <data.length ; i++) {
+      // console.log(data[i].id)
+      if (data[i].id ==1){
+        data.splice(i,1)
+      }
+    }
     // const dataReverse = data.reverse();
     return (
       <div style={{height:'100%'}}>

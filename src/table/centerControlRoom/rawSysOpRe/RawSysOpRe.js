@@ -19,12 +19,12 @@ class RawSysOpRe extends Component {
 
   componentDidMount() {
     /**首先查询当前页面是否有历史纪录并赋值给FormData**/
-    console.log("执行了componentDidMount")
+    // console.log("执行了componentDidMount")
     const {data, date, tableName, getOldData, modelData} = this.props;
 
-    console.log(date)
-    console.log(deepCopy(data))
-      console.log("执行了componentDidMount")
+    // console.log(date)
+    // console.log(deepCopy(data))
+    //   console.log("执行了componentDidMount")
     getOldData(
       date,
       tableName,
@@ -35,10 +35,10 @@ class RawSysOpRe extends Component {
   componentWillReceiveProps(nextProps) {
     const {modelData, tableName, getOldData, date, searchFlag, data} = nextProps; //新的props
 
-    console.log("执行了componentWillReceiveProps")
-    console.log(date)
-    console.log(deepCopy(data))
-    console.log("执行了componentWillReceiveProps")
+    // console.log("执行了componentWillReceiveProps")
+    // console.log(date)
+    // console.log(deepCopy(data))
+    // console.log("执行了componentWillReceiveProps")
     if (this.props.date != date) {
       getOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
     }
@@ -53,7 +53,7 @@ class RawSysOpRe extends Component {
   };
 
   render() {
-      console.log("生产线中控室生料磨系统运行记录render")
+      // console.log("生产线中控室生料磨系统运行记录render")
     return (
       <div style={{padding: '1%'}}>
         <h1 align="center">福石水泥3000t/d生产线中控室生料磨系统运行记录</h1>

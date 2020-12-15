@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import * as actionCreators from './store/actionCreators';
-import { 
-    Form,
-    Input,
-    Cascader,
-    Button,
+import {
+  Form,
+  Input,
+  Cascader,
+  Button, InputNumber,
 } from 'antd';
 
 import { roleJudge } from '../../Helper/judge';
@@ -23,17 +23,31 @@ class Detail extends Component{
 
     render(){
 
-        const { TextArea } = Input;
 
+        const { TextArea } = Input;
+      Input.defaultProps = {
+        disabled:!this.props.searchFlag,
+        style:this.props.searchFlag ? { } : {opacity:"1",color:"black"},
+      }
+
+      InputNumber.defaultProps = {
+        disabled:!this.props.searchFlag,
+        style:this.props.searchFlag ? { } : {opacity:"1",color:"black"},
+      }
+
+      TextArea.defaultProps = {
+        disabled:!this.props.searchFlag,
+        style:this.props.searchFlag ? { } : {opacity:"1",color:"black"},
+      }
         const { getFieldDecorator } = this.props.form;
 
         let resDisplay = null;
         let residences = [];
         
-        console.log(window.localStorage.roles);
+        // console.log(window.localStorage.roles);
 
         let flag = roleJudge(window.localStorage.roles);
-        console.log(flag);
+        // console.log(flag);
         if(!flag){
             resDisplay = '';
             residences = [
@@ -140,6 +154,7 @@ class Detail extends Component{
 //定义映射
 const mapStateToProps = (state) => {
     return {
+      searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 };
 

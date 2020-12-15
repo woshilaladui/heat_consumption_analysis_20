@@ -96,7 +96,8 @@ export const getData = (phone,password,verificationCode) => {
                 // message.info(typeof(window.localStorage.roles))
                 // message.info(typeof(data.data['roles']))
                 // window.localStorage.time = d.getTime();
-                    window.location.href='/'
+                  window.location.replace(document.referrer);
+                //     window.location.href='/'
                     }else {
                     message.info(data.msg);
                 }

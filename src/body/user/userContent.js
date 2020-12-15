@@ -3,8 +3,8 @@ import React, {Component} from "react";
 import {Layout} from 'antd';
 import UserRole from '../../permission/userRole/userRole';
 import RolePermission from '../../permission/rolePermission/index'
-import ChangePassword from './changePassword';
-import ChangePhoneNum from './changePhoneNum';
+import ChangePassword from './changePassword/changePassword';
+import ChangePhoneNum from './changePhoneNum/changePhoneNum';
 
 
 const {Header, Content, Footer} = Layout;

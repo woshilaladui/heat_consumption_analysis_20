@@ -1,7 +1,7 @@
 import React,{Component} from "react";
-import {Form, Input, Button, message} from "antd";
-import {requestChangePassword} from "../../http/request/RequestUser";
-
+import {Form, Input, Button, message, InputNumber} from "antd";
+import {requestChangePassword} from "../../../http/request/RequestUser";
+import {connect} from 'react-redux'
 class changePassword extends Component{
    state = {
      confirmDirty: false,
@@ -47,6 +47,15 @@ class changePassword extends Component{
      });
    };
   render() {
+    Input.defaultProps = {
+      disabled:!this.props.searchFlag,
+      style:this.props.searchFlag ? { } : {opacity:"1",color:"black"},
+    }
+
+    InputNumber.defaultProps = {
+      disabled:!this.props.searchFlag,
+      style:this.props.searchFlag ? { } : {opacity:"1",color:"black"},
+    }
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
@@ -128,6 +137,20 @@ class changePassword extends Component{
     )
   }
 }
+//定义映射
+const mapStateToProps = (state) => {
+  return {
 
-const WrappedNormaPasswordForm = Form.create()(changePassword);
-export default WrappedNormaPasswordForm
+    searchFlag:state.getIn(['searchTable', 'searchFlag']),
+
+  }
+};
+
+const mapDispathToProps = (dispatch) => {
+  return {
+
+  }//end return
+};
+
+//export default ThreeFiveKwTable;
+export default connect(mapStateToProps, mapDispathToProps)(Form.create()(changePassword));

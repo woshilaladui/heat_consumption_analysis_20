@@ -68,9 +68,9 @@ export default class HuayanshiRibao extends React.Component {
                     </div>
                     <ReactToPrint
                       trigger={
-                        () => <a href="#">
+                        () => <div >
                           <Button type='primary' style={{marginTop: 10,float:'right'}}>打印</Button>
-                        </a>
+                        </div>
                       }
                       content={() => this.refs}
                     />
