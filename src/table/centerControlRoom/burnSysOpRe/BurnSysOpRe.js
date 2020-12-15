@@ -57,7 +57,6 @@ class BurnSysOpRe extends Component {
     }
 
     componentWillUnmount(){
-        console.log("烧成un");
     }
 
   // 打印
@@ -67,7 +66,6 @@ class BurnSysOpRe extends Component {
     window.location.reload();
   }
     render() {
-        console.log("烧成render:searchFlag"+this.props.searchFlag);
         return (
             <Fragment/* style={{width: "100%", height: "100%"}}*/ >
                 <div style={{padding: '1%'}} ref={(el) => this.refs = el} id={'billDetails'}>
