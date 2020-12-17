@@ -1,5 +1,5 @@
 
-let consoleVersion = [];
+let consoleVersion = [0];
 
 let emptyFunc = function(){}
 

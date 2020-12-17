@@ -32,6 +32,8 @@ class UpperForm extends Component {
 
 
     onInputNumberChange2 = (value, indexH, indexL) => {
+
+
         const {data, updateChange, order, startValue, endValue, width, timeChose,tableWidth} = this.props;
         let NewData = deepCopy(data);//复制一份出来
 
@@ -42,8 +44,8 @@ class UpperForm extends Component {
         }
 
         //更新IL字段
-        if (indexL === 5 || indexL === 6) {
-            autoCalculate_IL(NewData, indexH);
+        if(indexL === 5 || indexL === 6){
+            autoCalculate_IL(NewData,indexH);
         }
 
 
@@ -58,9 +60,31 @@ class UpperForm extends Component {
 
         //计算平均值
         autoCalculate_average(NewData, timeChose, indexL,tableWidth);
+
+        //计算合计的平均值
+        let sum_average_sum =Array(3).fill(0);
+        let inputCount = Array(3).fill(0);//3个班次中非0的个数
         let sum = autoCalculateHJ(NewData[indexH]['data'], width);
         NewData[indexH]['data'][HuaYSOrder_JC.HJ] = sum;
 
+        for (let i = 0; i < 8; i++) {
+            let index = i + timeChose * 10;
+            if (!isNaN(parseFloat(NewData[index]['data'][HuaYSOrder_JC.HJ]))
+              &&
+              (parseFloat(NewData[index]['data'][HuaYSOrder_JC.HJ]) != null)
+              &&
+              NewData[index]['data'][HuaYSOrder_JC.HJ] != ''
+            ) {
+                inputCount[timeChose]++;
+
+                sum_average_sum[timeChose] += NewData[index]['data'][HuaYSOrder_JC.HJ];
+            }
+
+
+        }//end for
+
+
+        NewData[timeChose*10+8]['data'][HuaYSOrder_JC.HJ] = ((sum_average_sum[timeChose]*1.0)/inputCount[timeChose]).toFixed(3)
         //更新数据
         updateChange(NewData);
 
@@ -230,7 +254,7 @@ class UpperForm extends Component {
             {
                 time: '平均',
                 SF: Data[8 + timeChose * 10]['data'][HuaYSOrder_JC.SF],
-                IL: Data[8 + timeChose * 10]['data'][HuaYSOrder_JC.IL],
+                IL:    isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_JC.IL])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_JC.IL],
                 SiO2: Data[8 + timeChose * 10]['data'][HuaYSOrder_JC.SiO2],
                 Al2O3: Data[8 + timeChose * 10]['data'][HuaYSOrder_JC.Al2O3],
                 Fe2O3: Data[8 + timeChose * 10]['data'][HuaYSOrder_JC.Fe2O3],

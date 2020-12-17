@@ -88,7 +88,7 @@ class UpperForm extends Component {
         }//end for
 
 
-        NewData[timeChose+8]['data'][HuaYSOrder_JC.HJ] = ((sum_average_sum[timeChose]*1.0)/inputCount[timeChose]).toFixed(3)
+        NewData[timeChose*10+8]['data'][HuaYSOrder_JC.HJ] = ((sum_average_sum[timeChose]*1.0)/inputCount[timeChose]).toFixed(3)
         //更新数据
         updateChange(NewData);
 
@@ -248,7 +248,7 @@ class UpperForm extends Component {
 
                             onChange={event => this.onInputNumberChange2(event, index, HuaYSOrder_JC.MgO)}
                         /></span>,
-                    HJ: <span>{isNaN(value[HuaYSOrder_JC.HJ]) ? null : value[HuaYSOrder_JC.HJ].toFixed(2)}</span>,
+                    HJ: <span>{isNaN(value[HuaYSOrder_JC.HJ]) ? null : value[HuaYSOrder_JC.HJ]}</span>,
                     person:
                         Data[index]['user'],
                 }

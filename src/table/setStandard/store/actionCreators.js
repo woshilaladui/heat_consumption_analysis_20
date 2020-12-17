@@ -16,7 +16,7 @@ import {StandardFormat} from "../../../Helper/Format";
 
 /**
  * 修改时间选项
- * @param timeChose
+ * @param tableChose
  * @returns {{timeChose: *, type: string}}
  */
 export const changeTabChose = (tableChose) => ({

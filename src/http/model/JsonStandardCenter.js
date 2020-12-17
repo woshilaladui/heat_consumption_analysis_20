@@ -19,7 +19,6 @@ export function getSaveStandardJson(
         startValue:startValue,
         endValue:endValue,
         reason:reason,
-        createdAt:createdAt,
         username:person,
     }]
 

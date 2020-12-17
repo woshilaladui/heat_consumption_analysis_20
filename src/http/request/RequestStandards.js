@@ -115,7 +115,6 @@ export function requestSetStandard(
                 startValue,
                 endValue,
                 reason,
-                createdAt,
                 person
             ),
             flag:RequestMethod.jsonDta,

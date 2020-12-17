@@ -11,64 +11,91 @@ const RequestMethod = {
 }
 
 const URL={
-/*****************************************版本2******************************************/
-    REQUEST_SUBMIT_TEMP_ROLES_V2: Service.ROOT_URL_V2+"/sys/userRole/setUserRoles",//更新用户角色
-    REQUEST_SAVE_PERMISSION_V2: Service.ROOT_URL_V2+"/sys/permission/setPermissionByPermissionIds",//保存角色权限
-    REQUEST_SUBMIT_TEMP_USER_INFO_V2: Service.ROOT_URL_V2+"/sys/user/updateUser",//更新用户基本信息
-    REQUEST_UPDATE_PASSWORD: Service.ROOT_URL_V2+"/sys/user/updateUserPassword",//更新用户密码
-    REQUEST_ENABLED_VALUE_V2: Service.ROOT_URL_V2+"/sys/user/lockUser",//锁定用户
-    REQUEST_VERIFICATION_V2: Service.ROOT_URL_V2+"/verification",//获取验证码
-    REQUEST_AUTHENTICATION_V2: Service.ROOT_URL_V2+"/authentication",//登陆
-    REQUEST_GET_ALL_USERS_V2: Service.ROOT_URL_V2+"/sys/user/getAllUsers",//获取所有的用户
-    REQUEST_GET_ALL_ROLE_V2: Service.ROOT_URL_V2+"/sys/userRole/getAllRoles",//获取所有的角色
-    REQUEST_GET_CURRENT_USER_ROLE_V2: Service.ROOT_URL_V2+"/sys/userRole/getRolesByUsername",//获取当前用户的角色
-    REQUEST_LOGOUT_V2: Service.ROOT_URL_V2+"/invalidateToken",//注销用户
-    REQUEST_GET_CURRENT_ROLE_PERMISSION_V2: Service.ROOT_URL_V2+"/sys/permission/getRolePermissionByRoleId",//通过用户Id来查询其权限
-    REQUEST_GET_CURRENT_PERMISSION_LIST_V2: Service.ROOT_URL_V2+"/sys/permission/getPermissionByUsername",//通过用户Id来查询其权限
-    REQUEST_SUBMIT_NEW_USER_V2: Service.ROOT_URL_V2+"/sys/user/addUser",//通过用户Id来查询其权限
+    /*****************************************版本2用户类******************************************/
+    //更新用户角色
+    REQUEST_SUBMIT_TEMP_ROLES_V2: Service.ROOT_URL+"/sys/userRole/setUserRoles",
+
+    //保存角色权限
+    REQUEST_SAVE_PERMISSION_V2: Service.ROOT_URL+"/sys/permission/setPermissionByPermissionIds",
+
+    //更新用户基本信息
+    REQUEST_SUBMIT_TEMP_USER_INFO_V2: Service.ROOT_URL+"/sys/user/updateUser",
+
+    //更新用户密码
+    REQUEST_UPDATE_PASSWORD: Service.ROOT_URL+"/sys/user/updateUserPassword",
+
+    //锁定用户
+    REQUEST_ENABLED_VALUE_V2: Service.ROOT_URL+"/sys/user/lockUser",//锁定用户
+
+    //获取验证码
+    REQUEST_VERIFICATION_V2: Service.ROOT_URL+"/verification",//获取验证码
+
+    //登陆
+    REQUEST_AUTHENTICATION_V2: Service.ROOT_URL+"/authentication",//登陆
+
+    //获取所有的用户
+    REQUEST_GET_ALL_USERS_V2: Service.ROOT_URL+"/sys/user/getAllUsers",//获取所有的用户
+
+    //获取所有的角色
+    REQUEST_GET_ALL_ROLE_V2: Service.ROOT_URL+"/sys/userRole/getAllRoles",//获取所有的角色
+
+    //获取当前用户的角色
+    REQUEST_GET_CURRENT_USER_ROLE_V2: Service.ROOT_URL+"/sys/userRole/getRolesByUsername",//获取当前用户的角色
+
+    //注销用户
+    REQUEST_LOGOUT_V2: Service.ROOT_URL+"/invalidateToken",//注销用户
+
+    //通过用户Id来查询其权限
+    REQUEST_GET_CURRENT_ROLE_PERMISSION_V2: Service.ROOT_URL+"/sys/permission/getRolePermissionByRoleId",//通过用户Id来查询其权限
+
+    //通过用户名来查询其权限
+    REQUEST_GET_CURRENT_PERMISSION_LIST_V2: Service.ROOT_URL+"/sys/permission/getPermissionByUsername",//通过用户名来查询其权限
+
+    //增加用户
+    REQUEST_SUBMIT_NEW_USER_V2: Service.ROOT_URL+"/sys/user/addUser",//增加用户
 
     /*********************************用户类请求地址*************************************/
-    REQUEST_LOGIN:Service.ROOT_URL + "/user/login",
+    // REQUEST_LOGIN:Service.ROOT_URL + "/user/login",//废弃接口/**/
 
 
-    REQUEST_REGISTER:Service.ROOT_URL + "/user/register",
+    // REQUEST_REGISTER:Service.ROOT_URL + "/user/register",//废弃接口
 
     //获取全部个人信息
-    REQUEST_GET_ALL_USERS:Service.ROOT_URL + "/user/getAllUsers",
+    // REQUEST_GET_ALL_USERS:Service.ROOT_URL + "/user/getAllUsers",
 
     //更新用户个人信息 （得有特定权限，不是自己更新信息的接口）
-    REQUEST_UPDATE_USER:Service.ROOT_URL + "/user/updateUser",
+    // REQUEST_UPDATE_USER:Service.ROOT_URL + "/user/updateUser",
 
     //批量导入用户的接口(excel导入)
-    REQUEST_ADD_USERS:Service.ROOT_URL + "/user/addUsers",
+    // REQUEST_ADD_USERS:Service.ROOT_URL + "/user/addUsers",
 
     //TODO  暂无实现
-    REQUEST_DELETE_USER:Service.ROOT_URL + "",
+    // REQUEST_DELETE_USER:Service.ROOT_URL + "",
 
     //校验用户权限
-    REQUEST_CHECK_PERMISSION:Service.ROOT_URL + "/user/getPermission",
+    // REQUEST_CHECK_PERMISSION:Service.ROOT_URL + "/user/getPermission",
 
 
 
     /*********************************化验室请求地址*************************************/
 
     //通过化验室表名和日期来查询该日期下的数据
-    REQUEST_GET_HUAYANSHI_DATA_BY_TABLENAME_AND_DATE:Service.ROOT_URL_V2 + "/huayanshi/getHuaYanShiDataByTableNameAndDate",
+    REQUEST_GET_HUAYANSHI_DATA_BY_TABLENAME_AND_DATE:Service.ROOT_URL + "/huayanshi/getHuaYanShiDataByTableNameAndDate",
 
     //化验室存储(包括暂存，存单行)接口
-    REQUEST_SAVE_HUAYANSHI_DATA:Service.ROOT_URL_V2 + "/huayanshi/saveHuaYanShiData",
+    REQUEST_SAVE_HUAYANSHI_DATA:Service.ROOT_URL + "/huayanshi/saveHuaYanShiData",
 
     //查看表单中查看电量表格数据
-    REQUEST_GET_HUAYANSHI_ELEC_DATA:Service.ROOT_URL_V2 + "/huayanshi/getHuaYanShiDataDifferenceValueBytableNameAndDate",
+    REQUEST_GET_HUAYANSHI_ELEC_DATA:Service.ROOT_URL + "/huayanshi/getHuaYanShiDataDifferenceValueBytableNameAndDate",
 
 
     /*********************************中控室接口*************************************/
 
     //通过中控室表名和日期来查询该日期下的数据
-    REQUEST_GET_ZHONGKONGSHI_DATA_BY_TABLENAME_AND_DATE:Service.ROOT_URL_V2 + "/zhongkongshi/getZhongKongShiDataByTableNameAndDate",
+    REQUEST_GET_ZHONGKONGSHI_DATA_BY_TABLENAME_AND_DATE:Service.ROOT_URL + "/zhongkongshi/getZhongKongShiDataByTableNameAndDate",
 
     //中控室存储(包括暂存，存单行)接口
-    REQUEST_SAVE_ZHONGKONG_DATA:Service.ROOT_URL_V2 + "/zhongkongshi/saveZhongKongData",
+    REQUEST_SAVE_ZHONGKONG_DATA:Service.ROOT_URL + "/zhongkongshi/saveZhongKongData",
 
 
 
@@ -113,7 +140,7 @@ const URL={
     //TODO 获取封面的背景图
     REQUEST_GET_BACKGROUND_PHOTOS:Service.ROOT_URL + "",
 
-    REQUEST_SAVE_FEEDBACK_DATA:Service.ROOT_URL_V2+"/feedback/saveFeedBack",
+    REQUEST_SAVE_FEEDBACK_DATA:Service.ROOT_URL+"/feedback/saveFeedBack",
 
 }
 

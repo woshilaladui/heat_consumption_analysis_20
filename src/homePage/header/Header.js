@@ -6,6 +6,7 @@ import {URL} from "../../http/constant/Constant";
 import {requestLogout} from "../../http/request/RequestUser";
 import CountDown from '../../../src/countdown'
 import * as actionCreators from "./store/actionCreators";
+import _log from "../../Constant/Console";
 import {connect} from "react-redux";
 
 class Header extends Component {
@@ -24,6 +25,10 @@ class Header extends Component {
 
   componentDidMount = () => {
     // console.log("console"+window.localStorage.department)
+    //将时间戳转变为毫秒数进行比较，若过期时间则退出登陆
+    if (this.dateChangeMs(window.localStorage.expiration)<=new Date().getTime()){
+      this.handleLogout();
+    }
 
     if(window.localStorage.id == 1){
       this.setState({
@@ -90,7 +95,11 @@ class Header extends Component {
         }
       })
   };
-
+//实现方法
+   dateChangeMs (date) {
+    let result = new Date(date).getTime();
+    return result;
+  }
   render() {
     return (
       <div className='iheader'>

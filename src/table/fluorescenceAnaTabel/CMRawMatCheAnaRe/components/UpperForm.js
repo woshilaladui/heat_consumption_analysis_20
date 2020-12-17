@@ -121,15 +121,46 @@ class UpperForm extends Component {
 
         //判断是否需要计算
 
-            //计算合格率和KH N P 合计平均值
+            //计算合格率和KH N P 平均值
 
             calculate_pass_rate_cmsl(NewData, startValue, endValue, order, width, timeChose, indexL);
 
 
         //计算平均值
         autoCalculate_average(NewData, timeChose, indexL,tableWidth);
+        // let sum = autoCalculateHJ(NewData[indexH]['data'], width);
+        // NewData[indexH]['data'][HuaYSOrder_JC.HJ] = sum;
+
+
+
+        //计算合计的平均值
+        let sum_average_sum =Array(3).fill(0);
+        let inputCount = Array(3).fill(0);//3个班次中非0的个数
         let sum = autoCalculateHJ(NewData[indexH]['data'], width);
         NewData[indexH]['data'][HuaYSOrder_JC.HJ] = sum;
+
+        for (let i = 0; i < 8; i++) {
+            let index = i + timeChose * 10;
+            if (!isNaN(parseFloat(NewData[index]['data'][HuaYSOrder_JC.HJ]))
+              &&
+              (parseFloat(NewData[index]['data'][HuaYSOrder_JC.HJ]) != null)
+              &&
+              NewData[index]['data'][HuaYSOrder_JC.HJ] != ''
+            ) {
+                inputCount[timeChose]++;
+
+                sum_average_sum[timeChose] += NewData[index]['data'][HuaYSOrder_JC.HJ];
+            }
+
+
+        }//end for
+
+
+        NewData[timeChose*10+8]['data'][HuaYSOrder_JC.HJ] = ((sum_average_sum[timeChose]*1.0)/inputCount[timeChose]).toFixed(3)
+        //更新数据
+
+
+
 
         //更新数据
         updateChange(NewData);

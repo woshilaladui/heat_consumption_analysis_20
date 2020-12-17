@@ -304,34 +304,17 @@ export function calculate_pass_rate_cmsl(
     let sum_N = 0;
     let sum_P= 0;
     let sum_HJ = 0;
-    console.log("data")
-  console.log(parseFloat(data[4]['data'][KH]))
-  console.log((data[4]['data'][KH]))
-    console.log("data")
+
   for (let i = 0; i < 8; i++) {
 
     let index = i + timeChose * 10;
-      /**
-       * 计算合计的平均值
-       */
-      if (!isNaN(parseFloat(data[index]['data'][HJ])) && (parseFloat(data[index]['data'][HJ]) != null)) {
-
-          SumAverageCount[timeChose]++;
-          console.log("heji"+parseFloat(data[index]['data'][HJ]))
-          sum_HJ+=parseFloat(data[index]['data'][HJ]);
-
-      }//end if
-
-
+    
     if (!isNaN(parseFloat(data[index]['data'][KH])) && (parseFloat(data[index]['data'][KH]) != null)) {
 
       inputCount[timeChose][KH_HG]++;
 
       sum_KH+=parseFloat(data[index]['data'][KH]);
-      console.log("sum_KH")
-      console.log(data[index]['data'][KH])
-      console.log(sum_KH)
-      console.log("sum_KH")
+
 
       if (parseFloat(data[index]['data'][KH]) >= startValue[KH_HG] && parseFloat(data[index]['data'][KH]) <= endValue[KH_HG]) {
         passCount[timeChose][KH_HG]++;
@@ -366,8 +349,8 @@ export function calculate_pass_rate_cmsl(
       temp = (passCount[timeChose][i] * 1.0) / inputCount[timeChose][i];
       data[9 + timeChose * 10]['data'][i+KH] = Number(temp * 100).toFixed(1);
   }
-    data[8 + timeChose * 10]['data'][HJ] = (sum_HJ/SumAverageCount[timeChose]).toFixed(2)
-    data[8 + timeChose * 10]['data'][KH] = (sum_KH/inputCount[timeChose][0]).toFixed()
+    // data[8 + timeChose * 10]['data'][HJ] = (sum_HJ/SumAverageCount[timeChose]).toFixed(2)
+    data[8 + timeChose * 10]['data'][KH] = (sum_KH/inputCount[timeChose][0]).toFixed(2)
     data[8 + timeChose * 10]['data'][N] = (sum_N/inputCount[timeChose][1]).toFixed(2)
     data[8 + timeChose * 10]['data'][P] = (sum_P/inputCount[timeChose][2]).toFixed(2)
 }
