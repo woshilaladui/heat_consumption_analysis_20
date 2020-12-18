@@ -1,11 +1,11 @@
 
-let consoleVersion = [0];
+const flag = true;
 
 let emptyFunc = function(){}
 
-let _log = function(version){
-  if(consoleVersion.includes(version)){
-    return console.log;
+let _log = function(value){
+  if(flag){
+    return console.log(value);
   }else{
     return emptyFunc;
   }

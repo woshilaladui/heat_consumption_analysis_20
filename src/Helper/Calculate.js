@@ -4,6 +4,7 @@ import {HuaYSOrder_CMRYSL, HuaYSOrder_RMC, AnalysisOrder_YS, AnalysisOrder_RawMa
 
 import {TableName} from "../Constant/TableNameConstant";
 import {HuaYSOrder_JC} from '../Constant/TableOrder'
+import _log from "../Constant/Console";
 /*******************************************荧光分析表格*****************************************************/
 
 //计算进厂石灰石原材料分析化学报告单 的合计
@@ -12,7 +13,7 @@ export function autoCalculateHJ(data, width) {//data为数组
   let _data = deepCopy(data);
 
   let num = 0;
-  for (let i = 0; i < width; i++) {//排除合计
+  for (let i = 1; i < width; i++) {//排除合计 i从1开始不计算水分的合计
     //遍历所有数值均不为空且不为NaN
 
     if (_data[i] != null&&!isNaN(_data[i])&&typeof(_data[i])=="number") {
@@ -272,6 +273,78 @@ export function calculate_pass_rate(
 }
 
 /**
+ *计算出窑熟料KH,KH_,N,P
+ */
+
+export function calculate_average_KH_N_P_kiln(
+  data,  width, timeChose, indexL
+) {
+
+  let inputCount = Array(3);//3个班次
+  for (let i = 0; i < 3; i++) {
+    inputCount[i] = Array(3).fill(0);
+  }
+
+
+
+  const KH = 8;const KH_HG = 0;
+  const KH_ = 9;const KH__HG = 1;
+  const N = 10;const N_HG = 2;
+  const P = 11;const P_HG = 3;
+  //计算合格率
+  let sum_KH = 0;
+  let sum_KH_ = 0;
+  let sum_N = 0;
+  let sum_P= 0;
+
+  for (let i = 0; i < 8; i++) {
+
+    let index = i + timeChose * 10;
+
+    if (!isNaN(parseFloat(data[index]['data'][KH])) && (parseFloat(data[index]['data'][KH]) != null)) {
+
+      inputCount[timeChose][KH_HG]++;
+
+      sum_KH+=parseFloat(data[index]['data'][KH]);
+
+
+    }//end if
+    if (!isNaN(parseFloat(data[index]['data'][KH_])) && (parseFloat(data[index]['data'][KH_]) != null)) {
+
+      inputCount[timeChose][KH__HG]++;
+
+      sum_KH_+=parseFloat(data[index]['data'][KH_]);
+
+
+    }//end if
+    if (!isNaN(parseFloat(data[index]['data'][N])) && (parseFloat(data[index]['data'][N]) != null)) {
+
+      inputCount[timeChose][N_HG]++;
+      sum_N+=parseFloat(data[index]['data'][N]);
+
+
+    }//end if
+    if (!isNaN(parseFloat(data[index]['data'][P])) && (parseFloat(data[index]['data'][P]) != null)) {
+      console.log("P")
+      _log(parseFloat(data[index]['data'][P]))
+      _log("P")
+      inputCount[timeChose][P_HG]++;
+      sum_P+=parseFloat(data[index]['data'][P]);
+
+
+    }//end if
+  }
+
+  // data[8 + timeChose * 10]['data'][HJ] = (sum_HJ/SumAverageCount[timeChose]).toFixed(2)
+  data[8 + timeChose * 10]['data'][KH] = (sum_KH/inputCount[timeChose][0]).toFixed(3)
+  data[8 + timeChose * 10]['data'][KH_] = (sum_KH_/inputCount[timeChose][0]).toFixed(3)
+  data[8 + timeChose * 10]['data'][N] = (sum_N/inputCount[timeChose][1]).toFixed(3)
+  data[8 + timeChose * 10]['data'][P] = (sum_P/inputCount[timeChose][2]).toFixed(3)
+}
+
+
+
+/**
  *计算出磨生料合格率
  */
 export function calculate_pass_rate_cmsl(
@@ -308,7 +381,7 @@ export function calculate_pass_rate_cmsl(
   for (let i = 0; i < 8; i++) {
 
     let index = i + timeChose * 10;
-    
+
     if (!isNaN(parseFloat(data[index]['data'][KH])) && (parseFloat(data[index]['data'][KH]) != null)) {
 
       inputCount[timeChose][KH_HG]++;
@@ -350,9 +423,9 @@ export function calculate_pass_rate_cmsl(
       data[9 + timeChose * 10]['data'][i+KH] = Number(temp * 100).toFixed(1);
   }
     // data[8 + timeChose * 10]['data'][HJ] = (sum_HJ/SumAverageCount[timeChose]).toFixed(2)
-    data[8 + timeChose * 10]['data'][KH] = (sum_KH/inputCount[timeChose][0]).toFixed(2)
-    data[8 + timeChose * 10]['data'][N] = (sum_N/inputCount[timeChose][1]).toFixed(2)
-    data[8 + timeChose * 10]['data'][P] = (sum_P/inputCount[timeChose][2]).toFixed(2)
+    data[8 + timeChose * 10]['data'][KH] = (sum_KH/inputCount[timeChose][0]).toFixed(3)
+    data[8 + timeChose * 10]['data'][N] = (sum_N/inputCount[timeChose][1]).toFixed(3)
+    data[8 + timeChose * 10]['data'][P] = (sum_P/inputCount[timeChose][2]).toFixed(3)
 }
 
 
@@ -425,7 +498,52 @@ export function autoCalculate_average(data, timeChoose, indexL, tableWidth) {
 
 
 }
+export function autoCalculate_average_kiln(data, timeChoose, indexL, tableWidth) {
 
+
+  //i = 8 18 28
+  let sum = Array(3);
+
+  //累加
+  for (let i = 0; i < 3; i++)
+    sum[i] = Array(tableWidth).fill(0);
+
+  //存放平均值
+  let average = Array(3);//输入的数组
+
+  for (let i = 0; i < 3; i++)
+    average[i] = Array(tableWidth).fill(0);
+
+  //表中非空的个数
+  let inputCount = Array(3);//3个班次
+
+  for (let i = 0; i < tableWidth; i++) {
+    inputCount[i] = Array(tableWidth).fill(0);
+  }
+
+  for (let i = 0; i < 8; i++) {
+
+    let index = i + timeChoose * 10;
+
+    if (!isNaN(parseFloat(data[index]['data'][indexL]))
+      &&
+      (parseFloat(data[index]['data'][indexL]) != null)
+      &&
+      data[index]['data'][indexL] != ''
+    ) {
+      inputCount[timeChoose][indexL]++;
+
+      sum[timeChoose][indexL] += data[index]['data'][indexL];
+    }
+
+
+  }//end for
+
+  //计算平均值
+  data[8 + timeChoose * 10]['data'][indexL] = ((sum[timeChoose][indexL] * 1.0) / inputCount[timeChoose][indexL]).toFixed(3);
+
+
+}
 /******************************CRO***************start************************************/
 /**
  *  计算平均值

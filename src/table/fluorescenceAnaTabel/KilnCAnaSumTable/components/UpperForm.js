@@ -7,10 +7,10 @@ import {connect} from "react-redux";
 
 import {HuaYSOrder_RMC} from "../../../../Constant/TableOrder";
 import {
-    autoCalculate_average,
+    autoCalculate_average, autoCalculate_average_kiln,
     autoCalculate_KH, autoCalculate_KH_1,
     autoCalculate_N,
-    autoCalculate_P, autoCalculateHJ,
+    autoCalculate_P, autoCalculateHJ, calculate_average_KH_N_P_kiln,
 } from "../../../../Helper/Calculate";
 
 
@@ -106,11 +106,39 @@ class UpperForm extends Component {
         //     //计算合格率
         //     calculate_pass_rate(NewData, startValue, endValue, order, width, timeChose, indexL);
         // }
+        //计算KH，KH_,N,P的平均值
+        calculate_average_KH_N_P_kiln(NewData,  width, timeChose, indexL);
 
-        //计算平均值
-        autoCalculate_average(NewData, timeChose, indexL,tableWidth);
-        let sum = autoCalculateHJ(NewData[indexH]['data'], width);
-        NewData[indexH]['data'][HuaYSOrder_RMC.HJ] = sum;
+        //计算其他平均值
+        autoCalculate_average_kiln(NewData, timeChose, indexL,tableWidth);
+
+//计算合计的平均值
+        let sum_average_sum =Array(3).fill(0);
+        let inputCount = Array(3).fill(0);//3个班次中非0的个数
+        if(indexL!=0){
+            let sum = autoCalculateHJ(NewData[indexH]['data'], width);
+            NewData[indexH]['data'][HuaYSOrder_RMC.HJ] = sum;
+
+            for (let i = 0; i < 8; i++) {
+                let index = i + timeChose * 10;
+                if (!isNaN(parseFloat(NewData[index]['data'][HuaYSOrder_RMC.HJ]))
+                  &&
+                  (parseFloat(NewData[index]['data'][HuaYSOrder_RMC.HJ]) != null)
+                  &&
+                  NewData[index]['data'][HuaYSOrder_RMC.HJ] != ''
+                ) {
+                    inputCount[timeChose]++;
+
+                    sum_average_sum[timeChose] += NewData[index]['data'][HuaYSOrder_RMC.HJ];
+                }
+
+
+            }//end for
+
+
+            NewData[timeChose*10+8]['data'][HuaYSOrder_RMC.HJ] = ((sum_average_sum[timeChose]*1.0)/inputCount[timeChose]).toFixed(3)
+            //更新数据
+        }
 
         //更新数据
         updateChange(NewData);
@@ -370,23 +398,23 @@ class UpperForm extends Component {
         dataSource.push(
             {
                 time: '平均',
-                SJ:     Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.SJ],
-                SiO2:   Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.SiO2],
-                Al2O3:  Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.Al2O3],
-                Fe2O3:  Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.Fe2O3],
-                CaO:    Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.CaO],
-                MgO:    Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.MgO],
-                HJ:     Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.HJ],
-                // fCaO:   Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.fCaO],
-                fCaO:   Data_CRO[8 + timeChose * 15]['data'][0],
-                KH:     Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.KH],
-                KH_:    Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.KH_],
-                N:       Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.N],
-                P:       Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.P],
-                C3S:     Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.C3S],
-                C2S:     Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.C2S],
-                C3A:     Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.C3A],
-                C4AF:    Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.C4AF],
+                SJ:     isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.SJ])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.SJ],
+                SiO2:   isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.SiO2])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.SiO2],
+                Al2O3:  isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.Al2O3])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.Al2O3],
+                Fe2O3:  isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.Fe2O3])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.Fe2O3],
+                CaO:    isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.CaO])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.CaO],
+                MgO:    isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.MgO])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.MgO],
+                HJ:     isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.HJ])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.HJ],
+                // fCaO:   isNaNData[8 + timeChose * 10]['data'][HuaYSOrder_RMC.fCaO],
+                fCaO:   isNaN(Data_CRO[8 + timeChose * 15]['data'][0])?null:Data_CRO[8 + timeChose * 15]['data'][0],
+                KH:     isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.KH])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.KH],
+                KH_:    isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.KH_])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.KH_],
+                N:       isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.N])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.N],
+                P:       isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.P])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.P],
+                C3S:     isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.C3S])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.C3S],
+                C2S:     isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.C2S])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.C2S],
+                C3A:     isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.C3A])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.C3A],
+                C4AF:    isNaN(Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.C4AF])?null:Data[8 + timeChose * 10]['data'][HuaYSOrder_RMC.C4AF],
                 // Remarks_list:'--',
 
             },

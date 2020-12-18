@@ -106,9 +106,31 @@ class UpperForm extends Component {
 
         //计算平均值
         autoCalculate_average(NewData, timeChose, indexL,tableWidth);
+        //计算合计的平均值
+        let sum_average_sum =Array(3).fill(0);
+        let inputCount = Array(3).fill(0);//3个班次中非0的个数
         let sum = autoCalculateHJ(NewData[indexH]['data'], width);
         NewData[indexH]['data'][HuaYSOrder_JC.HJ] = sum;
 
+        for (let i = 0; i < 8; i++) {
+            let index = i + timeChose * 10;
+            if (!isNaN(parseFloat(NewData[index]['data'][HuaYSOrder_JC.HJ]))
+              &&
+              (parseFloat(NewData[index]['data'][HuaYSOrder_JC.HJ]) != null)
+              &&
+              NewData[index]['data'][HuaYSOrder_JC.HJ] != ''
+            ) {
+                inputCount[timeChose]++;
+
+                sum_average_sum[timeChose] += NewData[index]['data'][HuaYSOrder_JC.HJ];
+            }
+
+
+        }//end for
+
+
+        NewData[timeChose*10+8]['data'][HuaYSOrder_JC.HJ] = ((sum_average_sum[timeChose]*1.0)/inputCount[timeChose]).toFixed(3)
+        //更新数据
         //更新数据
         updateChange(NewData);
     };
@@ -306,7 +328,7 @@ class UpperForm extends Component {
                             onChange={event => this.onInputNumberChange2(event, index, HuaYSOrder_CMRYSL.MgO)}
                         /></span>,
                     HJ:
-                        <span>{isNaN(value[HuaYSOrder_CMRYSL.HJ]) ? null : value[HuaYSOrder_CMRYSL.HJ]}</span>,
+                        <span>{isNaN(value[HuaYSOrder_CMRYSL.HJ]) ? null : value[HuaYSOrder_CMRYSL.HJ].toFixed(3)}</span>,
                     K2O:
                         <span><InputNumber
                             style={this.changeStyle(value[HuaYSOrder_CMRYSL.K2O])}
