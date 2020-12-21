@@ -1,7 +1,7 @@
 import {TableName} from "../Constant/TableNameConstant";
 
 export function HuaYanShiFormat(resultData, responseData, tableName) {
-
+    if(responseData["huaYanShis"].length != 0){
         //校验tableName
         //  if (responseData.tableName === tableName) {
         //解析数据data
@@ -35,7 +35,11 @@ export function HuaYanShiFormat(resultData, responseData, tableName) {
             return [resultData];
         }
 
+    }else{
 
+        return 0; 
+
+    }
 
 
 
@@ -66,8 +70,9 @@ export function ZhongKongShiFormat(resultData, responseData, tableName) {
     }
     else{
 
+    
         return 0;
-
+        
     }
 }
 

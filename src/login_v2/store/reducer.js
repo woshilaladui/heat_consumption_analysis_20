@@ -12,17 +12,11 @@ const defaultState = fromJS({
     verificationCode:'',//验证码
     errorMessage: '',
     verificationPhoto:"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1879897701,486067871&fm=26&gp=0.jpg",
-
-
-
-
-
 });
 export default (state = defaultState, action) => {
 
     switch (action.type) {
         case constants.CHANGE_PHONE_NUM:
-
             return state.merge({
                 'phone': action.data,
             });

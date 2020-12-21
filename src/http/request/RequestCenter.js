@@ -46,9 +46,7 @@ export function RequestCenter(
                 method: method,
                 body: formData, // data can be `string` or {object}!
                 headers: {
-                    //"Content-Type": "application/json",
                     'JWTHeaderName':window.localStorage.token,
-                    // 'authorization': window.localStorage.authorization,//携带token
                 }
             })
                 .then(res =>{
@@ -123,9 +121,7 @@ export function RequestCenter_V2(
                 body: formData, 
                 credentials:"include",
                 headers: {
-                    //"Content-Type" : "application/json",
                     'JWTHeaderName':window.localStorage.token,
-                    // 'authorization': window.localStorage.authorization,//携带token
                 }
             })
                 .then(res =>{
@@ -200,13 +196,8 @@ export function RequestCenter_V2_Test(
                 body: formData,
                 credentials:"include",
                 headers: {
-                    //"Content-Type" : "application/json",
                     'JWTHeaderName':window.localStorage.token,
-
-                    // 'authorization': window.localStorage.authorization,//携带token
-                    // "Cookie": document.cookie
-                    // "Cookie": "SESSION=YzMzNzliZTQtMTU2ZS00NjZkLTkzNzctMThkYzE4NGIyODQ0"
-
+                    'kaptchaToken':window.localStorage.kaptchaToken,
                 }
             })
                 .then(res =>{
@@ -221,13 +212,9 @@ export function RequestCenter_V2_Test(
 
                     }else if(data['code'] === Mark.SUCCESS_NO_DATA){
                         resolve(deepCopy(data));
-                        // resolve(Mark.SUCCESS_NO_DATA)//标记为无数据
 
                     }
                     else if(data['code'] === Mark.ERROR){
-                        // console.log('dateerrosss')
-                        // console.log(data)
-                        // console.log('dateroorsss')
                         resolve(deepCopy(data));
                     }
                 })
