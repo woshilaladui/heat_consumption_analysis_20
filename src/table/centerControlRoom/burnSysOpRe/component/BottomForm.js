@@ -79,6 +79,7 @@ class BottomForm extends Component {
         }
         
         //表头
+        //每一列控制每一行index的col和row
         const columns = [
             {
                 title: 'sdfsdf',
@@ -97,7 +98,7 @@ class BottomForm extends Component {
                     }
                     if (index === 2) {//接班
                         obj.props.rowSpan = 1;
-                        obj.props.colSpan = 2;
+                        obj.props.colSpan = 1;
                     }
                     if (index === 3) {//空白
                        // obj.props.rowSpan = 0;
@@ -129,7 +130,7 @@ class BottomForm extends Component {
                     }
                     if (index === 2) {//接班
                         obj.props.rowSpan = 1;
-                        obj.props.colSpan = 0;
+                        obj.props.colSpan = 1;
                     }
                     if (index === 3) {//空白
                         obj.props.rowSpan = 1;
@@ -160,7 +161,7 @@ class BottomForm extends Component {
                     }
                     if (index === 2) {//接班
                         obj.props.rowSpan = 1;
-                        obj.props.colSpan = 2;
+                        obj.props.colSpan = 1;
                     }
                     if (index === 3) {//空白
                         obj.props.rowSpan = 6;
@@ -191,7 +192,7 @@ class BottomForm extends Component {
                     }
                     if (index === 2) {//接班
                         obj.props.rowSpan = 1;
-                        obj.props.colSpan = 0;
+                        obj.props.colSpan = 1;
                     }
                     if (index === 3) {//空白
                         obj.props.rowSpan = 6;
@@ -222,7 +223,7 @@ class BottomForm extends Component {
                     }
                     if (index === 2) {//接班
                         obj.props.rowSpan = 1;
-                        obj.props.colSpan = 3;
+                        obj.props.colSpan = 2;
                     }
                     if (index === 3) {//空白
                         obj.props.rowSpan = 6;
@@ -286,7 +287,7 @@ class BottomForm extends Component {
                     }
                     if (index === 2) {//接班
                         obj.props.rowSpan = 1;
-                        obj.props.colSpan = 0;
+                        obj.props.colSpan = 4;
                     }
                     if (index === 3) {//空白
                         obj.props.rowSpan = 6;
@@ -318,7 +319,7 @@ class BottomForm extends Component {
                     }
                     if (index === 2) {//接班
                         obj.props.rowSpan = 1;
-                        obj.props.colSpan = 3;
+                        obj.props.colSpan = 0;
                     }
                     if (index === 3) {//空白
                         obj.props.rowSpan = 6;
@@ -427,7 +428,7 @@ class BottomForm extends Component {
                         }}/>,
                 },
                 {
-                    2: <span>均化XX:&emsp;<InputNumber
+                    2: <span>均化库用:&emsp;<InputNumber
                         value={parseFloat(Data[8 + timeChose * 12]['data'][1])}
                         formatter={limitDecimals}//限制输入数值位数
                         parser={limitDecimals}//限制输入数值位数
@@ -435,7 +436,7 @@ class BottomForm extends Component {
                         style={{
                             resize: "none"
                         }}/>&emsp;风机</span>,
-                    5: <span>移重XX:&emsp;<InputNumber
+                    5: <span>移重仓用:&emsp;<InputNumber
 
                         value={parseFloat(Data[8 + timeChose * 12]['data'][2])}
                         formatter={limitDecimals}//限制输入数值位数
@@ -445,29 +446,43 @@ class BottomForm extends Component {
                         style={{
                             resize: "none"
                         }}/>&emsp;风机</span>,
-                    8: 'XXXXXX（0点班  8点班  16点班）',
+                    8: '燃烧器浇注料（0点班  8点班  16点班）',
                     9: timeChose * 8 + '点班',
 
                 },
                 {
-                    1: '接班:中心风  内风  外风',//长度2
-                    3: <Input
+                    1: '接班',//长度2
+                    2:<span>中心风:
+                      <Input
+                        // style={{width:'15px'}}
                         value={Data[9 + timeChose * 12]['data'][0]}
-                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 12, 0)}/>,//长度2
-
+                        onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 12, 0)}/>
+                    %</span>,
+                    3:<span>内风:&emsp;
+                        <Input
+                          // style={{width:'20px'}}
+                          value={Data[9 + timeChose * 12]['data'][1]}
+                          onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 12, 1)}/>
+                     %</span>,
+                    4:<span>外风:&emsp;
+                        <Input
+                          // style={{width:'15px'}}
+                          value={Data[9 + timeChose * 12]['data'][2]}
+                          onChange={event => this.handleChangeInput(event.target.value, 9 + timeChose * 12, 2)}/>
+                     %</span>,
                     5: <span>燃烧器:&emsp;<InputNumber
-                        value={parseFloat(Data[9 + timeChose * 12]['data'][1])}
+                        value={parseFloat(Data[9 + timeChose * 12]['data'][3])}
                         formatter={limitDecimals}//限制输入数值位数
                         parser={limitDecimals}//限制输入数值位数
-                        onChange={event => this.handleChangeInput(event, 9 + timeChose * 12, 1)}
+                        onChange={event => this.handleChangeInput(event, 9 + timeChose * 12, 3)}
                         style={{
                             resize: "none"
                         }}/>&emsp;位</span>,//长度3
-                    8: <span>孰料仓位:&emsp;<InputNumber
-                        value={parseFloat(Data[9 + timeChose * 12]['data'][2])}
+                    7: <span>孰料仓位:&emsp;<InputNumber
+                        value={parseFloat(Data[9 + timeChose * 12]['data'][4])}
                         formatter={limitDecimals}//限制输入数值位数
                         parser={limitDecimals}//限制输入数值位数
-                        onChange={event => this.handleChangeInput(event, 9 + timeChose * 12, 2)}
+                        onChange={event => this.handleChangeInput(event, 9 + timeChose * 12, 4)}
                         style={{
                             resize: "none"
                         }}/>&emsp;米</span>,//长度3

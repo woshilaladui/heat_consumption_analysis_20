@@ -11,7 +11,6 @@ export function getSaveStandardJson(
     startValue,
     endValue,
     reason,
-    createdAt,
     person
 ){
     let tempData = [{

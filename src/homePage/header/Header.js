@@ -27,7 +27,7 @@ class Header extends Component {
     // console.log("console"+window.localStorage.department)
     //将时间戳转变为毫秒数进行比较，若过期时间则退出登陆
     if (this.dateChangeMs(window.localStorage.expiration)<=new Date().getTime()){
-      this.handleLogout();
+      window.localStorage.clear()
     }
 
     if(window.localStorage.id == 1){

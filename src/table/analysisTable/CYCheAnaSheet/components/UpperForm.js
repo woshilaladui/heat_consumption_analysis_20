@@ -3,12 +3,13 @@ import {Input, Table, Button, message} from 'antd';
 import {
     AnalysisOrder_UpRipeMaterial,
     AnalysisOrder_DownRipeMaterial,
-    AnalysisOrder_RawMaterial
+    AnalysisOrder_RawMaterial, AnalysisOrder_YS,
 } from "../../../../Constant/TableOrder"
 
 import * as actionCreators from "../../../analysisTable/CYCheAnaSheet/store/actionCreators";
 import {deepCopy} from "../../../../Helper/Copy";
 import {connect} from "react-redux";
+import {autoCalculate_content} from "../../../../Helper/Calculate";
 
 class UpperForm extends Component {
 
@@ -88,7 +89,18 @@ class UpperForm extends Component {
 
         //TODO 计算KH- 但是该表没有fcao 出窑熟料化学分析单
 
-
+        if(
+          indexL === AnalysisOrder_UpRipeMaterial.Fe2O3
+          ||
+          indexL === AnalysisOrder_UpRipeMaterial.CaO
+          ||
+          indexL === AnalysisOrder_UpRipeMaterial.MgO
+          ||
+          indexL === AnalysisOrder_UpRipeMaterial.SO3
+        ){
+            //计算含量
+            autoCalculate_content(NewData,indexL);
+        }
         updateChange(NewData);
     };
 
@@ -269,7 +281,7 @@ class UpperForm extends Component {
         const {data,LX} = this.props;
         const Data = deepCopy(data);
         const lx = deepCopy(LX);
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 3; i++) {
             const hour = i
             const value = Data[hour]['data'];
             dataSource.push(
@@ -347,7 +359,102 @@ class UpperForm extends Component {
                     //btn_save: <Button type='primary' onClick={() => this.postToHome(i)}>暂存</Button>,
                 })
         }//end for
+        const value = Data[3]['data'];
+        //最后含量部分
+        dataSource.push(
+          {
+              LX: lx[3],
+              IL: <span>~~~
+                  {/*    <InputNumber*/}
+                  {/*    style={this.changeStyle(value[AnalysisOrder_YS.IL])}*/}
+                  {/*    defaultValue={''}*/}
+                  {/*    value={isNaN(value[AnalysisOrder_YS.IL]) ? null : value[AnalysisOrder_YS.IL]}*/}
+                  {/*    onChange={event => this.onInputNumberChange2(event, i, AnalysisOrder_YS.IL)}*/}
+                  {/*/>*/}
+                </span>,
+              SiO2: <span>~~~
+                  {/*    <InputNumber*/}
 
+                  {/*    style={this.changeStyle(value[AnalysisOrder_YS.SiO2])}*/}
+                  {/*    defaultValue={''}*/}
+                  {/*    value={isNaN(value[AnalysisOrder_YS.SiO2]) ? null : value[AnalysisOrder_YS.SiO2]}*/}
+                  {/*    onChange={event => this.onInputNumberChange2(event, 3, AnalysisOrder_YS.SiO2)}*/}
+                  {/*/>*/}
+                </span>,
+              Al2O3: <span>~~~
+                  {/*    <InputNumber*/}
+                  {/*    style={this.changeStyle(value[AnalysisOrder_YS.Al2O3])}*/}
+                  {/*    defaultValue={''}*/}
+                  {/*    value={isNaN(value[AnalysisOrder_YS.Al2O3]) ? null : value[AnalysisOrder_YS.Al2O3]}*/}
+                  {/*    onChange={event => this.onInputNumberChange2(event, 3, AnalysisOrder_YS.Al2O3)}*/}
+                  {/*/>*/}
+                </span>,
+              Fe2O3: <span>{isNaN(value[AnalysisOrder_YS.Fe2O3]) ? null : value[AnalysisOrder_YS.Fe2O3]}
+                  {/*    <InputNumber*/}
+
+                  {/*    style={this.changeStyle(value[AnalysisOrder_YS.Fe2O3])}*/}
+                  {/*    defaultValue={''}*/}
+                  {/*    value={isNaN(value[AnalysisOrder_YS.Fe2O3]) ? null : value[AnalysisOrder_YS.Fe2O3]}*/}
+                  {/*    onChange={event => this.onInputNumberChange2(event, 3, AnalysisOrder_YS.Fe2O3)}*/}
+                  {/*/>*/}
+                </span>,
+              CaO: <span>{isNaN(value[AnalysisOrder_YS.CaO]) ? null : value[AnalysisOrder_YS.CaO]}
+                  {/*    <InputNumber*/}
+
+                  {/*    style={this.changeStyle(value[AnalysisOrder_YS.CaO])}*/}
+                  {/*    defaultValue={''}*/}
+                  {/*    value={isNaN(value[AnalysisOrder_YS.CaO]) ? null : value[AnalysisOrder_YS.CaO]}*/}
+                  {/*    onChange={event => this.onInputNumberChange2(event, 3, AnalysisOrder_YS.CaO)}*/}
+                  {/*/>*/}
+                </span>,
+              MgO: <span>{isNaN(value[AnalysisOrder_YS.MgO]) ? null : value[AnalysisOrder_YS.MgO]}
+                  {/*    <InputNumber*/}
+
+                  {/*    style={this.changeStyle(value[AnalysisOrder_YS.MgO])}*/}
+                  {/*    defaultValue={''}*/}
+                  {/*    value={isNaN(value[AnalysisOrder_YS.MgO]) ? null : value[AnalysisOrder_YS.MgO]}*/}
+                  {/*    onChange={event => this.onInputNumberChange2(event, 3, AnalysisOrder_YS.MgO)}*/}
+                  {/*/>*/}
+                </span>,
+              SO3: <span>{isNaN(value[AnalysisOrder_YS.SO3]) ? null : value[AnalysisOrder_YS.SO3]}
+                  {/*    <InputNumber*/}
+
+                  {/*    style={this.changeStyle(value[AnalysisOrder_YS.SO3])}*/}
+                  {/*    defaultValue={''}*/}
+                  {/*    value={isNaN(value[AnalysisOrder_YS.SO3]) ? null : value[AnalysisOrder_YS.SO3]}*/}
+                  {/*    onChange={event => this.onInputNumberChange2(event, 3, AnalysisOrder_YS.SO3)}*/}
+                  {/*/>*/}
+                </span>,
+              Na2O: <span>~~~
+                  {/*    <InputNumber*/}
+
+                  {/*    style={this.changeStyle(value[AnalysisOrder_YS.Na2O])}*/}
+                  {/*    defaultValue={''}*/}
+                  {/*    value={isNaN(value[AnalysisOrder_YS.Na2O]) ? null : value[AnalysisOrder_YS.Na2O]}*/}
+                  {/*    onChange={event => this.onInputNumberChange2(event, 3, AnalysisOrder_YS.Na2O)}*/}
+                  {/*/>*/}
+                </span>,
+              K2O: <span>~~~
+                  {/*    <InputNumber*/}
+
+                  {/*    style={this.changeStyle(value[AnalysisOrder_YS.K2O])}*/}
+                  {/*    defaultValue={''}*/}
+                  {/*    value={isNaN(value[AnalysisOrder_YS.K2O]) ? null : value[AnalysisOrder_YS.K2O]}*/}
+                  {/*    onChange={event => this.onInputNumberChange2(event, 3, AnalysisOrder_YS.K2O)}*/}
+                  {/*/>*/}
+                </span>,
+              Cl: <span>~~~
+                  {/*    <InputNumber*/}
+
+                  {/*    style={this.changeStyle(value[AnalysisOrder_YS.Cl])}*/}
+                  {/*    defaultValue={''}*/}
+                  {/*    value={isNaN(value[AnalysisOrder_YS.Cl]) ? null : value[AnalysisOrder_YS.Cl]}*/}
+                  {/*    onChange={event => this.onInputNumberChange2(event, 3, AnalysisOrder_YS.Cl)}*/}
+                  {/*/>*/}
+                </span>,
+              // person: Data[3]['user'],
+              // btn_save: <Button type='primary' onClick={() => this.postToHome(3)}>暂存</Button>,
+          })
         const data_bottom = [];
 
         const valueBottom =Data[4]['data'];
