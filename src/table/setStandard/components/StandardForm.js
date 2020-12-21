@@ -183,7 +183,11 @@ class StandardForm extends Component {
             newStartValue,newEndValue,newReason,newUsername
         } = this.props;
         const AllItem = deepCopy(allItem);
-
+        console.log("原设置人员")
+        console.log(oldUsername)
+        console.log(oldStartValue)
+        console.log(oldEndValue)
+        console.log("原设置人员")
         /**表格数据输入**/
         for (let i = 0; i < AllItem[tableChose].length; i++) {
 

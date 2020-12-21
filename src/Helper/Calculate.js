@@ -282,7 +282,7 @@ export function calculate_average_KH_N_P_kiln(
 
   let inputCount = Array(3);//3个班次
   for (let i = 0; i < 3; i++) {
-    inputCount[i] = Array(3).fill(0);
+    inputCount[i] = Array(4).fill(0);
   }
 
 
@@ -337,9 +337,9 @@ export function calculate_average_KH_N_P_kiln(
 
   // data[8 + timeChose * 10]['data'][HJ] = (sum_HJ/SumAverageCount[timeChose]).toFixed(2)
   data[8 + timeChose * 10]['data'][KH] = (sum_KH/inputCount[timeChose][0]).toFixed(3)
-  data[8 + timeChose * 10]['data'][KH_] = (sum_KH_/inputCount[timeChose][0]).toFixed(3)
-  data[8 + timeChose * 10]['data'][N] = (sum_N/inputCount[timeChose][1]).toFixed(3)
-  data[8 + timeChose * 10]['data'][P] = (sum_P/inputCount[timeChose][2]).toFixed(3)
+  data[8 + timeChose * 10]['data'][KH_] = (sum_KH_/inputCount[timeChose][1]).toFixed(3)
+  data[8 + timeChose * 10]['data'][N] = (sum_N/inputCount[timeChose][2]).toFixed(3)
+  data[8 + timeChose * 10]['data'][P] = (sum_P/inputCount[timeChose][3]).toFixed(3)
 }
 
 

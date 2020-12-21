@@ -183,7 +183,7 @@ class UpperForm extends Component {
 
     /**点击暂存之后上传当前行的数据到后台**end**/
     render() {
-        console.log("渲染111"+JSON.stringify(this.props.data));
+        // console.log("渲染111"+JSON.stringify(this.props.data));
         Input.defaultProps = {
             disabled:!this.props.searchFlag,
             style:this.props.searchFlag ? { } : {opacity:"1", color:"black"}, 

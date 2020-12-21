@@ -88,7 +88,9 @@ export function getData(
 
             if(response['code'] === Mark.SUCCESS){
 
-
+                console.log("deepCopy")
+                console.log(response['data'])
+                console.log("deepCopy")
                 let newData = deepCopy(response['data']);
 
                 let result = StandardFormat(
@@ -121,7 +123,9 @@ export function saveData(
     let request_startValue = startValue.toString();
     let request_endValue = endValue.toString();
     let request_reason = reason.toString();
-
+    console.log("person")
+    console.log(person)
+    console.log("person")
     return (dispatch) => {
 
         requestSetStandard(
@@ -129,10 +133,11 @@ export function saveData(
             request_startValue,
             request_endValue,
             request_reason,
-            createdAt,
             person
         ).then((response)=>{
-
+            console.log("response")
+            console.log(response)
+            console.log("response")
             if(response['code'] === Mark.SUCCESS){
                 message.info('提交成功');
 
@@ -146,8 +151,8 @@ export function saveData(
 
                 //新数据输入栏清空
                 dispatch(updateNewdData(//将获取到的数据进行转发
-                    [],
-                    [],
+                    startValue,
+                    endValue,
                     [],
                     ''
                 ));

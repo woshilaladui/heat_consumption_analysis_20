@@ -93,7 +93,6 @@ export function requestGetStandardDataByTableName(
  * @param endValue
  * @param reason
  * @param person
- * @param createdAt
  * @returns {Promise<any>}
  */
 export function requestSetStandard(
@@ -101,13 +100,21 @@ export function requestSetStandard(
     startValue,
     endValue,
     reason,
-    createdAt,
     person
 ){
 
 
     return new Promise((resolve, reject) => {
-
+console.log("getSaveStandardJson")
+console.log(getSaveStandardJson(//获取对应的json
+  tableName,
+  startValue,
+  endValue,
+  reason,
+  person
+))
+        console.log(person)
+console.log("getSaveStandardJson")
         RequestCenter({
             url:URL.REQUEST_SET_STANDARD,
             jsonData:getSaveStandardJson(//获取对应的json

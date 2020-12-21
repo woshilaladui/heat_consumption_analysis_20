@@ -31,10 +31,6 @@ export const getUserPermission = ({})=>{
             .then((permission)=>{
                 //updatePermission({permission:permission})
 
-                console.log("requestCheckPermission")
-                console.log(permission)
-                console.log(permission.username)
-                console.log("requestCheckPermission")
 
                 if(//TODO 加密本地信息
                     permission.username === window.localStorage.username &&

@@ -259,7 +259,7 @@ class UpperForm extends Component {
                     {/*    onChange={event => this.onInputNumberChange2(event, 3, AnalysisOrder_YS.SiO2)}*/}
                     {/*/>*/}
                 </span>,
-                Al2O3: <span>```
+                Al2O3: <span>~~~
                     {/*    <InputNumber*/}
                     {/*    style={this.changeStyle(value[AnalysisOrder_YS.Al2O3])}*/}
                     {/*    defaultValue={''}*/}

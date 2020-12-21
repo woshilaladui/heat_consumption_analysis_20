@@ -20,12 +20,11 @@ class SetStandard extends Component {
     componentDidMount() {
         const {setOldData,requestFlag,tableNameList,tableChose} = this.props;
 
-        if(requestFlag){
 
             let tempTableNameList = deepCopy(tableNameList);
 
             setOldData(tempTableNameList[tableChose]);
-        }
+
     }
     
     /***返回按钮事件 ***/
