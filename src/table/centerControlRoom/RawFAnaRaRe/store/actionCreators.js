@@ -101,12 +101,16 @@ export const getFrontData = (
                         newData,
                         tableName
                     );
-
+                    console.log("tableName")
+                    console.log(result)
+                    console.log("tableName")
+                    if (result[0]!=0){
+                        console.log("zhixingle")
                     //更新数据
                     dispatch(updateUpperDataFront({//将获取到的数据进行转发
                         upperDataFront: result[0]
                     }));
-
+                    }
                     //更新标准
                     dispatch(updateStandard(result[1], result[2]));
                 }
@@ -155,11 +159,14 @@ export const getLastData = (
                         newData,
                         tableName
                     );
+                    if(result[0] != 0){
+                        //更新数据
+                        dispatch(updateUpperDataLast({//将获取到的数据进行转发
+                            upperDataLast: result[0]
+                        }));
+                    }
 
-                    //更新数据
-                    dispatch(updateUpperDataLast({//将获取到的数据进行转发
-                        upperDataLast: result[0]
-                    }));
+
 
                 }
 
@@ -209,12 +216,12 @@ export function getData(
                             newData,
                             tableName
                         );
-
+                        if(result!=0){
                         dispatch(updateData({//将获取到的数据进行转发
                             data: result
                         }));
                     }//end if
-
+                    }
                 }
             )
     }//end return

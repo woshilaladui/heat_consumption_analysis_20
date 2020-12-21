@@ -33,6 +33,7 @@ export const  getVerificationPhoto = () => {
                 //获取返回的token 
                 var kaptchaToken = xmlhttp.getResponseHeader("kaptchaToken"); 
                 //存起来
+
                 window.localStorage.kaptchaToken = kaptchaToken;
                 //处理返回的图片流
                 var blob = this.response;

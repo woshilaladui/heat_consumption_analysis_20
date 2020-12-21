@@ -1,7 +1,7 @@
 import {TableName} from "../Constant/TableNameConstant";
 
 export function HuaYanShiFormat(resultData, responseData, tableName) {
-    if(responseData["huaYanShis"].length != 0){
+
         //校验tableName
         //  if (responseData.tableName === tableName) {
         //解析数据data
@@ -30,16 +30,22 @@ export function HuaYanShiFormat(resultData, responseData, tableName) {
                 arr_startValue[i] = parseFloat(str_startValue[i]);
             for (let i = 0; i < str_endValue.length; i++)
                 arr_endValue[i] = parseFloat(str_endValue[i]);
-            return [resultData, arr_startValue, arr_endValue]
+            if (responseData["huaYanShis"].length !=0){
+                return [resultData, arr_startValue, arr_endValue]
+            }
+            else {
+                return [0, arr_startValue, arr_endValue]
+            }
+
         }else {
-            return [resultData];
+            if (responseData["huaYanShis"].length !=0){
+                return [resultData]
+            }
+            else {
+                return [0]
+            }
         }
 
-    }else{
-
-        return 0; 
-
-    }
 
 
 
@@ -72,7 +78,7 @@ export function ZhongKongShiFormat(resultData, responseData, tableName) {
 
     
         return 0;
-        
+
     }
 }
 

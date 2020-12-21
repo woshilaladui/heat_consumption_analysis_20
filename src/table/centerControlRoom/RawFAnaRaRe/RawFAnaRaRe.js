@@ -13,9 +13,7 @@ import moment from 'moment';
 //出磨生料荧光分析及配比记录
 class RuYaoSLYCLHXFXBGD extends Component {
 
-  returnBack = () => {
-    this.props.history.push("/");
-  };
+
 
   //判定是否已登录，是否有权限
   componentWillMount() {

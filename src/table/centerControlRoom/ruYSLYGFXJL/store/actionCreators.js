@@ -79,12 +79,12 @@ export const getFrontData = (
                         newData,
                         tableName
                     );
-
+                  if(result[0] != 0) {
                     //更新数据
                     dispatch(updateUpperDataFront({//将获取到的数据进行转发
-                        upperDataFront: result[0]
+                      upperDataFront: result[0]
                     }));
-
+                  }
                 }
 
             }
@@ -117,12 +117,12 @@ export const getLastData = (
                         newData,
                         tableName
                     );
-
+                  if(result[0] != 0) {
                     //更新数据
                     dispatch(updateUpperDataLast({//将获取到的数据进行转发
-                        upperDataLast: result[0]
+                      upperDataLast: result[0]
                     }));
-
+                  }
                 }
 
             }
@@ -148,21 +148,21 @@ export function getData(
             .then(
                 (response) => {
 
-                    if(response['code'] === 0){
-                        //解析处理数据
-                        let newData = deepCopy(response['data'])
+                    if(response['code'] === 0) {
+                      //解析处理数据
+                      let newData = deepCopy(response['data'])
 
-                        let result = ZhongKongShiFormat(
-                            data,
-                            newData,
-                            tableName
-                        );
-
+                      let result = ZhongKongShiFormat(
+                        data,
+                        newData,
+                        tableName
+                      );
+                      if (result != 0) {
                         dispatch(updateData({//将获取到的数据进行转发
-                            data: result
+                          data: result
                         }));
-                    }//end if
-
+                      }//end if
+                    }
                 }
             )
     }//end return

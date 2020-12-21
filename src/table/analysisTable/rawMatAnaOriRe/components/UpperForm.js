@@ -137,7 +137,7 @@ class UpperForm extends Component {
                 dataIndex: 'K2O',
             },
             {
-                title: 'Cl',
+                title: 'Cl-',
                 dataIndex: 'Cl',
             },
             {

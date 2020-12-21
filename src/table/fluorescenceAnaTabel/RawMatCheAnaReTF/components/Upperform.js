@@ -64,6 +64,7 @@ class UpperForm extends Component {
         //计算合计的平均值
         let sum_average_sum =Array(3).fill(0);
         let inputCount = Array(3).fill(0);//3个班次中非0的个数
+
         if(indexL!=0)
         {
             let sum = autoCalculateHJ(NewData[indexH]['data'], width);
@@ -79,7 +80,7 @@ class UpperForm extends Component {
                 ) {
                     inputCount[timeChose]++;
 
-                    sum_average_sum[timeChose] += NewData[index]['data'][HuaYSOrder_JC.HJ];
+                    sum_average_sum[timeChose] += parseFloat(NewData[index]['data'][HuaYSOrder_JC.HJ]);
                 }
 
 
@@ -88,6 +89,7 @@ class UpperForm extends Component {
 
             NewData[timeChose*10+8]['data'][HuaYSOrder_JC.HJ] = ((sum_average_sum[timeChose]*1.0)/inputCount[timeChose]).toFixed(3)
         }
+
         //更新数据
         updateChange(NewData);
 
@@ -108,14 +110,14 @@ class UpperForm extends Component {
 
             const {startValue, endValue} = this.props;
 
-            if (value) {
-                if (isNaN(value) || value >= startValue || value <= endValue) {
-                    return {
-                        borderColor: 'red',
-                        color: 'red',
-                    }
-                }
-            }//end if
+            // if (value) {
+            //     if (isNaN(value) || value >= startValue || value <= endValue) {
+            //         return {
+            //             borderColor: 'red',
+            //             color: 'red',
+            //         }
+            //     }
+            // }//end if
 
         }
     };
@@ -244,7 +246,7 @@ class UpperForm extends Component {
 
                             onChange={event => this.onInputNumberChange2(event, index, HuaYSOrder_JC.MgO)}
                         /></span>,
-                    HJ: <span>{isNaN(value[HuaYSOrder_JC.HJ]) ? null : value[HuaYSOrder_JC.HJ]}</span>,
+                    HJ: <span>{isNaN(value[HuaYSOrder_JC.HJ]) ? null : value[HuaYSOrder_JC.HJ].toFixed(2)}</span>,
                     person:
                         Data[index]['user'],
 
