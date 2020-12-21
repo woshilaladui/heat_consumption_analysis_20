@@ -62,7 +62,8 @@ class BurnSysOpRe extends Component {
     }
 
   // 打印
-  print(){
+
+  static print(){
     window.document.body.innerHTML = window.document.getElementById('billDetails').innerHTML;
     window.print();
     window.location.reload();

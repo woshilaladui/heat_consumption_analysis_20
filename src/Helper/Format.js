@@ -45,7 +45,7 @@ export function HuaYanShiFormat(resultData, responseData, tableName) {
 }
 
 export function ZhongKongShiFormat(resultData, responseData, tableName) {
-    // if(responseData["zhongKongShis"].length != 0){
+    if(responseData["zhongKongShis"].length != 0){
         //解析数据data
         for (let i = 0; i < responseData["zhongKongShis"].length; i++) {
 
@@ -63,12 +63,12 @@ export function ZhongKongShiFormat(resultData, responseData, tableName) {
 
         return resultData;
 
-    // }
-    // else{
-    //
-    //     return 0;
-    //
-    // }
+    }
+    else{
+
+        return 0;
+
+    }
 }
 
 export function StandardFormat(

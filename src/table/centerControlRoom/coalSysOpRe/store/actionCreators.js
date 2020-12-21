@@ -58,9 +58,12 @@ export const get_CRO_Data = (date, tableName, data) => {
                     newData,
                     tableName
                 );
+              if(result != 0){
                 dispatch(updateData_CRO({//将获取到的数据进行转发
-                    data: result[0]
+                  data: result[0]
                 }));
+              }
+
             }
         });//end requestGetHuaYanShiDataByTableNameAndDate
     }
@@ -91,10 +94,12 @@ export function getData(
                             newData,
                             tableName
                         );
-
+                      if(result != 0){
                         dispatch(updateData({//将获取到的数据进行转发
-                            data: result
+                          data: result
                         }));
+                      }
+
 
                     }//end if
 
