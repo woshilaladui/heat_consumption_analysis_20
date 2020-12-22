@@ -46,7 +46,8 @@ export function doChangeTimeChose(timeChose) {
 export function getData(
     date,
     tableName,
-    data
+    data,
+    searchFlag
 ) {
 
     return (dispatch) => {
@@ -66,9 +67,10 @@ export function getData(
                         let result = ZhongKongShiFormat(
                             data,
                             newData,
-                            tableName
+                            tableName,
+                          searchFlag
                         );
-                      if(result != 0){
+                      if(result != 0 || searchFlag === false){
                         dispatch(updateData({//将获取到的数据进行转发
                           data: result
                         }));

@@ -47,10 +47,10 @@ class RuYaoSLYCLHXFXBGD extends Component {
 
 
         if(this.props.date != date){
-            setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+            setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData),searchFlag);
         }
         if(this.props.searchFlag != searchFlag){
-            setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+            setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData),searchFlag);
         }
 
     }
@@ -143,8 +143,8 @@ const mapStateToProps = (state) => {
 
 const mapDispathToProps = (dispatch) => {
     return {
-        setOldData(date,tableName,data){
-            dispatch(actionCreators.getData(date,tableName,data))
+        setOldData(date,tableName,data,searchFlag){
+            dispatch(actionCreators.getData(date,tableName,data,searchFlag))
         }
     }//end return
 };

@@ -31,7 +31,7 @@ class BurnSysOpRe extends Component {
         /*if(requestFlag){
             setOldData(date,tableName,deepCopy(modelData));
         }*/
-        setOldData(date,tableName,deepCopy(modelData));
+        setOldData(date,tableName,deepCopy(modelData),requestFlag);
     }
 
     componentWillReceiveProps(nextProps){
@@ -132,8 +132,8 @@ const mapStateToProps = (state) => {
 
 const mapDispathToProps = (dispatch) => {
     return {
-        setOldData(date,tableName,data){
-            dispatch(actionCreators.getData(date,tableName,data))
+        setOldData(date,tableName,data,requestFlag){
+            dispatch(actionCreators.getData(date,tableName,data,requestFlag))
         },
     }//end return
 };

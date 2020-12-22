@@ -57,9 +57,10 @@ export const updateStandard = (startValue, endValue) => ({
  * @param date
  * @param tableName
  * @param data 传过来的是这个界面的模板
+ * @param searchFlag 根据searchFlag控制，如果是在查看表单界面中的表格获取数据那么就不因为数据为空阻止刷新数据
  * @returns {Function}
  */
-export const getData = (date, tableName, data) => {
+export const getData = (date, tableName, data,searchFlag) => {
     return (dispatch) => {
 
         requestGetHuaYanShiDataByTableNameAndDate(
@@ -75,9 +76,10 @@ export const getData = (date, tableName, data) => {
                 let result = HuaYanShiFormat(
                   data,
                   newData,
-                  tableName
+                  tableName,
+                  searchFlag
                 );
-                if (result[0] != 0) {
+                if (result[0] != 0||searchFlag === false) {
                     dispatch(updateData({//将获取到的数据进行转发
                         data: result[0]
                     }));

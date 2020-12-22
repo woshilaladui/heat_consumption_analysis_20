@@ -18,7 +18,7 @@ class CoalSysOpRe extends Component {
 
     componentDidMount() {
         /**首先查询当前页面是否有历史纪录并赋值formData**/
-        const{CRO_data,CRO_data_modelData,date,tableName,searchdate,tableName_CRO,modelData,requestFlag,getOldData,setOldData,requestFlag_CRO} = this.props
+        const{CRO_data,CRO_data_modelData,date,tableName,searchFlag,tableName_CRO,modelData,requestFlag,getOldData,setOldData,requestFlag_CRO} = this.props
 
         // let realdate = date;
         // if( moment(searchdate).format("YYYY/MM/DD") != date){
@@ -27,12 +27,14 @@ class CoalSysOpRe extends Component {
         getOldData(
           date,
           tableName,
-          deepCopy(modelData)
+          deepCopy(modelData),
+          searchFlag
         );
         setOldData(
           date,
           tableName_CRO,
-          deepCopy(CRO_data_modelData)
+          deepCopy(CRO_data_modelData),
+          searchFlag
         );
 
     }
@@ -110,17 +112,18 @@ const mapStateToProps = (state) => {
 
 const mapDispathToProps = (dispatch) => {
     return {
-        setOldData(date,tableName,data){
-            dispatch(actionCreators.get_CRO_Data(date,tableName,data))
+        setOldData(date,tableName,data,searchFlag){
+            dispatch(actionCreators.get_CRO_Data(date,tableName,data,searchFlag))
         },
         //和仓库建立联系
         getOldData(
             date,
             tableName,
-            data
+            data,
+            searchFlag
         ){
             dispatch(
-                actionCreators.getData(date,tableName,data)
+                actionCreators.getData(date,tableName,data,searchFlag)
             );
         }
 

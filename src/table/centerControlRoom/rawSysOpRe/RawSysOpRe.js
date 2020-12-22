@@ -20,7 +20,7 @@ class RawSysOpRe extends Component {
   componentDidMount() {
     /**首先查询当前页面是否有历史纪录并赋值给FormData**/
     // console.log("执行了componentDidMount")
-    const {data, date, tableName, getOldData, modelData} = this.props;
+    const {data, date, tableName, getOldData, modelData,searchFlag} = this.props;
 
     // console.log(date)
     // console.log(deepCopy(data))
@@ -28,7 +28,8 @@ class RawSysOpRe extends Component {
     getOldData(
       date,
       tableName,
-      deepCopy(modelData)
+      deepCopy(modelData),
+      searchFlag
     );
   }
 
@@ -108,10 +109,11 @@ const mapDispathToProps = (dispatch) => {
     getOldData(
       date,
       tableName,
-      data
+      data,
+      searchFlag
     ) {
       dispatch(
-        actionCreators.getData(date, tableName, data)
+        actionCreators.getData(date, tableName, data,searchFlag)
       );
     }
   }//end return

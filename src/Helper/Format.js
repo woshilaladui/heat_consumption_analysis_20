@@ -1,6 +1,6 @@
 import {TableName} from "../Constant/TableNameConstant";
 
-export function HuaYanShiFormat(resultData, responseData, tableName) {
+export function HuaYanShiFormat(resultData, responseData, tableName,searchFlag) {
 
         //校验tableName
         //  if (responseData.tableName === tableName) {
@@ -30,7 +30,7 @@ export function HuaYanShiFormat(resultData, responseData, tableName) {
                 arr_startValue[i] = parseFloat(str_startValue[i]);
             for (let i = 0; i < str_endValue.length; i++)
                 arr_endValue[i] = parseFloat(str_endValue[i]);
-            if (responseData["huaYanShis"].length !=0){
+            if (responseData["huaYanShis"].length !=0||searchFlag === false){
                 return [resultData, arr_startValue, arr_endValue]
             }
             else {
@@ -38,7 +38,7 @@ export function HuaYanShiFormat(resultData, responseData, tableName) {
             }
 
         }else {
-            if (responseData["huaYanShis"].length !=0){
+            if (responseData["huaYanShis"].length !=0||searchFlag === false){
                 return [resultData]
             }
             else {
@@ -54,8 +54,8 @@ export function HuaYanShiFormat(resultData, responseData, tableName) {
 
 }
 
-export function ZhongKongShiFormat(resultData, responseData, tableName) {
-    if(responseData["zhongKongShis"].length != 0){
+export function ZhongKongShiFormat(resultData, responseData, tableName,requestFlag) {
+    if(responseData["zhongKongShis"].length != 0||requestFlag === false){
         //解析数据data
         for (let i = 0; i < responseData["zhongKongShis"].length; i++) {
 

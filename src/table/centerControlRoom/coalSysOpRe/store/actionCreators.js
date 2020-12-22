@@ -40,7 +40,7 @@ export function doChangeTimeChose(timeChose) {
 
 }
 //拿到T16控制室原始记录表的数据
-export const get_CRO_Data = (date, tableName, data) => {
+export const get_CRO_Data = (date, tableName, data,searchFlag) => {
   // console.log("CRO")
   // console.log("CRO")
   // console.log("CRO")
@@ -56,9 +56,10 @@ export const get_CRO_Data = (date, tableName, data) => {
                 let result = HuaYanShiFormat(
                     data,
                     newData,
-                    tableName
+                    tableName,
+                  searchFlag
                 );
-              if(result[0] != 0){
+              if(result[0] != 0 ||searchFlag === false){
                 dispatch(updateData_CRO({//将获取到的数据进行转发
                   data: result[0]
                 }));
