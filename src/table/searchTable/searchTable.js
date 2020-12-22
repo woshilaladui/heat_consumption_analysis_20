@@ -116,19 +116,63 @@ class SearchTable extends Component {
             selectValue: '0',//表格选项
             table_Display: new Array(36).fill('none'),//控制表格的显示，默认全不显示
             t_name_Display: [],//控制表格下拉框中 中控室表格是否显示
-            print_dis: 'none',//控制打印按钮是否显示,默认不显示
+            defaultValue:"",//表格默认展示
         }
     }
 
 
     componentWillMount() {
-
-        //this.props.changeSearchFlag(false);
-        //this.props.handleChangeTime(moment().format("YYYY/MM/DD"));
+        let departmentId = window.localStorage.department;
+        console.log(departmentId);
+        switch(departmentId){
+            case "1":    //化验室
+                this.setState({
+                    t_name_Display: [
+                    'none','none','none','none','none','none','none','none','none','',
+                    '','','','','','','','','','',
+                    '','','','','','','','','','',
+                    '','','','','','',
+                    ],
+                    defaultValue:"9",
+                });
+                break;
+            case "2":    //中控室
+                this.setState({
+                    t_name_Display: [
+                    '','','','','','','','','','none',
+                    'none','none','none','none','none','none','none','none','none','none',
+                    'none','none','none','none','none','none','none','none','none','none',
+                    'none','none','none','none','none','none',
+                    ],
+                    defaultValue:"0",
+                });
+                break;
+            case "3":    //行政部门
+                this.setState({
+                    t_name_Display: [
+                    'none','none','none','none','none','none','none','none','none','none',
+                    'none','none','none','none','none','none','none','none','none','none',
+                    'none','none','none','none','none','none','none','none','none','none',
+                    'none','none','none','none','none','none',
+                    ],
+                    defaultValue:"",
+                });
+                break;
+            case "4":    //总部
+                this.setState({
+                    t_name_Display: [],
+                    defaultValue:"0",
+                });
+                break;
+            default:
+                this.setState({
+                    t_name_Display: [],
+                    defaultValue:"0",
+                });
+        }
     }
-//注释
-    componentDidMount() {
 
+    componentDidMount() {
         this.props.changeSearchFlag(false);
         this.props.handleChangeTime(moment().format("YYYY/MM/DD"));
     }
@@ -162,7 +206,6 @@ class SearchTable extends Component {
 
     handlePrint = () => {
         window.document.body.innerHTML = window.document.getElementById("abc").innerHTML;
-        // window.document.body.innerHTML = "<CKslyclhxfxbgd />";
         window.print();
         window.location.reload();
     };
@@ -170,51 +213,52 @@ class SearchTable extends Component {
     render() {
 
         const {t_name_Display} = this.state;
+        console.log(t_name_Display);
         return (
             <div className='search' style={{padding: '1%'}}>
                 <div className='search_head'>
                     <Divider/>
                     <span>请选择表格类型：</span>
-                    <Select defaultValue="0" style={{width: 230, margin: '10px'}} onChange={this.handleChange}>
-                        <Option value="0" disabled={t_name_Display[0]}>{biaoge_list[0]}</Option>
-                        <Option value="1" disabled={t_name_Display[1]}>{biaoge_list[1]}</Option>
-                        <Option value="2" disabled={t_name_Display[2]}>{biaoge_list[2]}</Option>
-                        <Option value="3" disabled={t_name_Display[3]}>{biaoge_list[3]}</Option>
-                        <Option value="4" disabled={t_name_Display[4]}>{biaoge_list[4]}</Option>
-                        <Option value="5" disabled={t_name_Display[5]}>{biaoge_list[5]}</Option>
-                        <Option value="6" disabled={t_name_Display[6]}>{biaoge_list[6]}</Option>
-                        <Option value="7" disabled={t_name_Display[7]}>{biaoge_list[7]}</Option>
-                        <Option value="8" disabled={t_name_Display[8]}>{biaoge_list[8]}</Option>
+                    <Select defaultValue={this.state.defaultValue} style={{width: 230, margin: '10px'}} onChange={this.handleChange}>
+                        <Option value="0" style={{display:t_name_Display[0]}}>{biaoge_list[0]}</Option>
+                        <Option value="1" style={{display:t_name_Display[1]}}>{biaoge_list[1]}</Option>
+                        <Option value="2" style={{display:t_name_Display[2]}}>{biaoge_list[2]}</Option>
+                        <Option value="3" style={{display:t_name_Display[3]}}>{biaoge_list[3]}</Option>
+                        <Option value="4" style={{display:t_name_Display[4]}}>{biaoge_list[4]}</Option>
+                        <Option value="5" style={{display:t_name_Display[5]}}>{biaoge_list[5]}</Option>
+                        <Option value="6" style={{display:t_name_Display[6]}}>{biaoge_list[6]}</Option>
+                        <Option value="7" style={{display:t_name_Display[7]}}>{biaoge_list[7]}</Option>
+                        <Option value="8" style={{display:t_name_Display[8]}}>{biaoge_list[8]}</Option>
 
-                        <Option value="9" disabled={t_name_Display[9]}>{biaoge_list[9]}</Option>
-                        <Option value="10" disabled={t_name_Display[10]}>{biaoge_list[10]}</Option>
-                        <Option value="11" disabled={t_name_Display[11]}>{biaoge_list[11]}</Option>
-                        <Option value="12" disabled={t_name_Display[12]}>{biaoge_list[12]}</Option>
-                        <Option value="13" disabled={t_name_Display[13]}>{biaoge_list[13]}</Option>
-                        <Option value="14" disabled={t_name_Display[14]}>{biaoge_list[14]}</Option>
-                        <Option value="15" disabled={t_name_Display[15]}>{biaoge_list[15]}</Option>
-                        <Option value="16" disabled={t_name_Display[16]}>{biaoge_list[16]}</Option>
-                        <Option value="17" disabled={t_name_Display[17]}>{biaoge_list[17]}</Option>
-                        <Option value="18" disabled={t_name_Display[18]}>{biaoge_list[18]}</Option>
-                        <Option value="19" disabled={t_name_Display[19]}>{biaoge_list[19]}</Option>
+                        <Option value="9" style={{display:t_name_Display[9]}}>{biaoge_list[9]}</Option>
+                        <Option value="10" style={{display:t_name_Display[10]}}>{biaoge_list[10]}</Option>
+                        <Option value="11" style={{display:t_name_Display[11]}}>{biaoge_list[11]}</Option>
+                        <Option value="12" style={{display:t_name_Display[12]}}>{biaoge_list[12]}</Option>
+                        <Option value="13" style={{display:t_name_Display[13]}}>{biaoge_list[13]}</Option>
+                        <Option value="14" style={{display:t_name_Display[14]}}>{biaoge_list[14]}</Option>
+                        <Option value="15" style={{display:t_name_Display[15]}}>{biaoge_list[15]}</Option>
+                        <Option value="16" style={{display:t_name_Display[16]}}>{biaoge_list[16]}</Option>
+                        <Option value="17" style={{display:t_name_Display[17]}}>{biaoge_list[17]}</Option>
+                        <Option value="18" style={{display:t_name_Display[18]}}>{biaoge_list[18]}</Option>
+                        <Option value="19" style={{display:t_name_Display[19]}}>{biaoge_list[19]}</Option>
 
-                        <Option value="20" disabled={t_name_Display[20]}>{biaoge_list[20]}</Option>
-                        <Option value="21" disabled={t_name_Display[21]}>{biaoge_list[21]}</Option>
-                        <Option value="22" disabled={t_name_Display[22]}>{biaoge_list[22]}</Option>
-                        <Option value="23" disabled={t_name_Display[23]}>{biaoge_list[23]}</Option>
-                        <Option value="24" disabled={t_name_Display[24]}>{biaoge_list[24]}</Option>
-                        <Option value="25" disabled={t_name_Display[25]}>{biaoge_list[25]}</Option>
-                        <Option value="26" disabled={t_name_Display[26]}>{biaoge_list[26]}</Option>
-                        <Option value="27" disabled={t_name_Display[27]}>{biaoge_list[27]}</Option>
-                        <Option value="28" disabled={t_name_Display[28]}>{biaoge_list[28]}</Option>
-                        <Option value="29" disabled={t_name_Display[29]}>{biaoge_list[29]}</Option>
-                        <Option value="30" disabled={t_name_Display[30]}>{biaoge_list[30]}</Option>
-                        <Option value="31" disabled={t_name_Display[31]}>{biaoge_list[31]}</Option>
-                        <Option value="32" disabled={t_name_Display[32]}>{biaoge_list[32]}</Option>
-                        <Option value="33" disabled={t_name_Display[33]}>{biaoge_list[33]}</Option>
+                        <Option value="20" style={{display:t_name_Display[20]}}>{biaoge_list[20]}</Option>
+                        <Option value="21" style={{display:t_name_Display[21]}}>{biaoge_list[21]}</Option>
+                        <Option value="22" style={{display:t_name_Display[22]}}>{biaoge_list[22]}</Option>
+                        <Option value="23" style={{display:t_name_Display[23]}}>{biaoge_list[23]}</Option>
+                        <Option value="24" style={{display:t_name_Display[24]}}>{biaoge_list[24]}</Option>
+                        <Option value="25" style={{display:t_name_Display[25]}}>{biaoge_list[25]}</Option>
+                        <Option value="26" style={{display:t_name_Display[26]}}>{biaoge_list[26]}</Option>
+                        <Option value="27" style={{display:t_name_Display[27]}}>{biaoge_list[27]}</Option>
+                        <Option value="28" style={{display:t_name_Display[28]}}>{biaoge_list[28]}</Option>
+                        <Option value="29" style={{display:t_name_Display[29]}}>{biaoge_list[29]}</Option>
+                        <Option value="30" style={{display:t_name_Display[30]}}>{biaoge_list[30]}</Option>
+                        <Option value="31" style={{display:t_name_Display[31]}}>{biaoge_list[31]}</Option>
+                        <Option value="32" style={{display:t_name_Display[32]}}>{biaoge_list[32]}</Option>
+                        <Option value="33" style={{display:t_name_Display[33]}}>{biaoge_list[33]}</Option>
 
-                        <Option value="34" disabled={t_name_Display[34]}>{biaoge_list[34]}</Option>
-                        <Option value="35" disabled={t_name_Display[35]}>{biaoge_list[35]}</Option>
+                        <Option value="34" style={{display:t_name_Display[34]}}>{biaoge_list[34]}</Option>
+                        <Option value="35" style={{display:t_name_Display[35]}}>{biaoge_list[35]}</Option>
                     </Select>
                     <span>请选择日期：</span>
                     <DatePicker
