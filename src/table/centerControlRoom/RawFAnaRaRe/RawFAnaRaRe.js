@@ -23,7 +23,7 @@ class RuYaoSLYCLHXFXBGD extends Component {
     /**首先查询当前页面是否有历史纪录并赋值formData**/
 
 
-    const {data, date, tableName, getOldData,model_data, model_upperDataFront, model_upperDataLast, upperDataFront, upperDataLast, getFrontOldData, getLastOldData} = this.props
+    const {data, date, tableName, getOldData,model_data, model_upperDataFront, model_upperDataLast, upperDataFront, upperDataLast, getFrontOldData, getLastOldData,searchFlag} = this.props
 
 
     getOldData(
@@ -138,7 +138,7 @@ const mapDispathToProps = (dispatch) => {
     getOldData(
       date,
       tableName,
-      data
+      data,
     ) {
       dispatch(
         actionCreators.getData(date, tableName, data)
@@ -148,24 +148,24 @@ const mapDispathToProps = (dispatch) => {
     getFrontOldData(
       date,
       tableName,
-      data
+      data,
     ) {
       dispatch(actionCreators.getFrontData(
         date,
         tableName,
-        data
+        data,
       ));
     },
 
     getLastOldData(
       date,
       tableName,
-      data
+      data,
     ) {
       dispatch(actionCreators.getLastData(
         date,
         tableName,
-        data
+        data,
       ));
     }
   }//end return

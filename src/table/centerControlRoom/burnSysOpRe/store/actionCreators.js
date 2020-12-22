@@ -42,7 +42,7 @@ export const updateData = ({data}) => ({
  * @param data 传过来的是这个界面的模板
  * @returns {Function}
  */
-export const getData = (date, tableName, data,requestFlag) => {
+export const getData = (date, tableName, data) => {
     return (dispatch) => {
 
         requestGetZhongKongShiDataByTableNameAndDate(
@@ -61,10 +61,9 @@ export const getData = (date, tableName, data,requestFlag) => {
                     data,
                     newData,
                     tableName,
-                  requestFlag
                 );
                 
-                if(result != 0 || requestFlag === false){
+                if(result != 0 ){
                     dispatch(updateData({//将获取到的数据进行转发
                         data: result
                     }));    

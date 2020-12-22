@@ -58,7 +58,7 @@ export const updateUpperDataLast = ({upperDataLast}) => ({
 export const getFrontData = (
     date,
     tableName,
-    data
+    data,
 ) => {
     return (dispatch) => {
 
@@ -77,9 +77,9 @@ export const getFrontData = (
                     let result = HuaYanShiFormat(
                         data,
                         newData,
-                        tableName
+                        tableName,
                     );
-                  if(result[0] != 0) {
+                  if(result[0] != 0 ) {
                     //更新数据
                     dispatch(updateUpperDataFront({//将获取到的数据进行转发
                       upperDataFront: result[0]
@@ -96,7 +96,7 @@ export const getFrontData = (
 export const getLastData = (
     date,
     tableName,
-    data
+    data,
 ) => {
     return (dispatch) => {//中间件请求
 
@@ -115,9 +115,9 @@ export const getLastData = (
                     let result = HuaYanShiFormat(
                         data,
                         newData,
-                        tableName
+                        tableName,
                     );
-                  if(result[0] != 0) {
+                  if(result[0] != 0 ) {
                     //更新数据
                     dispatch(updateUpperDataLast({//将获取到的数据进行转发
                       upperDataLast: result[0]
@@ -135,7 +135,7 @@ export const getLastData = (
 export function getData(
     date,
     tableName,
-    data
+    data,
 ) {
 
     return (dispatch) => {
@@ -155,9 +155,9 @@ export function getData(
                       let result = ZhongKongShiFormat(
                         data,
                         newData,
-                        tableName
+                        tableName,
                       );
-                      if (result != 0) {
+                      if (result != 0 ) {
                         dispatch(updateData({//将获取到的数据进行转发
                           data: result
                         }));

@@ -5,8 +5,8 @@ import moment from 'moment';
 import './searchTable.css';
 import ReactToPrint from 'react-to-print';
 // 中控室表格导入
-import BurnSysOpRe from '../../table/centerControlRoom/burnSysOpRe/BurnSysOpRe';
-import CoalSysOpRe from '../../table/centerControlRoom/coalSysOpRe/CoalSysOpRe';
+import BurnSysOpRe from '../../searchTable/centerControlRoom/burnSysOpRe/BurnSysOpRe';
+import CoalSysOpRe from '../../searchTable/centerControlRoom/coalSysOpRe/CoalSysOpRe';
 import RuYSLYGFXJL from '../../table/centerControlRoom/ruYSLYGFXJL/RuYSLYGFXJL';
 import RawSysOpRe from '../../table/centerControlRoom/rawSysOpRe/RawSysOpRe';
 import TXSysAcRe from '../../table/centerControlRoom/TXSysAcRe/TXSysAcRe';
@@ -213,7 +213,7 @@ class SearchTable extends Component {
     render() {
 
         const {t_name_Display} = this.state;
-        console.log(t_name_Display);
+
         return (
             <div className='search' style={{padding: '1%'}}>
                 <div className='search_head'>

@@ -28,7 +28,6 @@ class CoalSysOpRe extends Component {
           date,
           tableName,
           deepCopy(modelData),
-          searchFlag
         );
         setOldData(
           date,
@@ -94,7 +93,7 @@ class CoalSysOpRe extends Component {
 const mapStateToProps = (state) => {
     return {
 
-        //date:state.getIn(['coalSysOpRe', 'date']),
+        date:state.getIn(['coalSysOpRe', 'date']),
         timeChose:state.getIn(['coalSysOpRe', 'timeChose']),
         data:state.getIn(['coalSysOpRe', 'data']),
         CRO_data:state.getIn(['coalSysOpRe', 'CRO_data']),
@@ -105,25 +104,24 @@ const mapStateToProps = (state) => {
         tableName_CRO:state.getIn(['coalSysOpRe', 'tableName_CRO']),
         CRO_data_modelData:state.getIn(['coalSysOpRe', 'CRO_data_modelData']),
         modelData:state.getIn(['coalSysOpRe', 'modelData']),
-        date:state.getIn(['searchTable', 'date']),
+        // date:state.getIn(['searchTable', 'date']),
         searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 }
 
 const mapDispathToProps = (dispatch) => {
     return {
-        setOldData(date,tableName,data,searchFlag){
-            dispatch(actionCreators.get_CRO_Data(date,tableName,data,searchFlag))
+        setOldData(date,tableName,data){
+            dispatch(actionCreators.get_CRO_Data(date,tableName,data))
         },
         //和仓库建立联系
         getOldData(
             date,
             tableName,
-            data,
-            searchFlag
+            data
         ){
             dispatch(
-                actionCreators.getData(date,tableName,data,searchFlag)
+                actionCreators.getData(date,tableName,data)
             );
         }
 

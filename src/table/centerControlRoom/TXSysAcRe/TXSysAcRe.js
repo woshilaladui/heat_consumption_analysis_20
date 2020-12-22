@@ -22,13 +22,13 @@ class RuYaoSLYCLHXFXBGD extends Component {
     }
 
     componentDidMount() {
-        const{data,date,tableName,requestFlag,getOldData,modelData} = this.props
+        const{data,date,tableName,requestFlag,getOldData,modelData,searchFlag} = this.props
 
 
             getOldData(
                 date,
                 tableName,
-                deepCopy(modelData)
+                deepCopy(modelData),
             );
     }
 
@@ -105,7 +105,7 @@ const mapDispathToProps = (dispatch) => {
         getOldData(
             date,
             tableName,
-            data
+            data,
         ){
             dispatch(
                 actionCreators.getData(date,tableName,data)

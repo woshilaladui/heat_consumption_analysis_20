@@ -29,7 +29,6 @@ class RawSysOpRe extends Component {
       date,
       tableName,
       deepCopy(modelData),
-      searchFlag
     );
   }
 
@@ -110,10 +109,9 @@ const mapDispathToProps = (dispatch) => {
       date,
       tableName,
       data,
-      searchFlag
     ) {
       dispatch(
-        actionCreators.getData(date, tableName, data,searchFlag)
+        actionCreators.getData(date, tableName, data)
       );
     }
   }//end return

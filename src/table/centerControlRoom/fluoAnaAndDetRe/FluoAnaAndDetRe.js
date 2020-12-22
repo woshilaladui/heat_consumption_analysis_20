@@ -26,27 +26,27 @@ class FluoAnaAndDetRe extends Component {
   }
 
   componentDidMount() {
-    const {data, date, tableName, requestFlag, model_data, model_upperDataFront, model_upperDataLast, getOldData, upperDataFront, upperDataLast, getFrontOldData, getLastOldData} = this.props
+    const {data, date, tableName, searchFlag, model_data, model_upperDataFront, model_upperDataLast, getOldData, upperDataFront, upperDataLast, getFrontOldData, getLastOldData} = this.props
 
 
     getOldData(
       date,
       tableName,
-      deepCopy(model_data)
+      deepCopy(model_data),
     );
 
     //出窑熟料全分析汇总表
     getFrontOldData(
       date,
       "KAS",
-      deepCopy(model_upperDataFront)
+      deepCopy(model_upperDataFront),
     );
 
     //控制室原始记录
     getLastOldData(
       date,
       "CRO",
-      deepCopy(model_upperDataLast)
+      deepCopy(model_upperDataLast),
     );
 
 
@@ -137,34 +137,34 @@ const mapDispathToProps = (dispatch) => {
     getOldData(
       date,
       tableName,
-      data
+      data,
     ) {
       dispatch(
-        actionCreators.getData(date, tableName, data)
+        actionCreators.getData(date, tableName, data,)
       );
     },
 
     getFrontOldData(
       date,
       tableName,
-      data
+      data,
     ) {
       dispatch(actionCreators.getFrontData(
         date,
         tableName,
-        data
+        data,
       ));
     },
 
     getLastOldData(
       date,
       tableName,
-      data
+      data,
     ) {
       dispatch(actionCreators.getLastData(
         date,
         tableName,
-        data
+        data,
       ));
     }
   }//end return

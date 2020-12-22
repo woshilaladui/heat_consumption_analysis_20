@@ -14,9 +14,7 @@ import {Button} from "antd";
 //福石水泥3000t/d中控室烧成系统运行记录
 class BurnSysOpRe extends Component {
 
-    returnBack = () => {
-        this.props.history.push("/index");
-    };
+
 
     //判定是否已登录，是否有权限
     componentWillMount() {
@@ -31,26 +29,29 @@ class BurnSysOpRe extends Component {
         /*if(requestFlag){
             setOldData(date,tableName,deepCopy(modelData));
         }*/
-        setOldData(date,tableName,deepCopy(modelData),requestFlag);
+        console.log("普通烧成")
+        console.log(date)
+        console.log("普通烧成")
+        setOldData(date,tableName,deepCopy(modelData));
     }
 
     componentWillReceiveProps(nextProps){
 
-        // console.log("烧成re");
-        const { tableName, setOldData, date, searchFlag, } = nextProps; //新的props
-
-
-        const { modelData,data } = this.props;
-        
-        if(this.props.date != date){
-            // console.log("执行了date")
-            setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
-        }
-        
-        if(this.props.searchFlag != searchFlag){
-            setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
-
-        }
+        // // console.log("烧成re");
+        // const { tableName, setOldData, date, searchFlag, } = nextProps; //新的props
+        //
+        //
+        // const { modelData,data } = this.props;
+        //
+        // if(this.props.date != date){
+        //     // console.log("执行了date")
+        //     setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        // }
+        //
+        // if(this.props.searchFlag != searchFlag){
+        //     setOldData(moment(date).format("YYYY/MM/DD"), tableName, deepCopy(modelData));
+        //
+        // }
 
 
 
@@ -118,22 +119,22 @@ class BurnSysOpRe extends Component {
 //定义映射
 const mapStateToProps = (state) => {
     return {
-        //date:state.getIn(['burnSysOpRe', 'date']),
+        date:state.getIn(['burnSysOpRe', 'date']),
         timeChose:state.getIn(['burnSysOpRe', 'timeChose']),
         data:state.getIn(['burnSysOpRe', 'data']),
         modelData:state.getIn(['burnSysOpRe', 'modelData']),
         requestFlag:state.getIn(['burnSysOpRe', 'requestFlag']),
         person:state.getIn(['burnSysOpRe', 'person']),
         tableName:state.getIn(['burnSysOpRe', 'tableName']),
-        date:state.getIn(['searchTable', 'date']),
+        // date:state.getIn(['searchTable', 'date']),
         searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 };
 
 const mapDispathToProps = (dispatch) => {
     return {
-        setOldData(date,tableName,data,requestFlag){
-            dispatch(actionCreators.getData(date,tableName,data,requestFlag))
+        setOldData(date,tableName,data){
+            dispatch(actionCreators.getData(date,tableName,data))
         },
     }//end return
 };

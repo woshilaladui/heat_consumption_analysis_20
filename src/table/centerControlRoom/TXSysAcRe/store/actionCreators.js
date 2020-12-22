@@ -39,7 +39,7 @@ export function doChangeTimeChose(timeChose) {
 export function getData(
     date,
     tableName,
-    data
+    data,
 ) {
 
     return (dispatch) => {
@@ -58,7 +58,7 @@ export function getData(
                         let result = ZhongKongShiFormat(
                             data,
                             newData,
-                            tableName
+                            tableName,
                         );
 
                       if(result != 0){

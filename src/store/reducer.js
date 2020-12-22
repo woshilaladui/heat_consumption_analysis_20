@@ -64,6 +64,10 @@ import {reducer as rolePermissionReducer} from '../permission/rolePermission/sto
 import { reducer as searchTableReducer } from '../table/searchTable/store';
 import {reducer as countDownReducer} from '../countdown/store';
 import {reducer as homePageHeaderReducer} from '../homePage/header/store';
+/*********************************************************查看表单*****************************************************/
+import {reducer as searchBurnSysOpReReducer} from '../searchTable/centerControlRoom/burnSysOpRe/store'
+import {reducer as searchCoalSysOpReReducer} from '../searchTable/centerControlRoom/coalSysOpRe/store'
+
 
 const reducer = combineReducers({
 
@@ -130,6 +134,10 @@ const reducer = combineReducers({
 	rolePermission: rolePermissionReducer,//权限控制
 	countDown: countDownReducer,//倒计时
 	homePageHeader:homePageHeaderReducer,
+
+	/*****************************************查看表单*********************************************/
+	searchBurnSysOpRe:searchBurnSysOpReReducer, //查看表单的烧成
+	searchCoalSysOpRe:searchCoalSysOpReReducer,//查看表单的煤磨
 
 });
 

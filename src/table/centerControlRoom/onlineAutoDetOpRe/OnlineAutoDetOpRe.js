@@ -19,7 +19,7 @@ class OnlineAutoDetOpRe extends Component {
     }
 
     componentDidMount() {
-        const {data, date, tableName, setOldData,requestFlag,modelData} = this.props;
+        const {data, date, tableName, setOldData,searchFlag,modelData} = this.props;
 
 
 

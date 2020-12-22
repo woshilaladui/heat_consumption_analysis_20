@@ -41,10 +41,10 @@ const mapStateToProps = (state) => {
 
 
     return {
-        //date: state.getIn(['coalSysOpRe', 'date']),
+        date: state.getIn(['coalSysOpRe', 'date']),
         timeChose: state.getIn(['coalSysOpRe', 'timeChose']),
         person: state.getIn(['coalSysOpRe', 'person']),
-        date:state.getIn(['searchTable', 'date']),
+        // date:state.getIn(['searchTable', 'date']),
         searchFlag:state.getIn(['searchTable', 'searchFlag']),
     }
 }

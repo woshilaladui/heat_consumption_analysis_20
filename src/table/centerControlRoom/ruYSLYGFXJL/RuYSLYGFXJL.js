@@ -14,12 +14,13 @@ class RuYSLYGFXJL extends Component{
 
     componentDidMount() {
 
-        const{date,tableName,requestFlag,getOldData,getFrontOldData,getLastOldData,model_data,model_upperDataFront,model_upperDataLast} = this.props
+        const{date,tableName,searchFlag,getOldData,getFrontOldData,getLastOldData,model_data,model_upperDataFront,model_upperDataLast} = this.props
 
             getOldData(
                 date,
                 tableName,
                 deepCopy(model_data)
+
             );
 
             //入窑生料化学分析报告单
@@ -27,6 +28,7 @@ class RuYSLYGFXJL extends Component{
                 date,
                 "RMC",
                 deepCopy(model_upperDataFront)
+
             );
 
             //控制室原始记录
@@ -154,7 +156,7 @@ const mapDispathToProps = (dispatch) => {
         getOldData(
             date,
             tableName,
-            data
+            data,
         ){
             dispatch(
                 actionCreators.getData(date,tableName,data)

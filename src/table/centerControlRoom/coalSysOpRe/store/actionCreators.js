@@ -40,7 +40,7 @@ export function doChangeTimeChose(timeChose) {
 
 }
 //拿到T16控制室原始记录表的数据
-export const get_CRO_Data = (date, tableName, data,searchFlag) => {
+export const get_CRO_Data = (date, tableName, data) => {
   // console.log("CRO")
   // console.log("CRO")
   // console.log("CRO")
@@ -57,9 +57,8 @@ export const get_CRO_Data = (date, tableName, data,searchFlag) => {
                     data,
                     newData,
                     tableName,
-                  searchFlag
                 );
-              if(result[0] != 0 ||searchFlag === false){
+              if(result[0] != 0 ){
                 dispatch(updateData_CRO({//将获取到的数据进行转发
                   data: result[0]
                 }));
@@ -73,7 +72,7 @@ export const get_CRO_Data = (date, tableName, data,searchFlag) => {
 export function getData(
     date,
     tableName,
-    data
+    data,
 ) {
 
     return (dispatch) => {
@@ -93,9 +92,9 @@ export function getData(
                         let result = ZhongKongShiFormat(
                             data,
                             newData,
-                            tableName
+                            tableName,
                         );
-                      if(result != 0){
+                      if(result != 0 ){
                         dispatch(updateData({//将获取到的数据进行转发
                           data: result
                         }));

@@ -47,7 +47,6 @@ export function getData(
     date,
     tableName,
     data,
-    searchFlag
 ) {
 
     return (dispatch) => {
@@ -68,9 +67,8 @@ export function getData(
                             data,
                             newData,
                             tableName,
-                          searchFlag
                         );
-                      if(result != 0 || searchFlag === false){
+                      if(result != 0 ){
                         dispatch(updateData({//将获取到的数据进行转发
                           data: result
                         }));

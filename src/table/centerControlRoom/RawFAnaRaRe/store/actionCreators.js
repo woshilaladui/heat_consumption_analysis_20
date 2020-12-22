@@ -47,10 +47,7 @@ export const updateData = ({data}) => ({
 });
 
 
-// export const updateUpperData = (upperData) => ({//更新上表的数据
-//     type: constants.UPDATE_UPPER_DATA_CMS,
-//     upperData: upperData,
-// });
+
 
 //更新表的前半段
 const updateUpperDataFront = ({upperDataFront}) => ({
@@ -77,7 +74,7 @@ export const updateStandard = (startValue, endValue) => ({
 export const getFrontData = (
     date,
     tableName,
-    data
+    data,
 ) => {
     return (dispatch) => {
 
@@ -99,13 +96,11 @@ export const getFrontData = (
                     let result = HuaYanShiFormat(
                         data,
                         newData,
-                        tableName
+                        tableName,
                     );
-                    console.log("tableName")
-                    console.log(result)
-                    console.log("tableName")
-                    if (result[0]!=0){
-                        console.log("zhixingle")
+
+                    if (result[0]!=0 ){
+
                     //更新数据
                     dispatch(updateUpperDataFront({//将获取到的数据进行转发
                         upperDataFront: result[0]
@@ -118,19 +113,6 @@ export const getFrontData = (
             }
         )
 
-        // getOldData(
-        //     URL.HUAYS_QUERY,//请求化验室的出模生料化学分析单
-        //     getHuaYSJsonData('CRM', moment().format("YYYY-MM-DD")),//时间格式YYYY-MM-DD
-        //     'CRM',
-        //     1,//有标准
-        //     upperDataFront
-        // )
-        //     .then((response) => {
-        //         dispatch(updateUpperDataFront(response))//转发更新上表前半段数据
-        //     })
-        //     .catch(
-        //         //TODO
-        //     )
     }
 }
 
@@ -157,9 +139,10 @@ export const getLastData = (
                     let result = HuaYanShiFormat(
                         data,
                         newData,
-                        tableName
+                        tableName,
                     );
-                    if(result[0] != 0){
+                    //如果在查看表单界面中就允许空值刷新数据
+                    if(result[0] != 0 ){
                         //更新数据
                         dispatch(updateUpperDataLast({//将获取到的数据进行转发
                             upperDataLast: result[0]
@@ -173,20 +156,6 @@ export const getLastData = (
             }
         )
 
-
-        // getOldData(
-        //     URL.HUAYS_QUERY,//请求化验室的出模生料化学分析单
-        //     getHuaYSJsonData('CRO', moment().format("YYYY-MM-DD")),//时间格式YYYY-MM-DD
-        //     'CRO',
-        //     1,//有标准
-        //     upperDataLast
-        // )
-        //     .then((response) => {
-        //         dispatch(updateUpperDataLast(response))//转发更新上表后半段数据
-        //     })
-        //     .catch(
-        //         //TODO
-        //     )
     }
 }
 
@@ -214,7 +183,7 @@ export function getData(
                         let result = ZhongKongShiFormat(
                             data,
                             newData,
-                            tableName
+                            tableName,
                         );
                         if(result!=0){
                         dispatch(updateData({//将获取到的数据进行转发
@@ -253,9 +222,6 @@ export function saveData(
                 (response) => {
 
 
-                console.log("服务器")
-                console.log(response)
-                console.log("服务器")
                     if (response == Mark.SUCCESS && num == 1) {
                         message.info('暂存成功');
                     } else if (response == Mark.SUCCESS && num > 1) {
@@ -293,150 +259,3 @@ export function saveData(
 }//end saveData
 
 
-// export const getData = (tableName, date, upperDataFront, upperDataMiddle, upperDataLast, bottomData) => {
-//     return (dispatch) => {
-//         //TODO 需求不明确 中半段
-//
-//         getZKSOldData(//中半部分 请求数据库中的
-//             URL.ZKS_QUERT,
-//             getZKSJsonData(tableName, moment().format("YYYY-MM-DD")),//时间格式YYYY-MM-DD
-//             tableName,
-//             upperDataMiddle,
-//             bottomData
-//         )
-//             .then((response) => {
-//                 dispatch(updateData(
-//                     response[0],//上表的中表部分
-//                     response[1]//下表
-//                 ));
-//                 dispatch(getFrontData(upperDataFront))//请求转发
-//                 dispatch(getLastData(upperDataLast))//请求转发
-//             })
-//             .catch(
-//                 //TODO
-//             )
-//
-//     }
-// }
-
-// export const getAllData = (
-//     tableName,
-//     date,
-//     upperDataFront,
-//     upperDataMiddle,
-//     upperDataLast,
-//     bottomData,
-//     startValue,
-//     endValue
-// ) => {
-//     return (dispatch) => {
-//         const upperDataFrontPromise = getOldData(
-//             URL.HUAYS_QUERY,//请求化验室的出模生料化学分析单
-//             getHuaYSJsonData('CRM', moment().format("YYYY-MM-DD")),//时间格式YYYY-MM-DD
-//             'CRM',
-//             1,//有标准
-//             upperDataFront
-//         );
-//
-//         const upperDataMiddlePromise = getZKSOldData(//中半部分 请求数据库中的
-//             URL.ZKS_QUERT,
-//             getZKSJsonData(tableName, moment().format("YYYY-MM-DD")),//时间格式YYYY-MM-DD
-//             tableName,
-//             upperDataMiddle,
-//             bottomData
-//         );
-//
-//         const upperDataLastPromise = getOldData(
-//             URL.HUAYS_QUERY,//请求化验室的出模生料化学分析单
-//             getHuaYSJsonData('CRO', moment().format("YYYY-MM-DD")),//时间格式YYYY-MM-DD
-//             'CRO',
-//             1,//有标准
-//             upperDataLast
-//         );
-//
-//         const standardPromise = getStandard(
-//             URL.HUAYS_STANDARD,
-//             {t_name: 'CRM'},
-//             'CRM',
-//             startValue,
-//             endValue
-//         );
-//
-//         Promise.all([
-//             standardPromise,
-//             upperDataFrontPromise,
-//             upperDataMiddlePromise,
-//             upperDataLastPromise
-//         ])
-//             .then((result) => {
-//                 dispatch(updateStandard(
-//                     result[0].startValue,
-//                     result[0].endValue
-//                 ))
-//
-//
-//                 dispatch(updateUpperDataFront(result[1]))
-//                 dispatch(updateData(
-//                     result[2][0],//上表的中表部分
-//                     result[2][1]//下表
-//                 ));
-//                 dispatch(updateUpperDataLast(result[3]))//转发更新上表后半段数据
-//             })
-//             .catch()
-//     }
-// }
-
-
-// export const getOldStandard = (t_name, startValue, endValue) => {
-//     return (dispatch) => {
-//         getStandard(
-//             URL.HUAYS_STANDARD,
-//             {t_name: t_name},
-//             t_name,
-//             startValue,
-//             endValue
-//         )
-//             .then((response) => {
-//                 dispatch(updateStandard(
-//                     response.startValue,
-//                     response.endValue
-//                 ))
-//             })
-//             .catch()
-//     }
-// }
-
-
-// export function saveData({index = 0, tableType = 1, tableName, date, data, num = 1}) {
-//     return (dispatch) => {
-//         ZKSSave(
-//             URL.ZKS_SAVE,
-//             getZKSJsonSaveData({//获取封装好的请求头
-//                 tableType: tableType,//上表
-//                 tableName: tableName,
-//                 date: date,
-//                 index: index,
-//                 data: data,
-//                 num: num
-//             }))
-//             .then((response) => {
-//                 if (num === 1)
-//                     message.info('暂存成功');
-//                 else//为整体提交
-//                     message.info('提交成功');
-//
-//                 if (tableType === 1) {//上表
-//                     if (num === 1)//存一行数据的时候只修改该行的操作者
-//                         updateOperator({Data: data, index: index})
-//                     else//为总体提交的时候则当该行数据不为空的时候提交数据
-//                         updateOperator({Data: data, num: 24})//该表上表有24行数据
-//                     dispatch(updateUpperDataMiddle(data))//最后转发给updateUpperData来更新数据
-//
-//                 } else if (tableType === 2)//下表
-//                     dispatch(updateBottomData(data))
-//             })
-//             .catch(
-//                 //TODO  中控室烧成系统运行记录 的actionCreators的异常处理
-//             )
-//     }
-// }
