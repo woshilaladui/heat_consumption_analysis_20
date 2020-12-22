@@ -68,10 +68,12 @@ export function getData(
                             newData,
                             tableName
                         );
-
+                      if(result != 0){
                         dispatch(updateData({//将获取到的数据进行转发
-                            data: result
+                          data: result
                         }));
+                      }
+
 
                     }//end if
 

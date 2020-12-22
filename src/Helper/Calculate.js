@@ -486,7 +486,7 @@ export function autoCalculate_average(data, timeChoose, indexL, tableWidth) {
     ) {
       inputCount[timeChoose][indexL]++;
 
-      sum[timeChoose][indexL] += data[index]['data'][indexL];
+      sum[timeChoose][indexL] += parseFloat(data[index]['data'][indexL])
     }
 
 

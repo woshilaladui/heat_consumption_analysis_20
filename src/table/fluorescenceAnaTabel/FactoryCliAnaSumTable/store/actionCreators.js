@@ -70,9 +70,11 @@ export const get_CRO_Data = (date, tableName, data) => {
                     newData,
                     tableName
                 );
-                dispatch(updateData_CRO({//将获取到的数据进行转发
-                    data: result[0]
-                }));
+                if (result[0] != 0) {
+                    dispatch(updateData_CRO({//将获取到的数据进行转发
+                        data: result[0]
+                    }));
+                }
             }
         });//end requestGetHuaYanShiDataByTableNameAndDate
     }
@@ -102,11 +104,11 @@ export const getData = (date, tableName, data) => {
                     newData,
                     tableName
                 );
-
-                dispatch(updateData({//将获取到的数据进行转发
-                    data: result[0]
-                }));
-
+                if (result[0] != 0) {
+                    dispatch(updateData({//将获取到的数据进行转发
+                        data: result[0]
+                    }));
+                }
                 //更新标准
                 dispatch(updateStandard(result[1], result[2]));
             }
