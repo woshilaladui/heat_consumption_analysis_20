@@ -6,7 +6,7 @@
   "dependencies": {
     "@babel/plugin-transform-react-jsx": "^7.10.4",
     "antd": "^3.19.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "debug": "^4.1.1",
     "immutable": "^4.0.0-rc.12",
     "jquery": "^3.5.1",
